@@ -1,24 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import TopRow from './TopRow'; // Import the TopRow component
+import NGLViewer from './NGLViewer';
+import Graph from './Graph'; // Import the Graph component
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TopRow />
+      <div className="container">
+        <div className="column">
+        <h1>3D Structure</h1>
+          <p>
+            Your text goes here. Make sure it's large and modern, and it will wrap as needed.
+          </p>
+          <NGLViewer />
+        </div>
+        <div className="column">
+        <h1>Graph Visualization</h1>
+          <p>
+            More text for the right side. You can customize the content as needed.
+          </p>
+          <Graph />
+        </div>
     </div>
+  </div>
   );
 }
 

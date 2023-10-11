@@ -1,0 +1,11 @@
+/* src/TopRow.css */
+.top-row {
+    background: #333; /* Background color for the top row */
+    color: #fff; /* Text color */
+    padding: 1rem; /* Add padding for a modern look */
+    text-align: center;
+  }
+  
+  .top-row h1 {
+    font-size: 2rem; /* Larger text size for the title */
+  }
