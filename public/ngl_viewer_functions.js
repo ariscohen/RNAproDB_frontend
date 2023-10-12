@@ -336,8 +336,8 @@ function loadStructure(structure_url) {
     document.getElementById('viewport').onmouseleave = function(){tooltip.style.display = "none";};
     stage_nm1.handleResize()
     init_component.autoView()
-    var principleAxes = stage_nm1.getComponentsByName("my_structure").list[0].structure.getPrincipalAxes();
-    stage_nm1.animationControls.rotate(principleAxes.getRotationQuaternion(), 0);
+    //var principleAxes = stage_nm1.getComponentsByName("my_structure").list[0].structure.getPrincipalAxes();
+    //stage_nm1.animationControls.rotate(principleAxes.getRotationQuaternion(), 0);
     
   }); 
   
