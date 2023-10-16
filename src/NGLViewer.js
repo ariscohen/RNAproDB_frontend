@@ -14,7 +14,7 @@ function NGLViewer() {
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
-          loadStructure('/1ivs-assembly1.cif');
+          loadStructure('/1ivs.tmp.cif');
         });
         document.body.appendChild(script2);
       });

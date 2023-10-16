@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Graph() {
+function PythonGraph() {
   return (
     <div>
       <iframe
-        src="/1ivs-assembly1.cif.html"
+        src="/1ivs.tmp.cif.html"
         title="Embedded HTML"
         width="100%"
         height="1000"
@@ -13,4 +13,4 @@ function Graph() {
   );
 }
 
-export default Graph;
+export default PythonGraph;
