@@ -10,7 +10,13 @@ var multi_nm1 = new Map();
 var index_nm1 = 0;
 var hydrogen_setting_nm1 = "and not hydrogen";
 var nuc_repr_type_nm1 = "tube";
+var init_component_ac1;
 
+
+function zoomOnResidue(selectionString)
+{
+  init_component_ac1.autoView(selectionString);
+}
 
 function cleanupDeleteLater(deleteLater)
 {
@@ -339,8 +345,11 @@ function loadStructure(structure_url) {
     init_component.autoView()
     //var principleAxes = stage_nm1.getComponentsByName("my_structure").list[0].structure.getPrincipalAxes();
     //stage_nm1.animationControls.rotate(principleAxes.getRotationQuaternion(), 0);
-    var selectionString = "944:C";
-    init_component.autoView(selectionString)
+    
+    // var selectionString = "944:C";
+    // init_component.autoView(selectionString);
+    init_component_ac1 = init_component;
+    // init_component_ac1.autoView("901:C");
   }); 
   
 };
