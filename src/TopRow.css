@@ -4,8 +4,10 @@
     color: #fff; /* Text color */
     padding: 1rem; /* Add padding for a modern look */
     text-align: center;
+    height: 60px;
   }
   
   .top-row h1 {
     font-size: 2rem; /* Larger text size for the title */
+
   }
