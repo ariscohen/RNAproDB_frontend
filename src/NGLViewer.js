@@ -9,13 +9,13 @@ function NGLViewer() {
       script1.async = true;
 
       const script2 = document.createElement('script');
-      script2.src = '/ngl_viewer_functions_simp.js';
+      script2.src = '/ngl_viewer_functions_nm.js';
       script2.async = true;
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
-          loadStructure('/1ivs.pdb');
-          //loadStructure('/1ivs.tmp.cif');
+          // loadStructure('/1ivs.pdb');
+          loadStructure('/1ivs-assembly1.cif');
         });
         document.body.appendChild(script2);
       });
