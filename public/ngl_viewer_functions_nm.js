@@ -15,7 +15,6 @@ var nuc_repr_type_nm1 = "tube";
 var init_component_ac1;
 
 function zoomOnClick(selectionString){
-  console.log("In nm zoom pls work");
   init_component_ac1.autoView(selectionString);
 }
 
@@ -241,9 +240,32 @@ function loadStructure(structure_url) {
           }
           //console.log(chainName_noRange + " and " + range_)
           var new_rep;
+                var resColors = NGL.ColormakerRegistry.addScheme(function (params)
+                  {
+                    this.atomColor = function (atom) {
+                      if (atom.resname == "A") {
+                          return 0x90CC84;  // orange
+                      }
+                      else if (atom.resname == "C"){
+                        return 0xAEC7E8; //orange-red
+                      }
+                      else if (atom.resname == "G"){
+                        return 0xDBDB8D;  // red
+                      }
+                      else if (atom.resname == "U"){
+                        return 0xFF9896;  // blue
+                      }
+                      else{
+                        return 0x000000; //white
+                      }
+                    };
+                  });
+
+
           if (nucleic_)
           {
             new_rep = init_component.addRepresentation(nuc_repr_type_nm1, {name: chainName, sele: chainName_noRange + " and " + range_, color: mySstrucColors});
+            var base = init_component.addRepresentation("base", {name: chainName+"_base", sele: chainName_noRange + " and " + range_, color: resColors, cylinderOnly: 1});
           }
           else
           {
@@ -361,7 +383,16 @@ function loadStructure(structure_url) {
         }
       });
 
-      var hetero = init_component.addRepresentation("ball+stick", {name: model_name + "_hetero", sele: "(hetero or ion or ligand) and (not nucleic) and "+model_name});
+     var heteroColors = NGL.ColormakerRegistry.addScheme(function (params) {
+    this.atomColor = function (atom) {
+        if (atom.resname == "HOH") {
+      return 0xFFFFFF;  // blue
+    } else {
+      return 0xBBBBBB;  // green
+    }
+  };
+});
+      var hetero = init_component.addRepresentation("ball+stick", {name: model_name + "_hetero", sele: "(hetero or ion or ligand) and (not nucleic) and "+model_name, color:heteroColors});
       hetero.setVisibility(false);
       if (model_number == "0")
       {
@@ -990,6 +1021,8 @@ function addMissingRepresentation(range_, res_number, chainName, deleteLater)
       multi_nm1.set(chainName, [{start: Number(res_number), end: Number(res_number)}]);
     }
   }
+  
+  
   var mySstrucColors = NGL.ColormakerRegistry.addScheme(function (params) 
   {
     this.atomColor = function (atom) {
@@ -1064,8 +1097,8 @@ function addMissingRepresentation(range_, res_number, chainName, deleteLater)
 
   if (nucleic_)
   {
-    var base = stage_nm1.getComponentsByName("my_structure").list[0].addRepresentation("base", {name: chainName+range_+"_base", sele: chainName+ " and "+ range_, color: "resname", cylinderOnly: 1});
-    base.setVisibility(false);
+    var base = stage_nm1.getComponentsByName("my_structure").list[0].addRepresentation("base", {name: chainName+range_+"_base", sele: chainName+ " and "+ range_, color: resColors, cylinderOnly: 1});
+    base.setVisibility(true);
     var base_info = {index: index_nm1, name:chainName+range_+"_base", range: range_, cartoon_index: index_nm1-1, cartoon_name: chainName}// modified_colors: 0, DNA: 0xFFA500, RNA: 0xFFA500, helix: 0xFF0000, turn: 0x437FF9, sheet: 0x43F970}
     var base_name = chainName +range_+ "_base"
     model_list_nm1[model_number_nm1].set(base_name, base_info);
