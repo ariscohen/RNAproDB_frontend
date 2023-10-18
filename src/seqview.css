@@ -1,0 +1,10 @@
+.sequence-present { 
+    font-family: "Courier New",monospace; 
+    display: inline-block;
+    background-color: transparent;
+    }
+.sequence-present:hover {
+    background-color: #aec7e8;
+    cursor: pointer;
+    }
+

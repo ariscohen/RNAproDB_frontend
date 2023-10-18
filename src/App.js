@@ -4,13 +4,14 @@ import React, { useEffect, useState } from 'react';
 import TopRow from './TopRow';
 import NGLViewer from './NGLViewer';
 import PythonGraph from './PythonGraph';
-
+import SeqViewer from './Seqview';
 function App() {
   return (
     <div>
       <TopRow />
       <div className="container">
         <div className="column">
+          <SeqViewer />
           <h1>3D Structure</h1>
           <NGLViewer />
         </div>
