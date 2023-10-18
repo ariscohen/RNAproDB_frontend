@@ -16,6 +16,7 @@ var init_component_ac1;
 
 function zoomOnClick(selectionString){
   init_component_ac1.autoView(selectionString);
+  init_component_ac1.addRepresentation("ball+stick", {sele: selectionString})
 }
 
 //************************FIX BUG in ADD MISSING REPRESENTATION TO CHECK IF ACTUALLY NUCLEIC... IMPORTANT TO CARTOON VS TUBE*****************************
