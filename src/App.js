@@ -15,6 +15,7 @@ function App() {
           <NGLViewer />
         </div>
         <div className="column">
+            <img src="/legend.svg" alt="Nature" class="responsive_img"/>
           <h1>Graph Visualization</h1>
           <PythonGraph />
         </div>
