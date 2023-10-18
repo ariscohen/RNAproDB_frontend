@@ -6,6 +6,7 @@ import NGLViewer from './NGLViewer';
 import PythonGraph from './PythonGraph';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
+import SeqViewer from './Seqview';
 function App() {
   return (
     <div>
@@ -13,10 +14,12 @@ function App() {
       <TopRow />
       <div className="container">
         <div className="column">
+          <SeqViewer />
           <h1>3D Structure</h1>
           <NGLViewer />
         </div>
         <div className="column">
+            <img src="/legend.svg" alt="Nature" class="responsive_img"/>
           <h1>Graph Visualization</h1>
         <div>
           {/* Other routes can be added here too */}
