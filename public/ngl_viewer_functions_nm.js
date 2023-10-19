@@ -13,7 +13,11 @@ var index_nm1 = 0;
 var hydrogen_setting_nm1 = "and not hydrogen";
 var nuc_repr_type_nm1 = "tube";
 var init_component_ac1;
+var residue_list = [];
 
+function getResList(){
+    return residue_list
+}
 function zoomOnClick(selectionString){
   init_component_ac1.autoView(selectionString);
   init_component_ac1.addRepresentation("ball+stick", {sele: selectionString})
@@ -109,6 +113,14 @@ function selectModel(model_number_)
 
 }
 
+function add_to_list(l, atom){
+       toappend = atom.resname+":"+atom.chainname+":"+atom.resno
+            if(!l.includes(toappend))
+            {
+                l.push(atom.resname+":"+atom.chainname+":"+atom.resno);
+            }
+
+}
 function loadStructure(structure_url) {
   console.log("08/12/2019")
   stage_nm1 = new NGL.Stage("viewport", {backgroundColor: "white", opacity: 0});
@@ -117,15 +129,17 @@ function loadStructure(structure_url) {
   return stage_nm1.loadFile(structure_url, {name: "my_structure"}).then(function (init_component) 
   { 
     var mySstrucColors = NGL.ColormakerRegistry.addScheme(function (params) 
-    {
+    { 
+
       this.atomColor = function (atom) {
+        add_to_list(residue_list, atom)  
         if (atom.isDna()) {
           return 0xFFA500;  // orange
         }
         else if (atom.isRna()){
-          return 0xF45C42; //orange-red
+        return 0xF45C42; //orange-red
         }
-        else if (atom.isHelix()){
+        else if (atom.isHelix()){       
           return 0xDDDDDD;  // gray
           // return 0xFF0000;  // red
         }
@@ -141,6 +155,7 @@ function loadStructure(structure_url) {
           return 0xFFFFFF; //white
         }
       };
+     
     });
     
     //dispose of rocking and turning with keyboard controls
@@ -446,7 +461,6 @@ function loadStructure(structure_url) {
     // stage_nm1.animationControls.rotate(principleAxes.getRotationQuaternion(), 0);
     init_component_ac1 = init_component;
   }); 
-  
 };
 
 function log() {
