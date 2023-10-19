@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './seqview.css';
 import React, { useEffect, useState } from 'react';
 import TopRow from './TopRow';
 import NGLViewer from './NGLViewer';
