@@ -4,6 +4,9 @@ import './seqview.css';
 
 var pro_list; 
 var rna_list;
+var seqview;
+var showseq = false;
+var seqbutton;
 
 function unhighlight(x) {
           x.style.backgroundColor = "transparent"
@@ -12,32 +15,47 @@ function unhighlight(x) {
 function highlight(x) {
           x.style.backgroundColor = "#aec7e8"
 }
+function populate(){
+      seqview = document.getElementsByClassName('sequence_view')[0];
+      seqbutton = document.getElementsByClassName('seq-button')[0];
 
+      if (!showseq){
+        var reslist = getResList()
+
+        for (var i=0; i<reslist.length; i++ ){
+            var span = document.createElement("span")
+            span.className = "sequence-present"
+            span.innerHTML = reslist[i].split(":")[0]
+            seqview.appendChild(span)
+      
+       showseq=true
+       seqbutton.innerHTML = "Hide sequence viewer"  
+       //$(document).ready(function(){
+                $('.sequence-present').click(function(){
+                zoomOnClick('913:C');
+            });
+        //});
+
+
+      }
+    }
+    else {
+        seqbutton.innerHTML = "Show sequence viewer"  
+        seqview.innerHTML="";
+        showseq=false;
+    }
+}
 function SeqViewer(){
         const script2 = document.createElement('script');
         script2.src = '/ngl_viewer_functions_nm.js';
         
-        console.log(getResList())
-       alert("NOAWWW")       
+        
 
-        $(document).ready(function(){
-            $('.sequence-present').click(function(){
-                zoomOnClick('913:C');
-                console.log(getResList());
-            });
-        });
-
-    
+            
        script2.async = true;
 
-
-return <div class="sequence_view">
-        <span data-seqid="0" class="sequence-present" styles={{}}>G</span
-        ><span data-seqid="1" class="sequence-present" styles={{}}>A</span
-        ><span data-seqid="2" class="sequence-present" styles={{}}>G</span
-        ><span data-seqid="3" class="sequence-present" styles={{}}>U</span
-        ><span data-seqid="4" class="sequence-present" styles={{}}>C</span>
-    </div>;
+return  <div><button class="seq-button" onClick={populate}>Show sequence viewer</button> 
+        <div class="sequence_view"></div></div>;
 }
 
 export default SeqViewer;
