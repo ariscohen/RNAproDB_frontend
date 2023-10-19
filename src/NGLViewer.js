@@ -25,7 +25,7 @@ function NGLViewer() {
     loadNGL();
   }, []);
 
-  return <div id="viewport" style={{ width: '700px', height: '1000px' }}></div>;
+  return <div id="viewport" style={{ width: '100%', height: '1000px' }}></div>;
 }
 
 export default NGLViewer;
