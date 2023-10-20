@@ -36,16 +36,19 @@ function selectOption(){
     selected_chain = selectedValue.split(" ")[2];
     
     //seqdiv = document.getElementsByClassName("seqdiv")[0];
-    console.log(seqdiv)
         seqdiv.innerHTML = ""
     for (var i=0; i<reslist.length; i++ ){
             let chain = reslist[i].split(":")[1];
             let resname = reslist[i].split(":")[0];
+            let resid = reslist[i].split(":")[2];
+
             if (chain == selected_chain){
                 var span = document.createElement("span")
                 span.className = "sequence-present"
                 try {
-                span.innerHTML = d3to1[resname];}
+                span.innerHTML = d3to1[resname];
+                span.title = resid;
+                }
                 catch(error){
                          span.innerHTML = "X";
                 }
@@ -53,7 +56,8 @@ function selectOption(){
             }
         }
     $('.sequence-present').click(function(){
-            zoomOnClick('913:C');
+            let resid = $(this).attr("title");
+            zoomOnClick(resid+':'+selected_chain);
         });
 
 
@@ -110,7 +114,7 @@ function createSeqview(seqview){
 
 function populate(){
       seqview = document.getElementsByClassName('sequence_view')[0];
-      seqbutton = document.getElementsByClassName('seq-button')[0];
+      seqbutton = document.getElementById('seq-button');
 
       if (!showseq){
        reslist = getResList()
@@ -120,9 +124,12 @@ function populate(){
        seqbutton.innerHTML = "Hide sequence viewer"  
        //$(document).ready(function(){
         $("#dropdown").on( 'change', 'option', function (e) { alert("dfqsdasffs") });
-        $('.sequence-present').click(function(){
-            zoomOnClick('913:C');
+         $('.sequence-present').click(function(){
+            let resid = $(this).attr("title");
+            zoomOnClick(resid+':'+selected_chain);
         });
+
+
         //});
 
 
@@ -144,7 +151,7 @@ function SeqViewer(){
             
        script2.async = true;
 
-return  <div><button class="seq-button" onClick={populate}>Show sequence viewer</button> 
+return  <div><button id="seq-button" class="button4 button4" onClick={populate}>Show sequence viewer</button> 
         <select onChange={selectOption} class='dropdown' id="horizontal-center" hidden="true"></select>
         <div class="sequence_view"></div>
                 </div>;

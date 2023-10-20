@@ -15,13 +15,13 @@ function App() {
       <TopRow />
       <div className="container">
         <div className="column">
-          <SeqViewer />
           <h1>3D Structure</h1>
+          <SeqViewer />
           <NGLViewer />
         </div>
         <div className="column">
-            <img src="/legend.svg" alt="Nature" class="responsive_img"/>
           <h1>Graph Visualization</h1>
+            <img src="/legend.svg" alt="Nature" class="responsive_img"/>
         <div>
           {/* Other routes can be added here too */}
           <Routes>

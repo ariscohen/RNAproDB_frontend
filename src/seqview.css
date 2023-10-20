@@ -6,8 +6,34 @@
 .sequence-present:hover {
     background-color: #aec7e8;
     cursor: pointer;
+    
     }
 
+
+/* Style the tooltip text */
+.tooltiptext {
+ visibility: hidden;
+ background-color: #aec7e8;
+ color: #000;
+ text-align: center;
+ padding: 5px;
+ margin-top: 10px;
+ border-radius: 10px;
+ position: absolute;
+ z-index: 1;
+ top: 50%;
+ left: 125%;
+ transform: translateY(-50%);
+ opacity: 0;
+ transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when hovering on the span element */
+
+.sequence-present:hover .tooltiptext {
+ visibility: visible;
+ opacity: 1;
+}
 .vertical-center {
   margin: 0;
   position: absolute;
@@ -15,10 +41,10 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-#horizontal-center {
-  
+#horizontal-center { 
   position: relative;
   left: 70%;
   top: 50%;
   transform: translate(-50%,0%);
 }
+
