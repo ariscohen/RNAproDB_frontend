@@ -14,7 +14,7 @@ function d3graphscript(config = {
   var height = config.height;
   
   // Set the graph
-    var graph = config.graph;
+  var graph = config.graph;
 
   //Set up the colour scale
   var color = d3.scale.category20();
@@ -42,10 +42,6 @@ function d3graphscript(config = {
       d3.selectAll('g.node[shape_class="rect"]').each(function(e) {e.fixed=true});
     }
   });
-  
-  function canReactCallThis(){
-    alert("Yes it can!");
-  }
   
   // DRAGGING START
   function dragstarted(d) {
