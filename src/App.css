@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -44,6 +45,13 @@
 }
 
 .column {
+  flex: 1;
+  padding: 2rem;
+  background: white;
+  border: 1px solid #fff;
+}
+
+#right_column {
   flex: 1;
   padding: 2rem;
   background: white;

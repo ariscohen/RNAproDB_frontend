@@ -76,7 +76,7 @@ function d3graphscript(config = {
   // DRAGGING STOP
   
   //Append a SVG to the body of the html page. Assign this SVG as an object to svg
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#right_column").append("svg")
     .attr("width", width)
     .attr("height", height)
     .call(d3.behavior.zoom().on("zoom", function () { svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")") }))
@@ -260,7 +260,7 @@ function d3graphscript(config = {
     node.each(collide(config.collision)); //COLLISION DETECTION. High means a big fight to get untouchable nodes (default=0.5)
   
     timetostopautozoom += 1
-    // if (timetostopautozoom < zoomstopthreshold) zoomFit(0);
+    if (timetostopautozoom < zoomstopthreshold) zoomFit(0);
   });
   
   // --------- MARKER -----------

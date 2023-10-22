@@ -21,6 +21,8 @@ function App() {
         width: columnRef.current.offsetWidth,
         height: columnRef.current.offsetHeight
       });
+
+      console.log(columnRef.current.offsetWidth, columnRef.current.offsetHeight)
     }
   }, [columnRef]);
 
@@ -35,19 +37,19 @@ function App() {
           <SeqViewer />
           <NGLViewer />
         </div>
-        <div className="column" ref={columnRef}>
+        <div className="column" ref={columnRef} id="right_column_top">
           <h1>Graph Visualization</h1>
             <img src="/legend.svg" alt="Nature" class="responsive_img"/>
             <label class="switch">
               <input id="forcefieldButton" type="checkbox" />
               <span class="slider round"></span>
              </label>
-              <span id="pythonGraph">
                 {/* Other routes can be added here too */}
+                <div id="right_column">
                 <Routes>
                   <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} />} />
                 </Routes>
-              </span>
+                </div>
           </div>
       </div>
       </Router>

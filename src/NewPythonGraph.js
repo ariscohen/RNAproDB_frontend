@@ -45,10 +45,11 @@ function NewPythonGraph({ dimensions } ) {
     }
   }, [data, dimensions]);
 
-  return (
+  /*return (
     <div>
     </div>
-  );
+  );*/
+  return;
 }
 
 export default NewPythonGraph;
