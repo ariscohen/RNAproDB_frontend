@@ -1,14 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
 import './seqview.css';
-import React, { useEffect, useState } from 'react';
+import './pythongraph.css';
+import React, { useEffect, useState, useRef } from 'react';
 import TopRow from './TopRow';
 import NGLViewer from './NGLViewer';
-import PythonGraph from './PythonGraph';
+import NewPythonGraph from './NewPythonGraph';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 import SeqViewer from './Seqview';
 function App() {
+
+  // gets the column width and height to pass into PythonGraph
+  const columnRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (columnRef.current) {
+      setDimensions({
+        width: columnRef.current.offsetWidth,
+        height: columnRef.current.offsetHeight
+      });
+    }
+  }, [columnRef]);
+
+
   return (
     <div>
       <Router>
@@ -19,16 +35,20 @@ function App() {
           <SeqViewer />
           <NGLViewer />
         </div>
-        <div className="column">
+        <div className="column" ref={columnRef}>
           <h1>Graph Visualization</h1>
             <img src="/legend.svg" alt="Nature" class="responsive_img"/>
-        <div>
-          {/* Other routes can be added here too */}
-          <Routes>
-            <Route path="/:pdbid" element={<PythonGraph />} />
-          </Routes>
-        </div>
-        </div>
+            <label class="switch">
+              <input id="forcefieldButton" type="checkbox" />
+              <span class="slider round"></span>
+             </label>
+              <span id="pythonGraph">
+                {/* Other routes can be added here too */}
+                <Routes>
+                  <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} />} />
+                </Routes>
+              </span>
+          </div>
       </div>
       </Router>
     </div>
