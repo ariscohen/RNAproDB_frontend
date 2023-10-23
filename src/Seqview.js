@@ -36,7 +36,7 @@ function selectOption(){
     selected_chain = selectedValue.split(" ")[2];
     
     //seqdiv = document.getElementsByClassName("seqdiv")[0];
-        seqdiv.innerHTML = ""
+    seqdiv.innerHTML = ""
     for (var i=0; i<reslist.length; i++ ){
             let chain = reslist[i].split(":")[1];
             let resname = reslist[i].split(":")[0];
@@ -45,15 +45,16 @@ function selectOption(){
             if (chain == selected_chain){
                 var span = document.createElement("span");
                 span.className = "sequence-present";
-                try {
+                if (resname in d3to1){
                     span.innerHTML = d3to1[resname];
                     span.title = resid;
-                    span.setAttribute('resname', resname);
                 }
-                catch(error){
-                    span.innerHTML = "X";
+                else{
+                    span.innerHTML = resname;
+                    span.title = resid;
                 }
-                seqdiv.appendChild(span)
+                span.setAttribute('resname', resname);
+                seqdiv.appendChild(span);
             }
         }
     $('.sequence-present').click(function(){

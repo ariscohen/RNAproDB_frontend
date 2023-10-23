@@ -48,3 +48,8 @@
   transform: translate(-50%,0%);
 }
 
+.seqdiv{
+padding: 1rem;
+max-height:150px;
+overflow-y:auto;
+}
