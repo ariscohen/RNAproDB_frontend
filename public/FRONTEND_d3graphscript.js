@@ -72,6 +72,7 @@ function d3graphscript(config = {
   // DRAGGING STOP
   
   //Append a SVG to the body of the html page. Assign this SVG as an object to svg
+  d3.select("svg").remove();
   var svg = d3.select("#right_column").append("svg")
     .attr("width", width)
     .attr("height", height)

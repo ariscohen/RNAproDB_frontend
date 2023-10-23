@@ -18,8 +18,8 @@ function App() {
   useEffect(() => {
     if (columnRef.current) {
       setDimensions({
-        width: columnRef.current.offsetWidth * .90,
-        height: columnRef.current.offsetHeight * .90
+        width: columnRef.current.offsetWidth * .80,
+        height: columnRef.current.offsetHeight * .60
       });
 
       console.log(columnRef.current.offsetWidth, columnRef.current.offsetHeight)
@@ -35,7 +35,9 @@ function App() {
         <div className="column">
           <h1>3D Structure</h1>
           <SeqViewer />
-          <NGLViewer />
+            <Routes>
+                  <Route path="/:pdbid" element={<NGLViewer />} />
+            </Routes>
         </div>
         <div className="column" ref={columnRef} id="right_column_top">
           <h1>Graph Visualization</h1>

@@ -1,8 +1,10 @@
 // src/NGLViewer.js
 import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 function NGLViewer() {
-  useEffect(() => { //loads scripts async
+    let { pdbid } = useParams();
+    useEffect(() => { //loads scripts async
     const loadNGL = () => {
       const script1 = document.createElement('script');
       script1.src = '/ngl.js';
@@ -14,7 +16,7 @@ function NGLViewer() {
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
-          loadStructure('/1ivs-assembly1.cif');
+          loadStructure(`/cifs/${pdbid}-assembly1.cif`);
         });
         document.body.appendChild(script2);
       });

@@ -45,12 +45,14 @@ function selectOption(){
             if (chain == selected_chain){
                 var span = document.createElement("span")
                 span.className = "sequence-present"
-                try {
+                console.log(resname)
+                if (resname in d3to1){
                 span.innerHTML = d3to1[resname];
                 span.title = resid;
                 }
-                catch(error){
-                         span.innerHTML = "X";
+                else{
+                         span.innerHTML = resname;
+                         span.title = resid;
                 }
                 seqdiv.appendChild(span)
             }

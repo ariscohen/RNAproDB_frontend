@@ -50,10 +50,15 @@
   background: white;
   border: 1px solid #fff;
 }
-
-#right_column {
+#right_column{
+ margin-left: auto;
+ padding:1rem;
+  margin-right: auto;
+  text-align: center;
+}
+svg{
   flex: 1;
-  padding: 2rem;
   background: white;
-  border: 1px solid #fff;
+  border: 1px solid #000;
+  border-width: 2px 1px 1px 2px;
 }
