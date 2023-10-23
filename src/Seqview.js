@@ -45,7 +45,6 @@ function selectOption(){
             if (chain == selected_chain){
                 var span = document.createElement("span")
                 span.className = "sequence-present"
-                console.log(resname)
                 if (resname in d3to1){
                 span.innerHTML = d3to1[resname];
                 span.title = resid;
