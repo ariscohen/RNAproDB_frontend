@@ -36,29 +36,34 @@ function selectOption(){
     selected_chain = selectedValue.split(" ")[2];
     
     //seqdiv = document.getElementsByClassName("seqdiv")[0];
-        seqdiv.innerHTML = ""
+    seqdiv.innerHTML = ""
     for (var i=0; i<reslist.length; i++ ){
             let chain = reslist[i].split(":")[1];
             let resname = reslist[i].split(":")[0];
             let resid = reslist[i].split(":")[2];
 
             if (chain == selected_chain){
-                var span = document.createElement("span")
-                span.className = "sequence-present"
+                var span = document.createElement("span");
+                span.className = "sequence-present";
                 if (resname in d3to1){
-                span.innerHTML = d3to1[resname];
-                span.title = resid;
+                    span.innerHTML = d3to1[resname];
+                    span.title = resid;
                 }
                 else{
-                         span.innerHTML = resname;
-                         span.title = resid;
+                    span.innerHTML = resname;
+                    span.title = resid;
                 }
-                seqdiv.appendChild(span)
+                span.setAttribute('resname', resname);
+                seqdiv.appendChild(span);
             }
         }
     $('.sequence-present').click(function(){
             let resid = $(this).attr("title");
+            let resname = $(this).attr("resname");
+
             zoomOnClick(resid+':'+selected_chain);
+            console.log(`${selected_chain}:${resname}:${resid}`);
+            window.d3_highlight_node(`${selected_chain}:${resname}:${resid}`);
         });
 
 
@@ -127,9 +132,13 @@ function populate(){
         $("#dropdown").on( 'change', 'option', function (e) { alert("dfqsdasffs") });
          $('.sequence-present').click(function(){
             let resid = $(this).attr("title");
-            zoomOnClick(resid+':'+selected_chain);
-        });
+            let resname = $(this).attr("resname");
 
+            zoomOnClick(resid+':'+selected_chain);
+            console.log(`${selected_chain}:${resname}:${resid}`);
+            window.d3_highlight_node(`${selected_chain}:${resname}:${resid}`);
+        });
+        
 
         //});
 

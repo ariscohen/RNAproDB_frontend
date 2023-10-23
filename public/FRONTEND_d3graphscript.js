@@ -128,6 +128,7 @@ function d3graphscript(config = {
     .data(graph.nodes)
     .enter().append("g")
     .attr("class", "node")
+    .attr("id", function(d) {var spl = d.name.split(":"); return `${spl[0]}:${spl[1]}:${spl[2]}`;})
     .attr("shape_class", function(d) {return d.shape;})
     .call(drag)
     .on('dblclick', connectedNodes); // HIGHLIGHT ON/OFF
@@ -343,11 +344,29 @@ function d3graphscript(config = {
   function neighboring(a, b) {
     return linkedByIndex[a.index + "," + b.index];
   }
-  
-  
-    // COLOR ON CLICK
-  function color_on_click() {
-    // Give the original color back
+  // format of string should be chain:residue:#
+  function select_node(idToFind){
+    var escapedId = idToFind.replace(/:/g, "\\:");
+    var foundNode = d3.select("#" + escapedId);
+    return foundNode;
+  }
+
+  // format of string should be chain:residue:#
+  function d3_highlight_node(idToFind){
+    var curNode = select_node(idToFind);
+    reset_node_colors();
+
+    // Set the color on click for rect
+    curNode.select("circle")
+    .style("fill", "yellow")
+
+    // Set the color on click for rect
+    curNode.select("rect")
+    .style("fill", "yellow");
+  }
+  window.d3_highlight_node = d3_highlight_node;
+
+  function reset_node_colors(){
     d3.selectAll(".node")
     .select("circle")
     .style("fill", function(d) {return d.node_color;})
@@ -363,16 +382,26 @@ function d3graphscript(config = {
     .style("stroke", function(d) {return d.node_color_edge;})
     .style("stroke-width", function(d) {return d.edge_width;})
     ;
-
+  }
+  
+    // COLOR ON CLICK
+  function color_on_click() {
+    // Give the original color back for all nodes!
+    reset_node_colors();
+    console.log(d3.select(this).select())
 
     var name_split = d3.select(this)[0][0]["__data__"]["name"].split(":");
     var chain = name_split[0];
     var residue = name_split[2];
     
-    console.log(chain);
-    console.log(residue);
+    var nodeIdToFind = d3.select(this)[0][0]["__data__"]["name"]; // replace this with the ID you want to search for
+    var escapedId = nodeIdToFind.replace(/:/g, "\\:");
+    var foundNode = d3.select("#" + escapedId);
+
+    // console.log(chain);
+    // console.log(residue);
     var selectionString = residue+":" + chain;
-    console.log(selectionString);
+    // console.log(selectionString);
     parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
     // stage_nm1.getComponentsByName("my_structure").autoView()
   
@@ -388,7 +417,6 @@ function d3graphscript(config = {
     // Set the color on click for rect
     d3.select(this).select("rect")
     .style("fill", "yellow");
-
     ;}
   
   function connectedNodes() {
