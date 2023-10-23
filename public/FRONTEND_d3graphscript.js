@@ -355,6 +355,15 @@ function d3graphscript(config = {
     .style("stroke-width", function(d) {return d.edge_width;})
     .attr("r", function(d) { return d.node_size; })
     ;
+    d3.selectAll(".node")
+    .select("rect")
+    .style("fill", function(d) {return d.node_color;})
+    .style("opacity", function(d) {return d.node_opacity;})
+    .style("stroke", function(d) {return d.node_color_edge;})
+    .style("stroke-width", function(d) {return d.edge_width;})
+    ;
+
+
     var name_split = d3.select(this)[0][0]["__data__"]["name"].split(":");
     var chain = name_split[0];
     var residue = name_split[2];
@@ -363,15 +372,22 @@ function d3graphscript(config = {
     console.log(residue);
     var selectionString = residue+":" + chain;
     console.log(selectionString);
-    parent.zoomOnClick(selectionString);   
+    parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
     // stage_nm1.getComponentsByName("my_structure").autoView()
   
-    // Set the color on click
-    // d3.select(this).select("circle")
+    // Set the color on click for circles
+    d3.select(this).select("circle")
     // .style("fill", {{ CLICK_FILL }})
+    .style("fill", "yellow")
     // .style("stroke", "{{ CLICK_STROKE }}")
     // .style("stroke-width", {{ CLICK_STROKEW }})
     // .attr("r", function(d) { return d.node_size*{{ CLICK_SIZE }}; })
+    .attr("r", function(d) { return d.node_size*1});
+
+    // Set the color on click for rect
+    d3.select(this).select("rect")
+    .style("fill", "yellow");
+
     ;}
   
   function connectedNodes() {
@@ -430,4 +446,4 @@ function d3graphscript(config = {
     node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
     force.start();
   }
-  }
+}
