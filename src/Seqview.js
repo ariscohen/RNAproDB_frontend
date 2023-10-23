@@ -43,21 +43,26 @@ function selectOption(){
             let resid = reslist[i].split(":")[2];
 
             if (chain == selected_chain){
-                var span = document.createElement("span")
-                span.className = "sequence-present"
+                var span = document.createElement("span");
+                span.className = "sequence-present";
                 try {
-                span.innerHTML = d3to1[resname];
-                span.title = resid;
+                    span.innerHTML = d3to1[resname];
+                    span.title = resid;
+                    span.setAttribute('resname', resname);
                 }
                 catch(error){
-                         span.innerHTML = "X";
+                    span.innerHTML = "X";
                 }
                 seqdiv.appendChild(span)
             }
         }
     $('.sequence-present').click(function(){
             let resid = $(this).attr("title");
+            let resname = $(this).attr("resname");
+
             zoomOnClick(resid+':'+selected_chain);
+            console.log(`${selected_chain}:${resname}:${resid}`);
+            window.d3_highlight_node(`${selected_chain}:${resname}:${resid}`);
         });
 
 
@@ -126,9 +131,13 @@ function populate(){
         $("#dropdown").on( 'change', 'option', function (e) { alert("dfqsdasffs") });
          $('.sequence-present').click(function(){
             let resid = $(this).attr("title");
-            zoomOnClick(resid+':'+selected_chain);
-        });
+            let resname = $(this).attr("resname");
 
+            zoomOnClick(resid+':'+selected_chain);
+            console.log(`${selected_chain}:${resname}:${resid}`);
+            window.d3_highlight_node(`${selected_chain}:${resname}:${resid}`);
+        });
+        
 
         //});
 
