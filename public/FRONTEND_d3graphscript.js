@@ -1,3 +1,5 @@
+var multiple_select = []
+
 function d3graphscript(config = {
     // Default values
     width: 800,
@@ -387,8 +389,8 @@ function d3graphscript(config = {
     // COLOR ON CLICK
   function color_on_click() {
     // Give the original color back for all nodes!
-    reset_node_colors();
-    console.log(d3.select(this).select())
+    if (!d3.event.shiftKey)  reset_node_colors();
+    //console.log(d3.select(this).select())
 
     var name_split = d3.select(this)[0][0]["__data__"]["name"].split(":");
     var chain = name_split[0];
@@ -402,7 +404,14 @@ function d3graphscript(config = {
     // console.log(residue);
     var selectionString = residue+":" + chain;
     // console.log(selectionString);
-    parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
+    if (d3.event.shiftKey){
+        multiple_select.push(selectionString);
+        parent.zoomOnClick(multiple_select);
+    }
+    else{
+        multiple_select = [];
+        parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
+    }
     // stage_nm1.getComponentsByName("my_structure").autoView()
   
     // Set the color on click for circles

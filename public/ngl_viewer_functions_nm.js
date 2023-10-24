@@ -19,8 +19,23 @@ function getResList(){
     return residue_list
 }
 function zoomOnClick(selectionString){
-  init_component_ac1.autoView(selectionString);
-  init_component_ac1.addRepresentation("ball+stick", {sele: selectionString})
+  if (typeof selectionString === 'string') {
+          selectionString = [selectionString];
+  }
+  for (var i=0; i<ballStick_list_nm1.length; i+=1) ballStick_list_nm1[i].setVisibility(false);
+
+  
+  for (var i=0;i<selectionString.length;i+=1){
+     console.log(selectionString[i])
+     //sel = selectionString[i].split(":").slice(0,1).join(":")
+     let sel = selectionString[i]
+     //console.log(sel)
+     init_component_ac1.autoView(sel);
+     r = init_component_ac1.addRepresentation("ball+stick", {sele: sel})
+     ballStick_list_nm1.push(r)
+     r.setVisibility(true)
+  }
+
 }
 
 //************************FIX BUG in ADD MISSING REPRESENTATION TO CHECK IF ACTUALLY NUCLEIC... IMPORTANT TO CARTOON VS TUBE*****************************

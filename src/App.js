@@ -40,7 +40,7 @@ function App() {
             </Routes>
         </div>
         <div className="column" ref={columnRef} id="right_column_top">
-          <h1>Graph Visualization</h1>
+          <h1>Interactive explorer</h1>
             <img src="/legend.svg" alt="Nature" class="responsive_img"/>
            <span> Freeze Graph </span>
             <label class="switch">
