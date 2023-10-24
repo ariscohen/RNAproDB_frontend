@@ -42,7 +42,7 @@ function App() {
         <div className="column" ref={columnRef} id="right_column_top">
           <h1>Graph Visualization</h1>
             <img src="/legend.svg" alt="Nature" class="responsive_img"/>
-            <span>Freeze Graph </span>
+           <span> Freeze Graph </span>
             <label class="switch">
               <input id="forcefieldButton" type="checkbox" />
               <span class="slider round"></span>
