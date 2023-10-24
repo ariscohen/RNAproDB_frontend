@@ -62,7 +62,7 @@ function selectOption(){
             let resname = $(this).attr("resname");
 
             zoomOnClick(resid+':'+selected_chain);
-            console.log(`${selected_chain}:${resname}:${resid}`);
+            //console.log(`${selected_chain}:${resname}:${resid}`);
             window.d3_highlight_node(`${selected_chain}:${resname}:${resid}`);
         });
 

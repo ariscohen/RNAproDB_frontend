@@ -4,6 +4,7 @@ import './seqview.css';
 import './pythongraph.css';
 import React, { useEffect, useState, useRef } from 'react';
 import TopRow from './TopRow';
+import BotRow from './BotRow';
 import NGLViewer from './NGLViewer';
 import NewPythonGraph from './NewPythonGraph';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
@@ -55,6 +56,7 @@ function App() {
                 </div>
           </div>
       </div>
+        <BotRow />
       </Router>
     </div>
   );
