@@ -1,11 +1,13 @@
 // src/TopRow.js
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom'; // Import useLocation hook
 import './TopRow.css'; // You can create a separate CSS file for this component
+import TitleContext from './TitleContext';
 
 function TopRow() {
   const location = useLocation();
   const pdbid = location.pathname.split('/')[1];  // Split the pathname and get the second segment
+  const { title } = useContext(TitleContext);
 
   console.log("pdbid is: ");
   console.log(pdbid);
@@ -14,6 +16,8 @@ function TopRow() {
     <div className="top-row">
       {/* Render the pdbid value if available, otherwise render a default text */}
       <h1>{pdbid ? pdbid : "Missing PDB ID"}</h1>
+      <h2>{title}</h2>
+      
     </div>
   );
 }

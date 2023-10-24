@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import TitleContext from './TitleContext';
 
 function NewPythonGraph({ dimensions } ) {
   const [data, setData] = useState(null);
   const { pdbid } = useParams();
+  const { setTitle } = useContext(TitleContext);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        //const response = await fetch(`http://10.136.114.14:8000/rnaprodb/run-script?pdbid=${pdbid}`);
-        const response = await fetch(`http://10.136.113.92:8000/rnaprodb/run-script?pdbid=${pdbid}`);
+        const response = await fetch(`http://10.136.114.14:8000/rnaprodb/run-script?pdbid=${pdbid}`);
+        // const response = await fetch(`http://10.136.113.92:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         // Check if the response has content and if it's JSON
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
           const result = await response.json();
     
           if (response.ok) {
-            setData(result.output);
+            setData(result);
           } else {
             console.error("Error fetching data:", result.message);
           }
@@ -29,22 +31,24 @@ function NewPythonGraph({ dimensions } ) {
     }
 
     fetchData();
-  }, [pdbid]); // Add pdbid to the dependency array
+  }, [pdbid, setTitle]); // Add pdbid to the dependency array
 
   // Call your desired function with the fetched data
+  // data is everything, data.output is the nodes/edges, data.title is the paper title
   useEffect(() => {
     console.log("My data is", data);
-    if (data && window.d3graphscript) {
+    if (data && data.output && window.d3graphscript) {
+      setTitle(data.protein_name || "Missing PDB ID");
       window.d3graphscript({
         width: dimensions.width,
         height: dimensions.height,
-        graph: data,
+        graph: data.output,
         collision: 0.5,
         charge: -450,
         directed: true
     }); // Call d3graph script on what we fetched!
     }
-  }, [data, dimensions]);
+  }, [data, dimensions, setTitle]);
 
   /*return (
     <div>
