@@ -46,9 +46,15 @@ function App() {
             <div className="column" ref={columnRef} id="right_column_top">
               <h1>Interactive explorer</h1>
                 <img src="/legend.svg" alt="Nature" class="responsive_img"/>
-              <span> Freeze Graph </span>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Freeze Graph </span>
               <label class="switch">
                 <input id="forcefieldButton" type="checkbox" />
+                <span class="slider round"></span>
+              </label>
+              <span>&nbsp;&nbsp;&nbsp;</span>
+              <span> Indicates H-Bonds </span>
+              <label class="switch">
+                <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
                 <span class="slider round"></span>
               </label>
             <div id="right_column">
