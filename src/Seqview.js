@@ -61,7 +61,7 @@ function selectOption(){
             let resid = $(this).attr("title");
             let resname = $(this).attr("resname");
 
-            zoomOnClick(resid+':'+selected_chain);
+            window.zoomOnClick(resid+':'+selected_chain);
             //console.log(`${selected_chain}:${resname}:${resid}`);
             window.d3_highlight_node(`${selected_chain}:${resname}:${resid}`);
         });
@@ -123,7 +123,7 @@ function populate(){
       seqbutton = document.getElementById('seq-button');
 
       if (!showseq){
-       reslist = getResList()
+       reslist = window.getResList()
        
        createSeqview(seqview)
        showseq=true
@@ -134,7 +134,7 @@ function populate(){
             let resid = $(this).attr("title");
             let resname = $(this).attr("resname");
 
-            zoomOnClick(resid+':'+selected_chain);
+            window.zoomOnClick(resid+':'+selected_chain);
             console.log(`${selected_chain}:${resname}:${resid}`);
             window.d3_highlight_node(`${selected_chain}:${resname}:${resid}`);
         });

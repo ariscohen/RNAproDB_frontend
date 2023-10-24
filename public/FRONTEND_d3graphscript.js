@@ -484,4 +484,28 @@ function d3graphscript(config = {
     node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
     force.start();
   }
+
+  var originalLinkColors = {};
+
+function toggleHBondsColor() {
+    var newColor = "red"; 
+    const isChecked = document.getElementById("toggleHBondsCheckbox").checked;
+
+    graph.links.forEach(function(link, i) {
+        if (isChecked) {
+            if (link.my_type === "protein_rna_hbond" && link.color !== newColor) {
+                originalLinkColors[i] = link.color;
+                link.color = newColor;
+            }
+        } else {
+            if (link.my_type === "protein_rna_hbond" && originalLinkColors[i]) {
+                link.color = originalLinkColors[i];
+            }
+        }
+    });
+
+    restart();
+}
+
+document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
 }
