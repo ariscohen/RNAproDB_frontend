@@ -414,7 +414,7 @@ function d3graphscript(config = {
     // console.log(selectionString);
     if (d3.event.shiftKey){
         if (multiple_select.includes(selectionString) ){
-            console.log("here")
+            // console.log("here")
             d3.select(this).select("circle")
                 .style("fill", function(d) {return d.node_color;})
                 .style("opacity", function(d) {return d.node_opacity;})

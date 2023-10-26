@@ -142,7 +142,7 @@ function add_to_list(l, atom){
 
 }
 function loadStructure(structure_url) {
-  console.log("08/12/2019")
+  // console.log("08/12/2019")
   stage_nm1 = new NGL.Stage("viewport", {backgroundColor: "white", opacity: 0});
 
   

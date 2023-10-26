@@ -9,8 +9,8 @@ function TopRow() {
   const pdbid = location.pathname.split('/')[1];  // Split the pathname and get the second segment
   const { title } = useContext(TitleContext);
 
-  console.log("pdbid is: ");
-  console.log(pdbid);
+  // console.log("pdbid is: ");
+  // console.log(pdbid);
 
   return (
     <div className="top-row">

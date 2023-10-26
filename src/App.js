@@ -9,6 +9,7 @@ import NGLViewer from './NGLViewer';
 import NewPythonGraph from './NewPythonGraph';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import TitleContext from './TitleContext';
+import Subgraph from './Subgraph'; // Import the new component at the top
 
 import SeqViewer from './Seqview';
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const columnRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [title, setTitle] = useState("");
+  const [showInput, setShowInput] = useState(false);
 
   useEffect(() => {
     if (columnRef.current) {
@@ -25,7 +27,7 @@ function App() {
         height: columnRef.current.offsetHeight * .60
       });
 
-      console.log(columnRef.current.offsetWidth, columnRef.current.offsetHeight)
+      // console.log(columnRef.current.offsetWidth, columnRef.current.offsetHeight)
     }
   }, [columnRef]);
 
@@ -46,17 +48,7 @@ function App() {
             <div className="column" ref={columnRef} id="right_column_top">
               <h1>Interactive explorer</h1>
                 <img src="/legend.svg" alt="Nature" class="responsive_img"/>
-              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Freeze Graph </span>
-              <label class="switch">
-                <input id="forcefieldButton" type="checkbox" />
-                <span class="slider round"></span>
-              </label>
-              <span>&nbsp;&nbsp;&nbsp;</span>
-              <span> Indicate H-Bonds </span>
-              <label class="switch">
-                <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
-                <span class="slider round"></span>
-              </label>
+               <Subgraph />
             <div id="right_column" onClick = {window.reset_graph_colors}>
             <Routes>
               <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} />} />
