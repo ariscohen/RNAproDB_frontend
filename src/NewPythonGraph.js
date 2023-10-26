@@ -40,8 +40,8 @@ function NewPythonGraph({ dimensions } ) {
     if (data && data.output && window.d3graphscript) {
       setTitle(data.protein_name || "Missing PDB ID");
       window.d3graphscript({
-        width: dimensions.width,
-        height: dimensions.height,
+        width: dimensions.width*1.1, //temporary
+        height: dimensions.height*1.2, //temporary
         graph: data.output,
         collision: 0.5,
         charge: -450,

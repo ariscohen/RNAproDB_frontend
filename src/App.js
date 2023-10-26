@@ -52,7 +52,7 @@ function App() {
                 <span class="slider round"></span>
               </label>
               <span>&nbsp;&nbsp;&nbsp;</span>
-              <span> Indicates H-Bonds </span>
+              <span> Indicate H-Bonds </span>
               <label class="switch">
                 <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
                 <span class="slider round"></span>

@@ -420,8 +420,8 @@ function d3graphscript(config = {
     .style("fill", "yellow")
     // .style("stroke", "{{ CLICK_STROKE }}")
     // .style("stroke-width", {{ CLICK_STROKEW }})
-    // .attr("r", function(d) { return d.node_size*{{ CLICK_SIZE }}; })
-    .attr("r", function(d) { return d.node_size*1});
+    .attr("r", function(d) { return d.node_size*1.5; })
+    // .attr("r", function(d) { return d.node_size*1});
 
     // Set the color on click for rect
     d3.select(this).select("rect")

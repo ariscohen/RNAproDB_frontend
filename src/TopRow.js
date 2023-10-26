@@ -15,8 +15,7 @@ function TopRow() {
   return (
     <div className="top-row">
       {/* Render the pdbid value if available, otherwise render a default text */}
-      <h1>{pdbid ? pdbid : "Missing PDB ID"}</h1>
-      <h2>{title}</h2>
+     <span><h2>{pdbid ? pdbid : "Missing PDB ID"} : {title}</h2></span>
       
     </div>
   );
