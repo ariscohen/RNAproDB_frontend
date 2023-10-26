@@ -387,9 +387,9 @@ function d3graphscript(config = {
     ;
   }
     function reset_graph_colors(e){
-        console.log(e['target'])
         if(e['target']['nodeName']=='svg') {
-            reset_node_colors()
+            reset_node_colors();
+            parent.resetView();
         }
     }
   window.reset_graph_colors = reset_graph_colors;
@@ -418,6 +418,7 @@ function d3graphscript(config = {
     }
     else{
         multiple_select = [];
+        parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
     }
     // stage_nm1.getComponentsByName("my_structure").autoView()
   
@@ -438,7 +439,6 @@ function d3graphscript(config = {
                 prev_single_select = null;
         }
         else{
-            parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
             prev_single_select = selectionString;
         }
 

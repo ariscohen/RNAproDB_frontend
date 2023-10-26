@@ -38,6 +38,11 @@ function zoomOnClick(selectionString){
 
 }
 
+function resetView(){
+    for (var i=0; i<ballStick_list_nm1.length; i+=1) ballStick_list_nm1[i].setVisibility(false);
+    init_component_ac1.autoView();
+}
+
 //************************FIX BUG in ADD MISSING REPRESENTATION TO CHECK IF ACTUALLY NUCLEIC... IMPORTANT TO CARTOON VS TUBE*****************************
 function change_nuc_repr_type(new_type)
 {
