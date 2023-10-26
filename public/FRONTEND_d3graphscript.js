@@ -1,4 +1,5 @@
-var multiple_select = []
+var multiple_select = [];
+var prev_single_select;
 
 function d3graphscript(config = {
     // Default values
@@ -385,6 +386,13 @@ function d3graphscript(config = {
     .style("stroke-width", function(d) {return d.edge_width;})
     ;
   }
+    function reset_graph_colors(e){
+        console.log(e['target'])
+        if(e['target']['nodeName']=='svg') {
+            reset_node_colors()
+        }
+    }
+  window.reset_graph_colors = reset_graph_colors;
   
     // COLOR ON CLICK
   function color_on_click() {
@@ -410,7 +418,6 @@ function d3graphscript(config = {
     }
     else{
         multiple_select = [];
-        parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
     }
     // stage_nm1.getComponentsByName("my_structure").autoView()
   
@@ -426,8 +433,16 @@ function d3graphscript(config = {
     // Set the color on click for rect
     d3.select(this).select("rect")
     .style("fill", "yellow");
-    ;}
-  
+    if (prev_single_select == selectionString) {
+                reset_node_colors();
+                prev_single_select = null;
+        }
+        else{
+            parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
+            prev_single_select = selectionString;
+        }
+
+    }
   function connectedNodes() {
     if (toggle == 0) {
       //Reduce the opacity of all but the neighbouring nodes

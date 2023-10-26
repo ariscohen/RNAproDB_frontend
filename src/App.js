@@ -29,7 +29,7 @@ function App() {
     }
   }, [columnRef]);
 
-
+ 
   return (
     <div>
       <TitleContext.Provider value={{ title, setTitle }}>
@@ -57,7 +57,7 @@ function App() {
                 <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
                 <span class="slider round"></span>
               </label>
-            <div id="right_column">
+            <div id="right_column" onClick = {window.reset_graph_colors}>
             <Routes>
               <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} />} />
             </Routes>
