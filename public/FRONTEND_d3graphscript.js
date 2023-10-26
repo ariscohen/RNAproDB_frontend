@@ -437,6 +437,7 @@ function d3graphscript(config = {
     if (prev_single_select == selectionString) {
                 reset_node_colors();
                 prev_single_select = null;
+                if (!d3.event.shiftKey) parent.resetView();
         }
         else{
             prev_single_select = selectionString;
