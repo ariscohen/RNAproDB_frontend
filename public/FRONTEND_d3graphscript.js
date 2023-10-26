@@ -413,6 +413,27 @@ function d3graphscript(config = {
     var selectionString = residue+":" + chain;
     // console.log(selectionString);
     if (d3.event.shiftKey){
+        if (multiple_select.includes(selectionString) ){
+            console.log("here")
+            d3.select(this).select("circle")
+                .style("fill", function(d) {return d.node_color;})
+                .style("opacity", function(d) {return d.node_opacity;})
+                .style("stroke", function(d) {return d.node_color_edge;})
+                .style("stroke-width", function(d) {return d.edge_width;})
+                .attr("r", function(d) { return d.node_size; })
+            ;
+            d3.select(this).select("rect")
+                .style("fill", function(d) {return d.node_color;})
+                .style("opacity", function(d) {return d.node_opacity;})
+                .style("stroke", function(d) {return d.node_color_edge;})
+                .style("stroke-width", function(d) {return d.edge_width;})
+            ;
+            index = multiple_select.indexOf(selectionString);
+            multiple_select.splice(index, 1);
+            parent.zoomOnClick(multiple_select);
+            return;
+        }
+    
         multiple_select.push(selectionString);
         parent.zoomOnClick(multiple_select);
     }
@@ -422,6 +443,20 @@ function d3graphscript(config = {
     }
     // stage_nm1.getComponentsByName("my_structure").autoView()
   
+        
+    if (!d3.event.shiftKey) {
+        if (prev_single_select == selectionString) {
+                reset_node_colors();
+                prev_single_select = null;
+                parent.resetView();
+                return;
+        }
+        else{
+            prev_single_select = selectionString;
+        }
+
+    }
+    
     // Set the color on click for circles
     d3.select(this).select("circle")
     // .style("fill", {{ CLICK_FILL }})
@@ -434,16 +469,8 @@ function d3graphscript(config = {
     // Set the color on click for rect
     d3.select(this).select("rect")
     .style("fill", "yellow");
-    if (prev_single_select == selectionString) {
-                reset_node_colors();
-                prev_single_select = null;
-                if (!d3.event.shiftKey) parent.resetView();
-        }
-        else{
-            prev_single_select = selectionString;
-        }
 
-    }
+  }
   function connectedNodes() {
     if (toggle == 0) {
       //Reduce the opacity of all but the neighbouring nodes
