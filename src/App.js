@@ -23,7 +23,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [show2DGraph, setShow2DGraph] = useState(false);
   const [subgraph, setSubgraph] = useState(false);
-  const [activeTab, setActiveTab] = useState('graph');
+  const [activeTab, setActiveTab] = useState('ssgraph');
 
   useEffect(() => {
     if (columnRef.current) {
@@ -68,9 +68,8 @@ function App() {
             </div>
 
 
-            <button onClick={() => setShow2DGraph(!show2DGraph)}>Toggle 2D Graph</button>
             {/* Set visibility based on show2DGraph */}
-            <div style={{ display: show2DGraph ? 'block' : 'none' }}>
+            <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none' }}>
               <img src="/legend.svg" alt="Nature" class="responsive_img"/>
               <Subgraph setSubgraph={setSubgraph}/>
               <div id="right_column" onClick={window.reset_graph_colors}>
@@ -79,7 +78,7 @@ function App() {
                 </Routes>
               </div>
             </div>
-            <div style={{ display: !show2DGraph ? 'block' : 'none' }}>
+            <div style={{ display: activeTab === 'ssgraph' ? 'block' : 'none' }}>
               <SSiframe />
             </div>
           </div>

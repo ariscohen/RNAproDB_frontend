@@ -53,7 +53,7 @@ function NewPythonGraph({ dimensions, subgraph } ) {
         height: dimensions.height*1.2, //temporary
         graph: data.output,
         collision: 0.5,
-        charge: -450,
+        charge: -800,
         directed: true
     }); // Call d3graph script on what we fetched!
     }
