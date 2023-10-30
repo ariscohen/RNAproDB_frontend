@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';  // Import useEffect
 import { useParams } from 'react-router-dom';
 
-function PythonGraph() {
+function SSiframe() {
   let { pdbid } = useParams();
 
     return (
       <div className="graph_container">
         <iframe className="responsive-iframe" 
-          src={`/${pdbid}.tmp.cif.html`}
+          src={`/ss_viewer.html`}
           title="Embedded HTML"
           width="100%"
           height="1000"
@@ -16,5 +16,5 @@ function PythonGraph() {
       </div>
     );
   }
-export default PythonGraph;
+export default SSiframe;
 
