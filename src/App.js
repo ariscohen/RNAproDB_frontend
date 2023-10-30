@@ -12,6 +12,7 @@ import TitleContext from './TitleContext';
 import Subgraph from './Subgraph'; // Import the new component at the top
 
 import SeqViewer from './Seqview';
+import SSViewer from './SSViewer';
 function App() {
 
   // gets the column width and height to pass into PythonGraph
