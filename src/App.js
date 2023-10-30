@@ -19,6 +19,7 @@ function App() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [title, setTitle] = useState("");
   const [showInput, setShowInput] = useState(false);
+  const [subgraph, setSubgraph] = useState(false);
 
   useEffect(() => {
     if (columnRef.current) {
@@ -48,10 +49,10 @@ function App() {
             <div className="column" ref={columnRef} id="right_column_top">
               <h1>Interactive explorer</h1>
                 <img src="/legend.svg" alt="Nature" class="responsive_img"/>
-               <Subgraph />
+               <Subgraph setSubgraph={setSubgraph}/>
             <div id="right_column" onClick = {window.reset_graph_colors}>
             <Routes>
-              <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} />} />
+              <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} subgraph={subgraph} />} />
             </Routes>
             </div>
               </div>

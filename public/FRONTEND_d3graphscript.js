@@ -394,6 +394,14 @@ function d3graphscript(config = {
     }
   window.reset_graph_colors = reset_graph_colors;
   
+  // adds node to subgraph textbox, so subgraph can be computed
+  function add_node_to_subgraph(chain, num){
+    let textBox = document.getElementById("subgraph-textbox");
+    if (textBox) {  // Check if the textBox is not null
+        textBox.value += `${chain}:${num},`;
+    }
+  }
+
     // COLOR ON CLICK
   function color_on_click() {
     // Give the original color back for all nodes!
@@ -404,6 +412,11 @@ function d3graphscript(config = {
     var chain = name_split[0];
     var residue = name_split[2];
     
+    console.log(chain);
+    console.log(residue);
+
+    add_node_to_subgraph(chain, residue);
+
     var nodeIdToFind = d3.select(this)[0][0]["__data__"]["name"]; // replace this with the ID you want to search for
     var escapedId = nodeIdToFind.replace(/:/g, "\\:");
     var foundNode = d3.select("#" + escapedId);
@@ -549,6 +562,5 @@ function toggleHBondsColor() {
 
     restart();
 }
-
 document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
 }

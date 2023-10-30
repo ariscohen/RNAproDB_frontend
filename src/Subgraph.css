@@ -1,4 +1,9 @@
-#subgraph-button{
+#select-subgraph-button{
     float: right;
     display: 'inline-block';
+  }
+  #generate-subgraph-button{
+    float: right;
+    display: 'inline-block';
+    color: #4CAF50;
   }
