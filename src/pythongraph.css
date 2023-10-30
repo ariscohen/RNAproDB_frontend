@@ -25,11 +25,11 @@ h3 {
 }
 
  /* The switch - the box around the slider */
- .switch {
+.switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 40px; /* reduced width */
+  height: 24px; /* reduced height */
   vertical-align: middle;
 }
 
@@ -56,10 +56,10 @@ h3 {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 18px; /* reduced height */
+  width: 18px; /* reduced width */
+  left: 3px;
+  bottom: 3px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -74,16 +74,16 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(18px); /* adjusted transform value based on the new width */
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+  border-radius: 24px; /* adjusted border-radius based on the new height */
 }
 
 .slider.round:before {
   border-radius: 50%;
-} 
+}

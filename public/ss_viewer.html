@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<div id='rna_ss'> </div>
+    <link rel='stylesheet' type='text/css' href='fornac.css' />
+    <script type='text/javascript' src='fornac.js'></script>
+    <script type='text/javascript' src='d3.v3.js'></script>
+    <script type='text/javascript' src='jquery-3.7.1.min.js'></script>
+    <script type='text/javascript'>
+        var container = new FornaContainer("#rna_ss", {'animation': false});
+
+        var options = {'structure': '((..((....)).(((....))).))((..((....)).(((....))).))',
+                        'sequence': 'CGCUUCAUAUAAUCCUAAUGACCUAUCGCUUCAUAUAAUCCUAAUGACCUAU'
+        };
+
+        container.addRNA(options.structure, options);
+        container.addRNA(options.structure, options);
+    </script>

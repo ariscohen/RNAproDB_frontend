@@ -63,3 +63,21 @@ svg{
   border-width: 2px 1px 1px 2px;
 }
 iframe#webpack-dev-server-client-overlay { display: none; } 
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.tabs .active-tab {
+  background-color: #ddd;
+}

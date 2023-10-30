@@ -60,6 +60,12 @@ function selectOption(){
     $('.sequence-present').click(function(){
             let resid = $(this).attr("title");
             let resname = $(this).attr("resname");
+            
+            //append selected_chain:resid to subgraph textbox
+            let textBox = document.getElementById("subgraph-textbox");
+            if (textBox) {  // Check if the textBox is not null
+                textBox.value += `${selected_chain}:${resid},`;
+            }
 
             window.zoomOnClick(resid+':'+selected_chain);
             //console.log(`${selected_chain}:${resname}:${resid}`);
@@ -135,6 +141,12 @@ function populate(){
          $('.sequence-present').click(function(){
             let resid = $(this).attr("title");
             let resname = $(this).attr("resname");
+            
+            // add selected node to subgraph textbox
+            let textBox = document.getElementById("subgraph-textbox");
+            if (textBox) {  // Check if the textBox is not null
+                textBox.value += `${selected_chain}:${resid},`;
+            }
 
             window.zoomOnClick(resid+':'+selected_chain);
             // console.log(`${selected_chain}:${resname}:${resid}`);
