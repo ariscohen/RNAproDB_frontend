@@ -75,14 +75,14 @@ function d3graphscript(config = {
   // DRAGGING STOP
   
   //Append a SVG to the body of the html page. Assign this SVG as an object to svg
-  d3.select("#interactive-explorer").remove();
+  d3.select("svg").remove();
   var svg = d3.select("#right_column").append("svg")
     .attr("width", width)
     .attr("height", height)
     .call(d3.behavior.zoom().on("zoom", function () { svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")") }))
     .on("dblclick.zoom", null)
     .append("g")
-    .attr("id", "interactive-explorer")
+    // .attr("id", "interactive-explorer")
   
   //.on("dblclick", threshold); // EXPLODE ALL CONNECTED POINTS
   
