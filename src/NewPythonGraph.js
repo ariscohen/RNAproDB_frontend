@@ -48,7 +48,9 @@ function NewPythonGraph({ dimensions, subgraph, setSS } ) {
     console.log("My data is", data);
     if (data && data.output && window.d3graphscript) {
       setTitle(data.protein_name || "Missing PDB ID");
-      setSS(data.output.ss);
+      if(data.output.ss){
+        setSS(data.output.ss); // if a subgraph call, should not set the SS
+      }
       window.d3graphscript({
         width: dimensions.width*1.1, //temporary
         height: dimensions.height*1.2, //temporary
