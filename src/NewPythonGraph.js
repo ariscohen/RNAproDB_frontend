@@ -10,7 +10,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS } ) {
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log(`subgraph is ${subgraph}`)
+        // console.log(`subgraph is ${subgraph}`)
         let response = null;
         //const response = await fetch(`http://10.136.114.14:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         // const response = await fetch(`http://10.136.113.92:8000/rnaprodb/run-script?pdbid=${pdbid}`);
@@ -45,7 +45,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS } ) {
   // Call your desired function with the fetched data
   // data is everything, data.output is the nodes/edges, data.title is the paper title
   useEffect(() => {
-    console.log("My data is", data);
+    // console.log("My data is", data);
     if (data && data.output && window.d3graphscript) {
       setTitle(data.protein_name || "Missing PDB ID");
       if(data.output.ss){
