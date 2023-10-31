@@ -236,8 +236,6 @@ function d3graphscript(config = {
         .call(zoom.translate(translate).scale(scale).event);
   }
   
-  
-  
   // console.log(node)
   //Now we are giving the SVGs co-ordinates - the force layout is generating the co-ordinates which this code is using to update the attributes of the SVG elements
   //
@@ -369,6 +367,7 @@ function d3graphscript(config = {
     .style("fill", "yellow");
   }
   window.d3_highlight_node = d3_highlight_node;
+
 
   function reset_node_colors(){
     d3.selectAll(".node")

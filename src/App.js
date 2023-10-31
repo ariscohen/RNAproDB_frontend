@@ -23,7 +23,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [show2DGraph, setShow2DGraph] = useState(false);
   const [subgraph, setSubgraph] = useState(false);
-  const [activeTab, setActiveTab] = useState('ssgraph');
+  const [activeTab, setActiveTab] = useState('2dgraph');
 
   useEffect(() => {
     if (columnRef.current) {
@@ -78,9 +78,11 @@ function App() {
                 </Routes>
               </div>
             </div>
-            <div style={{ display: activeTab === 'ssgraph' ? 'block' : 'none' }}>
-              <SSiframe />
-            </div>
+            {activeTab === 'ssgraph' && (
+                            <div>
+                              <SSiframe />
+                            </div>
+                        )}
           </div>
         </div>
             <BotRow />
