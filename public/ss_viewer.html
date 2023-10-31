@@ -6,10 +6,28 @@
     <script type='text/javascript' src='d3.v3.js'></script>
     <script type='text/javascript' src='jquery-3.7.1.min.js'></script>
     <script type='text/javascript'>
-        var container = new FornaContainer("#rna_ss", {'animation': false});
+        var container = null;
+        window.addEventListener('message', (event) => {  
+            // Get the SS_DATA from SSiframe.js
+            if (event.data.type === 'SS_DATA') {
+                const ssData = event.data.payload;
+                const numChains = ssData['numChains'];
+                container = new FornaContainer("#rna_ss", {'animation': false});
+                console.log("NUM CHAINS");
+                console.log(numChains);
+                // iterate through each chain and parse the data
+                for(var i = 0; i < numChains; i++){
+                    // console.log(ssData["ssList"][i]["sequence"]);
+                    // console.log(ssData["ssList"][i]["structure"]);
+                    console.log(i);
+                    var options = {'structure': ssData["ssList"][i]["structure"],
+                                'sequence': ssData["ssList"][i]["sequence"]
+                    };
+                    container.addRNA(options.structure, options);
+                    console.log("Added RNA");
+                }
+            }
+        });
 
-        var options = {'structure': '(((((((..((((.......)))).(((((.......))))).....(((((.......)))))))))))).....',
-                        'sequence': 'GGGCGGCUAGCUCAGCGGAAGAGCGCUCGCCUCACACGCGAGAGGUCGUAGGUUCAAGUCCUACGCCGCCCACCAA'
-        };
-        container.addRNA(options.structure, options);
+
     </script>

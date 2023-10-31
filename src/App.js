@@ -24,6 +24,7 @@ function App() {
   const [show2DGraph, setShow2DGraph] = useState(false);
   const [subgraph, setSubgraph] = useState(false);
   const [activeTab, setActiveTab] = useState('2dgraph');
+  const [ss, setSS] = useState(false);
 
   useEffect(() => {
     if (columnRef.current) {
@@ -74,13 +75,13 @@ function App() {
               <Subgraph setSubgraph={setSubgraph}/>
               <div id="right_column" onClick={window.reset_graph_colors}>
                 <Routes>
-                  <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} subgraph={subgraph} />} />
+                  <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} subgraph={subgraph} setSS ={setSS}/>} />
                 </Routes>
               </div>
             </div>
-            {activeTab === 'ssgraph' && (
+            {activeTab === 'ssgraph' && ss != false && (
                             <div>
-                              <SSiframe />
+                              <SSiframe ss={ss}/>
                             </div>
                         )}
           </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
 
-function NewPythonGraph({ dimensions, subgraph } ) {
+function NewPythonGraph({ dimensions, subgraph, setSS } ) {
   const [data, setData] = useState(null);
   const { pdbid } = useParams();
   const { setTitle } = useContext(TitleContext);
@@ -48,6 +48,7 @@ function NewPythonGraph({ dimensions, subgraph } ) {
     console.log("My data is", data);
     if (data && data.output && window.d3graphscript) {
       setTitle(data.protein_name || "Missing PDB ID");
+      setSS(data.output.ss);
       window.d3graphscript({
         width: dimensions.width*1.1, //temporary
         height: dimensions.height*1.2, //temporary
@@ -57,7 +58,7 @@ function NewPythonGraph({ dimensions, subgraph } ) {
         directed: true
     }); // Call d3graph script on what we fetched!
     }
-  }, [data, dimensions, setTitle]);
+  }, [data, dimensions, setTitle, setSS]);
 
   /*return (
     <div>
