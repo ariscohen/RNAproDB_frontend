@@ -87,8 +87,8 @@ function d3graphscript(config = {
   //.on("dblclick", threshold); // EXPLODE ALL CONNECTED POINTS
   
   // parse the graph passed into this function
-  graphRec = JSON.parse(graph);
-  graph = graphRec;
+  // graphRec = JSON.parse(graph);
+  // graph = graphRec;
 
   //Creates the graph data structure out of the json data
   force.nodes(graph.nodes)
