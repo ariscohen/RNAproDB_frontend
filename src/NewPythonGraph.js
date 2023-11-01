@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
 
-function NewPythonGraph({ dimensions, subgraph, setSS } ) {
+function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject }) {
   const [data, setData] = useState(null);
   const { pdbid } = useParams();
   const { setTitle } = useContext(TitleContext);
@@ -45,27 +45,51 @@ function NewPythonGraph({ dimensions, subgraph, setSS } ) {
   // Call your desired function with the fetched data
   // data is everything, data.output is the nodes/edges, data.title is the paper title
   useEffect(() => {
-    // console.log("My data is", data);
-    if (data && data.output && window.d3graphscript) {
+    if (data && data.output) {
       setTitle(data.protein_name || "Missing PDB ID");
-      if(data.output.ss){
-        setSS(data.output.ss); // if a subgraph call, should not set the SS
+      if(data.output.ss){ // set secondary structure from JSON output
+        setSS(data.output.ss);
       }
-      window.d3graphscript({
-        width: dimensions.width*1.1, //temporary
-        height: dimensions.height*1.2, //temporary
-        graph: data.output,
-        collision: 0.5,
-        charge: -800,
-        directed: true
-    }); // Call d3graph script on what we fetched!
-    }
-  }, [data, dimensions, setTitle, setSS]);
+      if(data.output.chainsList){
+        console.log(data.output.chainsList);
+        setChainsObject(data.output.chainsList);
+      }
+      // Check if the d3graphscript is already loaded or not
+      if (window.d3graphscript) {
+        window.d3graphscript({
+          width: dimensions.width*1.1,
+          height: dimensions.height*1.2,
+          graph: data.output,
+          collision: 0.5,
+          charge: -800,
+          directed: true
+        });
+      } else {
+        // Load D3 graph script
+        const loadD3 = () => {
+          const script = document.createElement('script');
+          script.src = '/FRONTEND_d3graphscript.js';  // Update this path as necessary
+          script.async = true;
 
-  /*return (
-    <div>
-    </div>
-  );*/
+          script.addEventListener('load', () => {
+            window.d3graphscript({
+              width: dimensions.width*1.1,
+              height: dimensions.height*1.2,
+              graph: data.output,
+              collision: 0.5,
+              charge: -800,
+              directed: true
+            });
+          });
+
+          document.body.appendChild(script);
+        };
+
+        loadD3();
+      }
+    }
+  }, [data, dimensions, setTitle, setSS, setChainsObject]);
+
   return;
 }
 
