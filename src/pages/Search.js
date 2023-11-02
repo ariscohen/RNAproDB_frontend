@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Search() {
+export default function Search() {
   return (
     <div>
       <h1>Search Page</h1>
@@ -8,5 +8,3 @@ function Search() {
     </div>
   );
 }
-
-export default Search;
