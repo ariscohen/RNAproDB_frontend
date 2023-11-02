@@ -26,6 +26,8 @@ function App() {
   const [subgraph, setSubgraph] = useState(false);
   const [activeTab, setActiveTab] = useState('2dgraph');
   const [ss, setSS] = useState(false);
+  const [chainsObject, setChainsObject] = useState(false);
+
 
   useEffect(() => {
     if (columnRef.current) {
@@ -47,8 +49,13 @@ function App() {
           <div className="container">
             <div className="column">
               <h1>3D Structure</h1>
-              <SeqViewer />
+                {chainsObject !== false && (
+                    <SeqViewer chainsObject={chainsObject}/>
+                        )}
                 <Routes>
+                {/* {ss !== false && (
+                  <Route path="/:pdbid" element={<NGLViewer />} />
+                )} */}
                       <Route path="/:pdbid" element={<NGLViewer />} />
                 </Routes>
             </div>
@@ -65,7 +72,7 @@ function App() {
                                 className={activeTab === 'ssgraph' ? 'active-tab' : ''}
                                 onClick={() => setActiveTab('ssgraph')}
                             >
-                                Secondary Structure
+                                RNA Secondary Structure
                             </button>
             </div>
 
@@ -76,11 +83,11 @@ function App() {
               <Subgraph setSubgraph={setSubgraph}/>
               <div id="right_column" onClick={window.reset_graph_colors}>
                 <Routes>
-                  <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} subgraph={subgraph} setSS ={setSS}/>} />
+                  <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} subgraph={subgraph} setSS ={setSS} setChainsObject = {setChainsObject}/>} />
                 </Routes>
               </div>
             </div>
-            {activeTab === 'ssgraph' && ss != false && (
+            {activeTab === 'ssgraph' && ss !== false && (
                             <div>
                               <SSiframe ss={ss}/>
                             </div>

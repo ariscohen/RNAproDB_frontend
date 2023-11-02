@@ -1,9 +1,27 @@
 #select-subgraph-button{
     float: right;
     display: 'inline-block';
+    padding: 10px 20px;
+    border: none;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  #select-subgraph-button:hover{
+    background-color: #D0D0D7;
   }
   #generate-subgraph-button{
     float: right;
     display: 'inline-block';
-    color: #4CAF50;
+    padding: 10px 20px;
+    border: none;
+    background-color: lightblue;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
   }
+  #generate-subgraph-button:hover{
+    background-color: lightgreen;
+  }
+

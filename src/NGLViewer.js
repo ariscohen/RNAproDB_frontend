@@ -16,7 +16,7 @@ function NGLViewer() {
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
-          window.loadStructure(`/cifs/${pdbid}-assembly1.cif`);
+          loadStructure(`/cifs/${pdbid}-assembly1.cif`);
         });
         document.body.appendChild(script2);
       });
