@@ -14,6 +14,7 @@ import Subgraph from './Subgraph'; // Import the new component at the top
 import SeqViewer from './Seqview';
 import SSViewer from './SSViewer';
 import SSiframe from './SSiframe';
+import Search from './pages/Search';
 
 function App() {
 

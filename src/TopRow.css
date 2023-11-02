@@ -1,16 +1,54 @@
 /* src/TopRow.css */
+/* src/TopRow.css */
 .top-row {
-    background: #333; /* Background color for the top row */
-    color: #fff; /* Text color */
-    padding: 1rem; /* Add padding for a modern look */
-    text-align: center;
-    max-height: 50px;
-  }
-  
-  .top-row h1 {
-    font-size: 2rem; /* Larger text size for the title */
-  }
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between items, can be used to push the button to the right */
+  align-items: center; /* Align items vertically in the center */
+  background: #333; /* Background color for the top row */
+  color: #fff; /* Text color */
+  padding: 1rem; /* Add padding for a modern look */
+  text-align: left; /* Align text to the left, flexbox will handle positioning */
+  max-height: 50px; /* Maximum height of the top row */
+}
 
-  .top-row h2 {
-    font-size: 1.25rem; /* Larger text size for the title */
-  }
+.top-row h1 {
+  font-size: 2rem; /* Larger text size for the title */
+  margin: 0; /* Remove default margin */
+}
+
+.top-row h2 {
+  font-size: 1.25rem; /* Smaller text size for subtitles if any */
+  margin: 0; /* Remove default margin */
+}
+
+.search-button {
+  margin-left: auto; /* Push the button to the far right */
+  padding: 0.5rem 1rem; /* Add some padding around the button */
+  background-color: blue; /* Button background color */
+  border: none; /* Remove border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  border-radius: 0.25rem; /* Rounded corners for the container */
+}
+
+.search-button button {
+  /* Button specific styles */
+  width: 100%; /* Make the button fill the link area */
+  border: none; /* Remove the border */
+  background: inherit; /* Use the background from the parent */
+  color: white; /* Ensure the text color is white */
+  padding: 0; /* Reset padding if needed */
+  cursor: pointer;
+  border-radius: inherit; /* Inherit the border-radius from the parent */
+}
+
+/* To remove default button styles */
+.search-button button:focus {
+  outline: none;
+}
+
+.search-button button:hover {
+  /* Styles for hover state */
+  background-color: darken(blue, 10%); /* Example to darken the button on hover */
+  /* You may need a preprocessor like SASS for the darken function or use a specific hex color */
+}
+
