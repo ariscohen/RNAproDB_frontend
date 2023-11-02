@@ -1,39 +1,214 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="57.332 73.3783 391.8914 43.8604" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
-  <g>
-    <g transform="matrix(1, 0, 0, 1, 80.000008, 13.809522)">
-      <rect x="268.572" y="63.968" width="33.81" height="1.905" style="stroke: rgb(0, 0, 0); fill: rgb(93, 227, 186); stroke-opacity: 0;"/>
-      <rect x="267.857" y="80.159" width="33.81" height="1.905" style="stroke: rgb(0, 0, 0); stroke-opacity: 0; fill: rgb(206, 93, 227);"/>
-      <rect x="267.857" y="-97.778" width="33.81" height="1.905" style="stroke: rgb(0, 0, 0); stroke-opacity: 0;" transform="matrix(1, 0, 0, -1, 0, 0)"/>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="306.666" y="67.143">Major only</text>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="306.186" y="84.523">Minor only</text>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="305.282" y="98.81">Stacks and others</text>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="17.614" y="68.334">RNA Backbone</text>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="17.807" y="82.143">WC pairs</text>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="17.762" y="96.857">Mismatches</text>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="57.332 73.3783 391.8914 43.8604"
+   version="1.1"
+   id="svg82"
+   sodipodi:docname="legend.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:bx="https://boxy-svg.com">
+  <defs
+     id="defs86" />
+  <sodipodi:namedview
+     id="namedview84"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.3427629"
+     inkscape:cx="196.09527"
+     inkscape:cy="21.838222"
+     inkscape:window-width="1920"
+     inkscape:window-height="1163"
+     inkscape:window-x="0"
+     inkscape:window-y="240"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g78" />
+  <g
+     id="g80">
+    <g
+       transform="matrix(1, 0, 0, 1, 80.000008, 13.809522)"
+       id="g36">
+      <rect
+         x="268.572"
+         y="63.968"
+         width="33.81"
+         height="1.905"
+         style="stroke: rgb(0, 0, 0); fill: rgb(93, 227, 186); stroke-opacity: 0;"
+         id="rect18" />
+      <rect
+         x="267.857"
+         y="80.159"
+         width="33.81"
+         height="1.905"
+         style="stroke: rgb(0, 0, 0); stroke-opacity: 0; fill: rgb(206, 93, 227);"
+         id="rect20" />
+      <rect
+         x="267.857"
+         y="-97.778"
+         width="33.81"
+         height="1.905"
+         style="stroke: rgb(0, 0, 0); stroke-opacity: 0;"
+         transform="matrix(1, 0, 0, -1, 0, 0)"
+         id="rect22" />
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="306.666"
+         y="67.143"
+         id="text24">Major only</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="306.186"
+         y="84.523"
+         id="text26">Minor only</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="305.282"
+         y="98.81"
+         id="text28">Stacks and others</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="17.614"
+         y="68.334"
+         id="text30">RNA Backbone</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="17.807"
+         y="82.143"
+         id="text32">WC pairs</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="17.762"
+         y="96.857"
+         id="text34">Mismatches</text>
     </g>
-    <g transform="matrix(1, 0, 0, 1, -122.380959, 37.619049)">
-      <rect x="438.572" y="50.11" width="15" height="15" style="stroke: rgb(0, 0, 0); fill: rgb(198, 198, 198);"/>
-      <rect x="377" y="50.874" width="15" height="15" style="stroke: rgb(0, 0, 0); fill: rgb(255, 255, 255);"/>
-      <rect x="407.381" y="50.397" width="15" height="15" style="stroke: rgb(0, 0, 0); fill: rgb(232, 232, 232);"/>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="375.761" y="77.619">Helix</text>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="404.355" y="77.285">Sheet</text>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;" x="438.287" y="77.334">Loop</text>
+    <g
+       transform="matrix(1, 0, 0, 1, -122.380959, 37.619049)"
+       id="g50">
+      <rect
+         x="438.572"
+         y="50.11"
+         width="15"
+         height="15"
+         style="stroke: rgb(0, 0, 0); fill: rgb(198, 198, 198);"
+         id="rect38" />
+      <rect
+         x="377"
+         y="50.874"
+         width="15"
+         height="15"
+         style="stroke: rgb(0, 0, 0); fill: rgb(255, 255, 255);"
+         id="rect40" />
+      <rect
+         x="407.381"
+         y="50.397"
+         width="15"
+         height="15"
+         style="stroke: rgb(0, 0, 0); fill: rgb(232, 232, 232);"
+         id="rect42" />
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="375.761"
+         y="77.619"
+         id="text44">Helix</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="404.355"
+         y="77.285"
+         id="text46">Sheet</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 8px; white-space: pre;"
+         x="438.287"
+         y="77.334"
+         id="text48">Loop</text>
     </g>
-    <path d="M -94.332 -81.172 H -69.15 L -69.15 -84.922 L -57.332 -79.922 L -69.15 -74.922 L -69.15 -78.672 H -94.332 V -81.172 Z" style="fill: rgb(96, 95, 95); stroke: rgb(0, 0, 0); stroke-opacity: 0;" transform="matrix(-1, 0, 0, -1, 0, 0)" bx:shape="arrow -94.332 -84.922 37 10 2.5 11.818 0 1@a08c046d"/>
-    <line style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-dasharray: 4; stroke-width: 3px;" x1="61.428" y1="93.492" x2="95.237" y2="93.016"/>
-    <line style="fill: rgb(216, 216, 216); stroke-dasharray: 4; stroke: rgb(242, 147, 109); stroke-width: 3px;" x1="61.19" y1="108.968" x2="94.999" y2="108.492"/>
-    <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 10px; white-space: pre;" x="263.048" y="82.381"> Amino acids</text>
-    <g>
-      <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 10px; white-space: pre;" x="182.033" y="82.666">Bases</text>
-      <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(144, 204, 132);" cx="163.81" cy="101.428" rx="8.571" ry="8.571"/>
-      <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(174, 199, 232);" cx="185.714" cy="101.429" rx="8.571" ry="8.571"/>
-      <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(219, 219, 141);" cx="207.143" cy="101.428" rx="8.571" ry="8.571"/>
-      <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(255, 152, 150);" cx="228.572" cy="101.476" rx="8.571" ry="8.571"/>
-      <text style="fill: rgb(51, 51, 51); font-family: 'Courier New'; font-size: 11px; font-weight: 700; white-space: pre;" x="160.095" y="104.715">A</text>
-      <text style="fill: rgb(51, 51, 51); font-family: 'Courier New'; font-size: 11px; font-weight: 700; white-space: pre;" x="182.1" y="104.852">C</text>
-      <text style="fill: rgb(51, 51, 51); font-family: 'Courier New'; font-size: 11px; font-weight: 700; white-space: pre;" x="203.25" y="104.762">G</text>
-      <text style="fill: rgb(51, 51, 51); font-family: 'Courier New'; font-size: 11px; font-weight: 700; white-space: pre;" x="224.631" y="104.81">U</text>
+    <path
+       d="M -94.332 -81.172 H -69.15 L -69.15 -84.922 L -57.332 -79.922 L -69.15 -74.922 L -69.15 -78.672 H -94.332 V -81.172 Z"
+       style="fill: rgb(96, 95, 95); stroke: rgb(0, 0, 0); stroke-opacity: 0;"
+       transform="matrix(-1, 0, 0, -1, 0, 0)"
+       bx:shape="arrow -94.332 -84.922 37 10 2.5 11.818 0 1@a08c046d"
+       id="path52" />
+    <line
+       style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-dasharray: 4; stroke-width: 3px;"
+       x1="61.428"
+       y1="93.492"
+       x2="95.237"
+       y2="93.016"
+       id="line54" />
+    <line
+       style="fill: rgb(216, 216, 216); stroke-dasharray: 4; stroke: rgb(242, 147, 109); stroke-width: 3px;"
+       x1="61.19"
+       y1="108.968"
+       x2="94.999"
+       y2="108.492"
+       id="line56" />
+    <text
+       style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 10px; white-space: pre;"
+       x="263.048"
+       y="82.381"
+       id="text58"> Amino acids</text>
+    <g
+       id="g78">
+      <text
+         style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 10px; white-space: pre;"
+         x="182.033"
+         y="82.666"
+         id="text60">Bases</text>
+      <ellipse
+         style="stroke:rgb(0, 0, 0);fill:#ff9896;fill-opacity:1"
+         cx="163.81"
+         cy="101.428"
+         rx="8.571"
+         ry="8.571"
+         id="ellipse62" />
+      <ellipse
+         style="stroke:rgb(0, 0, 0);fill:#dbdb8d;fill-opacity:1"
+         cx="185.714"
+         cy="101.429"
+         rx="8.571"
+         ry="8.571"
+         id="ellipse64" />
+      <ellipse
+         style="stroke:rgb(0, 0, 0);fill:#90cc84;fill-opacity:1"
+         cx="207.143"
+         cy="101.428"
+         rx="8.571"
+         ry="8.571"
+         id="ellipse66" />
+      <ellipse
+         style="stroke:rgb(0, 0, 0);fill:#aec7e8;fill-opacity:1"
+         cx="228.572"
+         cy="101.476"
+         rx="8.571"
+         ry="8.571"
+         id="ellipse68" />
+      <text
+         style="fill: rgb(51, 51, 51); font-family: 'Courier New'; font-size: 11px; font-weight: 700; white-space: pre;"
+         x="160.095"
+         y="104.715"
+         id="text70">A</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: 'Courier New'; font-size: 11px; font-weight: 700; white-space: pre;"
+         x="182.1"
+         y="104.852"
+         id="text72">C</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: 'Courier New'; font-size: 11px; font-weight: 700; white-space: pre;"
+         x="203.25"
+         y="104.762"
+         id="text74">G</text>
+      <text
+         style="fill: rgb(51, 51, 51); font-family: 'Courier New'; font-size: 11px; font-weight: 700; white-space: pre;"
+         x="224.631"
+         y="104.81"
+         id="text76">U</text>
     </g>
   </g>
 </svg>
