@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
+import './NewRnaView.css'
 
 function NewRnaView() {
     let { pdbid } = useParams();
@@ -11,7 +12,7 @@ function NewRnaView() {
         <div>
           {/* Display the image only if pdbid is present */}
           {pdbid && (
-            <img src={imagePath} alt={`Structure for ${pdbid}`} />
+            <img src={imagePath} alt={`Structure for ${pdbid}`} className="responsive-image"/>
           )}
         </div>
       );

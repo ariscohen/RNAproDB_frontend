@@ -1,0 +1,5 @@
+.responsive-image {
+    max-width: 100%; /* Maximum width of the image is 100% of the container */
+    height: auto;    /* Height is set to auto to maintain aspect ratio */
+    display: block;  /* Images are inline by default, block will prevent unexpected spacing around the image */
+  }
