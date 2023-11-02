@@ -452,7 +452,12 @@ function d3graphscript(config = {
     }
     else{
         multiple_select = [];
-        parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
+        try{ // try catch in the case the graph isn't there!
+          parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
+        }
+        catch(error){
+          console.error(error);
+        }
     }
     // stage_nm1.getComponentsByName("my_structure").autoView()
   

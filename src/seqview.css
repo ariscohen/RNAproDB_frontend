@@ -42,14 +42,35 @@
   transform: translateY(-50%);
 }
 #horizontal-center { 
+  padding: 10px 20px;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin: 10px;
   position: relative;
+  cursor: pointer;
   left: 70%;
   top: 50%;
   transform: translate(-50%,0%);
 }
+#horizontal-center:hover {
+  background-color: #D0D0D7;  
+  }
 
 .seqdiv{
 padding: 1rem;
 max-height:150px;
 overflow-y:auto;
 }
+
+#seq-button{
+  padding: 10px 20px;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
+}
+#seq-button:hover {
+  background-color: #D0D0D7;  
+  }
