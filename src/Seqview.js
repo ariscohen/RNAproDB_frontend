@@ -2,19 +2,15 @@ import React, { useEffect } from 'react';
 import $ from 'jquery';
 import './seqview.css';
 
+var seqdiv;
+var seqbutton;
+var selected_chain;
+var seqview;
+var showseq = false;
+
 
 function SeqViewer(chainsObject){
 
-    var pro_list; 
-    var rna_list;
-    var seqview;
-    var showseq = false;
-    var seqbutton;
-    var reslist;
-    var selected_chain;
-    var seqdiv;
-    
-    
     let d3to1 = {'CYS': 'C', 'ASP': 'D', 'SER': 'S', 'GLN': 'Q', 'LYS': 'K',
             'ILE': 'I', 'PRO': 'P', 'THR': 'T', 'PHE': 'F', 'ASN': 'N',
             'GLY': 'G', 'HIS': 'H', 'LEU': 'L', 'ARG': 'R', 'TRP': 'W',
@@ -133,12 +129,9 @@ function SeqViewer(chainsObject){
         //     var cname = reslist[i].split(':')[1];
         //     if (!chains.includes(cname)) chains.push(cname);
         // }
-        console.log("HI!");
-        console.log(chainsObject);
         for (var i=0; i<chainsObject.chainsObject.length; i++ ){
             chains.push(chainsObject.chainsObject[i].chainId);
        }
-       console.log(chains);
 
         for (var i=0; i<chains.length; i++ ){
             var option = document.createElement("option")
@@ -182,7 +175,7 @@ function SeqViewer(chainsObject){
     function populate(){
           seqview = document.getElementsByClassName('sequence_view')[0];
           seqbutton = document.getElementById('seq-button');
-    
+
           if (!showseq){
            
            createSeqview(seqview)
@@ -238,10 +231,10 @@ function SeqViewer(chainsObject){
             
        script2.async = true;
 
-return  <div><button id="seq-button" class="button4 button4" onClick={populate}>Show sequence viewer</button> 
-        <select onChange={selectOption} class='dropdown' id="horizontal-center" hidden="true"></select>
-        <div class="sequence_view"></div>
-                </div>;
+    return  <div><button id="seq-button" class="button4 button4" onClick={populate}>Show sequence viewer</button> 
+       <select onChange={selectOption} class='dropdown' id="horizontal-center" hidden="true"></select>
+       <div class="sequence_view"></div>
+               </div>;
 }
 
 export default SeqViewer;
