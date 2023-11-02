@@ -14,6 +14,7 @@ import Subgraph from './Subgraph'; // Import the new component at the top
 import SeqViewer from './Seqview';
 import SSViewer from './SSViewer';
 import SSiframe from './SSiframe';
+import NewRnaView from './NewRnaView';
 
 function App() {
 
@@ -73,6 +74,12 @@ function App() {
                             >
                                 RNA Secondary Structure
                             </button>
+                            <button 
+                                className={activeTab === 'newRNAview' ? 'active-tab' : ''}
+                                onClick={() => setActiveTab('newRNAview')}
+                            >
+                                New RNA View
+                            </button>
             </div>
 
 
@@ -91,6 +98,13 @@ function App() {
                               <SSiframe ss={ss}/>
                             </div>
                         )}
+            {activeTab === 'newRNAview' && (
+                <div>
+                  <Routes>
+                    <Route path="/:pdbid" element={<NewRnaView />} />
+                  </Routes>
+                </div>
+            )}
           </div>
         </div>
             <BotRow />
