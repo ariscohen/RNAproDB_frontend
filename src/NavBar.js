@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function NavBar() {
     return (
     <nav className="nav">
-        <Link to= "/" className="site-title">RNAproDB </Link>
+        <Link to= "/" className="site-title">RNAproDB</Link>
         <ul>
             <li>
                 <Link to="/">Home</Link>

@@ -1,5 +1,4 @@
 /* src/TopRow.css */
-/* src/TopRow.css */
 .top-row {
   display: flex; /* Use flexbox for layout */
   justify-content: space-between; /* Space between items, can be used to push the button to the right */
@@ -20,3 +19,14 @@
   font-size: 1.25rem; /* Smaller text size for subtitles if any */
   margin: 0; /* Remove default margin */
 }
+
+.SearchBar {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between items, can be used to push the button to the right */
+  align-items: center; /* Align items vertically in the center */
+  background: #333; /* Background color for the top row */
+  color: #fff; /* Text color */
+  padding: 1rem; /* Add padding for a modern look */
+  text-align: left; /* Align text to the left, flexbox will handle positioning */
+  max-height: 50px; /* Maximum height of the top row */
+}   

@@ -4,8 +4,6 @@ import { useParams } from 'react-router-dom';
 
 function NGLViewer() {
     let { pdbid } = useParams();
-    console.log("NGLViewer has been called!")
-    console.log(pdbid);
     useEffect(() => { //loads scripts async
     const loadNGL = () => {
       const script1 = document.createElement('script');

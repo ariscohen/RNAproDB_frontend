@@ -17,7 +17,7 @@
 
 
 import {Home, Search, Docs} from './pages';
-import {Outlet, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import NavBar from './NavBar';
 import './NavBar.css';
 import BotRow from './BotRow';
@@ -37,6 +37,7 @@ export default function App() {
       </>
     </div>
   );
+}
   // //gets the column width and height to pass into PythonGraph
   // const columnRef = useRef(null);
   // const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -124,4 +125,3 @@ export default function App() {
     // </>
     // </div>
   // );
-}
