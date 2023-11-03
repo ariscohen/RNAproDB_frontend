@@ -27,7 +27,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('2dgraph');
   const [ss, setSS] = useState(false);
   const [chainsObject, setChainsObject] = useState(false);
-
+  const [tooLarge, setTooLarge] = useState(false);
 
   useEffect(() => {
     if (columnRef.current) {
@@ -50,8 +50,8 @@ function App() {
             <div className="column">
               <h1>3D Structure</h1>
                 {chainsObject !== false && (
-                    <SeqViewer chainsObject={chainsObject}/>
-                        )}
+                  <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
+                  )}
                 <Routes>
                 {/* {ss !== false && (
                   <Route path="/:pdbid" element={<NGLViewer />} />
@@ -86,10 +86,11 @@ function App() {
             {/* Set visibility based on show2DGraph */}
             <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none' }}>
               <img src="/legend.svg" alt="Nature" class="responsive_img"/>
-              <Subgraph setSubgraph={setSubgraph}/>
+              <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph}/>
               <div id="right_column" onClick={window.reset_graph_colors}>
                 <Routes>
-                  <Route path="/:pdbid" element={<NewPythonGraph dimensions={dimensions} subgraph={subgraph} setSS ={setSS} setChainsObject = {setChainsObject}/>} />
+                  <Route path="/:pdbid" element={<NewPythonGraph setTooLarge = {setTooLarge} 
+                  dimensions={dimensions} subgraph={subgraph} setSS ={setSS} setChainsObject = {setChainsObject} tooLarge={tooLarge}/>} />
                 </Routes>
               </div>
             </div>

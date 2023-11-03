@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
+import $ from 'jquery';
 
-function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject }) {
+function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLarge, tooLarge }) {
   const [data, setData] = useState(null);
   const { pdbid } = useParams();
   const { setTitle } = useContext(TitleContext);
+  const [tooLargeMessage, setTooLargeMessage] = useState(''); // Added state for too large message
 
   useEffect(() => {
     async function fetchData() {
@@ -15,7 +17,6 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject }) {
         //const response = await fetch(`http://10.136.114.14:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         // const response = await fetch(`http://10.136.113.92:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         if (!subgraph){
-          console.log("In here!");
           response = await fetch(`http://localhost:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         }
         else{
@@ -46,51 +47,70 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject }) {
   // data is everything, data.output is the nodes/edges, data.title is the paper title
   useEffect(() => {
     if (data && data.output) {
+            // CHECK IF TOO LARGE HERE!
+      if(data.too_large){
+        setTooLarge(true);
+        setTooLargeMessage("The graph is too large to be displayed. Please select a subgraph."); // Set message when graph is too large
+      }
+      else{
+        setTooLarge(false);
+        setTooLargeMessage(""); // Clear message when graph is not too large
+      }
       setTitle(data.protein_name || "Missing PDB ID");
       if(data.output.ss){ // set secondary structure from JSON output
         setSS(data.output.ss);
       }
       if(data.output.chainsList){
-        console.log(data.output.chainsList);
         setChainsObject(data.output.chainsList);
       }
-      // Check if the d3graphscript is already loaded or not
-      if (window.d3graphscript) {
-        window.d3graphscript({
-          width: dimensions.width*1.1,
-          height: dimensions.height*1.2,
-          graph: data.output,
-          collision: 0.5,
-          charge: -800,
-          directed: true
-        });
-      } else {
-        // Load D3 graph script
-        const loadD3 = () => {
-          const script = document.createElement('script');
-          script.src = '/FRONTEND_d3graphscript.js';  // Update this path as necessary
-          script.async = true;
 
-          script.addEventListener('load', () => {
-            window.d3graphscript({
-              width: dimensions.width*1.1,
-              height: dimensions.height*1.2,
-              graph: data.output,
-              collision: 0.5,
-              charge: -800,
-              directed: true
-            });
+      
+      // If script is not loaded, should be loaded regardless. Just don't call d3graphscript!
+
+      // If structure is not too large, load it immediately!
+      if(!data.too_large){
+        // Check if the d3graphscript is already loaded or not
+        if (window.d3graphscript) {
+          window.d3graphscript({
+            width: dimensions.width*1.1,
+            height: dimensions.height*1.2,
+            graph: data.output,
+            collision: 0.5,
+            charge: -800,
+            directed: true
           });
+        } else {
+          // Load D3 graph script
+          const loadD3 = () => {
+            const script = document.createElement('script');
+            script.src = '/FRONTEND_d3graphscript.js';  // Update this path as necessary
+            script.async = true;
 
-          document.body.appendChild(script);
-        };
+            script.addEventListener('load', () => {
+              window.d3graphscript({
+                width: dimensions.width*1.1,
+                height: dimensions.height*1.2,
+                graph: data.output,
+                collision: 0.5,
+                charge: -800,
+                directed: true
+              });
+            });
 
-        loadD3();
+            document.body.appendChild(script);
+          };
+
+          loadD3();
+        }
       }
+      
     }
   }, [data, dimensions, setTitle, setSS, setChainsObject]);
 
-  return;
+    // Render the tooLargeMessage if it's set
+    if (tooLarge) {
+      return <span>{tooLargeMessage}</span>;
+    }
 }
 
 export default NewPythonGraph;

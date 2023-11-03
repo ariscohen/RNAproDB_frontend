@@ -9,7 +9,7 @@ var seqview;
 var showseq = false;
 
 
-function SeqViewer(chainsObject){
+function SeqViewer({chainsObject, tooLarge}){
 
     let d3to1 = {'CYS': 'C', 'ASP': 'D', 'SER': 'S', 'GLN': 'Q', 'LYS': 'K',
             'ILE': 'I', 'PRO': 'P', 'THR': 'T', 'PHE': 'F', 'ASN': 'N',
@@ -57,15 +57,15 @@ function SeqViewer(chainsObject){
         //         }
         //     }
         
-        for (var i=0; i<chainsObject.chainsObject.length; i++ ){
-            if(chainsObject.chainsObject[i].chainId === selected_chain){ // if the residue matches
-                const resList = chainsObject.chainsObject[i].residues;
+        for (var i=0; i<chainsObject.length; i++ ){
+            if(chainsObject[i].chainId === selected_chain){ // if the residue matches
+                const resList = chainsObject[i].residues;
                 for(var j = 0; j < resList.length; j++){
                     var span = document.createElement("span");
                     span.className = "sequence-present";
                     let resname = resList[j].name;
                     let resid = resList[j].pos;
-                    let chain = chainsObject.chainsObject[i].chainId;
+                    let chain = chainsObject[i].chainId;
 
                     if (resname in d3to1){
                         span.innerHTML = d3to1[resname];
@@ -129,8 +129,8 @@ function SeqViewer(chainsObject){
         //     var cname = reslist[i].split(':')[1];
         //     if (!chains.includes(cname)) chains.push(cname);
         // }
-        for (var i=0; i<chainsObject.chainsObject.length; i++ ){
-            chains.push(chainsObject.chainsObject[i].chainId);
+        for (var i=0; i<chainsObject.length; i++ ){
+            chains.push(chainsObject[i].chainId);
        }
 
         for (var i=0; i<chains.length; i++ ){
@@ -172,6 +172,8 @@ function SeqViewer(chainsObject){
         //return div.innerHTML.toString()
     }
     
+
+
     function populate(){
           seqview = document.getElementsByClassName('sequence_view')[0];
           seqbutton = document.getElementById('seq-button');
@@ -222,6 +224,12 @@ function SeqViewer(chainsObject){
         }
     }
 
+    useEffect(() => {
+        if (tooLarge) {
+          // Directly trigger the click event using the underlying DOM event
+          document.getElementById('seq-button').click();
+        }
+      }, [tooLarge]); // This will run only when `tooLarge` changes
 
         const script2 = document.createElement('script');
         script2.src = '/ngl_viewer_functions_nm.js';

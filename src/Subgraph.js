@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Subgraph.css';
 
 
-function Subgraph({setSubgraph}) {
+function Subgraph({setSubgraph, tooLarge}) {
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState(""); // Step 1: New state for input value
   const [showGenerateButton, setShowGenerateButton] = useState(false); // New state
@@ -23,6 +23,13 @@ function Subgraph({setSubgraph}) {
     }
     setSubgraph(newSubgraph);
   };
+
+  useEffect(() => {
+    if (tooLarge) {
+      // Directly trigger the click event using the underlying DOM event
+      document.getElementById('select-subgraph-button').click();
+    }
+  }, [tooLarge]); // This will run only when `tooLarge` changes
 
   return (
     <div>
