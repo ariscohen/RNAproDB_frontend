@@ -4,6 +4,7 @@ import { useLocation, Link } from 'react-router-dom'; // Import useLocation hook
 import './TopRow.css'; // You can create a separate CSS file for this component
 import TitleContext from './TitleContext';
 import SearchBar from './SearchBar';
+import SimpleSearchBar from './simpleSearchBar';
 import { Search } from './pages';
 
 function TopRow() {
@@ -19,6 +20,7 @@ function TopRow() {
       {/* Render the pdbid value if available, otherwise render a default text */}
       <span><h2>{pdbid ? pdbid : "Missing PDB ID"} : {title}</h2></span>
       {/* <SearchBar /> */}
+      <SimpleSearchBar />
     </div>
   );
 }
