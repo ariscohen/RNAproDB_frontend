@@ -9,6 +9,7 @@ export default function SimpleSearchBar() {
 
     const handleSearch = () => {
         navigate(`/${searchTerm}`);
+        window.location.reload(false);
     };
 
     return (

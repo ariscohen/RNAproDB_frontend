@@ -25,7 +25,7 @@ function NGLViewer() {
     };
 
     loadNGL();
-  }, []);
+  }, [pdbid]);
 
   return <div id="viewport" style={{ width: '100%', height: '700px' }}></div>;
 }
