@@ -70,29 +70,29 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
       // If structure is not too large, load it immediately!
       if(!data.too_large){
         // Check if the d3graphscript is already loaded or not
-        if (window.d3graphscript) {
-          window.d3graphscript({
+        if (window.static_d3graphscript) {
+          window.static_d3graphscript({
             width: dimensions.width*1.1,
             height: dimensions.height*1.2,
             graph: data.output,
             collision: 0.5,
-            charge: -800,
+            charge: -10,
             directed: true
           });
         } else {
           // Load D3 graph script
           const loadD3 = () => {
             const script = document.createElement('script');
-            script.src = '/FRONTEND_d3graphscript.js';  // Update this path as necessary
+            script.src = '/STATIC_FRONTEND_d3graphscript.js';  // Update this path as necessary
             script.async = true;
 
             script.addEventListener('load', () => {
-              window.d3graphscript({
+              window.static_d3graphscript({
                 width: dimensions.width*1.1,
                 height: dimensions.height*1.2,
                 graph: data.output,
-                collision: 0.5,
-                charge: -800,
+                collision: 0.1,
+                // charge: -10,
                 directed: true
               });
             });
