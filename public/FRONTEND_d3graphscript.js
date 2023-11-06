@@ -158,7 +158,7 @@ function d3graphscript(config = {
   .style("fill", function(d) {return d.node_fontcolor;}) // set the text fill color to the same as node color
   .style("font-family", "monospace");
   
-  // Create Circles for nodes with shape_class of "squares"
+  // Create Squares for nodes with shape_class of "squares"
   d3.selectAll('g.node[shape_class="rect"]').append("rect")
     .attr("width", function(d) { return d.node_size; })					// NODE SIZE
     .attr("height", function(d) { return d.node_size; })					// NODE SIZE
