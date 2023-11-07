@@ -285,7 +285,41 @@ function collide(alpha) {
 // collision detection end
 
 
-
+  // --------- MARKER -----------
+  
+  var data_marker = [
+    { id: 0, name: 'circle', path: 'M 0, 0  m -5, 0  a 5,5 0 1,0 10,0  a 5,5 0 1,0 -10,0', viewbox: '-6 -6 12 12' }
+  , { id: 1, name: 'square', path: 'M 0,0 m -5,-5 L 5,-5 L 5,5 L -5,5 Z', viewbox: '-5 -5 10 10' }
+  , { id: 2, name: 'arrow', path: 'M 0,0 m -5,-5 L 5,0 L -5,5 Z', viewbox: '-5 -5 10 10' }
+  , { id: 3, name: 'stub', path: 'M 0,0 m -1,-5 L 1,-5 L 1,5 L -1,5 Z', viewbox: '-1 -5 2 10' }
+  ]
+  
+  //console.log(JSON.stringify(link))
+  
+  svg.append("defs").selectAll("marker")
+    .data(data_marker)
+    .enter()
+    .append('svg:marker')
+      .attr('id', function(d){ return 'marker_' + d.name})
+      .attr('markerHeight', 14) //ARI modified
+      .attr('markerWidth', 17) //ARI modified
+      //.attr('markerUnits', 'strokeWidth')
+      .attr("markerUnits", "userSpaceOnUse")                   // Fix marker width
+      .attr('orient', 'auto')
+      //.attr('refX', -15)                                     // Offset marker-start
+      .attr('refX', 21)                                        // Offset marker-end //ARI modified
+      .attr('refY', 0)
+      .attr('viewBox', function(d){ return d.viewbox })
+      .append('svg:path')
+      //.attr("transform", "rotate(180)")                    // Marker-start mirrored
+        .attr('d', function(d){ return d.path })               // Marker type
+        //.style("fill", function(d) {return d.marker_color;}) // Marker color
+        .style("fill", '#605f5f')                              // Marker color
+        .style("stroke", '#605f5f')                            // Marker edge-color
+        .style("opacity", 1)                                // Marker opacity
+        .style("stroke-width", 1);                             // Marker edge thickness
+  
+  // --------- END MARKER -----------
 
 
 
