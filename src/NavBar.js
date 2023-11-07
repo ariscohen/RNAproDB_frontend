@@ -10,7 +10,7 @@ export default function NavBar() {
                 <Link to="/">Home</Link>
             </li>
             <li>
-                <Link to="/search">Search</Link>
+                <Link to="/search">Advanced Search</Link>
             </li>
             <li>
                 <Link to="/docs">Documentation</Link>
