@@ -20,7 +20,10 @@ function static_d3graphscript(config = {
     //Remove existing SVG if it exists
     d3.select("svg").remove();
   
-    var isForcefieldActive = true;
+    var isForcefieldActive = false;
+    // TOGGLE THE BUTTON IF WE NEED TO!
+    // BASICALLY, RESET THE BUTTON WHEN THIS IS CALLED! OR DO IT ABOVE IN NEWPYTHONGRAPH
+
     const forcefieldButton = document.getElementById("forcefieldButton");
     
     forcefieldButton.addEventListener("click", function() {

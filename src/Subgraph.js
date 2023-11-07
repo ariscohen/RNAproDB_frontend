@@ -33,7 +33,7 @@ function Subgraph({setSubgraph, tooLarge}) {
 
   return (
     <div>
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Freeze Graph </span>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Toggle Movement </span>
               <label class="switch">
                 <input id="forcefieldButton" type="checkbox" />
                 <span class="slider round"></span>
