@@ -667,7 +667,27 @@
     }
     function attrFunction() {
       var x = value.apply(this, arguments);
-      if (x == null) this.removeAttribute(name); else this.setAttribute(name, x);
+      // if(isNaN(x) && x !== "rect" && x !== "circle" && x!== undefined){
+      //   console.log("HI ARI 2");
+      //   console.log(x);
+      //   console.log(this);
+      //   console.log(arguments);
+      //   console.log(value);
+      // }
+      if (x == null){
+        this.removeAttribute(name);}
+       else{
+          if(isNaN(x) && x !== "rect" && x !== "circle" && x!== undefined && typeof x !== 'string'){
+            // console.log(x);
+            // console.log(this);
+            // console.log(arguments);
+            // console.log(value);
+            this.setAttribute(name, x);
+          }
+          else{
+            this.setAttribute(name, x);
+          }
+      }
     }
     function attrFunctionNS() {
       var x = value.apply(this, arguments);

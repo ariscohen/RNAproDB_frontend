@@ -53,13 +53,17 @@ function static_d3graphscript(config = {
     .nodes(graph.nodes) // Initialize nodes
     .links(graph.links) // Initialize links
     .linkDistance(100)  // You can customize this value
-    .charge(-250)       // You can customize this value
-    // .gravity(0.01)
+    .charge(-800) // Very low charge
+    .gravity(0)
+    // .linkStrength(0.1) // Weak link strength
+    .friction(0.2) // High friction to slow down movement
     .on('tick', tick)   // Tick function for the force simulation
 
     // Fix nodes position and start the simulation
     graph.nodes.forEach(function(d) {
         d.fixed = true; // Fix the nodes position
+        d.x = parseFloat(d.x);
+        d.y = parseFloat(d.y);
     });
 
     force.start(); // Start the simulation with nodes fixed
@@ -118,22 +122,26 @@ function static_d3graphscript(config = {
     //   .attr("y1", function(d) { return graph.nodes[d.source].y; })
     //   .attr("x2", function(d) { return graph.nodes[d.target].x; })
     //   .attr("y2", function(d) { return graph.nodes[d.target].y; });
-      .attr("x1", function(d) { console.log(d); return d.source.x; }) // these are apparently required for the force field to work #TODO
-      .attr("y1", function(d) { console.log(d); return d.source.y; })
-      .attr("x2", function(d) { console.log(d); return d.target.x; })
-      .attr("y2", function(d) { console.log(d); return d.target.y; });
+      .attr("x1", function(d) {return d.source.x; }) // these are apparently required for the force field to work #TODO
+      .attr("y1", function(d) {return d.source.y; })
+      .attr("x2", function(d) {return d.target.x; })
+      .attr("y2", function(d) {return d.target.y; });
   
     
-    // ADD TEXT ON THE EDGES (PART 1/2)
-     var linkText = svg.selectAll(".link-text")
-       .data(graph.links)
-       .enter().append("text")
-       .attr("class", "link-text")
-       .attr("font-size", function(d) {return d.label_fontsize + "px";})
-       .style("fill", function(d) {return d.label_color;})
-       .style("font-family", "Arial")
-       //.attr("transform", "rotate(90)")
-       .text(function(d) { return d.label; });
+    // // ADD TEXT ON THE EDGES (PART 1/2)
+    //  var linkText = svg.selectAll(".link-text")
+    //    .data(graph.links)
+    //    .enter().append("text")
+    //    .attr("class", "link-text")
+    //    .attr("font-size", function(d) {return d.label_fontsize + "px";})
+    //    .style("fill", function(d) {return d.label_color;})
+    //    .style("font-family", "Arial")
+    //    //.attr("transform", "rotate(90)")
+    //    .text(function(d) { return d.label; });
+    //   //  .attr("x1", function(d) { console.log(d); return d.source.x; }) // HI ARI TRYING THESE
+    //   //  .attr("y1", function(d) { console.log(d); return d.source.y; })
+    //   //  .attr("x2", function(d) { console.log(d); return d.target.x; })
+    //   //  .attr("y2", function(d) { console.log(d); return d.target.y; });
     
     // //Create nodes
     // var node = svg.selectAll(".node")
@@ -151,7 +159,7 @@ function static_d3graphscript(config = {
       .enter().append("g")
       .attr("class", "node")
       .attr("id", function(d) {var spl = d.name.split(":"); return `${spl[0]}:${spl[1]}:${spl[2]}`;})
-      .attr("shape_class", function(d) {console.log(d.shape); return d.shape;})
+      .attr("shape_class", function(d) {return d.shape;})
       .call(drag)
     //   .on('dblclick', connectedNodes); // HIGHLIGHT ON/OFF
     // console.log(node);
@@ -216,7 +224,6 @@ function static_d3graphscript(config = {
       })
       ;
       function zoomFit(transitionDuration) {
-        alert("THIS WORKED :)")
         var bounds = svg.node().getBBox();
         // console.log(bounds)
         var parent = svg.node().parentElement;
@@ -244,7 +251,51 @@ function static_d3graphscript(config = {
             .call(zoom.translate(translate).scale(scale).event);
       }
 
+
+ // collision detection
+  
+ var padding = 1, // separation between circleszoom
+ radius = 25;
+
+function collide(alpha) {
+ var quadtree = d3.geom.quadtree(graph.nodes);
+ return function(d) {
+   var rb = 2 * radius + padding,zoom
+     nx1 = d.x - rb,
+     nx2 = d.x + rb,
+     ny1 = d.y - rb,
+     ny2 = d.y + rb;
+   quadtree.visit(function(quad, x1, y1, x2, y2) {
+     if (quad.point && (quad.point !== d)) {
+       var x = d.x - quad.point.x,
+         y = d.y - quad.point.y,
+         l = Math.sqrt(x * x + y * y);
+       if (l < rb) {
+         l = (l - rb) / l * alpha;
+         d.x -= x *= l;
+         d.y -= y *= l;
+         quad.point.x += x;
+         quad.point.y += y;
+       }
+     }
+     return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+   });
+ };
+}
+// collision detection end
+
+
+
+
+
+
+
+
+
+
     //   var hasZoomFit = false; // Flag to ensure zoomFit is only called once
+    var timetostopautozoom = 0
+    var zoomstopthreshold = 100 // parameter, may not be optimal !!
       function tick(e) {
         // Update link positions
         link.attr("x1", function(d) { return d.source.x; })
@@ -259,12 +310,16 @@ function static_d3graphscript(config = {
             .attr("cy", function(d) { return d.y; });
         d3.selectAll("text").attr("x", function(d) { return d.x; })
             .attr("y", function(d) { return d.y; })
-        linkText.attr("x", function(d) { return (d.source.x + d.target.x) / 2; })  // ADD TEXT ON THE EDGES (PART 2/2)
-            .attr("y", function(d) { return (d.source.y + d.target.y) / 2; })
-            .attr("text-anchor", "middle");
-            ;
+        // linkText.attr("x", function(d) { return (d.source.x + d.target.x) / 2; })  // ADD TEXT ON THE EDGES (PART 2/2)
+        //     .attr("y", function(d) { return (d.source.y + d.target.y) / 2; })
+        //     .attr("text-anchor", "middle");
+        //     ;
         d3.selectAll("rect").attr("x", function(d) { return d.x; }) // change this 
             .attr("y", function(d) { return d.y; });
+        node.each(collide(0.5)); //COLLISION DETECTION. High means a big fight to get untouchable nodes (default=0.5)
+
+        timetostopautozoom += 1
+        if (timetostopautozoom < zoomstopthreshold) zoomFit(0);
       }
 
         // Call zoomFit once when the simulation cools down a bit
