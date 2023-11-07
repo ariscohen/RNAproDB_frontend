@@ -1,3 +1,6 @@
+var multiple_select = [];
+var prev_single_select;
+
 function static_d3graphscript(config = {
     // Default values
     width: 800,
@@ -161,9 +164,9 @@ function static_d3graphscript(config = {
       .attr("id", function(d) {var spl = d.name.split(":"); return `${spl[0]}:${spl[1]}:${spl[2]}`;})
       .attr("shape_class", function(d) {return d.shape;})
       .call(drag)
-    //   .on('dblclick', connectedNodes); // HIGHLIGHT ON/OFF
+      .on('dblclick', connectedNodes); // HIGHLIGHT ON/OFF
     // console.log(node);
-    // node.on('click', color_on_click); // ON CLICK HANDLER
+    node.on('click', color_on_click); // ON CLICK HANDLER
     
     // // Create Circles for nodes with shape_class of "circle"
 
@@ -370,5 +373,243 @@ function collide(alpha) {
           .map((key) => `${d[key]}`)
           .join('\n')
       )
+
+//Toggle stores whether the highlighting is on **********************
+var toggle = 0;
+//Create an array logging what is connected to what
+var linkedByIndex = {};
+for (i = 0; i < graph.nodes.length; i++) {
+  linkedByIndex[i + "," + i] = 1;
+};
+graph.links.forEach(function(d) {
+  linkedByIndex[d.source.index + "," + d.target.index] = 1;
+});
+//This function looks up whether a pair are neighbours
+function neighboring(a, b) {
+  return linkedByIndex[a.index + "," + b.index];
+}
+// format of string should be chain:residue:#
+function select_node(idToFind){
+  var escapedId = idToFind.replace(/:/g, "\\:");
+  var foundNode = d3.select("#" + escapedId);
+  return foundNode;
+}
+
+// format of string should be chain:residue:#
+function d3_highlight_node(idToFind){
+  var curNode = select_node(idToFind);
+  reset_node_colors();
+
+  // Set the color on click for rect
+  curNode.select("circle")
+  .style("fill", "yellow")
+
+  // Set the color on click for rect
+  curNode.select("rect")
+  .style("fill", "yellow");
+}
+window.d3_highlight_node = d3_highlight_node;
+
+
+function reset_node_colors(){
+  d3.selectAll(".node")
+  .select("circle")
+  .style("fill", function(d) {return d.node_color;})
+  .style("opacity", function(d) {return d.node_opacity;})
+  .style("stroke", function(d) {return d.node_color_edge;})
+  .style("stroke-width", function(d) {return d.edge_width;})
+  .attr("r", function(d) { return d.node_size; })
+  ;
+  d3.selectAll(".node")
+  .select("rect")
+  .style("fill", function(d) {return d.node_color;})
+  .style("opacity", function(d) {return d.node_opacity;})
+  .style("stroke", function(d) {return d.node_color_edge;})
+  .style("stroke-width", function(d) {return d.edge_width;})
+  ;
+}
+  function reset_graph_colors(e){
+      if(e['target']['nodeName']=='svg') {
+          reset_node_colors();
+          parent.resetView();
+      }
+  }
+window.reset_graph_colors = reset_graph_colors;
+
+// adds node to subgraph textbox, so subgraph can be computed
+function add_node_to_subgraph(chain, num){
+  let textBox = document.getElementById("subgraph-textbox");
+  if (textBox) {  // Check if the textBox is not null
+      textBox.value += `${chain}:${num},`;
+  }
+}
+
+  // COLOR ON CLICK
+function color_on_click() {
+  // Give the original color back for all nodes!
+  if (!d3.event.shiftKey)  reset_node_colors();
+  //console.log(d3.select(this).select())
+
+  var name_split = d3.select(this)[0][0]["__data__"]["name"].split(":");
+  var chain = name_split[0];
+  var residue = name_split[2];
+  
+  console.log(chain);
+  console.log(residue);
+
+  add_node_to_subgraph(chain, residue);
+
+  var nodeIdToFind = d3.select(this)[0][0]["__data__"]["name"]; // replace this with the ID you want to search for
+  var escapedId = nodeIdToFind.replace(/:/g, "\\:");
+  var foundNode = d3.select("#" + escapedId);
+
+  // console.log(chain);
+  // console.log(residue);
+  var selectionString = residue+":" + chain;
+  // console.log(selectionString);
+  if (d3.event.shiftKey){
+      if (multiple_select.includes(selectionString) ){
+          // console.log("here")
+          d3.select(this).select("circle")
+              .style("fill", function(d) {return d.node_color;})
+              .style("opacity", function(d) {return d.node_opacity;})
+              .style("stroke", function(d) {return d.node_color_edge;})
+              .style("stroke-width", function(d) {return d.edge_width;})
+              .attr("r", function(d) { return d.node_size; })
+          ;
+          d3.select(this).select("rect")
+              .style("fill", function(d) {return d.node_color;})
+              .style("opacity", function(d) {return d.node_opacity;})
+              .style("stroke", function(d) {return d.node_color_edge;})
+              .style("stroke-width", function(d) {return d.edge_width;})
+          ;
+          index = multiple_select.indexOf(selectionString);
+          multiple_select.splice(index, 1);
+          parent.zoomOnClick(multiple_select);
+          return;
+      }
+  
+      multiple_select.push(selectionString);
+      parent.zoomOnClick(multiple_select);
+  }
+  else{
+      multiple_select = [];
+      try{ // try catch in the case the graph isn't there!
+        parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
+      }
+      catch(error){
+        console.error(error);
+      }
+  }
+  // stage_nm1.getComponentsByName("my_structure").autoView()
+
+      
+  if (!d3.event.shiftKey) {
+      if (prev_single_select == selectionString) {
+              reset_node_colors();
+              prev_single_select = null;
+              parent.resetView();
+              return;
+      }
+      else{
+          prev_single_select = selectionString;
+      }
+
+  }
+  
+  // Set the color on click for circles
+  d3.select(this).select("circle")
+  // .style("fill", {{ CLICK_FILL }})
+  .style("fill", "yellow")
+  // .style("stroke", "{{ CLICK_STROKE }}")
+  // .style("stroke-width", {{ CLICK_STROKEW }})
+  .attr("r", function(d) { return d.node_size*1.5; })
+  // .attr("r", function(d) { return d.node_size*1});
+
+  // Set the color on click for rect
+  d3.select(this).select("rect")
+  .style("fill", "yellow");
+
+}
+function connectedNodes() {
+  if (toggle == 0) {
+    //Reduce the opacity of all but the neighbouring nodes
+    d = d3.select(this).node().__data__;
+    node.style("opacity", function(o) {
+      return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
+    });
+    link.style("opacity", function(o) {
+      return d.index == o.source.index | d.index == o.target.index ? 1 : 0.1;
+    });
+    //Reduce the op
+    toggle = 1;
+  } else {
+    //Put them back to opacity=1
+    node.style("opacity", 0.95);
+    link.style("opacity", 1);
+
+    toggle = 0;
+  }
+}
+//*************************************************************
+
+
+//adjust threshold
+function threshold() {
+  let thresh = this.value;
+
+  // console.log('Setting threshold', thresh)
+  graph.links.splice(0, graph.links.length);
+
+  for (var i = 0; i < graphRec.links.length; i++) {
+    if (graphRec.links[i].edge_weight > thresh) {
+      graph.links.push(graphRec.links[i]);
+    }
+  }
+  restart();
+}
+
+d3.select("#thresholdSlider").on("change", threshold);
+
+//Restart the visualisation after any node and link changes
+function restart() {
+
+  link = link.data(graph.links);
+  link.exit().remove();
+  link.enter().insert("line", ".node").attr("class", "link");
+  link.style("stroke-width", function(d) {return d.edge_width;});           // LINK-WIDTH AFTER BREAKING WITH SLIDER
+  //link.style('marker-start', function(d){ return 'url(#marker_' + d.marker_start  + ')' })
+link.style("marker-end", function(d) {                                    // Include the markers.
+  if (config.directed) {return 'url(#marker_' + d.marker_end + ')' }})
+  link.style("stroke", function(d) {return d.color;});                      // EDGE-COLOR AFTER BREAKING WITH SLIDER
+
+  node = node.data(graph.nodes);
+  node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
+  force.start();
+}
+
+var originalLinkColors = {};
+
+function toggleHBondsColor() {
+  var newColor = "red"; 
+  const isChecked = document.getElementById("toggleHBondsCheckbox").checked;
+
+  graph.links.forEach(function(link, i) {
+      if (isChecked) {
+          if (link.my_type === "protein_rna_hbond" && link.color !== newColor) {
+              originalLinkColors[i] = link.color;
+              link.color = newColor;
+          }
+      } else {
+          if (link.my_type === "protein_rna_hbond" && originalLinkColors[i]) {
+              link.color = originalLinkColors[i];
+          }
+      }
+  });
+
+  restart();
+}
+document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
+
       zoomFit(0);
   }
