@@ -280,13 +280,13 @@ function loadStructure(structure_url) {
                   {
                     this.atomColor = function (atom) {
                       if (atom.resname == "A") {
-                          return 0x90CC84;  // orange
+                          return 0xFF9896;  // orange
                       }
                       else if (atom.resname == "C"){
-                        return 0xAEC7E8; //orange-red
+                        return 0xDBDB8D; //orange-red
                       }
                       else if (atom.resname == "G"){
-                        return 0xDBDB8D;  // red
+                        return 0x90cc84;  // red
                       }
                       else if (atom.resname == "U"){
                         return 0xFF9896;  // blue
