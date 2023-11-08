@@ -430,7 +430,7 @@ function reset_node_colors(){
   .style("stroke", function(d) {return d.node_color_edge;})
   .style("stroke-width", function(d) {return d.edge_width;})
   ;
-}
+  }
   function reset_graph_colors(e){
       if(e['target']['nodeName']=='svg') {
           reset_node_colors();
