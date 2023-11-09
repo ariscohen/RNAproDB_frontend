@@ -38,42 +38,65 @@ function zoomOnClick(selectionString){
 
 }
 
+function multiply(a, b) {
+  //console.log(a,b)
+  var aNumRows = a.length, aNumCols = a[0].length,
+      bNumRows = b.length, bNumCols = b[0].length,
+      m = new Array(aNumRows);  // initialize array of rows
+  for (var r = 0; r < aNumRows; ++r) {
+    m[r] = new Array(bNumCols); // initialize the current row
+    for (var c = 0; c < bNumCols; ++c) {
+      m[r][c] = 0;             // initialize the current cell
+      for (var i = 0; i < aNumCols; ++i) {
+        m[r][c] += a[r][i] * b[i][c];
+      }
+    }
+  }
+  return m;
+}
 
 function rotateFromMatrix(rotationMatrix) {
   // If `init_component_ac1` is your component
   init_component_ac1.autoView();
   var stage = init_component_ac1.stage; // Get the stage from the component
   rotationMatrix = rotationMatrix.rotationMatrix.rotationMatrix;
+  //console.log(rotationMatrix)
+  R = [rotationMatrix[3][0], rotationMatrix[3][1], rotationMatrix[3][2]]
   // The rest of your code remains the same, except that you use the stage variable
   // Example translation vector, set to zero for no translation
-  var translationVector = [-97.69450187683105, -49.99250030517578, -29.2889986038208];
+  var translationVector = [0,0,0];
   // var translationVector = [-500,-500,-500];
 
 
 
   // Convert to a 4x4 transformation matrix for NGL
-  var transformationMatrix = new Float32Array([
-    rotationMatrix[0][0], rotationMatrix[0][1], rotationMatrix[0][2], 0,
-    rotationMatrix[1][0], rotationMatrix[1][1], rotationMatrix[1][2], 0,
-    rotationMatrix[2][0], rotationMatrix[2][1], rotationMatrix[2][2], 0,
-    translationVector[0], translationVector[1], translationVector[2], 1
-  ]);
-  console.log("HI!")
-  console.log(transformationMatrix)
+  var transformationMatrix = [
+    [rotationMatrix[0][0], rotationMatrix[0][1], rotationMatrix[0][2], 0],
+    [rotationMatrix[1][0], rotationMatrix[1][1], rotationMatrix[1][2], 0],
+    [rotationMatrix[2][0], rotationMatrix[2][1], rotationMatrix[2][2], 0],
+    [translationVector[0], translationVector[1], translationVector[2], 1]
+  ];
+  
+  //console.log("HI!")
   let m = stage.viewerControls.getOrientation()
-  console.log("HI AGAIN")
-  console.log(m)
-  for(var i = 0; i <12; i++){
-    console.log(i);
-    console.log(m.elements[i]);
-    m.elements[i] = transformationMatrix[i];
+  
+  /*
+  combined_transform = multiply(transformationMatrix, T)
+  console.log(T)
+  for (i=0;i<4;i++){
+    for (j=0;j<4;j++){
+        //console.log(m.elements[i*4 + j])
+        m.elements[i*4 + j] = combined_transform[i][j];
+        //m.elements[i*4 + j] = T[i][j];
+    }
   }
-
+    */
   // Now apply this transformation matrix to the NGL stage's viewerControls
-  init_component_ac1.autoView();
-  console.log()
-  stage.viewerControls.orient(m);
-  init_component_ac1.autoView();
+  //console.log()
+  //console.log(R)
+  //stage.viewerControls.orient(m);
+  //init_component_ac1.setRotation(R);
+  //init_component_ac1.autoView();
 }
 
 function resetView(){
@@ -518,7 +541,7 @@ function loadStructure(structure_url, rotationMatrix) {
     // var principleAxes = stage_nm1.getComponentsByName("my_structure").list[0].structure.getPrincipalAxes();
     // stage_nm1.animationControls.rotate(principleAxes.getRotationQuaternion(), 0);
     init_component_ac1 = init_component;
-    rotateFromMatrix(rotationMatrix);
+    //rotateFromMatrix(rotationMatrix);
   }); 
 };
 
