@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
 import $ from 'jquery';
 
-function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLarge, tooLarge }) {
+function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix }) {
   const [data, setData] = useState(null);
   const { pdbid } = useParams();
   const { setTitle } = useContext(TitleContext);
@@ -63,6 +63,9 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
       if(data.output.chainsList){
         setChainsObject(data.output.chainsList);
       }
+      if(data.output.rotationMatrix){
+        setRotationMatrix(data.output.rotationMatrix);
+      }
 
       
       // If script is not loaded, should be loaded regardless. Just don't call d3graphscript!
@@ -73,7 +76,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
         if (window.static_d3graphscript) {
           window.static_d3graphscript({
             width: dimensions.width*1.1,
-            height: dimensions.height*1.2,
+            height: 700,
             graph: data.output,
             collision: 0.5,
             charge: -10,
@@ -89,7 +92,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
             script.addEventListener('load', () => {
               window.static_d3graphscript({
                 width: dimensions.width*1.1,
-                height: dimensions.height*1.2,
+                height: 700,
                 graph: data.output,
                 collision: 0.1,
                 // charge: -10,
@@ -105,7 +108,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
       }
       
     }
-  }, [data, dimensions, setTitle, setSS, setChainsObject]);
+  }, [data, dimensions, setTitle, setSS, setChainsObject, setRotationMatrix]);
 
     // Render the tooLargeMessage if it's set
     if (tooLarge) {

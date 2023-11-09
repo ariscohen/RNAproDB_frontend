@@ -28,6 +28,8 @@ function App() {
   const [ss, setSS] = useState(false);
   const [chainsObject, setChainsObject] = useState(false);
   const [tooLarge, setTooLarge] = useState(false);
+  const [rotationMatrix, setRotationMatrix] = useState(false);
+
 
   useEffect(() => {
     if (columnRef.current) {
@@ -53,10 +55,7 @@ function App() {
                   <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
                   )}
                 <Routes>
-                {/* {ss !== false && (
-                  <Route path="/:pdbid" element={<NGLViewer />} />
-                )} */}
-                      <Route path="/:pdbid" element={<NGLViewer />} />
+                      {rotationMatrix !== false && (<Route path="/:pdbid" element={<NGLViewer rotationMatrix = {rotationMatrix} />} />)}
                 </Routes>
             </div>
             <div className="column" ref={columnRef} id="right_column_top">
@@ -89,7 +88,7 @@ function App() {
               <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph}/>
               <div id="right_column" onClick={window.reset_graph_colors}>
                 <Routes>
-                  <Route path="/:pdbid" element={<NewPythonGraph setTooLarge = {setTooLarge} 
+                  <Route path="/:pdbid" element={<NewPythonGraph setTooLarge = {setTooLarge} setRotationMatrix = {setRotationMatrix}
                   dimensions={dimensions} subgraph={subgraph} setSS ={setSS} setChainsObject = {setChainsObject} tooLarge={tooLarge}/>} />
                 </Routes>
               </div>

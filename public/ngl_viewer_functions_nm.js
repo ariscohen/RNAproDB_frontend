@@ -38,6 +38,44 @@ function zoomOnClick(selectionString){
 
 }
 
+
+function rotateFromMatrix(rotationMatrix) {
+  // If `init_component_ac1` is your component
+  init_component_ac1.autoView();
+  var stage = init_component_ac1.stage; // Get the stage from the component
+  rotationMatrix = rotationMatrix.rotationMatrix.rotationMatrix;
+  // The rest of your code remains the same, except that you use the stage variable
+  // Example translation vector, set to zero for no translation
+  var translationVector = [-97.69450187683105, -49.99250030517578, -29.2889986038208];
+  // var translationVector = [-500,-500,-500];
+
+
+
+  // Convert to a 4x4 transformation matrix for NGL
+  var transformationMatrix = new Float32Array([
+    rotationMatrix[0][0], rotationMatrix[0][1], rotationMatrix[0][2], 0,
+    rotationMatrix[1][0], rotationMatrix[1][1], rotationMatrix[1][2], 0,
+    rotationMatrix[2][0], rotationMatrix[2][1], rotationMatrix[2][2], 0,
+    translationVector[0], translationVector[1], translationVector[2], 1
+  ]);
+  console.log("HI!")
+  console.log(transformationMatrix)
+  let m = stage.viewerControls.getOrientation()
+  console.log("HI AGAIN")
+  console.log(m)
+  for(var i = 0; i <12; i++){
+    console.log(i);
+    console.log(m.elements[i]);
+    m.elements[i] = transformationMatrix[i];
+  }
+
+  // Now apply this transformation matrix to the NGL stage's viewerControls
+  init_component_ac1.autoView();
+  console.log()
+  stage.viewerControls.orient(m);
+  init_component_ac1.autoView();
+}
+
 function resetView(){
     for (var i=0; i<ballStick_list_nm1.length; i+=1) ballStick_list_nm1[i].setVisibility(false);
     init_component_ac1.autoView();
@@ -141,7 +179,7 @@ function add_to_list(l, atom){
             }
 
 }
-function loadStructure(structure_url) {
+function loadStructure(structure_url, rotationMatrix) {
   // console.log("08/12/2019")
   stage_nm1 = new NGL.Stage("viewport", {backgroundColor: "white", opacity: 0});
 
@@ -480,6 +518,7 @@ function loadStructure(structure_url) {
     // var principleAxes = stage_nm1.getComponentsByName("my_structure").list[0].structure.getPrincipalAxes();
     // stage_nm1.animationControls.rotate(principleAxes.getRotationQuaternion(), 0);
     init_component_ac1 = init_component;
+    rotateFromMatrix(rotationMatrix);
   }); 
 };
 
