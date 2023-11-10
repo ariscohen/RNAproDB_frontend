@@ -16,11 +16,12 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
         let response = null;
         //const response = await fetch(`http://10.136.114.14:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         // const response = await fetch(`http://10.136.113.92:8000/rnaprodb/run-script?pdbid=${pdbid}`);
+        var IP = `10.136.113.92`
         if (!subgraph){
-          response = await fetch(`http://localhost:8000/rnaprodb/run-script?pdbid=${pdbid}`);
+          response = await fetch(`http://`+IP+`:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         }
         else{
-          response = await fetch(`http://localhost:8000/rnaprodb/run-script?pdbid=${pdbid}&subgraph=${subgraph}`);
+          response = await fetch(`http://`+IP+`:8000/rnaprodb/run-script?pdbid=${pdbid}&subgraph=${subgraph}`);
         }
         // Check if the response has content and if it's JSON
         const contentType = response.headers.get("content-type");
