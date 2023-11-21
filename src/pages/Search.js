@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import SearchBar from '../SearchBar';
 import './Search.css';
 import Box from '@mui/material/Box';
@@ -221,7 +221,7 @@ function SearchTextField() {
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Filter by authors or specific term"
-        inputProps={{ 'aria-label': 'filter by authors or specific term' }}
+        inputProps={{ 'aria-label': 'filters by authors or specific term' }}
       />
       <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />
@@ -234,9 +234,35 @@ function SearchTextField() {
 export default function Search() {
   return (
     <div className = 'content'>
-      <h1>Search Page</h1>
-      {/* Add your search functionality here */}
-      <SearchBar />
+      <h1>Advanced Search</h1>
+    <div className='SearchTextField'>
+        <SearchTextField/>
+    </div>
+    <div className='horizontal_container'>
+        <div className='ResolutionSlider'>
+          <ResolutionSlider/>
+          <p><b> Resolution Range (Å) </b></p>
+        </div>
+
+        <div className='NASlider'>
+          <NA_Slider/>
+          <p><b> Number of Nucleic Acid Entities per Structure </b></p>
+        </div>
+
+        <div className='ProteinSlider'>
+          <ProteinSlider/>
+          <p><b> Number of Protein Entities per Structure </b></p>
+        </div>
+
+        <div className='ExperimentalModalitySelector'>
+          <ButtonGroup size="large" aria-label="large button group">
+          {buttons}
+          </ButtonGroup>
+          <p><b> Experimental Modality </b></p>
+
+        </div>
+
+      </div>
     </div>
   );
 }
