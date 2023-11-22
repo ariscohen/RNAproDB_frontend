@@ -16,7 +16,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
         let response = null;
         //const response = await fetch(`http://10.136.114.14:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         // const response = await fetch(`http://10.136.113.92:8000/rnaprodb/run-script?pdbid=${pdbid}`);
-        var IP = `10.136.113.92`
+        var IP = `localhost`
         if (!subgraph){
           response = await fetch(`http://`+IP+`:8000/rnaprodb/run-script?pdbid=${pdbid}`);
         }
