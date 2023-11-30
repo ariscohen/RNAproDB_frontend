@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia'; 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -25,6 +26,21 @@ const QueryOutput = ({ data }) => {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {getData(data, page, itemsPerPage).map((item) => (
         <Card key={item.id} variant="outlined" sx={{ minWidth: 275 }}>
+          <CardMedia
+            component="img"
+            height="auto"
+            image={`pdb_thumbnails/${item.id}_assembly1.png`} // assuming 'imagePath' is the field in your data public\pdb_thumbnails\1a1t_assembly1.png
+            alt={`Thumbnail for ${item.id}`}
+            sx={{
+                height: 250, // fixed height
+                width: 250,  // fixed width
+                objectFit: 'contain', // maintains aspect ratio without cropping
+                display: 'flex', // use flexbox to center the image
+                alignItems: 'center', // center image vertically
+                justifyContent: 'center', // center image horizontally
+                margin: 'auto' // centers the image block in the card
+              }}
+          />
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               <strong>
