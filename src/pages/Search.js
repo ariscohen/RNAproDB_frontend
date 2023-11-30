@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Search.css';
 import QueryOutput from '../queryOutputs';
 import Box from '@mui/material/Box';
@@ -7,8 +7,7 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
+
 
 
 //Slider functionalities
@@ -206,14 +205,21 @@ function ProteinSlider() {
 
 //Search bar functionality
 
-function SearchTextField( {onSearchTermChange}) {
+function SearchTextField( {onSearchTermChange, onEnterPress}) {
   const handleInputChange = (event) => {
     onSearchTermChange(event.target.value); // Update the searchTerm state in parent
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onEnterPress(); // Call handleSearch when Enter is pressed
+    }
   };
   return (
     <Paper
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+      onKeyDown={handleKeyDown}
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
@@ -221,9 +227,9 @@ function SearchTextField( {onSearchTermChange}) {
         inputProps={{ 'aria-label': 'filters by authors or keyword' }}
         onChange={handleInputChange}
       />
-      <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+      {/* <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />
-      </IconButton>
+      </IconButton> */}
     </Paper>
   );
 }
@@ -278,9 +284,9 @@ const handleSearch = async () => {
 
 return (
   <div className='content'>
-    <h1>Advanced Search</h1>
+    <h1 className='search_title'>Advanced Search</h1>
     <div className='SearchTextField'>
-      <SearchTextField onSearchTermChange={(value) => updateSearchParams('searchTerm', value)} />
+      <SearchTextField onSearchTermChange={(value) => updateSearchParams('searchTerm', value)} onEnterPress={handleSearch} />
     </div>
     <div className='horizontal_container'>
       <div className='ResolutionSlider'>
@@ -307,7 +313,7 @@ return (
     </div>
     <div className='QueryResults'>
       <Button variant="contained" onClick={handleSearch}>Search</Button>
-      <h1> Results </h1>
+      <h1 className='results_title'> Results </h1>
       <QueryOutput data={jsonData} />
     </div>
   </div>

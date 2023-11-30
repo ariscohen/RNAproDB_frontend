@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 
 const QueryOutput = ({ data }) => {
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
   const [page, setPage] = useState(1);
   const count = Math.ceil(data.length / itemsPerPage);
 
@@ -23,9 +23,9 @@ const QueryOutput = ({ data }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
       {getData(data, page, itemsPerPage).map((item) => (
-        <Card key={item.id} variant="outlined" sx={{ minWidth: 275 }}>
+        <Card key={item.id} variant="outlined" sx={{ width: 'calc(25% - 32px)', marginBottom: 2, marginLeft:"8px", marginRight:"8px" }}>
           <CardMedia
             component="img"
             height="auto"
@@ -87,7 +87,7 @@ const QueryOutput = ({ data }) => {
           </CardContent>
         </Card>
       ))}
-      <Stack spacing={2} justifyContent="center" alignItems="center" >
+      <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ width: '100%', marginTop: 2 }} >
         <Pagination count={count} page={page} onChange={handleChange} />
       </Stack>
     </Box>

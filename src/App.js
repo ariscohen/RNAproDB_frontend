@@ -1,6 +1,6 @@
 import {Home, Search, Docs} from './pages';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import NavBar from './NavBar';
+import MainNavBar from './NavBar';
 import './NavBar.css';
 import BotRow from './BotRow';
 
@@ -9,7 +9,7 @@ export default function App() {
     <div>
       <>
         <BrowserRouter>  
-        <NavBar />        
+        <MainNavBar />        
           <Routes>
             <Route index element={<Home />} />
             <Route path="/:pdbid" element={<Home />} />
