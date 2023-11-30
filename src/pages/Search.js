@@ -1,6 +1,6 @@
-import React, { useState} from 'react';
-import SearchBar from '../SearchBar';
+import React, { useState, useEffect } from 'react';
 import './Search.css';
+import QueryOutput from '../queryOutputs';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
@@ -202,17 +202,14 @@ function ProteinSlider() {
   );
 }
 
-//Button functionalities
-const buttons = [
-  <Button key="xray">X-ray</Button>,
-  <Button key="em">EM</Button>,
-  <Button key="nmr">NMR</Button>,
-];
 
 
 //Search bar functionality
 
-function SearchTextField() {
+function SearchTextField( {onSearchTermChange}) {
+  const handleInputChange = (event) => {
+    onSearchTermChange(event.target.value); // Update the searchTerm state in parent
+  };
   return (
     <Paper
       component="form"
@@ -220,8 +217,9 @@ function SearchTextField() {
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Filter by authors or specific term"
-        inputProps={{ 'aria-label': 'filters by authors or specific term' }}
+        placeholder="Filter by authors or keyword"
+        inputProps={{ 'aria-label': 'filters by authors or keyword' }}
+        onChange={handleInputChange}
       />
       <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />
@@ -231,38 +229,87 @@ function SearchTextField() {
 }
 
 
+
 export default function Search() {
-  return (
-    <div className = 'content'>
-      <h1>Advanced Search</h1>
+
+  //Query Output
+const [jsonData, setJsonData] = useState([]);
+const [searchParams, setSearchParams] = useState({
+  searchTerm: '',
+  minResolution: '',
+  maxResolution: '',
+  minNA: '',
+  maxNA: '',
+  minProtein: '',
+  maxProtein: '',
+  experimentalModality: '',
+  // Add other parameters as needed
+});
+
+const handleExperimentalModalityChange = (modality) => {
+  setSearchParams({ ...searchParams, experimentalModality: modality });
+};
+
+const updateSearchParams = (key, value) => {
+  setSearchParams({ ...searchParams, [key]: value });
+};
+
+const handleSearch = async () => {
+  const response = await fetch('http://localhost:8000/search/pypdb/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(searchParams),
+  });
+
+  const data = await response.json();
+  setJsonData(data);
+  // Process your data here
+};
+
+
+// const fetchData = () => {
+//   fetch('http://localhost:8000/search/pypdb/') // Replace with your Django URL
+//     .then(response => response.json())
+//     .then(data => setJsonData(data))
+//     .catch(error => console.error('Error fetching data:', error));
+// };
+
+return (
+  <div className='content'>
+    <h1>Advanced Search</h1>
     <div className='SearchTextField'>
-        <SearchTextField/>
+      <SearchTextField onSearchTermChange={(value) => updateSearchParams('searchTerm', value)} />
     </div>
     <div className='horizontal_container'>
-        <div className='ResolutionSlider'>
-          <ResolutionSlider/>
-          <p><b> Resolution Range (Å) </b></p>
-        </div>
-
-        <div className='NASlider'>
-          <NA_Slider/>
-          <p><b> Number of Nucleic Acid Entities per Structure </b></p>
-        </div>
-
-        <div className='ProteinSlider'>
-          <ProteinSlider/>
-          <p><b> Number of Protein Entities per Structure </b></p>
-        </div>
-
-        <div className='ExperimentalModalitySelector'>
-          <ButtonGroup size="large" aria-label="large button group">
-          {buttons}
-          </ButtonGroup>
-          <p><b> Experimental Modality </b></p>
-
-        </div>
-
+      <div className='ResolutionSlider'>
+        <ResolutionSlider onChange={(value) => updateSearchParams('minResolution', value[0], 'maxResolution', value[1])} />
+        <p><b> Resolution Range (Å) </b></p>
+      </div>
+      <div className='NASlider'>
+        <NA_Slider onChange={(value) => updateSearchParams('minNA', value[0], 'maxNA', value[1])} />
+        <p><b> Number of Nucleic Acid Polymers </b></p>
+      </div>
+      <div className='ProteinSlider'>
+        <ProteinSlider onChange={(value) => updateSearchParams('minProtein', value[0], 'maxProtein', value[1])} />
+        <p><b> Number of Protein Polymers </b></p>
+      </div>
+      {/* Include other sliders here */}
+      <div className='ExperimentalModalitySelector'>
+        <ButtonGroup size="large" aria-label="large button group" onClick={handleExperimentalModalityChange}>
+          <Button key="xray">X-ray</Button>
+          <Button key="em">EM</Button>
+          <Button key="nmr">NMR</Button>
+        </ButtonGroup>
+        <p><b> Experimental Modality </b></p>
       </div>
     </div>
+    <div className='QueryResults'>
+      <Button variant="contained" onClick={handleSearch}>Search</Button>
+      <h1> Results </h1>
+      <QueryOutput data={jsonData} />
+    </div>
+  </div>
   );
 }
