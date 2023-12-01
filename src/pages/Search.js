@@ -18,7 +18,7 @@ function ResolutionSlider() {
     return `${value} Angstroms`;
   }
 
-  const [value, setValue] = React.useState([0, 10]);
+  const [value, setValue] = React.useState([0, 5]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -31,15 +31,11 @@ function ResolutionSlider() {
     },
     {
       value: 5,
-      label: '5 Å',
-    },  
-    {
-      value: 10,
-      label: '10 Å',
+      label: '>= 5 Å',
     },
   ];
 
-  const minDistance = 1.5;
+  const minDistance = 0.2;
 
   const handleChange2 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -70,8 +66,8 @@ function ResolutionSlider() {
         marks={marks}
         valueLabelDisplay="on"
         min={0}
-        max={10}
-        step={0.5}
+        max={5}
+        step={0.2}
         disableSwap
       />
     </Box>

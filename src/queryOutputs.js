@@ -7,7 +7,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import { MDBDataTable } from 'mdbreact';
 
 const QueryOutput = ({ data }) => {
   const itemsPerPage = 12;
@@ -22,23 +24,109 @@ const QueryOutput = ({ data }) => {
     return data.slice((page - 1) * itemsPerPage, page * itemsPerPage);
   };
 
+  const handleCopyToClipboard = () => {
+    const pdbIds = data.map(item => item.id).join(', ');
+    navigator.clipboard.writeText(pdbIds);
+    alert('PDB IDs copied to clipboard!');
+  };
+
+  const handleDownloadJson = () => {
+    const jsonString = JSON.stringify(data);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const href = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = "pdb_data.json"; // Name of the file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+
+  const tableData = {
+    columns: [
+      {
+        label: 'Quick View',
+        field: 'quickView',
+        sort: 'asc',
+        width: 100
+      },
+      {
+        label: 'ID',
+        field: 'id',
+        sort: 'asc',
+        width: 150
+      },
+      {
+        label: 'DOI',
+        field: 'doi',
+        sort: 'asc',
+        width: 270
+      },
+      {
+        label: 'Pubmed',
+        field: 'pubmed',
+        sort: 'asc',
+        width: 200
+      },
+      {
+        label: 'Year Published',
+        field: 'year',
+        sort: 'asc',
+        width: 100
+      },
+      {
+        label: 'Title',
+        field: 'title',
+        sort: 'asc',
+        width: 250
+      },
+      {
+        label: 'Authors',
+        field: 'authors',
+        sort: 'asc',
+        width: 250
+      },
+      // ... more columns as needed
+    ],
+    rows: data.map(item => ({
+      ...item, // spread other properties
+      quickView: <img src={`pdb_thumbnails/${item.id}_assembly1.png`} alt={item.id} style={{ width: '45px', height: '45px' }} />,
+      id: <Link to={`/${item.id}`} target='_blank' rel="noopener noreferrer">{item.id}</Link>,
+      title: <Link to={`/${item.id}`} target='_blank' rel="noopener noreferrer">{item.title}</Link>,
+    }))
+  };
+
+
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 2 }}>
+      <Typography variant="h6" sx={{ margin: 2 }}>
+        {`Found ${data.length} structures`}
+      </Typography>
+      <Button variant="contained" onClick={handleCopyToClipboard} sx={{ margin: 2, bgcolor: 'black' }}>
+        Copy PDB IDs to Clipboard
+      </Button>
+      <Button variant="contained" onClick={handleDownloadJson} sx={{ margin: 2, bgcolor: 'secondary.main' }}>
+          Download JSON Data
+      </Button>
+      <Pagination count={count} page={page} onChange={handleChange} />
+      </Box>
       {getData(data, page, itemsPerPage).map((item) => (
         <Card key={item.id} variant="outlined" sx={{ width: 'calc(25% - 32px)', marginBottom: 2, marginLeft:"8px", marginRight:"8px" }}>
           <CardMedia
             component="img"
             height="auto"
-            image={`pdb_thumbnails/${item.id}_assembly1.png`} // assuming 'imagePath' is the field in your data public\pdb_thumbnails\1a1t_assembly1.png
+            image={`pdb_thumbnails/${item.id}_assembly1.png`} 
             alt={`Thumbnail for ${item.id}`}
             sx={{
-                height: 250, // fixed height
-                width: 250,  // fixed width
-                objectFit: 'contain', // maintains aspect ratio without cropping
-                display: 'flex', // use flexbox to center the image
-                alignItems: 'center', // center image vertically
-                justifyContent: 'center', // center image horizontally
-                margin: 'auto' // centers the image block in the card
+                height: 250, 
+                width: 250,  
+                objectFit: 'contain', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                margin: 'auto' 
               }}
           />
           <CardContent>
@@ -65,8 +153,8 @@ const QueryOutput = ({ data }) => {
             <TextField 
               id={`title-${item.id}`} 
               label="Title" 
-              defaultValue={item.title} 
-              InputProps={{ readOnly: true }}
+              defaultValue={item.title}
+              InputProps={{  readOnly: true }}
               variant="outlined"
               fullWidth
               margin="normal"
@@ -90,6 +178,14 @@ const QueryOutput = ({ data }) => {
       <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ width: '100%', marginTop: 2 }} >
         <Pagination count={count} page={page} onChange={handleChange} />
       </Stack>
+      <MDBDataTable
+        striped
+        bordered
+        small
+        data={tableData}
+        searchTop
+        searchBottom={false}
+      />
     </Box>
   );
 };

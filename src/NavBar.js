@@ -38,7 +38,7 @@ function MainNavBar() {
                     <Form className="d-flex" onSubmit={handleSearch}>
                         <Form.Control
                             type="search"
-                            placeholder="Search"
+                            placeholder="Search by PDB ID"
                             className="me-2"
                             aria-label="Search"
                             value={searchTerm}

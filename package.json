@@ -5,7 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.18",
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.14.18",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -19,6 +20,8 @@
     "crypto-browserify": "^3.12.0",
     "d3": "^7.8.5",
     "jquery": "^3.7.1",
+    "mdb-react-ui-kit": "^7.0.0",
+    "mdbreact": "^5.2.0",
     "ngl": "^2.1.1",
     "package.json": "^2.0.1",
     "path-browserify": "^1.0.1",
