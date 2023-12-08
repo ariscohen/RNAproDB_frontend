@@ -10,8 +10,11 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { MDBDataTable } from 'mdbreact';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-const QueryOutput = ({ data }) => {
+const QueryOutput = ({ data, isError }) => {
+  const showErrorMessage = isError || data.length === 0;
   const itemsPerPage = 12;
   const [page, setPage] = useState(1);
   const count = Math.ceil(data.length / itemsPerPage);
@@ -97,6 +100,13 @@ const QueryOutput = ({ data }) => {
     }))
   };
 
+  const [viewMode, setViewMode] = useState('card');
+
+  const handleViewChange = (event, newView) => {
+    if (newView !== null) {
+      setViewMode(newView);
+    }
+  };
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
@@ -110,9 +120,34 @@ const QueryOutput = ({ data }) => {
       <Button variant="contained" onClick={handleDownloadJson} sx={{ margin: 2, bgcolor: 'secondary.main' }}>
           Download JSON Data
       </Button>
-      <Pagination count={count} page={page} onChange={handleChange} />
       </Box>
-      {getData(data, page, itemsPerPage).map((item) => (
+      <ToggleButtonGroup
+        value={viewMode}
+        exclusive
+        onChange={handleViewChange}
+        aria-label="View mode"
+        sx={{ marginBottom: 2, alignSelf: 'center', marginLeft: 2, width: '100%' }}
+      >
+        <ToggleButton value="card" aria-label="Card View">
+          Card View
+        </ToggleButton>
+        <ToggleButton value="table" aria-label="Table View">
+          Table View
+        </ToggleButton>
+      </ToggleButtonGroup>
+
+      {showErrorMessage ? (
+        <Typography sx={{ width: '100%', textAlign: 'center', mt: 3 }}>
+          There are no matches for your query, please try again.
+        </Typography>
+      ) : (
+      <>
+      {viewMode === 'card' && (
+        <>
+        <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ width: '100%', marginTop: 2 }} >
+          <Pagination count={count} page={page} onChange={handleChange} />
+        </Stack>
+        {getData(data, page, itemsPerPage).map((item) => (
         <Card key={item.id} variant="outlined" sx={{ width: 'calc(25% - 32px)', marginBottom: 2, marginLeft:"8px", marginRight:"8px" }}>
           <CardMedia
             component="img"
@@ -178,6 +213,10 @@ const QueryOutput = ({ data }) => {
       <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ width: '100%', marginTop: 2 }} >
         <Pagination count={count} page={page} onChange={handleChange} />
       </Stack>
+      </>
+      )}
+
+      {viewMode === 'table' && (
       <MDBDataTable
         striped
         bordered
@@ -186,6 +225,9 @@ const QueryOutput = ({ data }) => {
         searchTop
         searchBottom={false}
       />
+      )}
+      </>
+      )}
     </Box>
   );
 };

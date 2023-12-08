@@ -236,6 +236,7 @@ export default function Search() {
 
   //Query Output
 const [jsonData, setJsonData] = useState([]);
+const [isError, setIsError] = useState(false);
 const [searchParams, setSearchParams] = useState({
   searchTerm: '',
   minResolution: '',
@@ -257,6 +258,9 @@ const updateSearchParams = (key, value) => {
 };
 
 const handleSearch = async () => {
+  setIsError(false);
+  let data;
+  try {
   const response = await fetch('http://localhost:8000/search/pypdb/', {
     method: 'POST',
     headers: {
@@ -265,9 +269,18 @@ const handleSearch = async () => {
     body: JSON.stringify(searchParams),
   });
 
-  const data = await response.json();
+  if (!response.ok) {
+    const errorMessage = data.error || 'No results found';
+    throw new Error(errorMessage);
+  }
+
+  data = await response.json();
   setJsonData(data);
   // Process your data here
+  } catch (error) {
+    setIsError(true);
+    console.log('Error fetching data:', error.message);
+  }
 };
 
 
