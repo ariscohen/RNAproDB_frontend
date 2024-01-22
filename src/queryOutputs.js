@@ -12,6 +12,9 @@ import { Link } from 'react-router-dom';
 import { MDBDataTable } from 'mdbreact';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
 
 const QueryOutput = ({ data, isError }) => {
   const showErrorMessage = isError || data.length === 0;
@@ -27,6 +30,18 @@ const QueryOutput = ({ data, isError }) => {
     return data.slice((page - 1) * itemsPerPage, page * itemsPerPage);
   };
 
+// for download dropdown menu
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleCopyToClipboard = () => {
     const pdbIds = data.map(item => item.id).join(', ');
     navigator.clipboard.writeText(pdbIds);
@@ -39,12 +54,48 @@ const QueryOutput = ({ data, isError }) => {
     const href = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = href;
-    link.download = "pdb_data.json"; // Name of the file
+    link.download = "rnaprodb_output.json"; // Name of the file
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
+  // const handleDownloadCSV = () => {
+  //   const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  //   const fileExtension = '.xlsx';
+  //   const ws = XLSX.utils.json_to_sheet(data);
+  //   const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+  //   const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  //   const dataBlob = new Blob([excelBuffer], {type: fileType});
+  //   FileSaver.saveAs(dataBlob, 'pdb_data' + fileExtension);
+  // };
+
+  const handleDownloadCSV = () => {
+    // Convert JSON array of objects into CSV data
+    const jsonToCSV = (json) => {
+      const replacer = (key, value) => (value === null ? '' : value); // Handle null values
+      const header = Object.keys(json[0]);
+      const csv = [
+        header.join(','), // header row first
+        ...json.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+      ].join('\r\n');
+  
+      return csv;
+    };
+  
+    // Create a Blob from the CSV String
+    const blob = new Blob([jsonToCSV(data)], { type: 'text/csv;charset=utf-8;' });
+  
+    // Create a link element, use it to download the CSV, and remove it
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'rnaprodb_output.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const tableData = {
     columns: [
@@ -117,10 +168,37 @@ const QueryOutput = ({ data, isError }) => {
       <Button variant="contained" onClick={handleCopyToClipboard} sx={{ margin: 2, bgcolor: 'black' }}>
         Copy PDB IDs to Clipboard
       </Button>
-      <Button variant="contained" onClick={handleDownloadJson} sx={{ margin: 2, bgcolor: 'secondary.main' }}>
+      {/* <Button variant="contained" onClick={handleDownloadJson} sx={{ margin: 2, bgcolor: 'secondary.main' }}>
           Download JSON Data
       </Button>
-      </Box>
+      <Button variant="contained" onClick={handleDownloadCSV} sx={{ margin: 2, bgcolor: 'primary.main' }}>
+          Download as CSV
+      </Button> */}
+      <Button
+        variant="contained"
+        sx={{ margin: 2 }}
+        aria-controls={open ? 'download-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        sx={{bgcolor: 'green' }}
+      >
+        Download Data
+      </Button>
+      <Menu
+        id="download-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'download-button',
+        }}
+      >
+        <MenuItem onClick={() => { handleClose(); handleDownloadJson(); }}>JSON</MenuItem>
+        <MenuItem onClick={() => { handleClose(); handleDownloadCSV(); }}>CSV</MenuItem>
+      </Menu>
+    </Box>
+    
       <ToggleButtonGroup
         value={viewMode}
         exclusive

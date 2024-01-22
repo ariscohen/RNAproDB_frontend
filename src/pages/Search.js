@@ -9,20 +9,16 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 
 
-
 //Slider functionalities
 
-function ResolutionSlider() {
+function ResolutionSlider(props) {
 
   function valuetext(value) {
     return `${value} Angstroms`;
   }
 
-  const [value, setValue] = React.useState([0, 5]);
+  const [value, setValue] = React.useState([0.1, 5]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const marks = [
     {
@@ -35,9 +31,9 @@ function ResolutionSlider() {
     },
   ];
 
-  const minDistance = 0.2;
+  const minDistance = 0.1;
 
-  const handleChange2 = (event, newValue, activeThumb) => {
+  const handleChange = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -53,13 +49,17 @@ function ResolutionSlider() {
     } else {
       setValue(newValue);
     }
+
+    if (props.onChange) {
+      props.onChange(newValue);
+    }
   };
 
   return (
     <Box sx={{ width: 300 }}>
       <Slider
         getAriaLabel={() => 'Resolution range'}
-        onChange={handleChange2}
+        onChange={handleChange}
         value={value}
         getAriaValueText={valuetext}
         track={false}
@@ -67,14 +67,14 @@ function ResolutionSlider() {
         valueLabelDisplay="on"
         min={0}
         max={5}
-        step={0.2}
+        step={0.1}
         disableSwap
       />
     </Box>
   );
 }
 
-function NA_Slider() {
+function NA_Slider(props) {
 
   function valuetext(value) {
     return `${value} NAs`;
@@ -82,10 +82,6 @@ function NA_Slider() {
 
   const [value, setValue] = React.useState([0, 100]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const marks = [
     {
       value: 1,
@@ -99,7 +95,7 @@ function NA_Slider() {
 
   const minDistance = 2;
 
-  const handleChange2 = (event, newValue, activeThumb) => {
+  const handleChange = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -115,13 +111,17 @@ function NA_Slider() {
     } else {
       setValue(newValue);
     }
+
+    if (props.onChange) {
+      props.onChange(newValue);
+    }
   };
 
   return (
     <Box sx={{ width: 300 }}>
       <Slider
         getAriaLabel={() => 'Resolution range'}
-        onChange={handleChange2}
+        onChange={handleChange}
         value={value}
         getAriaValueText={valuetext}
         track={false}
@@ -136,16 +136,13 @@ function NA_Slider() {
   );
 }
 
-function ProteinSlider() {
+function ProteinSlider(props) {
   function valuetext(value) {
     return `${value} Proteins`;
   }
 
   const [value, setValue] = React.useState([0, 100]);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const marks = [
     {
@@ -160,7 +157,7 @@ function ProteinSlider() {
 
   const minDistance = 2;
 
-  const handleChange2 = (event, newValue, activeThumb) => {
+  const handleChange = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -176,13 +173,17 @@ function ProteinSlider() {
     } else {
       setValue(newValue);
     }
+
+    if (props.onChange) {
+      props.onChange(newValue);
+    }
   };
 
   return (
     <Box sx={{ width: 300 }}>
       <Slider
         getAriaLabel={() => 'Resolution range'}
-        onChange={handleChange2}
+        onChange={handleChange}
         value={value}
         getAriaValueText={valuetext}
         track={false}
@@ -197,14 +198,48 @@ function ProteinSlider() {
   );
 }
 
+function ExperimentalModalitySelector(props) {
+  const [selectedModalities, setSelectedModalities] = React.useState(['X-ray', 'EM', 'NMR']);
+
+  const handleToggle = (modality) => () => {
+    const currentIndex = selectedModalities.indexOf(modality);
+    const newChecked = [...selectedModalities];
+
+    if (currentIndex === -1) {
+      newChecked.push(modality);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setSelectedModalities(newChecked);
+
+    if (props.onChange) {
+      props.onChange(newChecked);
+    }
+  };
+
+  return (
+    <ButtonGroup>
+      {['X-ray', 'EM', 'NMR'].map((modality) => (
+        <Button
+          key={modality}
+          onClick={handleToggle(modality)}
+          variant={selectedModalities.includes(modality) ? "contained" : "outlined"}
+        >
+          {modality}
+        </Button>
+      ))}
+    </ButtonGroup>
+  );
+}
 
 
 //Search bar functionality
 
 function SearchTextField( {onSearchTermChange, onEnterPress}) {
   const handleInputChange = (event) => {
-    onSearchTermChange(event.target.value); // Update the searchTerm state in parent
-  };
+    onSearchTermChange(event.target.value); 
+  };  
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -237,6 +272,8 @@ export default function Search() {
   //Query Output
 const [jsonData, setJsonData] = useState([]);
 const [isError, setIsError] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
+const [hasSearched, setHasSearched] = useState(false);
 const [searchParams, setSearchParams] = useState({
   searchTerm: '',
   minResolution: '',
@@ -249,16 +286,18 @@ const [searchParams, setSearchParams] = useState({
   // Add other parameters as needed
 });
 
-const handleExperimentalModalityChange = (modality) => {
-  setSearchParams({ ...searchParams, experimentalModality: modality });
-};
+const handleExperimentalModalityChange = (selectedModalities) => {
+  updateSearchParams({ experimentalModality: selectedModalities });
+}; 
 
-const updateSearchParams = (key, value) => {
-  setSearchParams({ ...searchParams, [key]: value });
+const updateSearchParams = (newParams) => {
+  setSearchParams({ ...searchParams, ...newParams });
 };
 
 const handleSearch = async () => {
   setIsError(false);
+  setIsLoading(true);
+  setHasSearched(true);
   let data;
   try {
   const response = await fetch('http://localhost:8000/search/pypdb/', {
@@ -281,6 +320,7 @@ const handleSearch = async () => {
     setIsError(true);
     console.log('Error fetching data:', error.message);
   }
+  setIsLoading(false);
 };
 
 
@@ -295,36 +335,41 @@ return (
   <div className='content'>
     <h1 className='search_title'>Advanced Search</h1>
     <div className='SearchTextField'>
-      <SearchTextField onSearchTermChange={(value) => updateSearchParams('searchTerm', value)} onEnterPress={handleSearch} />
+    <SearchTextField onSearchTermChange={(value) => updateSearchParams({ searchTerm: value })} onEnterPress={handleSearch} />
     </div>
     <div className='horizontal_container'>
       <div className='ResolutionSlider'>
-        <ResolutionSlider onChange={(value) => updateSearchParams('minResolution', value[0], 'maxResolution', value[1])} />
+        <ResolutionSlider onChange={(value) => updateSearchParams({ 'minResolution': value[0], 'maxResolution': value[1] })} />
         <p><b> Resolution Range (Å) </b></p>
       </div>
       <div className='NASlider'>
-        <NA_Slider onChange={(value) => updateSearchParams('minNA', value[0], 'maxNA', value[1])} />
+        <NA_Slider onChange={(value) => updateSearchParams({'minNA': value[0], 'maxNA': value[1]})} />
         <p><b> Number of Nucleic Acid Polymers </b></p>
       </div>
       <div className='ProteinSlider'>
-        <ProteinSlider onChange={(value) => updateSearchParams('minProtein', value[0], 'maxProtein', value[1])} />
+        <ProteinSlider onChange={(value) => updateSearchParams({'minProtein': value[0], 'maxProtein': value[1]})} />
         <p><b> Number of Protein Polymers </b></p>
       </div>
       {/* Include other sliders here */}
       <div className='ExperimentalModalitySelector'>
-        <ButtonGroup size="large" aria-label="large button group" onClick={handleExperimentalModalityChange}>
-          <Button key="xray">X-ray</Button>
-          <Button key="em">EM</Button>
-          <Button key="nmr">NMR</Button>
-        </ButtonGroup>
+        <ExperimentalModalitySelector onChange={handleExperimentalModalityChange} />
         <p><b> Experimental Modality </b></p>
       </div>
     </div>
-    <div className='QueryResults'>
-      <Button variant="contained" onClick={handleSearch}>Search</Button>
-      <h1 className='results_title'> Results </h1>
-      <QueryOutput data={jsonData} />
-    </div>
+    <Button variant="contained" onClick={handleSearch}>Search</Button>
+  <div className='QueryResults'>
+    {hasSearched && ( // Render only if a search has been performed
+      isLoading ? (
+        <div className='loading-container'>
+          <img src="/loading2.gif" alt="Loading..." />
+        </div>
+      ) : isError ? (
+        <p>Error occurred while fetching data.</p>
+      ) : (
+        <QueryOutput data={jsonData} />
+      )
+    )}
+  </div>
   </div>
   );
 }
