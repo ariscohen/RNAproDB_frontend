@@ -26,6 +26,7 @@ function Home() {
   const [ss, setSS] = useState(false);
   const [chainsObject, setChainsObject] = useState(false);
   const [tooLarge, setTooLarge] = useState(false);
+  const [tooLarge3d, setTooLarge3d] = useState(false);
   const [rotationMatrix, setRotationMatrix] = useState(false);
 
 
@@ -51,7 +52,7 @@ function Home() {
                 {chainsObject !== false && (
                   <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
                   )}
-                  {rotationMatrix !== false && (<NGLViewer rotationMatrix = {rotationMatrix} /> )}
+                  {rotationMatrix !== false && tooLarge !== true && (<NGLViewer rotationMatrix = {rotationMatrix} /> )}
             </div>
             <div className="column" ref={columnRef} id="right_column_top">
             <h1>Visualization</h1>
@@ -83,7 +84,8 @@ function Home() {
               <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph}/>
               <div id="right_column" onClick={window.reset_graph_colors}>
                   <NewPythonGraph setTooLarge = {setTooLarge} setRotationMatrix = {setRotationMatrix}
-                  dimensions={dimensions} subgraph={subgraph} setSS ={setSS} setChainsObject = {setChainsObject} tooLarge={tooLarge}/>
+                  dimensions={dimensions} subgraph={subgraph} setSS ={setSS} setChainsObject = {setChainsObject} tooLarge={tooLarge}
+                  tooLarge3d ={tooLarge3d} setTooLarge3d = {setTooLarge3d}/>
               </div>
             </div>
             {activeTab === 'ssgraph' && ss !== false && (

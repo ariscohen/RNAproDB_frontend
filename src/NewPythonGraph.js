@@ -49,7 +49,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
   useEffect(() => {
     if (data && data.output) {
             // CHECK IF TOO LARGE HERE!
-      if(data.too_large){
+      if(data.tooLarge){
         setTooLarge(true);
         setTooLargeMessage("The graph is too large to be displayed. Please select a subgraph."); // Set message when graph is too large
       }
@@ -72,7 +72,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
       // If script is not loaded, should be loaded regardless. Just don't call d3graphscript!
 
       // If structure is not too large, load it immediately!
-      if(!data.too_large){
+      if(!data.tooLarge){
         // Check if the d3graphscript is already loaded or not
         if (window.static_d3graphscript) {
           window.static_d3graphscript({
