@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia'; 
@@ -159,6 +159,34 @@ const QueryOutput = ({ data, isError }) => {
     }
   };
 
+  const [sortCriterion, setSortCriterion] = useState('id'); // default sort by ID
+  const [sortOrder, setSortOrder] = useState('asc'); // asc or desc
+
+  const handleSortChange = (criterion) => {
+    if (sortCriterion === criterion) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortCriterion(criterion);
+      setSortOrder('asc');
+    }
+  };
+
+  const sortedData = useMemo(() => {
+    return [...data].sort((a, b) => {
+      let valA = a[sortCriterion];
+      let valB = b[sortCriterion];
+
+      if (sortCriterion === 'year') { // assuming year is a numeric value
+        valA = parseInt(valA, 10);
+        valB = parseInt(valB, 10);
+      }
+
+      if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+      if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [data, sortCriterion, sortOrder]);
+
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', marginBottom: 2 }}>
@@ -222,10 +250,12 @@ const QueryOutput = ({ data, isError }) => {
       <>
       {viewMode === 'card' && (
         <>
+        <Button onClick={() => handleSortChange('id')}>Sort by ID</Button>
+        <Button onClick={() => handleSortChange('year')}>Sort by Year</Button>
         <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ width: '100%', marginTop: 2 }} >
           <Pagination count={count} page={page} onChange={handleChange} />
         </Stack>
-        {getData(data, page, itemsPerPage).map((item) => (
+        {getData(sortedData, page, itemsPerPage).map((item) => (
         <Card key={item.id} variant="outlined" sx={{ width: 'calc(25% - 32px)', marginBottom: 2, marginLeft:"8px", marginRight:"8px" }}>
           <CardMedia
             component="img"
@@ -295,6 +325,7 @@ const QueryOutput = ({ data, isError }) => {
       )}
 
       {viewMode === 'table' && (
+      <div style={{ width: '100%' }}>
       <MDBDataTable
         striped
         bordered
@@ -303,6 +334,7 @@ const QueryOutput = ({ data, isError }) => {
         searchTop
         searchBottom={false}
       />
+      </div>
       )}
       </>
       )}
