@@ -667,19 +667,6 @@ function toggleHBondsColor() {
   restart();
 }
 
-        
-// // Flip X and Flip Y button functionality
-// const flipXButton = document.getElementById("flipXButton");
-// const flipYButton = document.getElementById("flipYButton");
-
-// flipXButton.addEventListener("click", function() {
-//     flipAxis("x");
-// });
-
-// flipYButton.addEventListener("click", function() {
-//     flipAxis("y");
-// });
-
 document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
 
       zoomFit(0);
