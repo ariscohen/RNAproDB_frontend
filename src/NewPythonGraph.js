@@ -3,31 +3,25 @@ import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
 import $ from 'jquery';
 
-function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix }) {
+function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData }) {
   const [data, setData] = useState(null);
   const { pdbid } = useParams();
   const { setTitle } = useContext(TitleContext);
-  const [tooLargeMessage, setTooLargeMessage] = useState(''); // Added state for too large message
+  const [tooLargeMessage, setTooLargeMessage] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // console.log(`subgraph is ${subgraph}`)
         let response = null;
-        //const response = await fetch(`http://10.136.114.14:8000/rnaprodb/run-script?pdbid=${pdbid}`);
-        // const response = await fetch(`http://10.136.113.92:8000/rnaprodb/run-script?pdbid=${pdbid}`);
-        var IP = `127.0.0.1`;
-        if (!subgraph){
-          response = await fetch(`http://`+IP+`:8000/rnaprodb/run-script?pdbid=${pdbid}`);
+        const IP = `localhost`;
+        if (!subgraph) {
+          response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}`);
+        } else {
+          response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}&subgraph=${subgraph}`);
         }
-        else{
-          response = await fetch(`http://`+IP+`:8000/rnaprodb/run-script?pdbid=${pdbid}&subgraph=${subgraph}`);
-        }
-        // Check if the response has content and if it's JSON
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
           const result = await response.json();
-    
           if (response.ok) {
             setData(result);
           } else {
@@ -42,41 +36,37 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
     }
 
     fetchData();
-  }, [pdbid, setTitle, subgraph]); // Add pdbid to the dependency array
+  }, [pdbid, setTitle, subgraph]);
 
-  // Call your desired function with the fetched data
-  // data is everything, data.output is the nodes/edges, data.title is the paper title
   useEffect(() => {
     if (data && data.output) {
-            // CHECK IF TOO LARGE HERE!
-      if(data.tooLarge){
+      if (data.tooLarge) {
         setTooLarge(true);
-        setTooLargeMessage("The graph is too large to be displayed. Please select a subgraph."); // Set message when graph is too large
-      }
-      else{
+        setTooLargeMessage("The graph is too large to be displayed. Please select a subgraph.");
+      } else {
         setTooLarge(false);
-        setTooLargeMessage(""); // Clear message when graph is not too large
+        setTooLargeMessage("");
       }
       setTitle(data.protein_name || "Missing PDB ID");
-      if(data.output.ss){ // set secondary structure from JSON output
+      if (data.output.ss) {
         setSS(data.output.ss);
       }
-      if(data.output.chainsList){
+      if (data.output.chainsList) {
         setChainsObject(data.output.chainsList);
       }
-      if(data.output.rotationMatrix){
+      if (data.output.rotationMatrix) {
         setRotationMatrix(data.output.rotationMatrix);
       }
 
-      
-      // If script is not loaded, should be loaded regardless. Just don't call d3graphscript!
+      const initGraphData = data.output;
+      if (!initGraphData) {
+        setInitialGraphData(initGraphData);
+      }
 
-      // If structure is not too large, load it immediately!
-      if(!data.tooLarge){
-        // Check if the d3graphscript is already loaded or not
+      if (!data.tooLarge) {
         if (window.static_d3graphscript) {
           window.static_d3graphscript({
-            width: dimensions.width*1.1,
+            width: dimensions.width * 1.1,
             height: 700,
             graph: data.output,
             collision: 0.5,
@@ -84,19 +74,18 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
             directed: true
           });
         } else {
-          // Load D3 graph script
           const loadD3 = () => {
             const script = document.createElement('script');
-            script.src = '/STATIC_FRONTEND_d3graphscript.js';  // Update this path as necessary
+            script.src = '/STATIC_FRONTEND_d3graphscript.js';
             script.async = true;
 
             script.addEventListener('load', () => {
               window.static_d3graphscript({
-                width: dimensions.width*1.1,
+                width: dimensions.width * 1.1,
                 height: 700,
                 graph: data.output,
-                collision: 0.1,
-                // charge: -10,
+                collision: 0.5,
+                charge: -10,
                 directed: true
               });
             });
@@ -107,14 +96,14 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
           loadD3();
         }
       }
-      
     }
-  }, [data, dimensions, setTitle, setSS, setChainsObject, setRotationMatrix]);
+  }, [data, dimensions, setTitle, setSS, setChainsObject, setRotationMatrix, setInitialGraphData]);
 
-    // Render the tooLargeMessage if it's set
-    if (tooLarge) {
-      return <span>{tooLargeMessage}</span>;
-    }
+  if (tooLarge) {
+    return <span>{tooLargeMessage}</span>;
+  }
+
+  return null;
 }
 
 export default NewPythonGraph;
