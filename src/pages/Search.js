@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Search.css';
 import QueryOutput from '../queryOutputs';
 import Box from '@mui/material/Box';
@@ -7,6 +7,9 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 
 
 //Slider functionalities
@@ -198,38 +201,38 @@ function ProteinSlider(props) {
   );
 }
 
-function ExperimentalModalitySelector(props) {
-  const [selectedModalities, setSelectedModalities] = React.useState(['X-ray', 'EM', 'NMR']);
+function ExperimentalModalitySelector({ updateSearchParams }) {
+  const [selectedModalities, setSelectedModalities] = React.useState(['X-ray', 'EM', 'NMR', 'Neutron', 'Multiple methods', 'Other']);
 
-  const handleToggle = (modality) => () => {
-    const currentIndex = selectedModalities.indexOf(modality);
+  const handleToggle = (modality) => (event) => {
     const newChecked = [...selectedModalities];
-
-    if (currentIndex === -1) {
+    if (event.target.checked) {
       newChecked.push(modality);
     } else {
-      newChecked.splice(currentIndex, 1);
+      const index = newChecked.indexOf(modality);
+      newChecked.splice(index, 1);
     }
 
     setSelectedModalities(newChecked);
-
-    if (props.onChange) {
-      props.onChange(newChecked);
-    }
+    updateSearchParams({ experimentalModality: newChecked });
   };
 
   return (
-    <ButtonGroup>
-      {['X-ray', 'EM', 'NMR'].map((modality) => (
-        <Button
+    <FormGroup>
+      {['X-ray', 'EM', 'NMR', 'Neutron', 'Multiple methods', 'Other'].map((modality) => (
+        <FormControlLabel
           key={modality}
-          onClick={handleToggle(modality)}
-          variant={selectedModalities.includes(modality) ? "contained" : "outlined"}
-        >
-          {modality}
-        </Button>
+          control={
+            <Checkbox
+              checked={selectedModalities.includes(modality)}
+              onChange={handleToggle(modality)}
+              name={modality}
+            />
+          }
+          label={modality}
+        />
       ))}
-    </ButtonGroup>
+    </FormGroup>
   );
 }
 
@@ -286,9 +289,10 @@ const [searchParams, setSearchParams] = useState({
   // Add other parameters as needed
 });
 
-const handleExperimentalModalityChange = (selectedModalities) => {
-  updateSearchParams({ experimentalModality: selectedModalities });
-}; 
+useEffect(() => {
+  console.log('Search Parameters:', searchParams);
+}, [searchParams]);
+
 
 const updateSearchParams = (newParams) => {
   setSearchParams({ ...searchParams, ...newParams });
@@ -350,9 +354,8 @@ return (
         <ProteinSlider onChange={(value) => updateSearchParams({'minProtein': value[0], 'maxProtein': value[1]})} />
         <p><b> Number of Protein Polymers </b></p>
       </div>
-      {/* Include other sliders here */}
       <div className='ExperimentalModalitySelector'>
-        <ExperimentalModalitySelector onChange={handleExperimentalModalityChange} />
+        <ExperimentalModalitySelector updateSearchParams={updateSearchParams} />
         <p><b> Experimental Modality </b></p>
       </div>
     </div>

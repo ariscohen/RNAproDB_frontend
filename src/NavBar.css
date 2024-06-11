@@ -14,3 +14,11 @@
 .main-nav-bar span {
     color: white !important;
 }
+
+.search-not-found::placeholder {
+    color: red;
+}
+
+.search-not-found {
+    border-color: red;
+}

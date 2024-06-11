@@ -131,9 +131,47 @@ function static_d3graphscript(config = {
       .attr("x1", function(d) {return d.source.x; }) // these are apparently required for the force field to work #TODO
       .attr("y1", function(d) {return d.source.y; })
       .attr("x2", function(d) {return d.target.x; })
-      .attr("y2", function(d) {return d.target.y; });
-  
+      .attr("y2", function(d) {return d.target.y; })
+    //   .each(function(d) {
+    //     if (d.my_type == "pair" && d.LW !== null) {
+    //       addShapesOnLine(d);
+    //     }
+    //   });
     
+    // function addShapesOnLine(d) {
+    //   var midX = (d.source.x + d.target.x) / 2;
+    //   var midY = (d.source.y + d.target.y) / 2;
+    
+    //   // Calculate angle for positioning shapes side by side
+    //   var angle = Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x);
+    //   var offset = 10; // Distance between the shapes
+    
+    //   // Calculate offset positions
+    //   var offsetX = offset * Math.cos(angle);
+    //   var offsetY = offset * Math.sin(angle);
+    
+    //   // Add square
+    //   svg.append("rect")
+    //     .attr("class", "linkSquare")
+    //     .attr("width", 10)
+    //     .attr("height", 10)
+    //     .attr("x", midX - 5 - offsetX)
+    //     .attr("y", midY - 5 - offsetY)
+    //     .attr("transform", function() {
+    //       return "rotate(" + (angle * 180 / Math.PI) + "," + (midX - offsetX) + "," + (midY - offsetY) + ")";
+    //     })
+    //     .style("fill", "black");
+    
+    //   // Add triangle
+    //   svg.append("path")
+    //     .attr("class", "linkTriangle")
+    //     .attr("d", "M -8 -8 L 8 0 L -8 8 Z")
+    //     .attr("transform", function() {
+    //       return "translate(" + (midX + offsetX) + "," + (midY + offsetY) + ") rotate(" + (angle * 180 / Math.PI) + ")";
+    //     })
+    //     .style("fill", "black");
+    // }
+
     // // ADD TEXT ON THE EDGES (PART 1/2)
     //  var linkText = svg.selectAll(".link-text")
     //    .data(graph.links)

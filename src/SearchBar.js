@@ -1,42 +1,41 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import items from './ids.json';
 
 const pdbids = items.map(item => item.pdbid);
 
 export default function SearchBar() {
-    const [items, setItems] = useState(pdbids);
     const [query, setQuery] = useState("");
-    const inputRef = useRef();
+    const [notFound, setNotFound] = useState(false);
 
     const filteredItems = useMemo(() => {
-        if (!query) return pdbids;
-        return pdbids.filter(item => {
-        return item.toLowerCase().includes(query.toLowerCase())
-        })
-    }, [pdbids, query])
+        if (!query) {
+            setNotFound(false);
+            return pdbids;
+        }
+        const filtered = pdbids.filter(item => item.toLowerCase().includes(query.toLowerCase()));
+        setNotFound(filtered.length === 0);
+        return filtered;
+    }, [query]);
 
     function onSubmit(e) {
-        e.preventDefault();
-        const value = inputRef.current.value;
-        if (value === "") return 
-        setItems(prev => {
-            return [...prev, value]
-        })
-        inputRef.current.value = "";
+        e.preventDefault(); // Prevent the default form submission behavior
     }
 
     return (
         <>
-            <input placeholder='Search PDB ID' 
-            value={query} 
-            onChange={e => setQuery(e.target.value)}
-            type='search'
-            />
-            <br />
+            <form onSubmit={onSubmit}>
+                <input 
+                    placeholder='Search PDB ID'
+                    value={query} 
+                    onChange={e => setQuery(e.target.value)}
+                    type='search'
+                />
+            </form>
+            {notFound && <div style={{ color: 'red' }}>ID not found</div>}
             <br />
             <h3>Items</h3>
             {filteredItems.map(item => (
-                <div>{item}</div>    
+                <div key={item}>{item}</div>    
             ))}
         </>
     );
