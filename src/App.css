@@ -81,3 +81,23 @@ iframe#webpack-dev-server-client-overlay { display: none; }
 .tabs .active-tab {
   background-color: #ddd;
 }
+
+.download-buttons {
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center align the buttons horizontally */
+  margin-top: 20px; /* Add some top margin */
+}
+
+.download-buttons button {
+background-color: #007bff; /* Blue background color */
+color: #fff; /* White text color */
+border: none; /* Remove border */
+padding: 10px 20px; /* Add padding */
+font-size: 16px; /* Increase font size */
+cursor: pointer; /* Add cursor pointer on hover */
+margin: 0 10px; /* Add margin between buttons */
+}
+
+.download-buttons button:hover {
+background-color: #0056b3; /* Darker blue on hover */
+}

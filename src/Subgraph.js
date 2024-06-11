@@ -33,6 +33,7 @@ function Subgraph({setSubgraph, tooLarge}) {
 
   return (
     <div>
+    <div>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Relax Graph </span>
               <label class="switch">
                 <input id="forcefieldButton" type="checkbox" />
@@ -44,6 +45,20 @@ function Subgraph({setSubgraph, tooLarge}) {
                 <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
                 <span class="slider round"></span>
               </label>
+    </div>
+    <div>  
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Flip X-axis </span>
+      <label class="switch">
+        <input id="flipXButton" type="checkbox" />
+        <span class="slider round"></span>
+      </label>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span> Flip Y-axis </span>
+      <label class="switch">
+        <input id="flipYButton" type="checkbox" />
+        <span class="slider round"></span>
+      </label>
+    </div>
    <button 
         id="select-subgraph-button" 
         className="button4 button4"
@@ -65,17 +80,6 @@ function Subgraph({setSubgraph, tooLarge}) {
       }
       {showInput && <textarea id="subgraph-textbox" type="text" style={{ width: '100%', marginTop: '10px' }}
         placeholder="Click nodes or enter comma separated residues: chain:residueNumber,chain:residueNumber..." value={inputValue} onChange={e => setInputValue(e.target.value)} />}
-    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Flip X-axis </span>
-      <label class="switch">
-        <input id="flipXButton" type="checkbox" />
-        <span class="slider round"></span>
-      </label>
-      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-      <span> Flip Y-axis </span>
-      <label class="switch">
-        <input id="flipYButton" type="checkbox" />
-        <span class="slider round"></span>
-      </label>
       </div>
   );
 }
