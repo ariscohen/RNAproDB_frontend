@@ -108,6 +108,11 @@ function static_d3graphscript(config = {
     var link = svg.selectAll(".link")
       .data(graph.links)
       .enter().append("line")
+      // .attr("dist-3d", function(d){ return d.distance_3d})
+      .attr("dist-3d", function(d){
+          return d.distance_3d;
+      })
+
       .attr("class", function(d){
         if(d.my_type == "pair")
         {
