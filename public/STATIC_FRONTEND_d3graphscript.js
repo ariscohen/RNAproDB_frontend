@@ -368,7 +368,7 @@ filter.select("feMerge")
     .attr("height", window.nodeHeight)
     .style("fill", function(d) {return d.node_color;})				// NODE-COLOR
     .style("opacity", function(d) {return d.node_opacity;}) 	    // NODE-OPACITY
-    .style("stroke-width", function(d) {return d.node_size_edge;})	// NODE-EDGE-SIZE
+    .style("stroke-width", function(d) {return d.node_size_edge*2;})	// NODE-EDGE-SIZE
     .style("stroke", function(d) {return d.node_color_edge;})		// NODE-COLOR-EDGE
     //  .style("stroke", '#000')										// NODE-EDGE-COLOR (all black));
     
@@ -387,7 +387,7 @@ filter.select("feMerge")
       .attr("height", function(d) { return d.node_size; })					// NODE SIZE
       .style("fill", function(d) {return d.node_color;})				// NODE-COLOR
       .style("opacity", function(d) {return d.node_opacity;}) 	    // NODE-OPACITY
-      .style("stroke-width", function(d) {return d.node_size_edge;})	// NODE-EDGE-SIZE
+      .style("stroke-width", function(d) {return d.node_size_edge*2;})	// NODE-EDGE-SIZE
       .style("stroke", function(d) {return d.node_color_edge;})		// NODE-COLOR-EDGE
     //  .style("stroke", '#000')										// NODE-EDGE-COLOR (all black)
     
@@ -645,7 +645,7 @@ function collide(alpha) {
         .style("fill", function(d) { return d.name === 'arrow' ? '#605f5f' : '#605f5f' }) // Conditionally set color
         .style("stroke", function(d) { return d.name === 'arrow' ? '#605f5f' : '#605f5f' })
         .style("opacity", 1)                                // Marker opacity
-        .style("stroke-width", 1);                             // Marker edge thickness
+        .style("stroke-width", 2);                             // Marker edge thickness
   
   // --------- END MARKER -----------
 
@@ -813,7 +813,7 @@ function reset_node_colors(){
   .style("fill", function(d) {return d.node_color;})
   .style("opacity", function(d) {return d.node_opacity;})
   .style("stroke", function(d) {return d.node_color_edge;})
-  .style("stroke-width", function(d) {return d.edge_width;})
+  .style("stroke-width", function(d) {return d.edge_width*2;})
   .attr("r", function(d) { return d.node_size; })
   ;
   d3.selectAll(".node")
@@ -821,7 +821,7 @@ function reset_node_colors(){
   .style("fill", function(d) {return d.node_color;})
   .style("opacity", function(d) {return d.node_opacity;})
   .style("stroke", function(d) {return d.node_color_edge;})
-  .style("stroke-width", function(d) {return d.edge_width;})
+  .style("stroke-width", function(d) {return d.edge_width*2;})
   ;
   }
   function reset_graph_colors(e){
@@ -870,14 +870,14 @@ function color_on_click() {
               .style("fill", function(d) {return d.node_color;})
               .style("opacity", function(d) {return d.node_opacity;})
               .style("stroke", function(d) {return d.node_color_edge;})
-              .style("stroke-width", function(d) {return d.edge_width;})
+              .style("stroke-width", function(d) {return d.edge_width*2;})
               .attr("r", function(d) { return d.node_size; })
           ;
           d3.select(this).select("rect")
               .style("fill", function(d) {return d.node_color;})
               .style("opacity", function(d) {return d.node_opacity;})
               .style("stroke", function(d) {return d.node_color_edge;})
-              .style("stroke-width", function(d) {return d.edge_width;})
+              .style("stroke-width", function(d) {return d.edge_width*2;})
           ;
           index = multiple_select.indexOf(selectionString);
           multiple_select.splice(index, 1);
@@ -973,7 +973,7 @@ function restart() {
   link = link.data(graph.links);
   link.exit().remove();
   link.enter().insert("line", ".node").attr("class", "link");
-  link.style("stroke-width", function(d) {return d.edge_width;});           // LINK-WIDTH AFTER BREAKING WITH SLIDER
+  link.style("stroke-width", function(d) {return d.edge_width*2;});           // LINK-WIDTH AFTER BREAKING WITH SLIDER
   //link.style('marker-start', function(d){ return 'url(#marker_' + d.marker_start  + ')' })
 link.style("marker-end", function(d) {                                    // Include the markers.
   if (config.directed) {return 'url(#marker_' + d.marker_end + ')' }})
