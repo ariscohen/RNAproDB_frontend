@@ -3,12 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
+import gif from './loading2.gif'
 
 function MainNavBar() {
     const [searchTerm, setSearchTerm] = useState("");
     const [pdbIds, setPdbIds] = useState([]);
     const [showNotFoundMessage, setShowNotFoundMessage] = useState(false);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
         fetch('/ids.txt')
@@ -23,7 +26,10 @@ function MainNavBar() {
         event.preventDefault();
         if (pdbIds.includes(searchTerm.toUpperCase())) {
             setShowNotFoundMessage(false);
-            navigate(`/${searchTerm}`);
+            setIsLoading(true); 
+            setTimeout(() => {
+                window.location.href = `/${searchTerm}`; 
+            }, 500); 
         } else {
             setShowNotFoundMessage(true);
             setSearchTerm(""); 
@@ -58,6 +64,7 @@ function MainNavBar() {
                     </Form>
                 </Navbar.Collapse>
             </Container>
+            {isLoading && <img src={gif} alt="Loading..." className="loading-gif" />} 
         </Navbar>
     );
 }
