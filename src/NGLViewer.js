@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 function NGLViewer(rotationMatrix) {
     let { pdbid } = useParams();
-    useEffect(() => { //loads scripts async
+    useEffect(() => { 
     const loadNGL = () => {
       const script1 = document.createElement('script');
       script1.src = '/ngl.js';

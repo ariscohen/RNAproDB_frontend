@@ -36,6 +36,10 @@ function SeqViewer({chainsObject, tooLarge}){
         
         //seqdiv = document.getElementsByClassName("seqdiv")[0];
         seqdiv.innerHTML = ""
+
+        // let numberBar = document.getElementsByClassName("number-bar")[0];
+        // numberBar.innerHTML = "";
+
         // for (var i=0; i<reslist.length; i++ ){
         //         let chain = reslist[i].split(":")[1];
         //         let resname = reslist[i].split(":")[0];
@@ -77,6 +81,10 @@ function SeqViewer({chainsObject, tooLarge}){
                     }
                     span.setAttribute('resname', resname);
                     seqdiv.appendChild(span);
+                    // var numSpan = document.createElement("span");
+                    // numSpan.className = "number-bar-item";
+                    // numSpan.innerHTML = resid;
+                    // numberBar.appendChild(numSpan);
                 }
             }
        }
@@ -153,12 +161,17 @@ function SeqViewer({chainsObject, tooLarge}){
             var div = document.createElement("div")
             
             makeSelector(div)
+
+            // var numberBar = document.createElement("div");
+            // numberBar.className = "number-bar";
+            // div.appendChild(numberBar);
+            
             seqdiv = document.createElement("div")
             seqdiv.className = "seqdiv"
             div.appendChild(seqdiv)
-    
+
             div.appendChild(document.createElement('br'))
-            
+
             selectOption()
             /*for (var i=0; i<reslist.length; i++ ){
                 var span = document.createElement("span")

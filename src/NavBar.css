@@ -1,3 +1,11 @@
+.loading-gif {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
 .bg-body-tertiary{
     background-color: #333 !important;
 }
@@ -13,4 +21,12 @@
 .main-nav-bar a,
 .main-nav-bar span {
     color: white !important;
+}
+
+.search-not-found::placeholder {
+    color: red;
+}
+
+.search-not-found {
+    border-color: red;
 }
