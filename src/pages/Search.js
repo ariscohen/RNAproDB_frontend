@@ -268,6 +268,97 @@ function SearchTextField( {onSearchTermChange, onEnterPress}) {
   );
 }
 
+function YearRangeSelector({ updateSearchParams }) {
+  const [value, setValue] = React.useState([1990, 2024]);
+
+  const marks = [
+    {
+      value: 1976,
+      label: '1976',
+    },
+    {
+      value: 2024,
+      label: '2024',
+    },
+  ];
+
+  const minDistance = 2;
+
+  const handleInputChange = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 2024 - minDistance);
+        setValue([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setValue([clamped - minDistance, clamped]);
+      }
+    } else {
+      setValue(newValue);
+    }
+
+    if (props.onChange) {
+      props.onChange(newValue);
+    }
+  };
+
+    return (
+      <Box sx={{ width: 300 }}>
+        <Slider
+        getAriaLabel={() => 'Year range'}
+        onChange={handleInputChange}
+        value={value}
+        track={false}
+        marks={marks}
+        valueLabelDisplay="on"
+        min={1976}
+        max={2024}
+        step={1}
+        disableSwap
+        />
+      </Box>
+    )
+  };
+
+   function NucleicAcidSelector() {
+    const [selectedModalities, setSelectedModalities] = React.useState(['DNA', 'RNA', 'NA Hybrid']);
+
+    const handleToggle = (modality) => (event) => {
+      const newChecked = [...selectedModalities];
+      if (event.target.checked) {
+        newChecked.push(modality);
+      } else {
+        const index = newChecked.indexOf(modality);
+        newChecked.splice(index, 1);
+      }
+  
+      setSelectedModalities(newChecked);
+      updateSearchParams({ nucleicAcidType: newChecked });
+    };
+      
+      return (
+        <FormGroup>
+        {['RNA', 'DNA', 'NA Hybrid'].map((modality) => (
+          <FormControlLabel
+            key={modality}
+            control={
+              <Checkbox
+                checked={selectedModalities.includes(modality)}
+                onChange={handleToggle(modality)}
+                name={modality}
+              />
+            }
+            label={modality}
+          />
+        ))}
+      </FormGroup>
+    );
+  }
+
 
 
 export default function Search() {
@@ -342,23 +433,42 @@ return (
     <SearchTextField onSearchTermChange={(value) => updateSearchParams({ searchTerm: value })} onEnterPress={handleSearch} />
     </div>
     <div className='horizontal_container'>
+      <div className='NucleicAcidSelector'>
+        <NucleicAcidSelector updateSearchParams={updateSearchParams}/>
+        <p><b> Nucleic Acid Type </b></p>
+      </div>
+
       <div className='ResolutionSlider'>
         <ResolutionSlider onChange={(value) => updateSearchParams({ 'minResolution': value[0], 'maxResolution': value[1] })} />
         <p><b> Resolution Range (Å) </b></p>
       </div>
+
       <div className='NASlider'>
         <NA_Slider onChange={(value) => updateSearchParams({'minNA': value[0], 'maxNA': value[1]})} />
         <p><b> Number of Nucleic Acid Polymers </b></p>
       </div>
-      <div className='ProteinSlider'>
-        <ProteinSlider onChange={(value) => updateSearchParams({'minProtein': value[0], 'maxProtein': value[1]})} />
-        <p><b> Number of Protein Polymers </b></p>
-      </div>
+
       <div className='ExperimentalModalitySelector'>
         <ExperimentalModalitySelector updateSearchParams={updateSearchParams} />
         <p><b> Experimental Modality </b></p>
       </div>
+
     </div>
+
+    <div className='horizontal_container_2'>
+
+      <div className='ProteinSlider'>
+        <ProteinSlider onChange={(value) => updateSearchParams({'minProtein': value[0], 'maxProtein': value[1]})} />
+        <p><b> Number of Protein Polymers </b></p>
+      </div>
+
+      <div className='YearRangeSelector'>
+        <YearRangeSelector updateSearchParams={updateSearchParams} />
+        <p><b> Publication Year </b></p>
+      </div>
+
+    </div>
+
     <Button variant="contained" onClick={handleSearch}>Search</Button>
   <div className='QueryResults'>
     {hasSearched && ( // Render only if a search has been performed
@@ -373,6 +483,6 @@ return (
       )
     )}
   </div>
-  </div>
+</div>
   );
 }

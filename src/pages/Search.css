@@ -32,6 +32,15 @@
     text-align: center;
 }
 
+.NucleicAcidSelector{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Keeps the slider and its label centered horizontally */
+    width: 100%; /* Ensures the slider takes the full width if needed */
+    margin: 3em; /* Adds some space between the title and the slider */
+    text-align: center;
+}
+
 .NASlider{
     display: flex;
     flex-direction: column;
@@ -52,6 +61,11 @@
 }
   
 .horizontal_container{
+    display: flex;
+    flex-direction: row;
+}
+
+.horizontal_container_2{
     display: flex;
     flex-direction: row;
 }

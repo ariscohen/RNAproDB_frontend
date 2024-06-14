@@ -152,9 +152,25 @@ function static_d3graphscript(config = {
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
         .style("stroke", "black");
+
+      const linkTriangleLeft = svg.selectAll(".linkTriangleLeft")
+      .data(edges.filter(d => d.LW && ['sh', 'sw'].includes(d.LW.slice(-2).toLowerCase())))
+      .enter().append("path")
+      .attr("class", "linkTriangleLeft")
+      .attr("d", `M ${length} ${length} L 0 -${length} L -${length} ${length} Z`)
+      .style("fill", function(d) { 
+        if (d.LW && d.LW[0].toLowerCase() === 't') {
+          return "white";
+        } else {
+          return "black";
+        }
+      })
+      .style("opacity", function(d) { return d.node_opacity; })
+      .style("stroke-width", function(d) { return 2; })
+      .style("stroke", "black");
       
       const linkSquareLeft = svg.selectAll(".linkSquareLeft")
-        .data(edges.filter(d => d.LW && ['hs'].includes(d.LW.slice(-2).toLowerCase())))
+        .data(edges.filter(d => d.LW && ['hs', 'hw'].includes(d.LW.slice(-2).toLowerCase())))
         .enter().append("path")
         .attr("class", "linkSquareLeft")
         .attr("d", `M -${length} -${length} L ${length} -${length} L ${length} ${length} L -${length} ${length} Z`)
@@ -170,7 +186,7 @@ function static_d3graphscript(config = {
         .style("stroke", "black");
       
       const linkSquareRight = svg.selectAll(".linkSquareRight")
-        .data(edges.filter(d => d.LW && ['wh'].includes(d.LW.slice(-2).toLowerCase())))
+        .data(edges.filter(d => d.LW && ['wh', 'sh'].includes(d.LW.slice(-2).toLowerCase())))
         .enter().append("path")
         .attr("class", "linkSquareRight")
         .attr("d", `M -${length} -${length} L ${length} -${length} L ${length} ${length} L -${length} ${length} Z`)
@@ -232,6 +248,22 @@ function static_d3graphscript(config = {
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
         .style("stroke", "black");
+
+      const linkCircleRight = svg.selectAll(".linkCircleRight")
+      .data(edges.filter(d => d.LW && ['sw', 'hw'].includes(d.LW.slice(-2).toLowerCase())))
+      .enter().append("circle")
+      .attr("class", "linkCircleRight")
+      .attr("r", length)
+      .style("fill", function(d) { 
+        if (d.LW && d.LW[0].toLowerCase() === 't') {
+          return "white";
+        } else {
+          return "black";
+        }
+      })
+      .style("opacity", function(d) { return d.node_opacity; })
+      .style("stroke-width", function(d) { return 2; })
+      .style("stroke", "black");
       
       const linkCircleCenter = svg.selectAll(".linkCircleCenter")
         .data(edges.filter(d => d.LW && d.LW == 'tWW'))
@@ -475,6 +507,15 @@ function static_d3graphscript(config = {
         .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
         .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
 
+        d3.selectAll(".linkTriangleLeft").attr("transform", d => {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
+      })
+      .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+      .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
         // Update linkCircleLeft positions
         d3.selectAll(".linkCircleLeft").attr("transform", d => {
             let dx = d.target.x - d.source.x;
@@ -484,6 +525,14 @@ function static_d3graphscript(config = {
         .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
         .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
 
+        d3.selectAll(".linkCircleRight").attr("transform", d => {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8})`;
+        })
+          .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+          .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+          
         // Update linkCircleCenter positions
         d3.selectAll(".linkCircleCenter").attr("transform", d => {
             let dx = d.target.x - d.source.x;
@@ -657,6 +706,23 @@ function collide(alpha) {
             let dy = d.target.y - d.source.y;
             const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
             return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+        })
+        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+        linkCircleRight.attr("transform", d => {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8})`;
+        })
+          .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+          .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+        linkTriangleLeft.attr("transform", d => {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
         })
         .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
         .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
