@@ -59,6 +59,15 @@
     margin: 3em; /* Adds some space between the title and the slider */
     text-align: center;
 }
+
+.YearRangeSlider{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Keeps the slider and its label centered horizontally */
+    width: 100%; /* Ensures the slider takes the full width if needed */
+    margin: 3em; /* Adds some space between the title and the slider */
+    text-align: center;
+}
   
 .horizontal_container{
     display: flex;

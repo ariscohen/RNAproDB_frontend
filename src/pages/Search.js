@@ -268,23 +268,17 @@ function SearchTextField( {onSearchTermChange, onEnterPress}) {
   );
 }
 
-function YearRangeSelector({ updateSearchParams }) {
-  const [value, setValue] = React.useState([1990, 2024]);
+function YearRangeSlider(props) {
+  const [value, setValue] = React.useState([1989, 2024]);
 
   const marks = [
-    {
-      value: 1976,
-      label: '1976',
-    },
-    {
-      value: 2024,
-      label: '2024',
-    },
+    { value: 1989, label: '1989' },
+    { value: 2024, label: '2024' },
   ];
 
   const minDistance = 2;
 
-  const handleInputChange = (event, newValue, activeThumb) => {
+  const handleChange = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -306,23 +300,24 @@ function YearRangeSelector({ updateSearchParams }) {
     }
   };
 
-    return (
-      <Box sx={{ width: 300 }}>
-        <Slider
+  return (
+    <Box sx={{ width: 300 }}>
+      <Slider
         getAriaLabel={() => 'Year range'}
-        onChange={handleInputChange}
+        onChange={handleChange}
         value={value}
         track={false}
         marks={marks}
         valueLabelDisplay="on"
-        min={1976}
+        min={1989}
         max={2024}
         step={1}
         disableSwap
-        />
-      </Box>
-    )
-  };
+      />
+    </Box>
+  );
+}
+
 
    function NucleicAcidSelector() {
     const [selectedModalities, setSelectedModalities] = React.useState(['DNA', 'RNA', 'NA Hybrid']);
@@ -377,6 +372,8 @@ const [searchParams, setSearchParams] = useState({
   minProtein: '',
   maxProtein: '',
   experimentalModality: '',
+  minYear: '',
+  maxYear: '',
   // Add other parameters as needed
 });
 
@@ -438,34 +435,44 @@ return (
         <p><b> Nucleic Acid Type </b></p>
       </div>
 
+      <div className='ExperimentalModalitySelector'>
+        <ExperimentalModalitySelector updateSearchParams={updateSearchParams} />
+        <p><b> Experimental Modality </b></p>
+      </div>
+
       <div className='ResolutionSlider'>
         <ResolutionSlider onChange={(value) => updateSearchParams({ 'minResolution': value[0], 'maxResolution': value[1] })} />
         <p><b> Resolution Range (Å) </b></p>
       </div>
 
-      <div className='NASlider'>
-        <NA_Slider onChange={(value) => updateSearchParams({'minNA': value[0], 'maxNA': value[1]})} />
-        <p><b> Number of Nucleic Acid Polymers </b></p>
-      </div>
-
-      <div className='ExperimentalModalitySelector'>
-        <ExperimentalModalitySelector updateSearchParams={updateSearchParams} />
-        <p><b> Experimental Modality </b></p>
+      <div className='YearRangeSlider'>
+        <YearRangeSlider onChange={(value) => updateSearchParams({'minYear': value[0], 'maxYear': value[1]})} />
+        <p><b> Publication Year </b></p>
       </div>
 
     </div>
 
     <div className='horizontal_container_2'>
 
+      <div className='NASlider'>
+        <NA_Slider onChange={(value) => updateSearchParams({'minNA': value[0], 'maxNA': value[1]})} />
+        <p><b> Number of Nucleic Acid Polymers </b></p>
+      </div>
+
       <div className='ProteinSlider'>
         <ProteinSlider onChange={(value) => updateSearchParams({'minProtein': value[0], 'maxProtein': value[1]})} />
         <p><b> Number of Protein Polymers </b></p>
       </div>
 
-      <div className='YearRangeSelector'>
-        <YearRangeSelector updateSearchParams={updateSearchParams} />
+      {/* <div className='YearRangeSlider'>
+        <YearRangeSlider updateSearchParams={updateSearchParams} />
         <p><b> Publication Year </b></p>
       </div>
+
+      <div className='YearRangeSlider'>
+        <YearRangeSlider updateSearchParams={updateSearchParams} />
+        <p><b> Publication Year </b></p>
+      </div> */}
 
     </div>
 
