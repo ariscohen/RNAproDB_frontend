@@ -54,6 +54,46 @@ function static_d3graphscript(config = {
         .on("dblclick.zoom", null)
         .append("g")
 
+    // Append a defs (definitions) section to your SVG
+var defs = svg.append("defs");
+
+// FILTER FOR BLACK BORDER AROUND SVG
+var filter = defs.append("filter")
+    .attr("id", "border-effect")
+    .attr("x", "-50%")
+    .attr("y", "-50%")
+    .attr("width", "200%")
+    .attr("height", "200%");
+
+filter.append("feMorphology")
+    .attr("operator", "dilate")
+    .attr("radius", "1")
+    .attr("in", "SourceGraphic")
+    .attr("result", "expanded");
+
+filter.append("feComposite")
+    .attr("in", "expanded")
+    .attr("in2", "SourceGraphic")
+    .attr("operator", "out")
+    .attr("result", "border");
+
+filter.append("feFlood")
+    .attr("flood-color", "black")
+    .attr("result", "color");
+
+filter.append("feComposite")
+    .attr("in", "color")
+    .attr("in2", "border")
+    .attr("operator", "in")
+    .attr("result", "border");
+
+filter.append("feMerge")
+    .append("feMergeNode")
+    .attr("in", "border");
+filter.select("feMerge")
+    .append("feMergeNode")
+    .attr("in", "SourceGraphic");
+
     var force = d3.layout.force()
     .size([width, height])
     .nodes(graph.nodes) // Initialize nodes
@@ -102,39 +142,75 @@ function static_d3graphscript(config = {
     .on("dragend", dragended);
       
       // DRAGGING STOP
-
-
+       
     //Create links
+    // var link = svg.selectAll(".link")
+    //   .data(graph.links)
+    //   .enter().append("line")
+    //   // .attr("dist-3d", function(d){ return d.distance_3d})
+    //   .attr("dist-3d", function(d){
+    //       return d.distance_3d;
+    //   })
+
+    //   .attr("class", function(d){
+    //     if(d.my_type == "pair")
+    //     {
+    //       return "link-dashed";
+    //     }
+    //     else{
+    //       return "link";
+    //     }
+    //   })
+    //   .attr('marker-start', function(d){ return 'url(#marker_' + d.marker_start + ')' })
+    //   .attr("marker-end", function(d) {
+    //     if (config.directed) {return 'url(#marker_' + d.marker_end + ')' }})
+    //   .style("stroke", "#999")
+    //   .style("stroke-opacity", 1)
+    //   .style("stroke-width", function(d) {return d.edge_width;})          // LINK-WIDTH
+    //   .style("stroke", function(d) {return d.color;})                     // EDGE-COLORS
+    //   .attr("x1", function(d) {return d.source.x; }) // these are apparently required for the force field to work #TODO
+    //   .attr("y1", function(d) {return d.source.y; })
+    //   .attr("x2", function(d) {return d.target.x; })
+    //   .attr("y2", function(d) {return d.target.y; });
+      // .attr("filter", "url(#border-effect)");
+      
+
+      // Create links with a "double stroke" effect for borders
     var link = svg.selectAll(".link")
-      .data(graph.links)
-      .enter().append("line")
-      .attr("class", function(d){
-        if(d.my_type == "pair")
-        {
-          return "link-dashed";
-        }
-        else{
-          return "link";
-        }
-      })
-      .attr('marker-start', function(d){ return 'url(#marker_' + d.marker_start + ')' })
-      .attr("marker-end", function(d) {
-        if (config.directed) {return 'url(#marker_' + d.marker_end + ')' }})
-      .style("stroke", "#999")
-      .style("stroke-opacity", 0.6)
-      .style("stroke-width", function(d) {return d.edge_width;})          // LINK-WIDTH
-      .style("stroke", function(d) {return d.color;})                     // EDGE-COLORS
-    //   .attr("x1", function(d) { console.log(d); return graph.nodes[d.source].x; })
-    //   .attr("y1", function(d) { return graph.nodes[d.source].y; })
-    //   .attr("x2", function(d) { return graph.nodes[d.target].x; })
-    //   .attr("y2", function(d) { return graph.nodes[d.target].y; });
-      .attr("x1", function(d) {return d.source.x; }) // these are apparently required for the force field to work #TODO
-      .attr("y1", function(d) {return d.source.y; })
-      .attr("x2", function(d) {return d.target.x; })
-      .attr("y2", function(d) {return d.target.y; })
+    .data(graph.links)
+    .enter().append("line")
+    .attr("class", function(d) {
+        return d.my_type === "pair" ? "link-dashed" : "link";
+    })
+    .style("stroke", "black") // First, a black stroke
+    .style("stroke-opacity", 1)
+    .style("stroke-width", function(d) { return d.edge_width + 4; }) // Make the black stroke wider
+    // .attr("marker-start", function(d) { return 'url(#marker_' + d.marker_start + ')' })
+    // .attr("marker-end", function(d) { return config.directed ? 'url(#marker_' + d.marker_end + ')' : null })
+    .attr("x1", function(d) { return d.source.x; })
+    .attr("y1", function(d) { return d.source.y; })
+    .attr("x2", function(d) { return d.target.x; })
+    .attr("y2", function(d) { return d.target.y; });
+
+    // Overlay narrower, colored strokes on top of the black strokes
+    var linkOverlay = svg.selectAll(".link-overlay")
+    .data(graph.links)
+    .enter().append("line")
+    .attr("class", function(d) {
+        return d.my_type === "pair" ? "link-dashed" : "link";
+    })
+    .style("stroke", function(d) { return d.color; }) // Colored stroke
+    .style("stroke-opacity", 1)
+    .style("stroke-width", function(d) { return d.edge_width; }) // Original width
+    .attr("marker-start", function(d) { return 'url(#marker_' + d.marker_start + ')' })
+    .attr("marker-end", function(d) { return config.directed ? 'url(#marker_' + d.marker_end + ')' : null })
+    .attr("x1", function(d) { return d.source.x; })
+    .attr("y1", function(d) { return d.source.y; })
+    .attr("x2", function(d) { return d.target.x; })
+    .attr("y2", function(d) { return d.target.y; });
+
 
       const edges = graph.links;
-
       const length = 9; // Define the length variable
 
       const linkTriangleRight = svg.selectAll(".linkTriangleRight")
@@ -324,7 +400,7 @@ function static_d3graphscript(config = {
     .attr("height", window.nodeHeight)
     .style("fill", function(d) {return d.node_color;})				// NODE-COLOR
     .style("opacity", function(d) {return d.node_opacity;}) 	    // NODE-OPACITY
-    .style("stroke-width", function(d) {return d.node_size_edge;})	// NODE-EDGE-SIZE
+    .style("stroke-width", function(d) {return d.node_size_edge*2;})	// NODE-EDGE-SIZE
     .style("stroke", function(d) {return d.node_color_edge;})		// NODE-COLOR-EDGE
     //  .style("stroke", '#000')										// NODE-EDGE-COLOR (all black));
     
@@ -343,7 +419,7 @@ function static_d3graphscript(config = {
       .attr("height", function(d) { return d.node_size; })					// NODE SIZE
       .style("fill", function(d) {return d.node_color;})				// NODE-COLOR
       .style("opacity", function(d) {return d.node_opacity;}) 	    // NODE-OPACITY
-      .style("stroke-width", function(d) {return d.node_size_edge;})	// NODE-EDGE-SIZE
+      .style("stroke-width", function(d) {return d.node_size_edge*2;})	// NODE-EDGE-SIZE
       .style("stroke", function(d) {return d.node_color_edge;})		// NODE-COLOR-EDGE
     //  .style("stroke", '#000')										// NODE-EDGE-COLOR (all black)
     
@@ -451,6 +527,7 @@ function static_d3graphscript(config = {
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
         
+
         d3.selectAll(".link-dashed")
             .attr("x1", d => d.source.x)
             .attr("y1", d => d.source.y)
@@ -585,6 +662,12 @@ function collide(alpha) {
   , { id: 2, name: 'arrow', path: 'M 0,0 m -5,-5 L 5,0 L -5,5 Z', viewbox: '-5 -5 10 10' }
   , { id: 3, name: 'stub', path: 'M 0,0 m -1,-5 L 1,-5 L 1,5 L -1,5 Z', viewbox: '-1 -5 2 10' }
   ]
+  data_marker.push({
+    id: 4,
+    name: 'large_black_arrow',
+    path: 'M 0,0 m -5,-5 L 5,0 L -5,5 Z',
+    viewbox: '-5 -5 10 10'
+  });
   
   //console.log(JSON.stringify(link))
   
@@ -593,8 +676,10 @@ function collide(alpha) {
     .enter()
     .append('svg:marker')
       .attr('id', function(d){ return 'marker_' + d.name})
-      .attr('markerHeight', 14) //ARI modified
-      .attr('markerWidth', 17) //ARI modified
+      //.attr('markerHeight', 14) //ARI modified
+      //.attr('markerWidth', 17) //ARI modified
+      .attr("markerHeight", function(d) { return d.name === 'large_black_arrow' ? 20 : 14; })
+      .attr("markerWidth", function(d) { return d.name === 'large_black_arrow' ? 24 : 17; })
       //.attr('markerUnits', 'strokeWidth')
       .attr("markerUnits", "userSpaceOnUse")                   // Fix marker width
       .attr('orient', 'auto')
@@ -606,10 +691,10 @@ function collide(alpha) {
       //.attr("transform", "rotate(180)")                    // Marker-start mirrored
         .attr('d', function(d){ return d.path })               // Marker type
         //.style("fill", function(d) {return d.marker_color;}) // Marker color
-        .style("fill", '#605f5f')                              // Marker color
-        .style("stroke", '#605f5f')                            // Marker edge-color
+        .style("fill", function(d) { return d.name === 'arrow' ? '#605f5f' : '#605f5f' }) // Conditionally set color
+        .style("stroke", function(d) { return d.name === 'arrow' ? '#605f5f' : '#605f5f' })
         .style("opacity", 1)                                // Marker opacity
-        .style("stroke-width", 1);                             // Marker edge thickness
+        .style("stroke-width", 2);                             // Marker edge thickness
   
   // --------- END MARKER -----------
 
@@ -625,6 +710,11 @@ function collide(alpha) {
       function tick(e) {
         // Update link positions
         link.attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+        
+          linkOverlay.attr("x1", function(d) { return d.source.x; })
             .attr("y1", function(d) { return d.source.y; })
             .attr("x2", function(d) { return d.target.x; })
             .attr("y2", function(d) { return d.target.y; });
@@ -789,7 +879,7 @@ function reset_node_colors(){
   .style("fill", function(d) {return d.node_color;})
   .style("opacity", function(d) {return d.node_opacity;})
   .style("stroke", function(d) {return d.node_color_edge;})
-  .style("stroke-width", function(d) {return d.edge_width;})
+  .style("stroke-width", function(d) {return d.edge_width*2;})
   .attr("r", function(d) { return d.node_size; })
   ;
   d3.selectAll(".node")
@@ -797,7 +887,7 @@ function reset_node_colors(){
   .style("fill", function(d) {return d.node_color;})
   .style("opacity", function(d) {return d.node_opacity;})
   .style("stroke", function(d) {return d.node_color_edge;})
-  .style("stroke-width", function(d) {return d.edge_width;})
+  .style("stroke-width", function(d) {return d.edge_width*2;})
   ;
   }
   function reset_graph_colors(e){
@@ -846,14 +936,14 @@ function color_on_click() {
               .style("fill", function(d) {return d.node_color;})
               .style("opacity", function(d) {return d.node_opacity;})
               .style("stroke", function(d) {return d.node_color_edge;})
-              .style("stroke-width", function(d) {return d.edge_width;})
+              .style("stroke-width", function(d) {return d.edge_width*2;})
               .attr("r", function(d) { return d.node_size; })
           ;
           d3.select(this).select("rect")
               .style("fill", function(d) {return d.node_color;})
               .style("opacity", function(d) {return d.node_opacity;})
               .style("stroke", function(d) {return d.node_color_edge;})
-              .style("stroke-width", function(d) {return d.edge_width;})
+              .style("stroke-width", function(d) {return d.edge_width*2;})
           ;
           index = multiple_select.indexOf(selectionString);
           multiple_select.splice(index, 1);
@@ -949,7 +1039,7 @@ function restart() {
   link = link.data(graph.links);
   link.exit().remove();
   link.enter().insert("line", ".node").attr("class", "link");
-  link.style("stroke-width", function(d) {return d.edge_width;});           // LINK-WIDTH AFTER BREAKING WITH SLIDER
+  link.style("stroke-width", function(d) {return d.edge_width*2;});           // LINK-WIDTH AFTER BREAKING WITH SLIDER
   //link.style('marker-start', function(d){ return 'url(#marker_' + d.marker_start  + ')' })
 link.style("marker-end", function(d) {                                    // Include the markers.
   if (config.directed) {return 'url(#marker_' + d.marker_end + ')' }})
