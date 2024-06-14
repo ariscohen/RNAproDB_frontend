@@ -211,7 +211,7 @@ filter.select("feMerge")
 
 
       const edges = graph.links;
-      const length = 9; // Define the length variable
+      const length = 12; // Define the length variable
 
       const linkTriangleRight = svg.selectAll(".linkTriangleRight")
         .data(edges.filter(d => d.LW && ['hs', 'ws'].includes(d.LW.slice(-2).toLowerCase())))
