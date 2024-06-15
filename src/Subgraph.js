@@ -63,11 +63,11 @@ function Subgraph({setSubgraph, tooLarge}) {
 
     <div id="algorithmButton">
       <input type="radio" id="PCA" name="algorithm" value="PCA" defaultChecked/>
-      <label for="PCA">PCA</label><br></br>
+      <label htmlFor="PCA">PCA</label><br></br>
       <input type="radio" id="RNAScape" name="algorithm" value="RNAScape"/>
-      <label for="RNAScape">RNAScape</label><br></br>
+      <label htmlFor="RNAScape">RNAScape</label><br></br>
       <input type="radio" id="SecondaryStructure" name="algorithm" value="SecondaryStructure"/>
-      <label for="SecondaryStructure">Secondary Structure</label>
+      <label htmlFor="SecondaryStructure">Secondary Structure</label>
     </div>
 
     <button 
