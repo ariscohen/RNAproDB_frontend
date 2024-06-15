@@ -46,6 +46,7 @@ function Subgraph({setSubgraph, tooLarge}) {
                 <span class="slider round"></span>
               </label>
     </div>
+
     <div>  
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Flip X-axis </span>
       <label class="switch">
@@ -59,7 +60,17 @@ function Subgraph({setSubgraph, tooLarge}) {
         <span class="slider round"></span>
       </label>
     </div>
-   <button 
+
+    <div id="algorithmButton">
+      <input type="radio" id="PCA" name="algorithm" value="PCA" defaultChecked/>
+      <label for="PCA">PCA</label><br></br>
+      <input type="radio" id="RNAScape" name="algorithm" value="RNAScape"/>
+      <label for="RNAScape">RNAScape</label><br></br>
+      <input type="radio" id="SecondaryStructure" name="algorithm" value="SecondaryStructure"/>
+      <label for="SecondaryStructure">Secondary Structure</label>
+    </div>
+
+    <button 
         id="select-subgraph-button" 
         className="button4 button4"
         onClick={handleSelectSubgraphClick}

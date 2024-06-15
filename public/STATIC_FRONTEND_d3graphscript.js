@@ -106,11 +106,44 @@ filter.select("feMerge")
     .on('tick', tick)   // Tick function for the force simulation
 
     // Fix nodes position and start the simulation
-    graph.nodes.forEach(function(d) {
+    
+    function getSelectedAlgorithm() {
+      const radios = document.getElementsByName('algorithm');
+      for (let radio of radios) {
+        if (radio.checked) {
+          return radio.value;
+        }
+      }
+    }
+  
+    // Function to update graph based on selected algorithm
+    function changeMappingAlgorithm(algorithm) {
+      graph.nodes.forEach(function(d) {
         d.fixed = true; // Fix the nodes position
-        d.x = parseFloat(d.x);
-        d.y = parseFloat(d.y);
-    });
+    
+        if (algorithm === "PCA") {
+          d.x = parseFloat(d.pca_x);
+          d.y = parseFloat(d.pca_y);
+        } else if (algorithm === "RNAScape") {
+          d.x = parseFloat(d.rnascape_x);
+          d.y = parseFloat(d.rnascape_y);
+        } else if (algorithm === "SecondaryStructure") {
+          d.x = parseFloat(d.viennarna_x);
+          d.y = parseFloat(d.viennarna_y);
+        }
+      });
+      updateGraph();
+    }
+
+    var currentAlgorithm = getSelectedAlgorithm();
+    changeMappingAlgorithm(currentAlgorithm);
+
+    document.querySelectorAll('input[name="algorithm"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+          currentAlgorithm = getSelectedAlgorithm(); // Update the current algorithm
+          changeMappingAlgorithm(currentAlgorithm); // Update the graph based on the new algorithm
+      });
+  });
 
     force.start(); // Start the simulation with nodes fixed
 
