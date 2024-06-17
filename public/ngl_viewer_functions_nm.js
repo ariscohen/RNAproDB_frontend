@@ -350,7 +350,7 @@ function loadStructure(structure_url, rotationMatrix) {
                         return 0x90cc84;  // red
                       }
                       else if (atom.resname == "U"){
-                        return 0xFF9896;  // blue
+                        return 0xaec7e8;  // blue
                       }
                       else{
                         return 0x000000; //white
