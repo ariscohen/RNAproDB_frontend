@@ -218,7 +218,7 @@ function loadStructure(structure_url, rotationMatrix) {
           return 0xa2a0d3; //0xFFA500;  // orange
         }
         else if (atom.isRna()){
-        return 0xF45C42; //orange-red
+        return 0xb22222;//0xF45C42; //orange-red
         }
         else if (atom.isHelix()){       
           return 0xDDDDDD;  // gray
@@ -1230,7 +1230,8 @@ function cleanupDeleteLater(deleteLater)
     var model_number = Number(item.substring(item.indexOf("/")+1,end_1));
     
     //console.log(model_number)
-    model_list_nm1[model_number].delete(item);
+    //model_list_nm1[model_number].delete(item);
+    model_list_nm1[0].delete(item); //HACK FIX: Assumse only one model
   });
 }
 
