@@ -932,10 +932,10 @@ function reset_node_colors(){
 window.reset_graph_colors = reset_graph_colors;
 
 // adds node to subgraph textbox, so subgraph can be computed
-function add_node_to_subgraph(chain, num){
+function add_node_to_subgraph(chain, num, icode){
   let textBox = document.getElementById("subgraph-textbox");
   if (textBox) {  // Check if the textBox is not null
-      textBox.value += `${chain}:${num},`;
+      textBox.value += `${chain}:${num}:${icode},`;
   }
 }
 
@@ -948,11 +948,13 @@ function color_on_click() {
   var name_split = d3.select(this)[0][0]["__data__"]["name"].split(":");
   var chain = name_split[0];
   var residue = name_split[2];
-  
+  var icode = d3.select(this)[0][0]["__data__"]["icode"]
+
   console.log(chain);
   console.log(residue);
+  console.log(icode);
 
-  add_node_to_subgraph(chain, residue);
+  add_node_to_subgraph(chain, residue, icode);
 
   var nodeIdToFind = d3.select(this)[0][0]["__data__"]["name"]; // replace this with the ID you want to search for
   var escapedId = nodeIdToFind.replace(/:/g, "\\:");
