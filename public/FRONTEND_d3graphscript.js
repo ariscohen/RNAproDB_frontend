@@ -236,60 +236,56 @@ function d3graphscript(config = {
         .call(zoom.translate(translate).scale(scale).event);
   }
   
-      // Flip X and Flip Y button functionality
-      const flipXButton = document.getElementById("flipXButton");
-      const flipYButton = document.getElementById("flipYButton");
-      
-      flipXButton.addEventListener("click", function() {
-          flipAxis("x");
+  function handleFlipX() {
+    const width = parseInt(d3.select("#right_column svg").attr("width"));
+    d3.select("#right_column").selectAll(".node").each(function(d) {
+        d.x = width - d.x;
+    });
+    updateGraph();
+}
+
+  function handleFlipY() {
+      const height = parseInt(d3.select("#right_column svg").attr("height"));
+      d3.select("#right_column").selectAll(".node").each(function(d) {
+          d.y = height - d.y;
       });
-      
-      flipYButton.addEventListener("click", function() {
-          flipAxis("y");
-      });
-      
-      function flipAxis(axis) {
-          if (axis === "x") {
-              graph.nodes.forEach(function(d) {
-                  d.x = width - d.x;
-              });
-          } else if (axis === "y") {
-              graph.nodes.forEach(function(d) {
-                  d.y = height - d.y;
-              });
-          }
-          updateGraph();
-      }
-      
-      function updateGraph() {
-        // Update node positions
-        d3.selectAll(".node").each(function(d) {
-            d3.select(this).select("circle")
-                .attr("cx", d.x)
-                .attr("cy", d.y);
-            
-            d3.select(this).select("rect")
-                .attr("x", d.x)
-                .attr("y", d.y);
-            
-            d3.select(this).select("text")
-                .attr("x", d.x)
-                .attr("y", d.y);
-        });
-        
-        // Update link positions
-        d3.selectAll(".link")
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
-        
-        d3.selectAll(".link-dashed")
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
-    }
+      updateGraph();
+  }
+
+  function updateGraph() {
+    // Update node positions
+    d3.select("#right_column").selectAll(".node").each(function (d) {
+      d3.select(this).select("circle")
+        .attr("cx", d.x)
+        .attr("cy", d.y);
+
+      d3.select(this).select("rect")
+        .attr("x", d.x)
+        .attr("y", d.y);
+
+      d3.select(this).select("text")
+        .attr("x", d.x)
+        .attr("y", d.y)
+        .style("font-size", "16px"); // Adjust text size here
+    });
+
+    d3.select("#right_column").selectAll(".link")
+      .attr("x1", d => d.source.x)
+      .attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
+
+    d3.select("#right_column").selectAll(".link-dashed")
+      .attr("x1", d => d.source.x)
+      .attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
+  };
+
+  window.handleFlipX = handleFlipX;
+  window.handleFlipY = handleFlipY;
+  window.updateGraph = updateGraph;
+
 
   // console.log(node)
   //Now we are giving the SVGs co-ordinates - the force layout is generating the co-ordinates which this code is using to update the attributes of the SVG elements

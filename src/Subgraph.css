@@ -5,12 +5,13 @@
     border: none;
     background-color: #f1f1f1;
     border-radius: 5px;
-    margin: 10px;
+    margin: 10px 0 0 0;
     cursor: pointer;
   }
   #select-subgraph-button:hover{
     background-color: #D0D0D7;
   }
+
   #generate-subgraph-button{
     float: right;
     display: 'inline-block';
@@ -18,7 +19,7 @@
     border: none;
     background-color: lightblue;
     border-radius: 5px;
-    margin: 10px;
+    margin: 10px 0 0 0;
     cursor: pointer;
   }
   #generate-subgraph-button:hover{
