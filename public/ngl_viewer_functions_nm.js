@@ -215,7 +215,7 @@ function loadStructure(structure_url, rotationMatrix) {
       this.atomColor = function (atom) {
         add_to_list(residue_list, atom)  
         if (atom.isDna()) {
-          return 0xFFA500;  // orange
+          return 0xa2a0d3; //0xFFA500;  // orange
         }
         else if (atom.isRna()){
         return 0xF45C42; //orange-red
@@ -340,16 +340,16 @@ function loadStructure(structure_url, rotationMatrix) {
                 var resColors = NGL.ColormakerRegistry.addScheme(function (params)
                   {
                     this.atomColor = function (atom) {
-                      if (atom.resname == "A") {
+                      if (atom.resname == "A" || atom.resname == "DA") {
                           return 0xFF9896;  // orange
                       }
-                      else if (atom.resname == "C"){
+                      else if (atom.resname == "C" || atom.resname == "DC" ){
                         return 0xDBDB8D; //orange-red
                       }
-                      else if (atom.resname == "G"){
+                      else if (atom.resname == "G" || atom.resname == "DG"){
                         return 0x90cc84;  // red
                       }
-                      else if (atom.resname == "U"){
+                      else if (atom.resname == "U" || atom.resname == "DT"){
                         return 0xaec7e8;  // blue
                       }
                       else{
