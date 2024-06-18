@@ -207,15 +207,30 @@ filter.select("feMerge")
     //   .attr("y2", function(d) {return d.target.y; });
       // .attr("filter", "url(#border-effect)");
       
+      svg.append("defs").selectAll("marker")
+      .data(["arrowRNAscape"]) // A unique identifier for the arrow marker
+      .enter().append("marker")
+      .attr("id", "arrowRNAscape")
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 16) // Position the arrow closer or further from the node
+      .attr("refY", 0)
+      .attr("markerWidth", 3)
+      .attr("markerHeight", 3)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M0,-5L10,0L0,5"); // The shape of the arrow
 
       // Create links with a "double stroke" effect for borders
     var link = svg.selectAll(".link")
     .data(graph.links)
     .enter().append("line")
-    .attr("class", function(d) {
-        return d.my_type === "pair" ? "link-dashed" : "link";
-    })
-    .style("stroke", "black") // First, a black stroke
+    .attr("class","link")
+    .style("stroke-dasharray", function(d) { 
+      console.log("HEre is d");
+      console.log(d);
+      return d.my_type === "pair" ? "10,10" : "none"; // "none" for solid
+     })
+     .style("stroke", function(d) { return d.color; }) // Colored stroke
     .style("stroke-opacity", 1)
     .style("stroke-width", function(d) { return d.edge_width + 4; }) // Make the black stroke wider
     // .attr("marker-start", function(d) { return 'url(#marker_' + d.marker_start + ')' })
@@ -223,24 +238,25 @@ filter.select("feMerge")
     .attr("x1", function(d) { return d.source.x; })
     .attr("y1", function(d) { return d.source.y; })
     .attr("x2", function(d) { return d.target.x; })
-    .attr("y2", function(d) { return d.target.y; });
+    .attr("y2", function(d) { return d.target.y; })
+    .attr("marker-end", function(d) { return d.my_type === "backbone" ? "url(#arrowRNAscape)" : null}); // Apply the arrow marker to "backbone" links
 
     // Overlay narrower, colored strokes on top of the black strokes
-    var linkOverlay = svg.selectAll(".link-overlay")
-    .data(graph.links)
-    .enter().append("line")
-    .attr("class", function(d) {
-        return d.my_type === "pair" ? "link-dashed" : "link";
-    })
-    .style("stroke", function(d) { return d.color; }) // Colored stroke
-    .style("stroke-opacity", 1)
-    .style("stroke-width", function(d) { return d.edge_width; }) // Original width
-    .attr("marker-start", function(d) { return 'url(#marker_' + d.marker_start + ')' })
-    .attr("marker-end", function(d) { return config.directed ? 'url(#marker_' + d.marker_end + ')' : null })
-    .attr("x1", function(d) { return d.source.x; })
-    .attr("y1", function(d) { return d.source.y; })
-    .attr("x2", function(d) { return d.target.x; })
-    .attr("y2", function(d) { return d.target.y; });
+    // var linkOverlay = svg.selectAll(".link-overlay")
+    // .data(graph.links)
+    // .enter().append("line")
+    // .attr("class", function(d) {
+    //     return d.my_type === "pair" ? "link-dashed" : "link";
+    // })
+    // .style("stroke", function(d) { return d.color; }) // Colored stroke
+    // .style("stroke-opacity", 1)
+    // .style("stroke-width", function(d) { return d.edge_width; }) // Original width
+    // .attr("marker-start", function(d) { return 'url(#marker_' + d.marker_start + ')' })
+    // .attr("marker-end", function(d) { return config.directed ? 'url(#marker_' + d.marker_end + ')' : null })
+    // .attr("x1", function(d) { return d.source.x; })
+    // .attr("y1", function(d) { return d.source.y; })
+    // .attr("x2", function(d) { return d.target.x; })
+    // .attr("y2", function(d) { return d.target.y; });
 
 
       const edges = graph.links;
@@ -747,10 +763,10 @@ function collide(alpha) {
             .attr("x2", function(d) { return d.target.x; })
             .attr("y2", function(d) { return d.target.y; });
         
-          linkOverlay.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
+          // linkOverlay.attr("x1", function(d) { return d.source.x; })
+          //   .attr("y1", function(d) { return d.source.y; })
+          //   .attr("x2", function(d) { return d.target.x; })
+          //   .attr("y2", function(d) { return d.target.y; });
     
         // Update node positions
         node.attr("cx", function(d) { return d.x; })
@@ -1074,40 +1090,41 @@ function restart() {
   link = link.data(graph.links);
   link.exit().remove();
   link.enter().insert("line", ".node").attr("class", "link");
-  link.style("stroke-width", function(d) {return d.edge_width*2;});           // LINK-WIDTH AFTER BREAKING WITH SLIDER
+  // link.style("stroke-width", function(d) {return d.edge_width*2;});           // LINK-WIDTH AFTER BREAKING WITH SLIDER
   //link.style('marker-start', function(d){ return 'url(#marker_' + d.marker_start  + ')' })
-link.style("marker-end", function(d) {                                    // Include the markers.
-  if (config.directed) {return 'url(#marker_' + d.marker_end + ')' }})
-  link.style("stroke", function(d) {return d.color;});                      // EDGE-COLOR AFTER BREAKING WITH SLIDER
+  // link.style("marker-end", function(d) {                                    // Include the markers.
+  // if (config.directed) {return 'url(#marker_' + d.marker_end + ')' }})
+  // link.style("stroke", function(d) {return d.color;});                      // EDGE-COLOR AFTER BREAKING WITH SLIDER
 
   node = node.data(graph.nodes);
   node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
   force.start();
 }
 
-var originalLinkColors = {};
-
 function toggleHBondsColor() {
-  var newColor = "red"; 
+  var newColor = "red";
   const isChecked = document.getElementById("toggleHBondsCheckbox").checked;
 
-  graph.links.forEach(function(link, i) {
-      if (isChecked) {
-          if (link.my_type === "protein_rna_hbond" && link.color !== newColor) {
-              originalLinkColors[i] = link.color;
-              link.color = newColor;
-          }
-      } else {
-          if (link.my_type === "protein_rna_hbond" && originalLinkColors[i]) {
-              link.color = originalLinkColors[i];
-          }
-      }
-  });
+  console.log("Checkbox is checked:", isChecked);
 
-  restart();
+  // Select all link elements and update their color
+  var links = svg.selectAll(".link")
+      .each(function(d) {
+          console.log("Current color:", d3.select(this).style("stroke"));
+      })
+      .style("stroke", function(d) {
+          if (isChecked && d.my_type === "protein_rna_hbond") {
+              return newColor;  // Set to new color if the condition is met
+          } else {
+              return d.color;  // Revert to original color otherwise
+          }
+      });
+  
+  console.log("Colors updated based on checkbox state.");
 }
 
-document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
 
-      zoomFit(0);
+document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
+      toggleHBondsColor();
+      // zoomFit(0);
   }
