@@ -1,14 +1,13 @@
-import logo from '../logo.svg';
+// Home.js
+import React, { useEffect, useState, useRef } from 'react';
 import '../App.css';
 import '../seqview.css';
 import '../pythongraph.css';
-import React, { useEffect, useState, useRef } from 'react';
 import TopRow from '../TopRow';
 import NGLViewer from '../NGLViewer';
 import NewPythonGraph from '../NewPythonGraph';
 import TitleContext from '../TitleContext';
 import Subgraph from '../Subgraph'; // Import the new component at the top
-
 import SeqViewer from '../Seqview';
 import SSViewer from '../SSViewer';
 import SSiframe from '../SSiframe';
@@ -16,8 +15,8 @@ import NewRnaView from '../NewRnaView';
 import DownloadButtons from '../DownloadButtons';
 import DownloadGraph from '../DownloadGraph.js';
 import HandleRotationChange from '../HandleRotationChange';
-
-import basePairingLegend from '../lw_base_pairing_legend.svg'; // Import the image
+import basePairingLegend from '../lw_base_pairing_legend.svg'; // Import the imag
+import ZoomFit from '../ZoomFit';
 
 const Home = () => {
   const columnRef = useRef(null);
@@ -35,14 +34,14 @@ const Home = () => {
 
   const [initialTranslate, setInitialTranslate] = useState([0, 0]);
   const [initialScale, setInitialScale] = useState(1);
-  const [algorithm, setAlgorithm] = useState('PCA');
+  const [algorithm, setAlgorithm] = useState('None');
   const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     if (columnRef.current) {
       setDimensions({
-        width: columnRef.current.offsetWidth * 0.80,
-        height: columnRef.current.offsetHeight * 0.60
+        width: columnRef.current.offsetWidth,
+        height: columnRef.current.offsetHeight
       });
     }
   }, [columnRef]);
@@ -56,7 +55,8 @@ const Home = () => {
         return;
       }
 
-      // zoomFit(0);
+      // Ensure ZoomFit is called with correct parameters
+      ZoomFit(0, setInitialTranslate, setInitialScale);
       document.getElementById('rotation_value').value = 0;
       document.getElementById('graph_rotation_slider').value = 0;
     };
@@ -75,13 +75,16 @@ const Home = () => {
   const handleAlgorithmSelect = (selectedAlgorithm) => {
     setAlgorithm(selectedAlgorithm);
     setShowDropdown(false);
+    if (window.changeMappingAlgorithm) {
+      window.changeMappingAlgorithm(selectedAlgorithm);
+    }
   };
 
   return (
-    <div>
+    <div className="App">
       <TitleContext.Provider value={{ title, setTitle }}>
         <TopRow />
-        <div className="container">
+        <div className="whole_container">
           <div className="column">
             <h1>3D Structure</h1>
             {chainsObject !== false && (
@@ -114,9 +117,10 @@ const Home = () => {
                     </button>
                     {showDropdown && (
                       <div className="dropdown-content">
+                        <div onClick={() => handleAlgorithmSelect('None')}>None</div>
                         <div onClick={() => handleAlgorithmSelect('PCA')}>PCA</div>
                         <div onClick={() => handleAlgorithmSelect('RNAScape')}>RNAScape</div>
-                        <div onClick={() => handleAlgorithmSelect('Secondary Structure')}>Secondary Structure</div>
+                        <div onClick={() => handleAlgorithmSelect('SecondaryStructure')}>Secondary Structure</div>
                       </div>
                     )}
                   </div>
@@ -155,14 +159,10 @@ const Home = () => {
               />
             </div>
             {activeTab === 'ssgraph' && ss !== false && (
-              <div>
-                <SSiframe ss={ss} />
-              </div>
+              <SSiframe ss={ss} />
             )}
             {activeTab === 'newRNAview' && (
-              <div>
-                <NewRnaView />
-              </div>
+              <NewRnaView />
             )}
           </div>
         </div>

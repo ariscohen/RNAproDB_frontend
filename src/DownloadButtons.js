@@ -18,7 +18,7 @@ const DownloadButtons = ({ downloadGraphHandler, handleFlipX, handleFlipY, handl
         </div>
       </div>
       <div className="slider-container">
-        <label>Graph Rotation: </label>
+        <label>Graph Rotation:</label>
         <input 
           type="range" 
           id="graph_rotation_slider" 

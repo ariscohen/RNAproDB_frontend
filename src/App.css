@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -38,31 +37,38 @@
   }
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: top;
+.whole_container {
+  display: grid;
+  grid-template-columns: 50% 50%; /* Explicitly set to 50% each for better control */
+  gap: 20px;
+  width: 100%; /* Ensures the container takes full width of its parent */
+  margin: 0;
+  padding: 0;
 }
 
 .column {
-  flex: 1;
   padding: 2rem;
   background: white;
   border: 1px solid #fff;
 }
-#right_column{
- margin-left: auto;
- padding:1rem;
+
+#right_column {
+  margin-left: auto;
+  padding: 1rem;
   margin-right: auto;
   text-align: center;
 }
-svg{
+
+svg {
   flex: 1;
   background: white;
   border: 1px solid #000;
   border-width: 2px 1px 1px 2px;
 }
-iframe#webpack-dev-server-client-overlay { display: none; } 
+
+iframe#webpack-dev-server-client-overlay {
+  display: none;
+}
 
 .tabs {
   display: flex;
@@ -83,58 +89,62 @@ iframe#webpack-dev-server-client-overlay { display: none; }
 }
 
 .download-buttons {
-  display: flex; /* Use flexbox layout */
-  justify-content: space-around; /* Space out the sections evenly */
-  margin-top: 20px; /* Add some top margin */
-  margin-bottom: 20px; /* Add some bottom margin */
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .download-buttons .dropdown {
-  position: relative; /* Needed for dropdown positioning */
-  display: inline-block; /* Inline block for proper spacing */
+  position: relative;
+  display: inline-block;
 }
 
 .download-buttons .dropdown-content {
-  display: none; /* Hide the dropdown content initially */
-  position: absolute; /* Position the dropdown content absolutely */
-  background-color: #f1f1f1; /* Background color for the dropdown */
-  min-width: 160px; /* Minimum width for the dropdown */
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Add shadow */
-  z-index: 1; /* Ensure it appears above other content */
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
 .download-buttons .dropdown-content button {
-  background-color: #f1f1f1; /* White background color */
-  color: black; /* Black text color */
-  border: 1px solid #f1f1f1; /* Light gray border */
-  padding: 10px 20px; /* Add padding */
-  text-align: left; /* Align text to the left */
-  text-decoration: none; /* Remove text decoration */
-  display: block; /* Display block for full width clickable area */
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  background-color: #f1f1f1;
+  color: black;
+  border: 1px solid #f1f1f1;
+  padding: 10px 20px;
+  text-align: left;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s;
 }
 
 .download-buttons .dropdown-content button:hover {
-  background-color: #ddd; /* Light gray on hover */
+  background-color: #ddd;
 }
 
 .download-buttons .dropdown:hover .dropdown-content {
-  display: block; /* Show the dropdown content on hover */
+  display: block;
 }
 
 .download-buttons .dropdown button {
-  background-color: #f1f1f1; /* White background color */
-  color: black; /* Black text color */
-  border: 1px solid #f1f1f1; /* Light gray border */
-  padding: 10px 20px; /* Add padding */
-  font-size: 16px; /* Increase font size */
-  cursor: pointer; /* Add cursor pointer on hover */
-  border-radius: 4px; /* Add border radius */
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  background-color: #f1f1f1;
+  color: black;
+  border: 1px solid #f1f1f1;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 .download-buttons .dropdown button:hover {
-  background-color: #ddd; /* Light gray on hover */
+  background-color: #ddd;
+}
+
+.download-buttons > .dropdown, .slider-container {
+  margin: 0 20px;
 }
 
 .slider-container {
