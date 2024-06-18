@@ -56,7 +56,7 @@ const Home = () => {
       }
 
       // Ensure ZoomFit is called with correct parameters
-      ZoomFit(0, setInitialTranslate, setInitialScale);
+      // ZoomFit(0, setInitialTranslate, setInitialScale);
       document.getElementById('rotation_value').value = 0;
       document.getElementById('graph_rotation_slider').value = 0;
     };
@@ -125,6 +125,7 @@ const Home = () => {
                     )}
                   </div>
                 </div>
+                <img src="/legend.svg" alt="Nature" className="responsive_img" />
                 <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
                   <div id="right_column" onClick={window.reset_graph_colors}>
