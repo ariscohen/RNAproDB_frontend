@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
 import $ from 'jquery';
 
-function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData }) {
+function NewPythonGraph({ dimensions, subgraph, algorithm, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData }) {
   const [data, setData] = useState(null);
   const { pdbid } = useParams();
   const { setTitle } = useContext(TitleContext);
@@ -15,10 +15,10 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
         let response = null;
         const IP = `localhost`;
         if (!subgraph) {
-          response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}`);
+          response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}&algorithm=${algorithm}`);
         } else {
-          response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}&subgraph=${subgraph}`);
-        }
+          response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}&subgraph=${subgraph}&algorithm=${algorithm}`);
+        } 
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {
           const result = await response.json();
@@ -36,7 +36,7 @@ function NewPythonGraph({ dimensions, subgraph, setSS, setChainsObject, setTooLa
     }
 
     fetchData();
-  }, [pdbid, setTitle, subgraph]);
+  }, [pdbid, setTitle, subgraph, algorithm]);
 
   useEffect(() => {
     if (data && data.output) {

@@ -115,28 +115,32 @@ filter.select("feMerge")
 
     // Fix nodes position and start the simulation
     
-    window.changeMappingAlgorithm = function(algorithm) {
-      graph.nodes.forEach(function(d) {
-        d.fixed = true; // Fix the nodes position
-        if (algorithm === "None") {
-            d.x = parseFloat(d.x);
-            d.y = parseFloat(d.y);
-        } else if (algorithm === "PCA") {
-          d.x = parseFloat(d.pca_x);
-          d.y = parseFloat(d.pca_y);
-        } else if (algorithm === "RNAScape") {
-          d.x = parseFloat(d.rnascape_x);
-          d.y = parseFloat(d.rnascape_y);
-        } else if (algorithm === "SecondaryStructure") {
-          d.x = parseFloat(d.viennarna_x);
-          d.y = parseFloat(d.viennarna_y);
-        }
-      });
-      updateGraph();
-    }
+    // window.changeMappingAlgorithm = function(algorithm) {
+    //   graph.nodes.forEach(function(d) {
+    //     d.fixed = true; // Fix the nodes position
+    //     if (algorithm === "None") {
+    //         d.x = parseFloat(d.x);
+    //         d.y = parseFloat(d.y);
+    //     } else if (algorithm === "PCA") {
+    //       d.x = parseFloat(d.pca_x);
+    //       d.y = parseFloat(d.pca_y);
+    //     } else if (algorithm === "RNAScape") {
+    //       d.x = parseFloat(d.rnascape_x);
+    //       d.y = parseFloat(d.rnascape_y);
+    //     } else if (algorithm === "SecondaryStructure") {
+    //       d.x = parseFloat(d.viennarna_x);
+    //       d.y = parseFloat(d.viennarna_y);
+    //     }
+    //   });
+    //   updateGraph();
+    // }
     
-    window.changeMappingAlgorithm("None");
-
+    // window.changeMappingAlgorithm("None");
+    graph.nodes.forEach(function(d) {
+    d.x = parseFloat(d.x);
+    d.y = parseFloat(d.y);
+    d.fixed = true; // Fix the nodes position
+    });
     force.start(); // Start the simulation with nodes fixed
 
     

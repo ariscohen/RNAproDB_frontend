@@ -10,6 +10,90 @@ import InputBase from '@mui/material/InputBase';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
+import TextField from '@mui/material/TextField';
+
+export function MolecularWeightRange() {
+  return (
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Minimum: 5kDa"
+          multiline
+          maxRows={4}
+        />
+        <TextField
+          id="outlined-textarea"
+          label="Maximum: 100kDa"
+          placeholder="Placeholder"
+          multiline
+        />
+        {/* <TextField
+          id="outlined-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+        /> */}
+      </div>
+      {/* <div>
+        <TextField
+          id="filled-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+          variant="filled"
+        />
+        <TextField
+          id="filled-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+          variant="filled"
+        />
+        <TextField
+          id="filled-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="filled"
+        />
+      </div> */}
+      {/* <div>
+        <TextField
+          id="standard-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+          variant="standard"
+        />
+        <TextField
+          id="standard-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+          variant="standard"
+        />
+        <TextField
+          id="standard-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="standard"
+        />
+      </div> */}
+    </Box>
+  );
+}
 
 
 //Slider functionalities
@@ -464,10 +548,12 @@ return (
         <p><b> Number of Protein Polymers </b></p>
       </div>
 
-      {/* <div className='YearRangeSlider'>
-        <YearRangeSlider updateSearchParams={updateSearchParams} />
-        <p><b> Publication Year </b></p>
+      <div className='MolecularWeightRange'>
+        <MolecularWeightRange />
+        <p><b> Molecular Weight Range (Da) </b></p>
       </div>
+
+      {/* 
 
       <div className='YearRangeSlider'>
         <YearRangeSlider updateSearchParams={updateSearchParams} />
