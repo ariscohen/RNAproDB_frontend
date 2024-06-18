@@ -75,9 +75,9 @@ const Home = () => {
   const handleAlgorithmSelect = (selectedAlgorithm) => {
     setAlgorithm(selectedAlgorithm);
     setShowDropdown(false);
-    if (window.changeMappingAlgorithm) {
-      window.changeMappingAlgorithm(selectedAlgorithm);
-    }
+    // if (window.changeMappingAlgorithm) {
+    //   window.changeMappingAlgorithm(selectedAlgorithm);
+    // }
   };
 
   return (
@@ -134,6 +134,7 @@ const Home = () => {
                       setRotationMatrix={setRotationMatrix}
                       dimensions={dimensions}
                       subgraph={subgraph}
+                      algorithm={algorithm}
                       setSS={setSS}
                       setChainsObject={setChainsObject}
                       tooLarge={tooLarge}
