@@ -36,6 +36,7 @@ const Home = () => {
   const [initialScale, setInitialScale] = useState(1);
   const [algorithm, setAlgorithm] = useState('None');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isFirst, setIsFirst] = useState(true);
 
   useEffect(() => {
     if (columnRef.current) {
@@ -75,6 +76,7 @@ const Home = () => {
   const handleAlgorithmSelect = (selectedAlgorithm) => {
     setAlgorithm(selectedAlgorithm);
     setShowDropdown(false);
+    setIsFirst(false);
     // if (window.changeMappingAlgorithm) {
     //   window.changeMappingAlgorithm(selectedAlgorithm);
     // }
@@ -93,7 +95,7 @@ const Home = () => {
               <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
             )}
             {rotationMatrix !== false && tooLarge !== true && (
-              <NGLViewer rotationMatrix={rotationMatrix} />
+              <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
             )}
           </div>
           <div className="column" ref={columnRef} id="right_column_top">
@@ -137,6 +139,7 @@ const Home = () => {
                       dimensions={dimensions}
                       subgraph={subgraph}
                       algorithm={algorithm}
+                      isFirst={isFirst}
                       setSS={setSS}
                       setChainsObject={setChainsObject}
                       tooLarge={tooLarge}

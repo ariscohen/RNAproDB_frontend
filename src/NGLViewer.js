@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function NGLViewer(rotationMatrix) {
+function NGLViewer(rotationMatrix, algorithm) {
     let { pdbid } = useParams();
     useEffect(() => { 
     const loadNGL = () => {
@@ -16,7 +16,7 @@ function NGLViewer(rotationMatrix) {
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
-          loadStructure(`/cifs/${pdbid}-assembly1.cif`, {rotationMatrix});
+          loadStructure(`/cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
         });
         document.body.appendChild(script2);
       });
@@ -25,7 +25,7 @@ function NGLViewer(rotationMatrix) {
     };
 
     loadNGL();
-  }, [rotationMatrix]); // CHECK WHETHER THIS DEPENDENCY IS NEEDEED
+  }, [rotationMatrix, algorithm]); // CHECK WHETHER THIS DEPENDENCY IS NEEDEED
 
   return <div id="viewport" style={{ width: '100%', height: '700px' }}></div>;
 }
