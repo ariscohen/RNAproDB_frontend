@@ -1,3 +1,11 @@
+tooltipColorDict = {
+"#FF9896": "#ffcece", //red/pink
+"#90cc84": "#ddffd6", //green
+"#DBDB8D": "#ffffba", //yellow
+"#AEC7E8": "#dbeaff", // blue
+"#c6c6c6": "#eaeaea", //gray
+}
+
 var multiple_select = [];
 var prev_single_select;
 
@@ -159,38 +167,8 @@ filter.select("feMerge")
     .on("dragend", dragended);
       
       // DRAGGING STOP
-       
-    //Create links
-    // var link = svg.selectAll(".link")
-    //   .data(graph.links)
-    //   .enter().append("line")
-    //   // .attr("dist-3d", function(d){ return d.distance_3d})
-    //   .attr("dist-3d", function(d){
-    //       return d.distance_3d;
-    //   })
-
-    //   .attr("class", function(d){
-    //     if(d.my_type == "pair")
-    //     {
-    //       return "link-dashed";
-    //     }
-    //     else{
-    //       return "link";
-    //     }
-    //   })
-    //   .attr('marker-start', function(d){ return 'url(#marker_' + d.marker_start + ')' })
-    //   .attr("marker-end", function(d) {
-    //     if (config.directed) {return 'url(#marker_' + d.marker_end + ')' }})
-    //   .style("stroke", "#999")
-    //   .style("stroke-opacity", 1)
-    //   .style("stroke-width", function(d) {return d.edge_width;})          // LINK-WIDTH
-    //   .style("stroke", function(d) {return d.color;})                     // EDGE-COLORS
-    //   .attr("x1", function(d) {return d.source.x; }) // these are apparently required for the force field to work #TODO
-    //   .attr("y1", function(d) {return d.source.y; })
-    //   .attr("x2", function(d) {return d.target.x; })
-    //   .attr("y2", function(d) {return d.target.y; });
-      // .attr("filter", "url(#border-effect)");
       
+      // Create arrow for backbone
       svg.append("defs").selectAll("marker")
       .data(["arrowRNAscape"]) // A unique identifier for the arrow marker
       .enter().append("marker")
@@ -215,31 +193,11 @@ filter.select("feMerge")
      .style("stroke", function(d) { return d.color; }) // Colored stroke
     .style("stroke-opacity", 1)
     .style("stroke-width", function(d) { return d.edge_width + 4; }) // Make the black stroke wider
-    // .attr("marker-start", function(d) { return 'url(#marker_' + d.marker_start + ')' })
-    // .attr("marker-end", function(d) { return config.directed ? 'url(#marker_' + d.marker_end + ')' : null })
     .attr("x1", function(d) { return d.source.x; })
     .attr("y1", function(d) { return d.source.y; })
     .attr("x2", function(d) { return d.target.x; })
     .attr("y2", function(d) { return d.target.y; })
     .attr("marker-end", function(d) { return d.my_type === "backbone" ? "url(#arrowRNAscape)" : null}); // Apply the arrow marker to "backbone" links
-
-    // Overlay narrower, colored strokes on top of the black strokes
-    // var linkOverlay = svg.selectAll(".link-overlay")
-    // .data(graph.links)
-    // .enter().append("line")
-    // .attr("class", function(d) {
-    //     return d.my_type === "pair" ? "link-dashed" : "link";
-    // })
-    // .style("stroke", function(d) { return d.color; }) // Colored stroke
-    // .style("stroke-opacity", 1)
-    // .style("stroke-width", function(d) { return d.edge_width; }) // Original width
-    // .attr("marker-start", function(d) { return 'url(#marker_' + d.marker_start + ')' })
-    // .attr("marker-end", function(d) { return config.directed ? 'url(#marker_' + d.marker_end + ')' : null })
-    // .attr("x1", function(d) { return d.source.x; })
-    // .attr("y1", function(d) { return d.source.y; })
-    // .attr("x2", function(d) { return d.target.x; })
-    // .attr("y2", function(d) { return d.target.y; });
-
 
       const edges = graph.links;
       const length = 12; // Define the length variable
@@ -397,16 +355,6 @@ filter.select("feMerge")
     //   //  .attr("y1", function(d) { console.log(d); return d.source.y; })
     //   //  .attr("x2", function(d) { console.log(d); return d.target.x; })
     //   //  .attr("y2", function(d) { console.log(d); return d.target.y; });
-    
-    // //Create nodes
-    // var node = svg.selectAll(".node")
-    //   .data(graph.nodes)
-    //   .enter().append("circle")
-    //   .attr("class", "node")
-    //   .attr("r", 5) // Set the node radius here
-    //   .attr("shape_class", function(d) {return d.shape;})
-    //   .call(drag)
-    //   .style("fill", function(d) { return color(d.group); }); // or use any other property for color
 
     // //Do the same with the circles for the nodes
     var node = svg.selectAll(".node")
@@ -464,8 +412,160 @@ filter.select("feMerge")
     .style("font-family", "monospace");
     
 
+    // New NODE tooltip code
+    const tooltip = d3.select("#tooltip");
+    function generateTooltipContent(event) {
+      console.log(event);
+      let content = `<div style="text-align: center;"><strong>${event.node_name} ${event.rnaprodb_id.split(":")[1]}${event.icode}</strong></div><b>Chain:</b> ${event.rnaprodb_id.split(":")[0]}<br/>`;
+      const keysToShow = {"node_tooltip": "Info"};
+      // @Raktim, first is the actual key, second is the text you want to show
 
+      Object.entries(keysToShow).forEach(([key, label]) => {
+          if (event[key]) {
+              content += `<b>${label}:</b> ${event[key]}<br/>`;
+          }
+      });
+  
+      return content;
+  } 
+      node.on("mouseover", function(event, d) {
+        var newEvent = d3.event; // Access event using d3.event
+        // Brighten the node color for the tooltip background
+          const brightenedColor = tooltipColorDict[event.node_color]; 
+          tooltip.style("opacity", 1)
+                  .style("left", (newEvent.pageX + 10) + "px")
+                  .style("top", (newEvent.pageY - 10) + "px")
+                  .html(() => {
+                      return generateTooltipContent(event);
+                  })
+                  .style("background",brightenedColor); // Optional: custom color for tooltip background
+      })
+      .on("mouseout", function() {
+          tooltip.style("opacity", 0);
+      });
       
+      // New EDGE TOOLTIP CODE
+      const edgeTooltip = d3.select("#edgeTooltip");
+
+      // RAKTIM ADD EDGE STUFF HERE
+      function generateEdgeTooltipContent(d) {
+    // You can customize this content based on the edge data
+    return `<strong>Connection:</strong> ${d.source.node_name} to ${d.target.node_name}<br/>
+            <strong>Type:</strong> ${d.my_type}`;
+}
+
+// Event listeners for lines (edges)
+link.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+
+// Event listeners for triangles along the edges
+linkTriangleRight.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+// Event listeners for triangles along the edges
+linkTriangleLeft.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+// Event listeners for triangles along the edges
+linkTriangleCenter.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+// Event listeners for triangles along the edges
+linkSquareRight.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+// Event listeners for triangles along the edges
+linkSquareLeft.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+// Event listeners for triangles along the edges
+linkSquareCenter.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+// Event listeners for triangles along the edges
+linkCircleRight.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+// Event listeners for triangles along the edges
+linkCircleLeft.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+// Event listeners for triangles along the edges
+linkCircleCenter.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+
       var root = d3.select('g')// any svg.select(...) that has a single node like a container group by #id
   
       var zoom = d3.behavior
@@ -850,13 +950,21 @@ function collide(alpha) {
         //   hasZoomFit = true; // Set the flag to true
         // }
     //   }
-      let showInHover = ["node_tooltip"]; // Tooltip
-      node.append("title")
-      .text((d) => Object.keys(d)
-          .filter((key) => showInHover.indexOf(key) !== -1)
-          .map((key) => `${d[key]}`)
-          .join('\n')
-      )
+      // OG TOOLTIP CODE
+      // let showInHover = ["node_tooltip"]; // Tooltip
+      // node.append("title")
+      // .text((d) => Object.keys(d)
+      //     .filter((key) => showInHover.indexOf(key) !== -1)
+      //     .map((key) => `${d[key]}`)
+      //     .join('\n')
+      // )
+
+
+    
+
+
+
+
 
 //Toggle stores whether the highlighting is on **********************
 var toggle = 0;

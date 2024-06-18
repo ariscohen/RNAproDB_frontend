@@ -84,6 +84,8 @@ const Home = () => {
     <div className="App">
       <TitleContext.Provider value={{ title, setTitle }}>
         <TopRow />
+        <div id="tooltip"></div>
+        <div id="edgeTooltip"></div>
         <div className="whole_container">
           <div className="column">
             <h1>3D Structure</h1>
