@@ -215,10 +215,10 @@ function loadStructure(structure_url, rotationMatrix) {
       this.atomColor = function (atom) {
         add_to_list(residue_list, atom)  
         if (atom.isDna()) {
-          return 0xFFA500;  // orange
+          return 0xa2a0d3; //0xFFA500;  // orange
         }
         else if (atom.isRna()){
-        return 0xF45C42; //orange-red
+        return 0xb22222;//0xF45C42; //orange-red
         }
         else if (atom.isHelix()){       
           return 0xDDDDDD;  // gray
@@ -340,17 +340,17 @@ function loadStructure(structure_url, rotationMatrix) {
                 var resColors = NGL.ColormakerRegistry.addScheme(function (params)
                   {
                     this.atomColor = function (atom) {
-                      if (atom.resname == "A") {
+                      if (atom.resname == "A" || atom.resname == "DA") {
                           return 0xFF9896;  // orange
                       }
-                      else if (atom.resname == "C"){
+                      else if (atom.resname == "C" || atom.resname == "DC" ){
                         return 0xDBDB8D; //orange-red
                       }
-                      else if (atom.resname == "G"){
+                      else if (atom.resname == "G" || atom.resname == "DG"){
                         return 0x90cc84;  // red
                       }
-                      else if (atom.resname == "U"){
-                        return 0xFF9896;  // blue
+                      else if (atom.resname == "U" || atom.resname == "DT"){
+                        return 0xaec7e8;  // blue
                       }
                       else{
                         return 0x000000; //white
@@ -1230,7 +1230,8 @@ function cleanupDeleteLater(deleteLater)
     var model_number = Number(item.substring(item.indexOf("/")+1,end_1));
     
     //console.log(model_number)
-    model_list_nm1[model_number].delete(item);
+    //model_list_nm1[model_number].delete(item);
+    model_list_nm1[0].delete(item); //HACK FIX: Assumse only one model
   });
 }
 
