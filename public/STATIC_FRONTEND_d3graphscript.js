@@ -107,21 +107,13 @@ filter.select("feMerge")
 
     // Fix nodes position and start the simulation
     
-    function getSelectedAlgorithm() {
-      const radios = document.getElementsByName('algorithm');
-      for (let radio of radios) {
-        if (radio.checked) {
-          return radio.value;
-        }
-      }
-    }
-  
-    // Function to update graph based on selected algorithm
-    function changeMappingAlgorithm(algorithm) {
+    window.changeMappingAlgorithm = function(algorithm) {
       graph.nodes.forEach(function(d) {
         d.fixed = true; // Fix the nodes position
-    
-        if (algorithm === "PCA") {
+        if (algorithm === "None") {
+            d.x = parseFloat(d.x);
+            d.y = parseFloat(d.y);
+        } else if (algorithm === "PCA") {
           d.x = parseFloat(d.pca_x);
           d.y = parseFloat(d.pca_y);
         } else if (algorithm === "RNAScape") {
@@ -134,16 +126,8 @@ filter.select("feMerge")
       });
       updateGraph();
     }
-
-    var currentAlgorithm = getSelectedAlgorithm();
-    changeMappingAlgorithm(currentAlgorithm);
-
-    document.querySelectorAll('input[name="algorithm"]').forEach(radio => {
-      radio.addEventListener('change', function() {
-          currentAlgorithm = getSelectedAlgorithm(); // Update the current algorithm
-          changeMappingAlgorithm(currentAlgorithm); // Update the graph based on the new algorithm
-      });
-  });
+    
+    window.changeMappingAlgorithm("None");
 
     force.start(); // Start the simulation with nodes fixed
 
@@ -226,8 +210,6 @@ filter.select("feMerge")
     .enter().append("line")
     .attr("class","link")
     .style("stroke-dasharray", function(d) { 
-      console.log("HEre is d");
-      console.log(d);
       return d.my_type === "pair" ? "10,10" : "none"; // "none" for solid
      })
      .style("stroke", function(d) { return d.color; }) // Colored stroke
@@ -525,33 +507,20 @@ filter.select("feMerge")
       }
 
       // Flip X and Flip Y button functionality
-      const flipXButton = document.getElementById("flipXButton");
-      const flipYButton = document.getElementById("flipYButton");
-      let isFlippedX = false;
-      let isFlippedY = false;
-      
-      flipXButton.addEventListener("click", function() {
-          flipAxis("x");
-      });
-      
-      flipYButton.addEventListener("click", function() {
-          flipAxis("y");
-      });
-      
-      function flipAxis(axis) {
-          if (axis === "x") {
-              isFlippedX = !isFlippedX;
-              graph.nodes.forEach(function(d) {
-                  d.x = width - d.x;
-              });
-          } else if (axis === "y") {
-              isFlippedY = !isFlippedY;
-              graph.nodes.forEach(function(d) {
-                  d.y = height - d.y;
-              });
-          }
-          updateGraph();
-      }
+      function handleFlipX() {
+        const width = parseInt(d3.select("#right_column svg").attr("width"));
+        d3.select("#right_column").selectAll(".node").each(function(d) {
+            d.x = width - d.x;
+        });
+        updateGraph();
+    }
+    function handleFlipY() {
+        const height = parseInt(d3.select("#right_column svg").attr("height"));
+        d3.select("#right_column").selectAll(".node").each(function(d) {
+            d.y = height - d.y;
+        });
+        updateGraph();
+    }
       
       function updateGraph() {
         // Update node positions
@@ -669,6 +638,10 @@ filter.select("feMerge")
         .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
         // tick();
     }
+
+    window.handleFlipX = handleFlipX;
+    window.handleFlipY = handleFlipY;
+    window.updateGraph = updateGraph;
 
  // collision detection
   
@@ -966,9 +939,9 @@ function color_on_click() {
   var residue = name_split[2];
   var icode = d3.select(this)[0][0]["__data__"]["icode"]
 
-  console.log(chain);
-  console.log(residue);
-  console.log(icode);
+  // console.log(chain);
+  // console.log(residue);
+  // console.log(icode);
 
   add_node_to_subgraph(chain, residue, icode);
 

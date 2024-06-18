@@ -236,60 +236,143 @@ function d3graphscript(config = {
         .call(zoom.translate(translate).scale(scale).event);
   }
   
-      // Flip X and Flip Y button functionality
-      const flipXButton = document.getElementById("flipXButton");
-      const flipYButton = document.getElementById("flipYButton");
-      
-      flipXButton.addEventListener("click", function() {
-          flipAxis("x");
+  function handleFlipX() {
+    const width = parseInt(d3.select("#right_column svg").attr("width"));
+    d3.select("#right_column").selectAll(".node").each(function(d) {
+        d.x = width - d.x;
+    });
+    updateGraph();
+}
+
+  function handleFlipY() {
+      const height = parseInt(d3.select("#right_column svg").attr("height"));
+      d3.select("#right_column").selectAll(".node").each(function(d) {
+          d.y = height - d.y;
       });
-      
-      flipYButton.addEventListener("click", function() {
-          flipAxis("y");
-      });
-      
-      function flipAxis(axis) {
-          if (axis === "x") {
-              graph.nodes.forEach(function(d) {
-                  d.x = width - d.x;
-              });
-          } else if (axis === "y") {
-              graph.nodes.forEach(function(d) {
-                  d.y = height - d.y;
-              });
-          }
-          updateGraph();
-      }
-      
-      function updateGraph() {
-        // Update node positions
-        d3.selectAll(".node").each(function(d) {
-            d3.select(this).select("circle")
-                .attr("cx", d.x)
-                .attr("cy", d.y);
-            
-            d3.select(this).select("rect")
-                .attr("x", d.x)
-                .attr("y", d.y);
-            
-            d3.select(this).select("text")
-                .attr("x", d.x)
-                .attr("y", d.y);
-        });
+      updateGraph();
+  }
+
+  function updateGraph() {
+    // Update node positions
+    d3.selectAll(".node").each(function(d) {
+        d3.select(this).select("circle")
+            .attr("cx", d.x)
+            .attr("cy", d.y);
         
-        // Update link positions
-        d3.selectAll(".link")
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
+        d3.select(this).select("rect")
+            .attr("x", d.x)
+            .attr("y", d.y);
         
-        d3.selectAll(".link-dashed")
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
-    }
+        d3.select(this).select("text")
+            .attr("x", d.x)
+            .attr("y", d.y);
+    });
+    
+    // Update link positions
+    d3.selectAll(".link")
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+    
+
+    d3.selectAll(".link-dashed")
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+      // Update linkTriangleRight positions
+    d3.selectAll(".linkTriangleRight").attr("transform", d => {
+        let dx = d.target.x - d.source.x;
+        let dy = d.target.y - d.source.y;
+        const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+        return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8}) rotate(${angle})`;
+    })
+    .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+    .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+    // Update linkSquareLeft positions
+    d3.selectAll(".linkSquareLeft").attr("transform", d => {
+        let dx = d.target.x - d.source.x;
+        let dy = d.target.y - d.source.y;
+        const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+        return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
+    })
+    .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+    .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+    // Update linkSquareRight positions
+    d3.selectAll(".linkSquareRight").attr("transform", d => {
+        let dx = d.target.x - d.source.x;
+        let dy = d.target.y - d.source.y;
+        const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+        return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8}) rotate(${angle})`;
+    })
+    .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+    .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+    // Update linkSquareCenter positions
+    d3.selectAll(".linkSquareCenter").attr("transform", d => {
+        let dx = d.target.x - d.source.x;
+        let dy = d.target.y - d.source.y;
+        const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+        return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+    })
+    .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+    .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+    // Update linkTriangleCenter positions
+    d3.selectAll(".linkTriangleCenter").attr("transform", d => {
+        let dx = d.target.x - d.source.x;
+        let dy = d.target.y - d.source.y;
+        const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+        return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+    })
+    .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+    .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+    d3.selectAll(".linkTriangleLeft").attr("transform", d => {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+      return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
+  })
+  .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+  .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+    // Update linkCircleLeft positions
+    d3.selectAll(".linkCircleLeft").attr("transform", d => {
+        let dx = d.target.x - d.source.x;
+        let dy = d.target.y - d.source.y;
+        return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8})`;
+    })
+    .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+    .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+    d3.selectAll(".linkCircleRight").attr("transform", d => {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8})`;
+    })
+      .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+      .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+      
+    // Update linkCircleCenter positions
+    d3.selectAll(".linkCircleCenter").attr("transform", d => {
+        let dx = d.target.x - d.source.x;
+        let dy = d.target.y - d.source.y;
+        return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2})`;
+    })
+    .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+    .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+    // tick();
+  }
+
+  window.handleFlipX = handleFlipX;
+  window.handleFlipY = handleFlipY;
+  window.updateGraph = updateGraph;
+
 
   // console.log(node)
   //Now we are giving the SVGs co-ordinates - the force layout is generating the co-ordinates which this code is using to update the attributes of the SVG elements
