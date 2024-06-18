@@ -1208,4 +1208,25 @@ function toggleHBondsColor() {
 document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
       toggleHBondsColor();
       // zoomFit(0);
+
+// LOGIC TO OPTIMIZE PROTEIN POSITIONS
+graph.nodes.forEach(function(d) {
+  if (d.shape === 'circle') {
+      d.fixed = true;
+  } else {
+      d.fixed = false;  // Proteins can move
   }
+});
+// Start the simulation for 2 seconds
+force.start();
+setTimeout(function() {
+    force.stop();  // Stop the simulation after 2 seconds
+
+    // Re-fix all nodes after simulation stops
+    graph.nodes.forEach(function(d) {
+        d.fixed = true;
+    });
+}, 2000);
+
+
+}
