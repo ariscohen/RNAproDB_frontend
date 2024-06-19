@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3.js Graph Visualization with Zoom and Hover</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    .link {
+      stroke: #333; /* Darken the edge color */
+      stroke-opacity: 0.8;
+      stroke-width: 2px; /* Thicker edges for non-protein nodes */
+    }
+    .protein-link {
+      stroke: #ccc; /* Lighter edge color for proteins */
+      stroke-opacity: 0.6;
+      stroke-width: 1px; /* Thinner edges for proteins */
+      stroke-dasharray: 3, 3; /* Dashed line for proteins */
+    }
+    .node {
+      stroke: #000; /* Black border */
+      stroke-width: 2px;
+      cursor: pointer; /* Change cursor to pointer on hover */
+    }
+    .node:hover {
+      stroke-width: 4px; /* Increase border thickness on hover */
+    }
+    .protein {
+      fill: #ff7f0e; /* Custom color for protein nodes */
+      stroke: #000;
+      stroke-width: 2px;
+      cursor: pointer; /* Change cursor to pointer on hover */
+    }
+    .protein:hover {
+      fill: #ffcc80; /* Adjust color on hover */
+      stroke-width: 4px; /* Adjust border thickness on hover */
+    }
+    .node-label {
+      font-size: 12px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <svg id="svg-container"></svg>
+
+  <script>
+    d3.json("./8g00_SSgraph.json").then(function(graph) {
+      const links = graph.links.map(d => Object.create(d));
+      const nodes = graph.nodes.map(d => {
+        return {
+          id: d.id,
+          type: d.id.split(":")[0].trim(), // Extract node type from id (assuming id contains node type)
+          x: +d.x, // Convert x from string to number
+          y: +d.y, // Convert y from string to number
+          incomingEdges: 0 // Initialize incoming edges count
+        };
+      });
+
+      // Calculate incoming edges count for each node
+      links.forEach(link => {
+        nodes.find(node => node.id === link.target).incomingEdges++;
+      });
+
+      // Determine the maximum number of incoming edges for scaling node size
+      const maxIncomingEdges = d3.max(nodes, d => d.incomingEdges);
+
+      // Define node size scale (fixed size for proteins)
+      const nodeSizeProtein = 10; // Fixed size for protein nodes
+      const nodeSizeOther = 30; // Fixed size for other nodes
+      const nodeSizeScale = d3.scaleLinear()
+        .domain([0, maxIncomingEdges])
+        .range([5, 20]); // Adjust minimum and maximum node sizes
+
+      // Define color scale for node types
+      //const colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+     // .domain(nodes.map(d => d.type));
+    colorScale={ 
+        "stems":"#0f0f0f",
+        "hairpins":"#AFE1AF",
+        'junctions':"#228B22",
+        'bulges':'#ffffff',
+        'iloops':'#96DED1',
+        'ssSegments':'#dddddd'
+        };
+
+      const svg = d3.select("#svg-container");
+
+      // Compute the bounds of the nodes
+      const minX = d3.min(nodes, d => d.x);
+      const minY = d3.min(nodes, d => d.y);
+      const maxX = d3.max(nodes, d => d.x);
+      const maxY = d3.max(nodes, d => d.y);
+
+      const width = maxX - minX + 100; // Add some padding
+      const height = maxY - minY + 100; // Add some padding
+
+      // Set SVG dimensions
+      svg.attr("width", width)
+         .attr("height", height);
+
+      const container = svg.append("g");
+
+      // Zoom behavior excluding proteins
+      const zoom = d3.zoom()
+        .extent([[0, 0], [width, height]])
+        .scaleExtent([0.1, 10])
+        .on("zoom", zoomed);
+
+      svg.call(zoom);
+
+      const nonProteinNodes = nodes.filter(node => node.type !== "protein");
+
+      const link = container.append("g")
+        .selectAll("line")
+        .data(links)
+        .join("line")
+        .attr("class", d => {
+          const sourceType = nodes.find(node => node.id === d.source)?.type;
+          const targetType = nodes.find(node => node.id === d.target)?.type;
+          if (sourceType !== "protein" && targetType !== "protein") {
+            return "link"; // Regular link for non-protein to non-protein connections
+          } else {
+            return "protein-link"; // Protein link for connections involving protein nodes
+          }
+        })
+        .style("stroke-width", d => {
+          const sourceType = nodes.find(node => node.id === d.source)?.type;
+          const targetType = nodes.find(node => node.id === d.target)?.type;
+          if (sourceType !== "protein" && targetType !== "protein") {
+            return "4px"; // Thick stroke for non-protein to non-protein connections
+          } else {
+            return "1px"; // Default stroke width for other connections
+          }
+        });
+
+      const node = container.append("g")
+        .selectAll(".node")
+        .data(nonProteinNodes)
+        .enter().append("circle")
+        .attr("class", "node")
+        .attr("r", nodeSizeOther) // Fixed size for non-protein nodes
+        .attr("cx", d => d.x - minX + 50) // Adjust position relative to minX and add padding
+        .attr("cy", d => d.y - minY + 50) // Adjust position relative to minY and add padding
+        .style("fill", d => colorScale[d.type]) // Color nodes based on node type
+        .style("stroke-width", "2px"); // Border width for protein nodes
+
+      const proteinNodes = nodes.filter(node => node.type === "protein");
+
+      const proteinNode = container.append("g")
+        .selectAll(".protein")
+        .data(proteinNodes)
+        .enter().append("rect")
+        .attr("class", "protein")
+        .attr("width", nodeSizeProtein) // Fixed size for protein nodes
+        .attr("height", nodeSizeProtein) // Fixed size for protein nodes
+        .attr("x", d => d.x - minX + 50 - nodeSizeProtein / 2) // Adjust position relative to minX and add padding
+        .attr("y", d => d.y - minY + 50 - nodeSizeProtein / 2) // Adjust position relative to minY and add padding
+        .style("fill", "#ff7f0e") // Custom color for protein nodes
+        .style("stroke", "#000") // Black border for protein nodes
+        .style("stroke-width", "2px") // Border width for protein nodes
+        .on("mouseover", function(event, d) {
+          d3.select(this)
+            .style("fill", "#ffcc80") // Adjust color on hover
+            .style("stroke-width", "4px"); // Adjust border thickness on hover
+        })
+        .on("mouseout", function(event, d) {
+          d3.select(this)
+            .style("fill", "#ff7f0e") // Revert to original color
+            .style("stroke-width", "2px"); // Revert to original border thickness
+        });
+
+      node.append("title")
+        .text(d => d.id);
+
+      node.append("text")
+        .attr("class", "node-label")
+        .attr("x", d => d.x - minX + 62) // Adjust position relative to minX and add padding
+        .attr("y", d => d.y - minY + 50)
+        .text(d => d.id);
+        
+        node.on("mouseover", function(event, d) {
+          d3.select(this)
+            .style("fill", "#ffcc80") // Adjust color on hover
+            .style("stroke-width", "4px") // Adjust border thickness on hover
+            .attr("r", 40);
+        })
+        .on("mouseout", function(event, d) {
+          d3.select(this)
+            .style("fill", "#ff7f0e") // Revert to original color
+            .style("stroke-width", "2px") // Revert to original border thickness
+            .attr("r", 30) // Revert to original border thickness
+            .style("fill", d => colorScale[d.type]);
+        });
+
+      proteinNode.append("title")
+        .text(d => d.id);
+
+      proteinNode.append("text")
+        .attr("class", "node-label")
+        .attr("x", d => d.x - minX + 62) // Adjust position relative to minX and add padding
+        .attr("y", d => d.y - minY + 50)
+        .text(d => d.id);
+
+      link
+        .attr("x1", d => getNodeById(d.source).x - minX + 50)
+        .attr("y1", d => getNodeById(d.source).y - minY + 50)
+        .attr("x2", d => getNodeById(d.target).x - minX + 50)
+        .attr("y2", d => getNodeById(d.target).y - minY + 50);
+
+      function zoomed(event) {
+        container.attr("transform", event.transform);
+      }
+
+      function getNodeById(id) {
+        return nodes.find(node => node.id === id);
+      }
+    });
+  </script>
+</body>
+</html>
+
