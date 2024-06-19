@@ -206,6 +206,17 @@ filter.select("feMerge")
       const edges = graph.links;
       const length = 12; // Define the length variable
 
+     const waterMediatedCircle = svg.selectAll(".waterMediatedCircle")
+     .data(edges.filter(d => d.is_whbond))
+     .enter().append("circle")
+     .attr("class", "waterMediatedCircle")
+     .attr("r", 9)
+     .style("fill", "white")
+    //  .style("opacity", function(d) { return d.node_opacity; })
+     .style("stroke-width", function(d) { return 3; })
+     .style("stroke", "black");
+
+
       const linkTriangleRight = svg.selectAll(".linkTriangleRight")
         .data(edges.filter(d => d.LW && ['hs', 'ws'].includes(d.LW.slice(-2).toLowerCase())))
         .enter().append("path")
@@ -592,6 +603,18 @@ linkCircleCenter.on("mouseover", function(event, d) {
     edgeTooltip.style("opacity", 0);
 });
 
+// Event listeners for water mediated h bond along the edges
+waterMediatedCircle.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+
       var root = d3.select('g')// any svg.select(...) that has a single node like a container group by #id
   
       var zoom = d3.behavior
@@ -756,6 +779,15 @@ linkCircleCenter.on("mouseover", function(event, d) {
           
         // Update linkCircleCenter positions
         d3.selectAll(".linkCircleCenter").attr("transform", d => {
+            let dx = d.target.x - d.source.x;
+            let dy = d.target.y - d.source.y;
+            return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2})`;
+        })
+        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+                // Update waterMediatedCircle positions
+        d3.selectAll(".waterMediatedCircle").attr("transform", d => {
             let dx = d.target.x - d.source.x;
             let dy = d.target.y - d.source.y;
             return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2})`;
@@ -947,6 +979,15 @@ function collide(alpha) {
         })
         .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
         .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+        waterMediatedCircle.attr("transform", d => {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+      })
+      .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+      .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
 
         linkCircleRight.attr("transform", d => {
           let dx = d.target.x - d.source.x;
