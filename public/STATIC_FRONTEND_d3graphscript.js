@@ -206,6 +206,17 @@ filter.select("feMerge")
       const edges = graph.links;
       const length = 12; // Define the length variable
 
+     const waterMediatedCircle = svg.selectAll(".waterMediatedCircle")
+     .data(edges.filter(d => d.is_whbond))
+     .enter().append("circle")
+     .attr("class", "waterMediatedCircle")
+     .attr("r", 9)
+     .style("fill", "white")
+    //  .style("opacity", function(d) { return d.node_opacity; })
+     .style("stroke-width", function(d) { return 3; })
+     .style("stroke", "black");
+
+
       const linkTriangleRight = svg.selectAll(".linkTriangleRight")
         .data(edges.filter(d => d.LW && ['hs', 'ws'].includes(d.LW.slice(-2).toLowerCase())))
         .enter().append("path")
@@ -215,12 +226,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
 
       const linkTriangleLeft = svg.selectAll(".linkTriangleLeft")
       .data(edges.filter(d => d.LW && ['sh', 'sw'].includes(d.LW.slice(-2).toLowerCase())))
@@ -231,12 +242,12 @@ filter.select("feMerge")
         if (d.LW && d.LW[0].toLowerCase() === 't') {
           return "white";
         } else {
-          return "black";
+          return "#4169e1";
         }
       })
       .style("opacity", function(d) { return d.node_opacity; })
       .style("stroke-width", function(d) { return 2; })
-      .style("stroke", "black");
+      .style("stroke", "#4169e1");
       
       const linkSquareLeft = svg.selectAll(".linkSquareLeft")
         .data(edges.filter(d => d.LW && ['hs', 'hw'].includes(d.LW.slice(-2).toLowerCase())))
@@ -247,12 +258,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
       const linkSquareRight = svg.selectAll(".linkSquareRight")
         .data(edges.filter(d => d.LW && ['wh', 'sh'].includes(d.LW.slice(-2).toLowerCase())))
@@ -263,12 +274,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
       const linkSquareCenter = svg.selectAll(".linkSquareCenter")
         .data(edges.filter(d => d.LW && ['hh'].includes(d.LW.slice(-2).toLowerCase())))
@@ -279,12 +290,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
       const linkTriangleCenter = svg.selectAll(".linkTriangleCenter")
         .data(edges.filter(d => d.LW && ['ss'].includes(d.LW.slice(-2).toLowerCase())))
@@ -295,12 +306,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
       const linkCircleLeft = svg.selectAll(".linkCircleLeft")
         .data(edges.filter(d => d.LW && ['ws', 'wh'].includes(d.LW.slice(-2).toLowerCase())))
@@ -311,12 +322,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
 
       const linkCircleRight = svg.selectAll(".linkCircleRight")
       .data(edges.filter(d => d.LW && ['sw', 'hw'].includes(d.LW.slice(-2).toLowerCase())))
@@ -327,12 +338,12 @@ filter.select("feMerge")
         if (d.LW && d.LW[0].toLowerCase() === 't') {
           return "white";
         } else {
-          return "black";
+          return "#4169e1";
         }
       })
       .style("opacity", function(d) { return d.node_opacity; })
       .style("stroke-width", function(d) { return 2; })
-      .style("stroke", "black");
+      .style("stroke", "#4169e1");
       
       const linkCircleCenter = svg.selectAll(".linkCircleCenter")
         .data(edges.filter(d => d.LW && d.LW == 'tWW'))
@@ -342,7 +353,7 @@ filter.select("feMerge")
         .style("fill", "white")
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
 
     // // ADD TEXT ON THE EDGES (PART 1/2)
@@ -420,18 +431,24 @@ filter.select("feMerge")
     const tooltip = d3.select("#tooltip");
     function generateTooltipContent(event) {
       console.log(event);
-      let content = `<div style="text-align: center;"><strong>${event.node_name} ${event.rnaprodb_id.split(":")[1]}${event.icode}</strong></div><b>Chain:</b> ${event.rnaprodb_id.split(":")[0]}<br/>`;
-      const keysToShow = {"node_tooltip": "Info"};
-      // @Raktim, first is the actual key, second is the text you want to show
-
-      Object.entries(keysToShow).forEach(([key, label]) => {
-          if (event[key]) {
-              content += `<b>${label}:</b> ${event[key]}<br/>`;
-          }
-      });
+      let content = `<div style="text-align: center;"><strong>${event.node_name} ${event.rnaprodb_id.split(":")[1]}${event.icode}</strong></div>`;
+  
+      // Attempt to parse the tooltip_table JSON
+      try {
+          const tooltipData = JSON.parse(event.tooltip_table);
+          console.log("tooltipData", tooltipData);
+  
+          // Append data to the tooltip content
+          Object.entries(tooltipData).forEach(([key, value]) => {
+              content += `<b>${key}:</b> ${value}<br/>`;
+          });
+      } catch (error) {
+          console.error("Error parsing tooltip_table:", error);
+          content += "<em>Error in tooltip data</em>";
+      }
   
       return content;
-  } 
+  }
       node.on("mouseover", function(event, d) {
         var newEvent = d3.event; // Access event using d3.event
         // Brighten the node color for the tooltip background
@@ -453,9 +470,25 @@ filter.select("feMerge")
 
       // RAKTIM ADD EDGE STUFF HERE
       function generateEdgeTooltipContent(d) {
+        console.log(d);
     // You can customize this content based on the edge data
-    return `<strong>Connection:</strong> ${d.source.node_name} to ${d.target.node_name}<br/>
-            <strong>Type:</strong> ${d.my_type}`;
+    let content = `<strong>Connection:</strong> ${d.source.node_name} to ${d.target.node_name}<br/>
+            <strong>Type:</strong> ${d.my_type}<br/>`;
+            // Attempt to parse the tooltip_table JSON
+      try {
+        const tooltipData = JSON.parse(d.tooltip_table);
+        console.log("tooltipData", tooltipData);
+
+        // Append data to the tooltip content
+        Object.entries(tooltipData).forEach(([key, value]) => {
+            content += `<b>${key}:</b> ${value}<br/>`;
+        });
+    } catch (error) {
+        console.error("Error parsing tooltip_table:", error);
+        content += "<em>Error in tooltip data</em>";
+    }
+
+    return content;
 }
 
 // Event listeners for lines (edges)
@@ -560,6 +593,18 @@ linkCircleLeft.on("mouseover", function(event, d) {
 });
 // Event listeners for triangles along the edges
 linkCircleCenter.on("mouseover", function(event, d) {
+  var newEvent = d3.event; // Access event using d3.event
+    edgeTooltip.style("opacity", 1)
+               .style("left", `${newEvent.pageX + 10}px`)
+               .style("top", `${newEvent.pageY + 10}px`)
+               .html(() => generateEdgeTooltipContent(event));
+})
+.on("mouseout", function() {
+    edgeTooltip.style("opacity", 0);
+});
+
+// Event listeners for water mediated h bond along the edges
+waterMediatedCircle.on("mouseover", function(event, d) {
   var newEvent = d3.event; // Access event using d3.event
     edgeTooltip.style("opacity", 1)
                .style("left", `${newEvent.pageX + 10}px`)
@@ -734,6 +779,15 @@ linkCircleCenter.on("mouseover", function(event, d) {
           
         // Update linkCircleCenter positions
         d3.selectAll(".linkCircleCenter").attr("transform", d => {
+            let dx = d.target.x - d.source.x;
+            let dy = d.target.y - d.source.y;
+            return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2})`;
+        })
+        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+                // Update waterMediatedCircle positions
+        d3.selectAll(".waterMediatedCircle").attr("transform", d => {
             let dx = d.target.x - d.source.x;
             let dy = d.target.y - d.source.y;
             return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2})`;
@@ -925,6 +979,15 @@ function collide(alpha) {
         })
         .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
         .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+
+        waterMediatedCircle.attr("transform", d => {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+      })
+      .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
+      .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
 
         linkCircleRight.attr("transform", d => {
           let dx = d.target.x - d.source.x;
@@ -1212,4 +1275,25 @@ function toggleHBondsColor() {
 document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
       toggleHBondsColor();
       // zoomFit(0);
+
+// LOGIC TO OPTIMIZE PROTEIN POSITIONS
+graph.nodes.forEach(function(d) {
+  if (d.shape === 'circle') {
+      d.fixed = true;
+  } else {
+      d.fixed = false;  // Proteins can move
   }
+});
+// Start the simulation for 2 seconds
+force.start();
+setTimeout(function() {
+    force.stop();  // Stop the simulation after 2 seconds
+
+    // Re-fix all nodes after simulation stops
+    graph.nodes.forEach(function(d) {
+        d.fixed = true;
+    });
+}, 2000);
+
+
+}
