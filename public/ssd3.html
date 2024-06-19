@@ -172,11 +172,18 @@
       node.append("title")
         .text(d => d.id);
 
-      node.append("text")
+      const nodeLabels = container.append("g")
+        .selectAll(".node-label")
+        .data(nonProteinNodes)
+        .enter().append("text")
         .attr("class", "node-label")
-        .attr("x", d => d.x - minX + 62)
+        .attr("x", d => d.x - minX + 50)
         .attr("y", d => d.y - minY + 50)
-        .text(d => d.id);
+        .attr("dy", -40)  // Adjust the position of the labels above the nodes
+        .attr("text-anchor", "middle")  // Center the text horizontally
+        .attr('dominant-baseline', 'text-after-edge')
+        .style("font-size","20px")
+        .text(d => d.id.split(":")[0].trim() + " " + d.id.split(":")[1].trim());
 
       node.on("mouseover", function(event, d) {
           d3.select(this)
@@ -186,10 +193,9 @@
         })
         .on("mouseout", function(event, d) {
           d3.select(this)
-            .style("fill", "#ff7f0e")
+            .style("fill", d => colorScale[d.type])
             .style("stroke-width", "2px")
-            .attr("r", 30)
-            .style("fill", d => colorScale[d.type]);
+            .attr("r", 30);
         });
 
       proteinNode.append("title")
@@ -232,6 +238,11 @@
           .attr("y1", l => getNodeById(l.source).y - minY + 50)
           .attr("x2", l => getNodeById(l.target).x - minX + 50)
           .attr("y2", l => getNodeById(l.target).y - minY + 50);
+        
+        nodeLabels
+          .filter(l => l.id === d.id)
+          .attr("x", d.x - minX + 50)
+          .attr("y", d.y - minY + 50 - 10);
       }
 
       function draggedProtein(event, d) {
