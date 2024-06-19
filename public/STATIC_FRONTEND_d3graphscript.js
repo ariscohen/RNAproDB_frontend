@@ -420,18 +420,24 @@ filter.select("feMerge")
     const tooltip = d3.select("#tooltip");
     function generateTooltipContent(event) {
       console.log(event);
-      let content = `<div style="text-align: center;"><strong>${event.node_name} ${event.rnaprodb_id.split(":")[1]}${event.icode}</strong></div><b>Chain:</b> ${event.rnaprodb_id.split(":")[0]}<br/>`;
-      const keysToShow = {"node_tooltip": "Info"};
-      // @Raktim, first is the actual key, second is the text you want to show
-
-      Object.entries(keysToShow).forEach(([key, label]) => {
-          if (event[key]) {
-              content += `<b>${label}:</b> ${event[key]}<br/>`;
-          }
-      });
+      let content = `<div style="text-align: center;"><strong>${event.node_name} ${event.rnaprodb_id.split(":")[1]}${event.icode}</strong></div>`;
+  
+      // Attempt to parse the tooltip_table JSON
+      try {
+          const tooltipData = JSON.parse(event.tooltip_table);
+          console.log("tooltipData", tooltipData);
+  
+          // Append data to the tooltip content
+          Object.entries(tooltipData).forEach(([key, value]) => {
+              content += `<b>${key}:</b> ${value}<br/>`;
+          });
+      } catch (error) {
+          console.error("Error parsing tooltip_table:", error);
+          content += "<em>Error in tooltip data</em>";
+      }
   
       return content;
-  } 
+  }
       node.on("mouseover", function(event, d) {
         var newEvent = d3.event; // Access event using d3.event
         // Brighten the node color for the tooltip background
@@ -453,9 +459,25 @@ filter.select("feMerge")
 
       // RAKTIM ADD EDGE STUFF HERE
       function generateEdgeTooltipContent(d) {
+        console.log(d);
     // You can customize this content based on the edge data
-    return `<strong>Connection:</strong> ${d.source.node_name} to ${d.target.node_name}<br/>
-            <strong>Type:</strong> ${d.my_type}`;
+    let content = `<strong>Connection:</strong> ${d.source.node_name} to ${d.target.node_name}<br/>
+            <strong>Type:</strong> ${d.my_type}<br/>`;
+            // Attempt to parse the tooltip_table JSON
+      try {
+        const tooltipData = JSON.parse(d.tooltip_table);
+        console.log("tooltipData", tooltipData);
+
+        // Append data to the tooltip content
+        Object.entries(tooltipData).forEach(([key, value]) => {
+            content += `<b>${key}:</b> ${value}<br/>`;
+        });
+    } catch (error) {
+        console.error("Error parsing tooltip_table:", error);
+        content += "<em>Error in tooltip data</em>";
+    }
+
+    return content;
 }
 
 // Event listeners for lines (edges)
