@@ -215,12 +215,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
 
       const linkTriangleLeft = svg.selectAll(".linkTriangleLeft")
       .data(edges.filter(d => d.LW && ['sh', 'sw'].includes(d.LW.slice(-2).toLowerCase())))
@@ -231,12 +231,12 @@ filter.select("feMerge")
         if (d.LW && d.LW[0].toLowerCase() === 't') {
           return "white";
         } else {
-          return "black";
+          return "#4169e1";
         }
       })
       .style("opacity", function(d) { return d.node_opacity; })
       .style("stroke-width", function(d) { return 2; })
-      .style("stroke", "black");
+      .style("stroke", "#4169e1");
       
       const linkSquareLeft = svg.selectAll(".linkSquareLeft")
         .data(edges.filter(d => d.LW && ['hs', 'hw'].includes(d.LW.slice(-2).toLowerCase())))
@@ -247,12 +247,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
       const linkSquareRight = svg.selectAll(".linkSquareRight")
         .data(edges.filter(d => d.LW && ['wh', 'sh'].includes(d.LW.slice(-2).toLowerCase())))
@@ -263,12 +263,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
       const linkSquareCenter = svg.selectAll(".linkSquareCenter")
         .data(edges.filter(d => d.LW && ['hh'].includes(d.LW.slice(-2).toLowerCase())))
@@ -279,12 +279,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
       const linkTriangleCenter = svg.selectAll(".linkTriangleCenter")
         .data(edges.filter(d => d.LW && ['ss'].includes(d.LW.slice(-2).toLowerCase())))
@@ -295,12 +295,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
       const linkCircleLeft = svg.selectAll(".linkCircleLeft")
         .data(edges.filter(d => d.LW && ['ws', 'wh'].includes(d.LW.slice(-2).toLowerCase())))
@@ -311,12 +311,12 @@ filter.select("feMerge")
           if (d.LW && d.LW[0].toLowerCase() === 't') {
             return "white";
           } else {
-            return "black";
+            return "#4169e1";
           }
         })
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
 
       const linkCircleRight = svg.selectAll(".linkCircleRight")
       .data(edges.filter(d => d.LW && ['sw', 'hw'].includes(d.LW.slice(-2).toLowerCase())))
@@ -327,12 +327,12 @@ filter.select("feMerge")
         if (d.LW && d.LW[0].toLowerCase() === 't') {
           return "white";
         } else {
-          return "black";
+          return "#4169e1";
         }
       })
       .style("opacity", function(d) { return d.node_opacity; })
       .style("stroke-width", function(d) { return 2; })
-      .style("stroke", "black");
+      .style("stroke", "#4169e1");
       
       const linkCircleCenter = svg.selectAll(".linkCircleCenter")
         .data(edges.filter(d => d.LW && d.LW == 'tWW'))
@@ -342,7 +342,7 @@ filter.select("feMerge")
         .style("fill", "white")
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
-        .style("stroke", "black");
+        .style("stroke", "#4169e1");
       
 
     // // ADD TEXT ON THE EDGES (PART 1/2)
