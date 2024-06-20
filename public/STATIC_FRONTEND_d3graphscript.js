@@ -472,8 +472,7 @@ filter.select("feMerge")
       function generateEdgeTooltipContent(d) {
         console.log(d);
     // You can customize this content based on the edge data
-    let content = `<strong>Connection:</strong> ${d.source.node_name} to ${d.target.node_name}<br/>
-            <strong>Type:</strong> ${d.my_type}<br/>`;
+    let content = `<strong>Connection:</strong> ${d.source.node_name} to ${d.target.node_name}<br/>`;
             // Attempt to parse the tooltip_table JSON
       try {
         const tooltipData = JSON.parse(d.tooltip_table);
@@ -481,6 +480,7 @@ filter.select("feMerge")
 
         // Append data to the tooltip content
         Object.entries(tooltipData).forEach(([key, value]) => {
+            var key = key.replace(/\\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
             content += `<b>${key}:</b> ${value}<br/>`;
         });
     } catch (error) {
