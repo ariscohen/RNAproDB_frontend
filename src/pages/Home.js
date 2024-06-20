@@ -17,6 +17,7 @@ import DownloadGraph from '../DownloadGraph.js';
 import HandleRotationChange from '../HandleRotationChange';
 import basePairingLegend from '../lw_base_pairing_legend.svg'; // Import the imag
 import ZoomFit from '../ZoomFit';
+import SSPythonGraph from '../SSPythonGraph.js';
 
 const Home = () => {
   const columnRef = useRef(null);
@@ -97,6 +98,10 @@ const Home = () => {
             {rotationMatrix !== false && tooLarge !== true && (
               <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
             )}
+            {rotationMatrix !== false && tooLarge !== true && (
+              <SSPythonGraph />
+            )}
+
           </div>
           <div className="column" ref={columnRef} id="right_column_top">
             <h1>Visualization</h1>
