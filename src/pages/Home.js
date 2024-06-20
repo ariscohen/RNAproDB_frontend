@@ -77,9 +77,6 @@ const Home = () => {
     setAlgorithm(selectedAlgorithm);
     setShowDropdown(false);
     setIsFirst(false);
-    // if (window.changeMappingAlgorithm) {
-    //   window.changeMappingAlgorithm(selectedAlgorithm);
-    // }
   };
 
   return (
@@ -100,70 +97,70 @@ const Home = () => {
           </div>
           <div className="column" ref={columnRef} id="right_column_top">
             <h1>Visualization</h1>
-            <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none' }} ref={graphRef}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: '10px' }}>
-                  <div>
-                    <span>Relax Graph </span>
-                    <label className="switch">
-                      <input id="forcefieldButton" type="checkbox" />
-                      <span className="slider round"></span>
-                    </label>
-                    <span style={{ marginLeft: '20px' }}>Indicate H-Bonds </span>
-                    <label className="switch">
-                      <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
-                      <span className="slider round"></span>
-                    </label>
-                  </div>
-                  <div className="dropdown">
-                    <button onClick={() => setShowDropdown(!showDropdown)} className="dropdown-button">
-                      Algorithm: {algorithm}
-                    </button>
-                    {showDropdown && (
-                      <div className="dropdown-content">
-                        <div onClick={() => handleAlgorithmSelect('None')}>None</div>
-                        <div onClick={() => handleAlgorithmSelect('PCA')}>PCA</div>
-                        <div onClick={() => handleAlgorithmSelect('RNAScape')}>RNAScape</div>
-                        <div onClick={() => handleAlgorithmSelect('SecondaryStructure')}>Secondary Structure</div>
-                      </div>
-                    )}
-                  </div>
+            <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none', paddingTop: '20px' }} ref={graphRef}>
+              <div className="row-top">
+                <div>
+                  <span>Relax Graph </span>
+                  <label className="switch">
+                    <input id="forcefieldButton" type="checkbox" />
+                    <span className="slider round"></span>
+                  </label>
+                  <span style={{ marginLeft: '40px' }}>Indicate H-Bonds </span>
+                  <label className="switch">
+                    <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
+                    <span className="slider round"></span>
+                  </label>
                 </div>
-                <img src="/legend.svg" alt="Nature" className="responsive_img" />
-                <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
-                <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
-                  <div id="right_column" onClick={window.reset_graph_colors}>
-                    <NewPythonGraph
-                      setTooLarge={setTooLarge}
-                      setRotationMatrix={setRotationMatrix}
-                      dimensions={dimensions}
-                      subgraph={subgraph}
-                      algorithm={algorithm}
-                      isFirst={isFirst}
-                      setSS={setSS}
-                      setChainsObject={setChainsObject}
-                      tooLarge={tooLarge}
-                      tooLarge3d={tooLarge3d}
-                      setTooLarge3d={setTooLarge3d}
-                      setInitialGraphData={setInitialGraphData}
-                    />
-                  </div>
-                  <div style={{ marginLeft: '20px', textAlign: 'center' }}>
-                    <img src={basePairingLegend} alt="Base Pairing Legend" className="base-pairing-legend" style={{ height: '400px' }} />
-                    <div style={{ marginTop: '10px', fontSize: '16px' }}>
-                      <div><b>c</b>: cis</div>
-                      <div><b>t</b>: trans</div>
-                      <div><b>W</b>: Watson-Crick</div>
-                      <div><b>H</b>: Hoogsteen</div>
-                      <div><b>S</b>: Sugar</div>
+                <DownloadButtons
+                  downloadGraphHandler={downloadGraphHandler}
+                  handleRotationSliderChange={handleRotationSliderChange}
+                />
+              </div>
+              <div className="row-bottom">
+                <img src="/legend.svg" alt="Legend" className="responsive_img" />
+                <div className="dropdown">
+                  <button onClick={() => setShowDropdown(!showDropdown)} className="dropdown-button">
+                    Algorithm: {algorithm}
+                  </button>
+                  {showDropdown && (
+                    <div className="dropdown-content">
+                      <div onClick={() => handleAlgorithmSelect('None')}>None</div>
+                      <div onClick={() => handleAlgorithmSelect('PCA')}>PCA</div>
+                      <div onClick={() => handleAlgorithmSelect('RNAScape')}>RNAScape</div>
+                      <div onClick={() => handleAlgorithmSelect('SecondaryStructure')}>Secondary Structure</div>
                     </div>
+                  )}
+                </div>
+                <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+                <div id="right_column" onClick={window.reset_graph_colors}>
+                  <NewPythonGraph
+                    setTooLarge={setTooLarge}
+                    setRotationMatrix={setRotationMatrix}
+                    dimensions={dimensions}
+                    subgraph={subgraph}
+                    algorithm={algorithm}
+                    isFirst={isFirst}
+                    setSS={setSS}
+                    setChainsObject={setChainsObject}
+                    tooLarge={tooLarge}
+                    tooLarge3d={tooLarge3d}
+                    setTooLarge3d={setTooLarge3d}
+                    setInitialGraphData={setInitialGraphData}
+                  />
+                </div>
+                <div style={{ marginLeft: '20px', textAlign: 'center' }}>
+                  <img src={basePairingLegend} alt="Base Pairing Legend" className="base-pairing-legend" style={{ height: '400px' }} />
+                  <div style={{ marginTop: '10px', fontSize: '16px' }}>
+                    <div><b>c</b>: cis</div>
+                    <div><b>t</b>: trans</div>
+                    <div><b>W</b>: Watson-Crick</div>
+                    <div><b>H</b>: Hoogsteen</div>
+                    <div><b>S</b>: Sugar</div>
                   </div>
                 </div>
               </div>
-              <DownloadButtons
-                downloadGraphHandler={downloadGraphHandler}
-                handleRotationSliderChange={handleRotationSliderChange}
-              />
             </div>
             {activeTab === 'ssgraph' && ss !== false && (
               <SSiframe ss={ss} />

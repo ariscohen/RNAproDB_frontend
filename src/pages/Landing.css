@@ -1,0 +1,63 @@
+.landing-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.landing-header {
+  margin-bottom: 20px;
+}
+
+.landing-description {
+  padding: 20px 20px 10px 20px;
+  margin: 20px 0 10px 0;
+}
+
+.search-subtitle {
+  margin: 10px 0 20px 0;
+  font-size: 1.2em;
+}
+
+.search-form {
+  width: 50%;
+  padding: 20px 0;
+  margin: 0 auto 20px auto;  /* Adds margin to the bottom */
+}
+
+.search-button {
+  padding: 5px 10px;
+}
+
+.image-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.image-feature {
+  flex: 1;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.image-row img {
+  width: 100%;
+  height: auto;
+}
+
+.features-row p, .image-feature p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  font-weight: bold;
+}
+
+.search-not-found::placeholder {
+  color: red;
+}
+
+.search-not-found {
+  border-color: red;
+}
