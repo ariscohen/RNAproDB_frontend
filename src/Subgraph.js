@@ -41,7 +41,6 @@ function Subgraph({ setSubgraph, tooLarge }) {
         <button
           id="generate-subgraph-button"
           className="button4 button4"
-          style={{ marginRight: '10px' }}
           onClick={handleGenerateSubgraphClick}
         >
           Generate Subgraph

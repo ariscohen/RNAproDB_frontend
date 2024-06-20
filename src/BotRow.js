@@ -13,7 +13,7 @@ function BotRow() {
   return (
     <div className="bot-row">
       {/* Render the pdbid value if available, otherwise render a default text */}
-      <h1>The Rohs Lab @ University of Southern California</h1>
+      <h1>RNAproDB is maintained by <a href="https://www.rohslab.org">The Rohs Lab</a> @ <a href="http://www.usc.edu">University of Southern California</a>. It is free to use by anyone, <b>including commercial users</b>.</h1>
     </div>
   );
 }

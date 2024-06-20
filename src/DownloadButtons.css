@@ -1,0 +1,8 @@
+
+#rotation_value {
+  width: 1em;
+  visibility: hidden;
+}
+#graph_rotation_slider{
+  width:5em;
+}

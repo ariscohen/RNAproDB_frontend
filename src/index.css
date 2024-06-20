@@ -33,6 +33,7 @@ code {
 } 
 
 .responsive_img {
-  width: 100%;
+  width: auto;
   height: 50px;
+  margin-right: 20px; /* Space between legend and algorithm */
 }

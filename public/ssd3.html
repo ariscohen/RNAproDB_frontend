@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>D3.js Graph Visualization with Zoom and Hover</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
   <style>
     .link {
       stroke: #333;
@@ -45,9 +45,11 @@
   <svg id="svg-container"></svg>
 
   <script>
-    d3.json("./1ivs_SSgraph.json").then(function(graph) {
-      const links = graph.links.map(d => Object.create(d));
-      const nodes = graph.nodes.map(d => {
+    d3.json("./1ivs_SSgraph.json", function(error, graph) {
+      if (error) throw error;
+
+      var links = graph.links.map(function(d) { return Object.create(d); });
+      var nodes = graph.nodes.map(function(d) {
         return {
           id: d.id,
           type: d.id.split(":")[0].trim(),
@@ -57,19 +59,19 @@
         };
       });
 
-      links.forEach(link => {
-        nodes.find(node => node.id === link.target).incomingEdges++;
+      links.forEach(function(link) {
+        nodes.find(function(node) { return node.id === link.target; }).incomingEdges++;
       });
 
-      const maxIncomingEdges = d3.max(nodes, d => d.incomingEdges);
+      var maxIncomingEdges = d3.max(nodes, function(d) { return d.incomingEdges; });
 
-      const nodeSizeProtein = 10;
-      const nodeSizeOther = 30;
-      const nodeSizeScale = d3.scaleLinear()
+      var nodeSizeProtein = 10;
+      var nodeSizeOther = 30;
+      var nodeSizeScale = d3.scale.linear()
         .domain([0, maxIncomingEdges])
         .range([5, 20]);
 
-      const colorScale = {
+      var colorScale = {
         "stems": "#0f0f0f",
         "hairpins": "#AFE1AF",
         "junctions": "#228B22",
@@ -78,46 +80,45 @@
         "ssSegments": "#dddddd"
       };
 
-      const svg = d3.select("#svg-container");
+      var svg = d3.select("#svg-container");
 
-      const minX = d3.min(nodes, d => d.x);
-      const minY = d3.min(nodes, d => d.y);
-      const maxX = d3.max(nodes, d => d.x);
-      const maxY = d3.max(nodes, d => d.y);
+      var minX = d3.min(nodes, function(d) { return d.x; });
+      var minY = d3.min(nodes, function(d) { return d.y; });
+      var maxX = d3.max(nodes, function(d) { return d.x; });
+      var maxY = d3.max(nodes, function(d) { return d.y; });
 
-      const width = maxX - minX + 100;
-      const height = maxY - minY + 100;
+      var width = maxX - minX + 100;
+      var height = maxY - minY + 100;
 
       svg.attr("width", width)
          .attr("height", height);
 
-      const container = svg.append("g");
+      var container = svg.append("g");
 
-      const zoom = d3.zoom()
-        .extent([[0, 0], [width, height]])
+      var zoom = d3.behavior.zoom()
         .scaleExtent([0.1, 10])
         .on("zoom", zoomed);
 
       svg.call(zoom);
 
-      const nonProteinNodes = nodes.filter(node => node.type !== "protein");
+      var nonProteinNodes = nodes.filter(function(node) { return node.type !== "protein"; });
 
-      const link = container.append("g")
+      var link = container.append("g")
         .selectAll("line")
         .data(links)
-        .join("line")
-        .attr("class", d => {
-          const sourceType = nodes.find(node => node.id === d.source)?.type;
-          const targetType = nodes.find(node => node.id === d.target)?.type;
+        .enter().append("line")
+        .attr("class", function(d) {
+          var sourceType = nodes.find(function(node) { return node.id === d.source; }).type;
+          var targetType = nodes.find(function(node) { return node.id === d.target; }).type;
           if (sourceType !== "protein" && targetType !== "protein") {
             return "link";
           } else {
             return "protein-link";
           }
         })
-        .style("stroke-width", d => {
-          const sourceType = nodes.find(node => node.id === d.source)?.type;
-          const targetType = nodes.find(node => node.id === d.target)?.type;
+        .style("stroke-width", function(d) {
+          var sourceType = nodes.find(function(node) { return node.id === d.source; }).type;
+          var targetType = nodes.find(function(node) { return node.id === d.target; }).type;
           if (sourceType !== "protein" && targetType !== "protein") {
             return "4px";
           } else {
@@ -125,143 +126,146 @@
           }
         });
 
-      const node = container.append("g")
+      var node = container.append("g")
         .selectAll(".node")
         .data(nonProteinNodes)
         .enter().append("circle")
         .attr("class", "node")
         .attr("r", nodeSizeOther)
-        .attr("cx", d => d.x - minX + 50)
-        .attr("cy", d => d.y - minY + 50)
-        .style("fill", d => colorScale[d.type])
+        .attr("cx", function(d) { return d.x - minX + 50; })
+        .attr("cy", function(d) { return d.y - minY + 50; })
+        .style("fill", function(d) { return colorScale[d.type]; })
         .style("stroke-width", "2px")
-        .call(d3.drag()
-          .on("start", dragstarted)
+        .call(d3.behavior.drag()
+          .origin(function(d) { return d; })
+          .on("dragstart", dragstarted)
           .on("drag", dragged)
-          .on("end", dragended));
+          .on("dragend", dragended));
 
-      const proteinNodes = nodes.filter(node => node.type === "protein");
+      var proteinNodes = nodes.filter(function(node) { return node.type === "protein"; });
 
-      const proteinNode = container.append("g")
+      var proteinNode = container.append("g")
         .selectAll(".protein")
         .data(proteinNodes)
         .enter().append("rect")
         .attr("class", "protein")
         .attr("width", nodeSizeProtein)
         .attr("height", nodeSizeProtein)
-        .attr("x", d => d.x - minX + 50 - nodeSizeProtein / 2)
-        .attr("y", d => d.y - minY + 50 - nodeSizeProtein / 2)
+        .attr("x", function(d) { return d.x - minX + 50 - nodeSizeProtein / 2; })
+        .attr("y", function(d) { return d.y - minY + 50 - nodeSizeProtein / 2; })
         .style("fill", "#ff7f0e")
         .style("stroke", "#000")
         .style("stroke-width", "2px")
-        .call(d3.drag()
-          .on("start", dragstarted)
+        .call(d3.behavior.drag()
+          .origin(function(d) { return d; })
+          .on("dragstart", dragstarted)
           .on("drag", draggedProtein)
-          .on("end", dragended))
-        .on("mouseover", function(event, d) {
+          .on("dragend", dragended))
+        .on("mouseover", function() {
           d3.select(this)
             .style("fill", "#ffcc80")
             .style("stroke-width", "4px");
         })
-        .on("mouseout", function(event, d) {
+        .on("mouseout", function() {
           d3.select(this)
             .style("fill", "#ff7f0e")
             .style("stroke-width", "2px");
         });
 
       node.append("title")
-        .text(d => d.id);
+        .text(function(d) { return d.id; });
 
-      const nodeLabels = container.append("g")
+      var nodeLabels = container.append("g")
         .selectAll(".node-label")
         .data(nonProteinNodes)
         .enter().append("text")
         .attr("class", "node-label")
-        .attr("x", d => d.x - minX + 50)
-        .attr("y", d => d.y - minY + 50)
+        .attr("x", function(d) { return d.x - minX + 50; })
+        .attr("y", function(d) { return d.y - minY + 50; })
         .attr("dy", -40)  // Adjust the position of the labels above the nodes
         .attr("text-anchor", "middle")  // Center the text horizontally
         .attr('dominant-baseline', 'text-after-edge')
-        .style("font-size","20px")
-        .text(d => d.id.split(":")[0].trim() + " " + d.id.split(":")[1].trim());
+        .style("font-size", "20px")
+        .text(function(d) { return d.id.split(":")[0].trim() + " " + d.id.split(":")[1].trim(); });
 
-      node.on("mouseover", function(event, d) {
+      node.on("mouseover", function() {
           d3.select(this)
             .style("fill", "#ffcc80")
             .style("stroke-width", "4px")
             .attr("r", 40);
         })
-        .on("mouseout", function(event, d) {
+        .on("mouseout", function(d) {
           d3.select(this)
-            .style("fill", d => colorScale[d.type])
+            .style("fill", function(d) { return colorScale[d.type]; })
             .style("stroke-width", "2px")
             .attr("r", 30);
         });
 
       proteinNode.append("title")
-        .text(d => d.id);
+        .text(function(d) { return d.id; });
 
       proteinNode.append("text")
         .attr("class", "node-label")
-        .attr("x", d => d.x - minX + 62)
-        .attr("y", d => d.y - minY + 50)
-        .text(d => d.id);
+        .attr("x", function(d) { return d.x - minX + 62; })
+        .attr("y", function(d) { return d.y - minY + 50; })
+        .text(function(d) { return d.id; });
 
       link
-        .attr("x1", d => getNodeById(d.source).x - minX + 50)
-        .attr("y1", d => getNodeById(d.source).y - minY + 50)
-        .attr("x2", d => getNodeById(d.target).x - minX + 50)
-        .attr("y2", d => getNodeById(d.target).y - minY + 50);
+        .attr("x1", function(d) { return getNodeById(d.source).x - minX + 50; })
+        .attr("y1", function(d) { return getNodeById(d.source).y - minY + 50; })
+        .attr("x2", function(d) { return getNodeById(d.target).x - minX + 50; })
+        .attr("y2", function(d) { return getNodeById(d.target).y - minY + 50; });
 
-      function zoomed(event) {
-        container.attr("transform", event.transform);
+      function zoomed() {
+        container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       }
 
       function getNodeById(id) {
-        return nodes.find(node => node.id === id);
+        return nodes.find(function(node) { return node.id === id; });
       }
 
-      function dragstarted(event, d) {
-        d3.select(this).raise().attr("stroke", "black");
+      function dragstarted(d) {
+        d3.event.sourceEvent.stopPropagation();
+        d3.select(this).classed("dragging", true);
       }
 
-      function dragged(event, d) {
-        d.x = event.x;
-        d.y = event.y;
+      function dragged(d) {
+        d.x = d3.event.x;
+        d.y = d3.event.y;
         d3.select(this)
           .attr("cx", d.x - minX + 50)
           .attr("cy", d.y - minY + 50);
-        
+
         link
-          .filter(l => l.source === d.id || l.target === d.id)
-          .attr("x1", l => getNodeById(l.source).x - minX + 50)
-          .attr("y1", l => getNodeById(l.source).y - minY + 50)
-          .attr("x2", l => getNodeById(l.target).x - minX + 50)
-          .attr("y2", l => getNodeById(l.target).y - minY + 50);
-        
+          .filter(function(l) { return l.source === d.id || l.target === d.id; })
+          .attr("x1", function(l) { return getNodeById(l.source).x - minX + 50; })
+          .attr("y1", function(l) { return getNodeById(l.source).y - minY + 50; })
+          .attr("x2", function(l) { return getNodeById(l.target).x - minX + 50; })
+          .attr("y2", function(l) { return getNodeById(l.target).y - minY + 50; });
+
         nodeLabels
-          .filter(l => l.id === d.id)
+          .filter(function(l) { return l.id === d.id; })
           .attr("x", d.x - minX + 50)
           .attr("y", d.y - minY + 50 - 10);
       }
 
-      function draggedProtein(event, d) {
-        d.x = event.x;
-        d.y = event.y;
+      function draggedProtein(d) {
+        d.x = d3.event.x;
+        d.y = d3.event.y;
         d3.select(this)
           .attr("x", d.x - minX + 50 - nodeSizeProtein / 2)
           .attr("y", d.y - minY + 50 - nodeSizeProtein / 2);
-        
+
         link
-          .filter(l => l.source === d.id || l.target === d.id)
-          .attr("x1", l => getNodeById(l.source).x - minX + 50)
-          .attr("y1", l => getNodeById(l.source).y - minY + 50)
-          .attr("x2", l => getNodeById(l.target).x - minX + 50)
-          .attr("y2", l => getNodeById(l.target).y - minY + 50);
+          .filter(function(l) { return l.source === d.id || l.target === d.id; })
+          .attr("x1", function(l) { return getNodeById(l.source).x - minX + 50; })
+          .attr("y1", function(l) { return getNodeById(l.source).y - minY + 50; })
+          .attr("x2", function(l) { return getNodeById(l.target).x - minX + 50; })
+          .attr("y2", function(l) { return getNodeById(l.target).y - minY + 50; });
       }
 
-      function dragended(event, d) {
-        d3.select(this).attr("stroke", null);
+      function dragended(d) {
+        d3.select(this).classed("dragging", false);
       }
     });
   </script>

@@ -91,8 +91,8 @@ iframe#webpack-dev-server-client-overlay {
 .download-buttons {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .download-buttons .dropdown {
@@ -144,7 +144,7 @@ iframe#webpack-dev-server-client-overlay {
 }
 
 .download-buttons > .dropdown, .slider-container {
-  margin: 0 20px;
+  margin: 0 0 0 20px;
 }
 
 .slider-container {
@@ -180,6 +180,7 @@ iframe#webpack-dev-server-client-overlay {
   border-radius: 4px;
   cursor: pointer;
   padding: 10px 20px;
+  margin-right: 20px;
   font-size: 16px;
   text-align: left;
 }
@@ -235,4 +236,21 @@ iframe#webpack-dev-server-client-overlay {
   pointer-events: none;
   transition: opacity 0.5s;
   text-align: left;
+}
+
+.row-top {
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.row-bottom {
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
 }

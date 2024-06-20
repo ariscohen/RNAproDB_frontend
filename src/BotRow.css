@@ -10,3 +10,9 @@
     font-size: 1rem; /* Larger text size for the title */
 
   }
+
+
+  .bot-row h1 a {
+    color: #fff;
+    text-decoration: underline;
+  }
