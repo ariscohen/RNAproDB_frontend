@@ -1,4 +1,5 @@
 import React from 'react';
+import './DownloadButtons.css';
 
 const DownloadButtons = ({ downloadGraphHandler, handleFlipX, handleFlipY, handleRotationSliderChange }) => {
   return (
