@@ -49,9 +49,9 @@
   margin: 10px;
   position: relative;
   cursor: pointer;
-  left: 70%;
-  top: 50%;
-  transform: translate(-50%,0%);
+  /* left: 70%; */
+  /* top: 50%; */
+  /* transform: translate(-50%,0%); */
 }
 #horizontal-center:hover {
   background-color: #D0D0D7;  

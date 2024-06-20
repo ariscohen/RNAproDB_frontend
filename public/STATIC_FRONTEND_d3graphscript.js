@@ -26,7 +26,7 @@ function static_d3graphscript(config = {
     var color = d3.scale.category20();
   
     //Remove existing SVG if it exists
-    d3.select("svg").remove();
+    d3.selectAll("svg.interfaceGraph").remove();
   
     var isForcefieldActive = false;
     // TOGGLE THE BUTTON IF WE NEED TO!
@@ -54,10 +54,11 @@ function static_d3graphscript(config = {
     });
 
     //Append a SVG to the body of the html page. Assign this SVG as an object to svg
-    d3.select("svg").remove();
+    d3.selectAll("svg.interfaceGraph").remove();
     var svg = d3.select("#right_column").append("svg")
         .attr("width", width)
         .attr("height", height)
+        .attr("class","interfaceGraph")
         .call(d3.behavior.zoom().on("zoom", function () { svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")") }))
         .on("dblclick.zoom", null)
         .append("g")

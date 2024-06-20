@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 
 const ZoomFit = (transitionDuration, setInitialTranslate, setInitialScale) => {
-    const svg = d3.select("#right_column").select("svg");
+    const svg = d3.select("#right_column").select("svg.interfaceGraph");
 
     if (!svg.node()) {
         return;

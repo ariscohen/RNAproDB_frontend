@@ -1,0 +1,35 @@
+
+/* STUFF FOR SS PYTHON GRAPH */
+.ss-link {
+    stroke: #333;
+    stroke-opacity: 0.8;
+    stroke-width: 2px;
+  }
+  .ss-protein-link {
+    stroke: #ccc;
+    stroke-opacity: 0.6;
+    stroke-width: 1px;
+    stroke-dasharray: 3, 3;
+  }
+  .ss-node {
+    stroke: #000;
+    stroke-width: 2px;
+    cursor: pointer;
+  }
+  .ss-node:hover {
+    stroke-width: 4px;
+  }
+  .ss-protein {
+    fill: #ff7f0e;
+    stroke: #000;
+    stroke-width: 2px;
+    cursor: pointer;
+  }
+  .ss-protein:hover {
+    fill: #ffcc80;
+    stroke-width: 4px;
+  }
+  .ss-node-label {
+    font-size: 12px;
+    pointer-events: none;
+  }

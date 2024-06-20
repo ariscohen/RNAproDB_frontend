@@ -254,3 +254,22 @@ iframe#webpack-dev-server-client-overlay {
   width: 100%;
   margin-top: 10px;
 }
+
+.viewer-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.seq-viewer {
+  width: 100%;
+}
+
+.ngl-viewer {
+  flex: 0 0 48%; /* Adjusted to handle the margin */
+}
+
+.ss-python-graph {
+  flex: 0 0 48%; /* Adjusted to handle the margin */
+  margin-right: 2%; /* Adds margin to the right of the ss-python-graph */
+}

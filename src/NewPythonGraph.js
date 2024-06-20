@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
 import $ from 'jquery';
 
-function NewPythonGraph({ dimensions, subgraph, algorithm, isFirst, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData }) {
+function NewPythonGraph({ dimensions, subgraph, algorithm, isFirst, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData, setGraphData }) {
   const [data, setData] = useState(null);
   const { pdbid } = useParams();
   const { setTitle } = useContext(TitleContext);
@@ -62,7 +62,9 @@ function NewPythonGraph({ dimensions, subgraph, algorithm, isFirst, setSS, setCh
       if (!initGraphData) {
         setInitialGraphData(initGraphData);
       }
-
+      if(!data.tooLarge && initGraphData.ss_nodes && initGraphData.ss_links){
+      setGraphData({nodes: initGraphData.ss_nodes, links: initGraphData.ss_links}); // SET THE SS PYTHON GRAPH DATA
+      }
       if (!data.tooLarge) {
         if (window.static_d3graphscript) {
           window.static_d3graphscript({

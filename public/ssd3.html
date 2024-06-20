@@ -45,12 +45,48 @@
   <svg id="svg-container"></svg>
 
   <script>
-    d3.json("./1ivs_SSgraph.json", function(error, graph) {
-      if (error) throw error;
+  function sendUpdateToParent(content) {
+    // You can call this function based on some `iframe` internal logic
+    window.parent.postMessage({ action: 'updateTextarea', content: content }, '*');
+  }
 
+  function sendClickToParent() {
+    window.parent.postMessage({ action: 'clickButton' }, '*');
+  }
+
+  function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (decodeURIComponent(pair[0]) == variable) {
+        return decodeURIComponent(pair[1]);
+      }
+    }
+    console.log('Query variable %s not found', variable);
+  }
+
+  // Use the function to get the 'file' parameter from the URL
+  // var fileName = getQueryVariable("file") || 'default_SSgraph.json';  // Provide a default file
+
+  // LISTEN FOR DATA FROM SSPYTHONGRAPH
+  window.addEventListener('message', function(event) {
+    // Check the origin if necessary
+    // if (event.origin !== "http://your-expected-origin") return;
+
+    if (event.data.type === 'graphData') {
+      var graph = event.data.graph;
+      initializeGraph(graph);
+    }
+  }, false);
+
+    // d3.json(fileName, function(error, graph) {
+    function initializeGraph(graph)
+    {
       var links = graph.links.map(function(d) { return Object.create(d); });
       var nodes = graph.nodes.map(function(d) {
         return {
+          members: d.members,
           id: d.id,
           type: d.id.split(":")[0].trim(),
           x: +d.x,
@@ -81,7 +117,7 @@
       };
 
       var svg = d3.select("#svg-container");
-
+      
       var minX = d3.min(nodes, function(d) { return d.x; });
       var minY = d3.min(nodes, function(d) { return d.y; });
       var maxX = d3.max(nodes, function(d) { return d.x; });
@@ -199,8 +235,16 @@
             .style("fill", function(d) { return colorScale[d.type]; })
             .style("stroke-width", "2px")
             .attr("r", 30);
-        });
+        })
+        .on("click", function(d) { //HANDLE SUBGRAPH INTEGRATION
+            // Log the members property from the data
+            console.log(d.members);
+            sendClickToParent();
+            sendUpdateToParent(d.members.toString() + ",");
+          });
 
+      //node on click
+      // console log d.members
       proteinNode.append("title")
         .text(function(d) { return d.id; });
 
@@ -215,6 +259,32 @@
         .attr("y1", function(d) { return getNodeById(d.source).y - minY + 50; })
         .attr("x2", function(d) { return getNodeById(d.target).x - minX + 50; })
         .attr("y2", function(d) { return getNodeById(d.target).y - minY + 50; });
+      
+
+
+      var nonProteinNodes = nodes.filter(function(node) { return node.type !== "protein"; });
+      fitGraphToView(nonProteinNodes);
+
+
+      var minX = d3.min(graph.nodes, function(d) { return d.x; });
+      var maxX = d3.max(graph.nodes, function(d) { return d.x; });
+      var minY = d3.min(graph.nodes, function(d) { return d.y; });
+      var maxY = d3.max(graph.nodes, function(d) { return d.y; });
+
+      var svgWidth = +svg.attr("width");
+      var svgHeight = +svg.attr("height");
+
+      var width = maxX - minX;
+      var height = maxY - minY;
+
+      var scale = 0.95 / Math.max(width / svgWidth, height / svgHeight);
+      var translate = [(svgWidth - width * scale) / 2 - minX * scale, (svgHeight - height * scale) / 2 - minY * scale];
+
+      zoom.scale(scale).translate(translate);
+      container.attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+
+      svg.call(zoom);
+
 
       function zoomed() {
         container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
@@ -267,7 +337,8 @@
       function dragended(d) {
         d3.select(this).classed("dragging", false);
       }
-    });
+    }
+    // });
   </script>
 </body>
 </html>

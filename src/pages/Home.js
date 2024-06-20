@@ -39,6 +39,8 @@ const Home = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
 
+  const [graphData, setGraphData] = useState(null); // DATA FOR SS PYTHON GRAPH
+
   useEffect(() => {
     if (columnRef.current) {
       setDimensions({
@@ -87,22 +89,29 @@ const Home = () => {
         <div id="tooltip"></div>
         <div id="edgeTooltip"></div>
         <div className="whole_container">
-          <div className="column">
-            <h1>3D Structure</h1>
-            {chainsObject !== false && (
-              <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
-            )}
-            {rotationMatrix !== false && tooLarge !== true && (
-              <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
-            )}
-            {rotationMatrix !== false && tooLarge !== true && (
-              <SSPythonGraph />
-            )}
-
+        <div className="column">
+          <h5>Sequence Viewer</h5>
+          {chainsObject !== false && (
+                  <div className="seq-viewer">
+                      <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
+                  </div>
+          )}
+          <div className="viewer-container">
+              {graphData && tooLarge !== true && (
+                  <div className="ss-python-graph">
+                      <SSPythonGraph graphData={graphData}/>
+                  </div>
+              )}
+              {rotationMatrix !== false && tooLarge !== true && (
+                  <div className="ngl-viewer">
+                      <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
+                  </div>
+              )}
           </div>
+        </div>
           <div className="column" ref={columnRef} id="right_column_top">
-            <h1>Visualization</h1>
-            <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none', paddingTop: '20px' }} ref={graphRef}>
+            <h5>Interface Visualization</h5>
+            <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none', paddingTop: '0px' }} ref={graphRef}>
               <div className="row-top">
                 <div>
                   <span>Relax Graph </span>
@@ -141,6 +150,7 @@ const Home = () => {
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
                 <div id="right_column" onClick={window.reset_graph_colors}>
                   <NewPythonGraph
+                    setGraphData={setGraphData}
                     setTooLarge={setTooLarge}
                     setRotationMatrix={setRotationMatrix}
                     dimensions={dimensions}

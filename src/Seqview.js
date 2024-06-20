@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import $ from 'jquery';
 import './seqview.css';
 
@@ -10,6 +10,16 @@ var showseq = false;
 
 
 function SeqViewer({chainsObject, tooLarge}){
+    const buttonRef = useRef(null);  // Create a ref for the button
+
+    useEffect(() => {
+        // Programmatically click the button after the component mounts
+        if (buttonRef.current) {
+            buttonRef.current.click();
+        }
+    }, []);  // The empty dependency array ensures this runs only once after initial render
+
+
 
     let d3to1 = {'CYS': 'C', 'ASP': 'D', 'SER': 'S', 'GLN': 'Q', 'LYS': 'K',
             'ILE': 'I', 'PRO': 'P', 'THR': 'T', 'PHE': 'F', 'ASN': 'N',
@@ -96,7 +106,7 @@ function SeqViewer({chainsObject, tooLarge}){
                 //append selected_chain:resid to subgraph textbox
                 let textBox = document.getElementById("subgraph-textbox");
                 if (textBox) {  // Check if the textBox is not null
-                    textBox.value += `${selected_chain}:${resid},`;
+                    textBox.value += `${selected_chain}:${resid}:,`;
                 }
                 try{
                     window.zoomOnClick(resid+':'+selected_chain);
@@ -252,7 +262,7 @@ function SeqViewer({chainsObject, tooLarge}){
             
        script2.async = true;
 
-    return  <div><button id="seq-button" class="button4 button4" onClick={populate}>Show sequence viewer</button> 
+    return  <div><button id="seq-button" ref={buttonRef} class="button4 button4" onClick={populate}>Show sequence viewer</button> 
        <select onChange={selectOption} class='dropdown' id="horizontal-center" hidden="true"></select>
        <div class="sequence_view"></div>
                </div>;
