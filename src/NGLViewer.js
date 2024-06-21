@@ -6,6 +6,23 @@ import './NGLViewer.css'
 function NGLViewer(rotationMatrix, algorithm) {
     let { pdbid } = useParams();
 
+  // Handle outside click for dropdown
+  //useEffect(() => {
+  //  function handleClickOutside(event) {
+  //    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  //      setShowDropdown(false);
+  //    }
+  //  }
+
+   // document.addEventListener("mousedown", handleClickOutside);
+   // return () => {
+   //   document.removeEventListener("mousedown", handleClickOutside);
+   // };
+  //}, []);
+
+    const [isCartoonVisible, setIsCartoonVisible] = useState(true);
+    const [isWaterVisible, setIsWaterVisible] = useState(true);
+    // Define the function to handle the button click
 
     useEffect(() => { 
     const loadNGL = () => {
@@ -32,26 +49,30 @@ function NGLViewer(rotationMatrix, algorithm) {
 
      // Function to call the update_show_water function
      const handleToggleWater = () => {
-      if (window.update_show_water) {
+      if (isWaterVisible) {
           window.update_show_water(false);
       } else {
-          console.error("update_show_water function not found");
+          window.update_show_water(true);
       }
+    setIsWaterVisible(prevState => !prevState);
   };
 
        // Function to call the update_show_water function
        const handleToggleCartoon = () => {
-        if (window.cartoonInvisible) {
-            window.cartoonInvisible();
+        if (isCartoonVisible) {
+            window.cartoonInvisible();}
+        else if(!isCartoonVisible){
+            window.cartoonVisible();
         } else {
             console.error("function not found");
         }
+        setIsCartoonVisible(prevState => !prevState);
     };
 
   return (
     <div>
       <h5>3D Visualization</h5>
-      <button className="button4" id="toggle-water" onClick={handleToggleWater}>Toggle Water</button>
+      <button className="button4" id="toggle-water" onClick={handleToggleWater}>Toggle Solvent</button>
       <button className="button4" id="toggle-cartoon" onClick={handleToggleCartoon}>Toggle Cartoon</button>
       <div
         id="viewport"

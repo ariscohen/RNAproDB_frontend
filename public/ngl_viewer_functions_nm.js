@@ -14,17 +14,18 @@ var hydrogen_setting_nm1 = "and not hydrogen";
 var nuc_repr_type_nm1 = "tube";
 var init_component_ac1;
 var residue_list = [];
-
+var cartoon_nuc_global = [];
+var cartoon_prot_global = [];
+var base_nuc_global = [];
+var solvent_global = [];
 function update_show_water(boolval){
-  console.log("Attempting to show water");
   show_water = boolval;
-  var new_hetero_reprList_index = model_list_nm1[model_number_nm1].get("/"+model_number_nm1+"_hetero").index;
 
   if (show_water == true){
-          stage_nm1.getComponentsByName("my_structure").list[0].reprList[new_hetero_reprList_index].setVisibility(true);
+          solvent_global.forEach(function(item){item.setVisibility(true);})
   }
   else{
-          stage_nm1.getComponentsByName("my_structure").list[0].reprList[new_hetero_reprList_index].setVisibility(false); //HIDE WATER HERE
+          solvent_global.forEach(function(item){item.setVisibility(false);})
   }
 }
 
@@ -176,7 +177,7 @@ layer 1 chains (colored, toggled on and off)
 layer 2 ball+stick (not made in this function... made by addBallStick() )
 In this function, "init_component" is the component that representations get added to*/
 function selectModel(model_number_)
-{
+{ 
   selectResidues3D([]); //clear with empty list
   //turn off visibility of layer 0 for old model
   var old_cartoon_nuc_reprList_index = model_list_nm1[model_number_nm1].get("_layer_0_cartoon_nuc"+"/"+model_number_nm1).index;
@@ -187,7 +188,6 @@ function selectModel(model_number_)
   stage_nm1.getComponentsByName("my_structure").list[0].reprList[old_base_reprList_index].setVisibility(false);
   var old_hetero_reprList_index = model_list_nm1[model_number_nm1].get("/"+model_number_nm1+"_hetero").index;
   stage_nm1.getComponentsByName("my_structure").list[0].reprList[old_hetero_reprList_index].setVisibility(false);
-  
   //change model number
   model_number_nm1 = model_number_;
 
@@ -283,7 +283,6 @@ function loadStructure(structure_url, rotationMatrix) {
         cart_nuc.setVisibility(true);
         cart_prot.setVisibility(true);
       }
-      
       var base = init_component.addRepresentation("base", {name: "_layer_0_base" + model_name , color: "lightgray", sele: model_name+"/", opacity: 0.2, cylinderOnly: 1}) //adds nucleotides as sticks
       var repr_info = {index: index_nm1, nucleic: 0, DNA: 0xd3d3d3, RNA: 0xd3d3d3, helix: 0xd3d3d3, turn: 0xd3d3d3, sheet: 0xd3d3d3}
       model_list_nm1[model_number].set(base.name, repr_info);
@@ -378,11 +377,14 @@ function loadStructure(structure_url, rotationMatrix) {
           if (nucleic_)
           {
             new_rep = init_component.addRepresentation(nuc_repr_type_nm1, {name: chainName, sele: chainName_noRange + " and " + range_, color: mySstrucColors});
+            cartoon_nuc_global.push(new_rep);
             var base = init_component.addRepresentation("base", {name: chainName+"_base", sele: chainName_noRange + " and " + range_, color: resColors, cylinderOnly: 1});
+            base_nuc_global.push(base);
           }
           else
           {
             new_rep = init_component.addRepresentation("cartoon", {name: chainName, sele: chainName_noRange + " and " + range_, color: mySstrucColors});
+            cartoon_prot_global.push(new_rep);
 
           }
           new_rep.setVisibility(true); //sets the colored chains as invisible
@@ -511,6 +513,7 @@ function loadStructure(structure_url, rotationMatrix) {
       {
         hetero.setVisibility(true);
       }
+      solvent_global.push(hetero)
       var repr_info = {index: index_nm1, nucleic: 0, visibility: 0, DNA: 0xFFA500, RNA: 0xF45C42, helix: 0xFF0000, turn: 0x437FF9, sheet: 0x43F970}; 
       model_list_nm1[model_number].set(model_name + "_hetero", repr_info);
       index_nm1++;
@@ -971,32 +974,51 @@ function selectResidues3D(residue_list)
   
         
 }
+
+
 function cartoonInvisible()
 {
   //console.log(visibility_list_nm1)
-  visibility_list_nm1.forEach(function (item)
-  {
-    reprList_index = getReprListIndex(item);
-    stage_nm1.getComponentsByName("my_structure").list[0].reprList[reprList_index].setVisibility(false)
-    if (model_list_nm1[model_number_nm1].get(item).nucleic)
-        {
-          var base_index = model_list_nm1[model_number_nm1].get(item+"_base").index;
-          stage_nm1.getComponentsByName("my_structure").list[0].reprList[base_index].setVisibility(false)
-        }
-  })
+  //visibility_list_nm1.forEach(function (item)
+  //{
+  //  reprList_index = getReprListIndex(item);
+  //  stage_nm1.getComponentsByName("my_structure").list[0].reprList[reprList_index].setVisibility(false)
+  //  if (model_list_nm1[model_number_nm1].get(item).nucleic)
+  //      {
+  //        var base_index = model_list_nm1[model_number_nm1].get(item+"_base").index;
+  //        stage_nm1.getComponentsByName("my_structure").list[0].reprList[base_index].setVisibility(false)
+  //      }
+  //})
+
+  cartoon_nuc_global.forEach(function(item){item.setVisibility(false);})
+  cartoon_prot_global.forEach(function(item){item.setVisibility(false);})
+  base_nuc_global.forEach(function(item){item.setVisibility(false);})
+  //base_nuc_global.setVisibility(false);
+  //cartoon_prot_global.setVisibility(false);
+  //cartoonVisible = false
+  //cartoonInVisible = true
 }
 function cartoonVisible()
 {
-  visibility_list_nm1.forEach(function (item)
-  {
-    reprList_index = getReprListIndex(item);
-    stage_nm1.getComponentsByName("my_structure").list[0].reprList[reprList_index].setVisibility(true)
-    if (model_list_nm1[model_number_nm1].get(item).nucleic)
-        {
-          var base_index = model_list_nm1[model_number_nm1].get(item+ "_base").index;
-          stage_nm1.getComponentsByName("my_structure").list[0].reprList[base_index].setVisibility(true)
-        }
-  })
+  //cartoon_nuc_global.setVisibility(true);
+  //base_nuc_global.setVisibility(true);
+  //cartoon_prot_global.setVisibility(true);
+  cartoon_nuc_global.forEach(function(item){item.setVisibility(true);})
+  cartoon_prot_global.forEach(function(item){item.setVisibility(true);})
+  base_nuc_global.forEach(function(item){item.setVisibility(true);})
+
+  //cartoonVisible = true
+  //cartoonInVisible = false
+  //visibility_list_nm1.forEach(function (item)
+  //{
+  //  reprList_index = getReprListIndex(item);
+  //  stage_nm1.getComponentsByName("my_structure").list[0].reprList[reprList_index].setVisibility(true)
+  //  if (model_list_nm1[model_number_nm1].get(item).nucleic)
+  //      {
+  //        var base_index = model_list_nm1[model_number_nm1].get(item+ "_base").index;
+  //        stage_nm1.getComponentsByName("my_structure").list[0].reprList[base_index].setVisibility(true)
+  //      }
+  //})
 }
 window.cartoonVisible = cartoonVisible;
 window.cartoonInvisible = cartoonInvisible;
