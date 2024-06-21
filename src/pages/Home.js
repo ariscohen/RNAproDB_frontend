@@ -18,6 +18,7 @@ import HandleRotationChange from '../HandleRotationChange';
 import basePairingLegend from '../lw_base_pairing_legend.svg'; // Import the imag
 import ZoomFit from '../ZoomFit';
 import SSPythonGraph from '../SSPythonGraph.js';
+import StructureInfo from '../StructureInfo.js';
 
 const Home = () => {
   const columnRef = useRef(null);
@@ -90,23 +91,29 @@ const Home = () => {
         <div id="edgeTooltip"></div>
         <div className="whole_container">
         <div className="column">
-          <h5>Sequence Viewer</h5>
-          {chainsObject !== false && (
-                  <div className="seq-viewer">
-                      <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
-                  </div>
-          )}
-          <div className="viewer-container">
-              {graphData && tooLarge !== true && (
-                  <div className="ss-python-graph">
-                      <SSPythonGraph graphData={graphData}/>
-                  </div>
-              )}
-              {rotationMatrix !== false && tooLarge !== true && (
-                  <div className="ngl-viewer">
-                      <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
-                  </div>
-              )}
+          <div className ="left-col">
+          <div className="structure-info">
+          <h5>Structure Info</h5>
+              <StructureInfo />
+          </div>
+                {/* {graphData && tooLarge !== true && (
+                    <div className="ss-python-graph">
+                        <SSPythonGraph graphData={graphData}/>
+                    </div>
+                )} */}
+            <div className="viewer-container">
+                    <h5>Sequence Viewer</h5>
+                    {chainsObject !== false && (
+                            <div className="seq-viewer">
+                                <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
+                            </div>
+                    )}
+                    {rotationMatrix !== false && tooLarge !== true && (
+                        <div className="ngl-viewer">
+                            <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
+                        </div>
+                    )}
+            </div>
           </div>
         </div>
           <div className="column" ref={columnRef} id="right_column_top">

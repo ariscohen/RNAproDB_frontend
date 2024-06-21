@@ -255,21 +255,39 @@ iframe#webpack-dev-server-client-overlay {
   margin-top: 10px;
 }
 
+
 .viewer-container {
+  flex: 70%;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  flex-direction: column; /* This makes SeqViewer and NGLViewer stack vertically */
 }
 
 .seq-viewer {
-  width: 100%;
+  flex: 1;
 }
 
 .ngl-viewer {
-  flex: 0 0 48%; /* Adjusted to handle the margin */
+  flex: 2; /* Adjusted to handle the margin */
 }
 
 .ss-python-graph {
   flex: 0 0 48%; /* Adjusted to handle the margin */
   margin-right: 2%; /* Adds margin to the right of the ss-python-graph */
+}
+
+.structure-info {
+  flex: 30%;
+  margin-right: 20px; /* Add space between structure-info and viewer-container */
+  /* additional styles for padding, margin, etc., as needed */
+}
+
+.left-col{
+  display: flex;
+  flex-direction: row; /* Ensure it's row to place items side by side */
+  width: 100%;
+}
+
+.seq-viewer, .ngl-viewer {
+  flex-grow: 0;
+  flex-shrink: 0;
 }
