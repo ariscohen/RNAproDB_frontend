@@ -174,7 +174,7 @@ const Home = () => {
                 </div>
                 <div style={{ marginLeft: '20px', textAlign: 'center' }}>
                   <img src={basePairingLegend} alt="Base Pairing Legend" className="base-pairing-legend" style={{ height: '400px' }} />
-                  <div style={{ marginTop: '10px', fontSize: '16px' }}>
+                  <div style={{ marginTop: '10px', fontSize: '16px', textAlign: 'left' }}>
                     <div><b>c</b>: cis</div>
                     <div><b>t</b>: trans</div>
                     <div><b>W</b>: Watson-Crick</div>

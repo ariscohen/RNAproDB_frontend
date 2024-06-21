@@ -30,6 +30,14 @@
 
 /* Show the tooltip text when hovering on the span element */
 
+.seqdiv{
+  text-align: left;
+}
+
+.sequence-present{
+  text-align: left;
+}
+
 .sequence-present:hover .tooltiptext {
  visibility: visible;
  opacity: 1;

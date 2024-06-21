@@ -27,7 +27,22 @@ function NGLViewer(rotationMatrix, algorithm) {
     loadNGL();
   }, [rotationMatrix, algorithm]); // CHECK WHETHER THIS DEPENDENCY IS NEEDEED
 
-  return <div><h5>3D Visualization</h5><div id="viewport" style={{ width: '100%', height: '700px', border: '1px solid black' }}></div></div>;
+  return (
+    <div>
+      <h5>3D Visualization</h5>
+      <div
+        id="viewport"
+        style={{
+          width: '100%',
+          height: '700px',
+          borderTop: '2px solid black',
+          borderLeft: '2px solid black',
+          borderRight: '1px solid black',
+          borderBottom: '1px solid black'
+        }}
+      ></div>
+    </div>
+  );
 }
 
 export default NGLViewer;
