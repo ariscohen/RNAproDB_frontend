@@ -266,7 +266,7 @@ filter.select("feMerge")
         .style("stroke-width", function(d) { return 2; })
         .style("stroke", "#4169e1");
       
-      const linkSquareRight = svg.selectAll(".linkSquareRight")
+     const linkSquareRight = svg.selectAll(".linkSquareRight")
         .data(edges.filter(d => d.LW && ['wh', 'sh'].includes(d.LW.slice(-2).toLowerCase())))
         .enter().append("path")
         .attr("class", "linkSquareRight")
@@ -1267,7 +1267,10 @@ function toggleHBondsColor() {
           } else {
               return d.color;  // Revert to original color otherwise
           }
-      });
+      })
+     .style('display', function(d) {  // SS TOGGLE 
+        return (d.tertiary && isChecked) ? 'none' : 'inline';
+    });
   
   console.log("Colors updated based on checkbox state.");
 }
