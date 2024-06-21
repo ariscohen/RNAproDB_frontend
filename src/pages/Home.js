@@ -35,7 +35,7 @@ const Home = () => {
 
   const [initialTranslate, setInitialTranslate] = useState([0, 0]);
   const [initialScale, setInitialScale] = useState(1);
-  const [algorithm, setAlgorithm] = useState('None');
+  const [algorithm, setAlgorithm] = useState('Projection');
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
 
@@ -138,8 +138,8 @@ const Home = () => {
                   </button>
                   {showDropdown && (
                     <div className="dropdown-content">
-                      <div onClick={() => handleAlgorithmSelect('None')}>None</div>
-                      <div onClick={() => handleAlgorithmSelect('PCA')}>PCA</div>
+                      {/* <div onClick={() => handleAlgorithmSelect('None')}>None</div> */}
+                      <div onClick={() => handleAlgorithmSelect('PCA')}>Projection</div>
                       <div onClick={() => handleAlgorithmSelect('RNAScape')}>RNAScape</div>
                       <div onClick={() => handleAlgorithmSelect('SecondaryStructure')}>Secondary Structure</div>
                     </div>
