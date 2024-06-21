@@ -15,6 +15,22 @@ var nuc_repr_type_nm1 = "tube";
 var init_component_ac1;
 var residue_list = [];
 
+function update_show_water(boolval){
+  console.log("Attempting to show water");
+  show_water = boolval;
+  var new_hetero_reprList_index = model_list_nm1[model_number_nm1].get("/"+model_number_nm1+"_hetero").index;
+
+  if (show_water == true){
+          stage_nm1.getComponentsByName("my_structure").list[0].reprList[new_hetero_reprList_index].setVisibility(true);
+  }
+  else{
+          stage_nm1.getComponentsByName("my_structure").list[0].reprList[new_hetero_reprList_index].setVisibility(false); //HIDE WATER HERE
+  }
+}
+
+// Attach the function to the window object
+window.update_show_water = update_show_water;
+
 function getResList(){
     return residue_list
 }
@@ -982,6 +998,9 @@ function cartoonVisible()
         }
   })
 }
+window.cartoonVisible = cartoonVisible;
+window.cartoonInvisible = cartoonInvisible;
+
 // converts format from ["B.346.accessioncode",  "B.347.", "B.348."] to "150:A or 151:A or 152:A or 153:A"
 // accession code optional in residue_list array, but periods are required
 // residues in residue_list MUST be valid. Otherwise will create a ball+stick representation for entire structure

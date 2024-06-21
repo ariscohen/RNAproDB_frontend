@@ -1,9 +1,26 @@
 // src/NGLViewer.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './NGLViewer.css'
 
 function NGLViewer(rotationMatrix, algorithm) {
     let { pdbid } = useParams();
+
+  // Handle outside click for dropdown
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
     useEffect(() => { 
     const loadNGL = () => {
       const script1 = document.createElement('script');
@@ -27,9 +44,29 @@ function NGLViewer(rotationMatrix, algorithm) {
     loadNGL();
   }, [rotationMatrix, algorithm]); // CHECK WHETHER THIS DEPENDENCY IS NEEDEED
 
+     // Function to call the update_show_water function
+     const handleToggleWater = () => {
+      if (window.update_show_water) {
+          window.update_show_water(false);
+      } else {
+          console.error("update_show_water function not found");
+      }
+  };
+
+       // Function to call the update_show_water function
+       const handleToggleCartoon = () => {
+        if (window.cartoonInvisible) {
+            window.cartoonInvisible();
+        } else {
+            console.error("function not found");
+        }
+    };
+
   return (
     <div>
       <h5>3D Visualization</h5>
+      <button className="button4" id="toggle-water" onClick={handleToggleWater}>Toggle Water</button>
+      <button className="button4" id="toggle-cartoon" onClick={handleToggleCartoon}>Toggle Cartoon</button>
       <div
         id="viewport"
         style={{
