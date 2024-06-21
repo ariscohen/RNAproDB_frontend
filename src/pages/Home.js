@@ -42,6 +42,20 @@ const Home = () => {
 
   const [graphData, setGraphData] = useState(null); // DATA FOR SS PYTHON GRAPH
 
+  const checkboxRef = useRef(null); // for the toggle tertiary checkbox
+
+  // if checkbox toggled, call the tertiary edges stuff
+  useEffect(() => {
+    if (algorithm === "SecondaryStructure") {
+      // Initially uncheck the checkbox and call the function
+      if (checkboxRef.current) {
+        console.log("Calling tertiary useEffect");
+        checkboxRef.current.checked = false; // Set checkbox to unchecked
+        window.toggleTertiaryEdges(true); // Call the function as if the box is unchecked
+      }
+    }
+  }, [algorithm]);
+
   useEffect(() => {
     if (columnRef.current) {
       setDimensions({
@@ -131,6 +145,30 @@ const Home = () => {
                     <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
                     <span className="slider round"></span>
                   </label>
+                  {algorithm == "SecondaryStructure" && (
+                    <React.Fragment>
+                      <span style={{ marginLeft: '40px' }}>Indicate Tertiary Structure </span>
+                      <label className="switch">
+                        <input
+                          id="toggleTertiaryCheckbox"
+                          type="checkbox"
+                          defaultChecked={true}
+                          onChange={(e) => window.toggleTertiaryEdges(!e.target.checked)}
+                        />
+                        <span className="slider round"></span>
+                      </label>
+                    </React.Fragment>
+                  )}
+                  <span style={{ marginLeft: '40px' }}>Hide Proteins</span>
+                      <label className="switch">
+                        <input
+                          id="toggleProteinCheckbox"
+                          type="checkbox"
+                          defaultChecked={false}
+                          onChange={(e) => window.toggleProteinVisibility()}
+                        />
+                        <span className="slider round"></span>
+                      </label>
                 </div>
                 <DownloadButtons
                   downloadGraphHandler={downloadGraphHandler}

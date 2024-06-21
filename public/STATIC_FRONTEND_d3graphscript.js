@@ -1250,6 +1250,92 @@ function restart() {
   force.start();
 }
 
+function toggleTertiaryEdges(isChecked) {
+  console.log("In here bb");
+  // Select all link elements and update their visibility
+  svg.selectAll(".link")
+  .filter(function(d) { return d.source.shape !== 'rect' && d.target.shape !== 'rect'; })
+  .style('display', function(d) {  // SS TOGGLE 
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  // Also hide/show associated circles and triangles
+  svg.selectAll(".waterMediatedCircle")
+  .filter(function(d) { return d.source.shape !== 'rect' && d.target.shape !== 'rect'; })
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkTriangleRight")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkTriangleLeft")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkTriangleCenter")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkCircleCenter")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkCircleLeft")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkCircleRight")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkSquareCenter")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkSquareLeft")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+
+  svg.selectAll(".linkSquareRight")
+  .style('display', function(d) {
+    return (d.tertiary && isChecked) ? 'none' : 'inline';
+  });
+}
+window.toggleTertiaryEdges = toggleTertiaryEdges;
+
+// Toggle function to hide/show protein-related elements
+function toggleProteinVisibility() {
+  console.log("toggleProteinVisibility inside d3graphscript");
+  var isVisible = d3.select("#toggleProteinCheckbox").property("checked");
+
+  // Toggle links associated with protein nodes
+  svg.selectAll(".link")
+    .filter(function(d) { return d.source.shape === 'rect' || d.target.shape === 'rect'; })
+    .style("display", isVisible ? "none" : "inline");
+
+  // Toggle protein nodes and their labels
+  svg.selectAll('g.node[shape_class="rect"]')
+    .style("display", isVisible ? "none" : "inline");
+
+  // Toggle associated decorative elements like circles, triangles, and squares on edges
+  svg.selectAll(".waterMediatedCircle, .linkTriangleRight, .linkTriangleLeft, .linkSquareLeft, .linkSquareRight, .linkSquareCenter, .linkTriangleCenter, .linkCircleLeft, .linkCircleRight, .linkCircleCenter")
+    .filter(function(d) { return d.source.shape === 'rect' || d.target.shape === 'rect'; })
+    .style("display", isVisible ? "none" : "inline");
+}
+window.toggleProteinVisibility = toggleProteinVisibility;
+
+
+
 function toggleHBondsColor() {
   var newColor = "red";
   const isChecked = document.getElementById("toggleHBondsCheckbox").checked;
@@ -1259,7 +1345,7 @@ function toggleHBondsColor() {
   // Select all link elements and update their color
   var links = svg.selectAll(".link")
       .each(function(d) {
-          console.log("Current color:", d3.select(this).style("stroke"));
+          // console.log("Current color:", d3.select(this).style("stroke"));
       })
       .style("stroke", function(d) {
           if (isChecked && d.my_type === "protein_rna_hbond") {
@@ -1267,13 +1353,10 @@ function toggleHBondsColor() {
           } else {
               return d.color;  // Revert to original color otherwise
           }
-      })
-     .style('display', function(d) {  // SS TOGGLE 
-        return (d.tertiary && isChecked) ? 'none' : 'inline';
-    });
-  
+      });
   console.log("Colors updated based on checkbox state.");
 }
+
 
 
 document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);

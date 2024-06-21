@@ -18,7 +18,7 @@ const DownloadButtons = ({ downloadGraphHandler, handleFlipX, handleFlipY, handl
           <button onClick={() => downloadGraphHandler('png')}>Download PNG</button>
         </div>
       </div>
-      <div className="slider-container">
+      {/* <div className="slider-container">
         <label>Graph Rotation:</label>
         <input 
           type="range" 
@@ -36,7 +36,7 @@ const DownloadButtons = ({ downloadGraphHandler, handleFlipX, handleFlipY, handl
           defaultValue="0"
           onChange={handleRotationSliderChange} 
         />
-      </div>
+      </div> */}
     </div>
   );
 };

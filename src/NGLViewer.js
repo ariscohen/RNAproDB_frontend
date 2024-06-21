@@ -6,20 +6,6 @@ import './NGLViewer.css'
 function NGLViewer(rotationMatrix, algorithm) {
     let { pdbid } = useParams();
 
-  // Handle outside click for dropdown
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
 
     useEffect(() => { 
     const loadNGL = () => {
