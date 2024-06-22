@@ -3,9 +3,8 @@ import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
 import $ from 'jquery';
 
-function NewPythonGraph({ dimensions, subgraph, algorithm, isFirst, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData, setGraphData }) {
+function NewPythonGraph({ pdbid, dimensions, subgraph, algorithm, isFirst, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData, setGraphData }) {
   const [data, setData] = useState(null);
-  const { pdbid } = useParams();
   const { setTitle } = useContext(TitleContext);
   const [tooLargeMessage, setTooLargeMessage] = useState('');
 
@@ -36,7 +35,7 @@ function NewPythonGraph({ dimensions, subgraph, algorithm, isFirst, setSS, setCh
     }
 
     fetchData();
-  }, [pdbid, setTitle, subgraph, algorithm, isFirst]);
+  }, [pdbid, setTitle, subgraph]);
 
   useEffect(() => {
     if (data && data.output) {

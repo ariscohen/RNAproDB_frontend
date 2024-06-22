@@ -1,5 +1,6 @@
 // Home.js
 import React, { useEffect, useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import '../App.css';
 import '../seqview.css';
 import '../pythongraph.css';
@@ -21,6 +22,7 @@ import SSPythonGraph from '../SSPythonGraph.js';
 import StructureInfo from '../StructureInfo.js';
 
 const Home = () => {
+  const { pdbid, urlAlgorithm } = useParams();
   const columnRef = useRef(null);
   const graphRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -36,13 +38,14 @@ const Home = () => {
 
   const [initialTranslate, setInitialTranslate] = useState([0, 0]);
   const [initialScale, setInitialScale] = useState(1);
-  const [algorithm, setAlgorithm] = useState('Projection');
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
 
   const [graphData, setGraphData] = useState(null); // DATA FOR SS PYTHON GRAPH
 
   const checkboxRef = useRef(null); // for the toggle tertiary checkbox
+
+  const algorithm = urlAlgorithm || 'pca'; // get algorithm from link
 
   // if checkbox toggled, call the tertiary edges stuff
   useEffect(() => {
@@ -92,9 +95,11 @@ const Home = () => {
   };
 
   const handleAlgorithmSelect = (selectedAlgorithm) => {
-    setAlgorithm(selectedAlgorithm);
-    setShowDropdown(false);
-    setIsFirst(false);
+    // don't redirect if algorithm is the same
+    if(selectedAlgorithm === algorithm){
+      return;
+    }
+    window.location = `${window.location.origin}/${pdbid}/${selectedAlgorithm}`;
   };
 
   return (
@@ -184,9 +189,9 @@ const Home = () => {
                   {showDropdown && (
                     <div className="dropdown-content">
                       {/* <div onClick={() => handleAlgorithmSelect('None')}>None</div> */}
-                      <div onClick={() => handleAlgorithmSelect('PCA')}>Projection</div>
-                      <div onClick={() => handleAlgorithmSelect('RNAScape')}>RNAScape</div>
-                      <div onClick={() => handleAlgorithmSelect('SecondaryStructure')}>Secondary Structure</div>
+                      <div onClick={() => handleAlgorithmSelect('pca')}>pca</div>
+                      <div onClick={() => handleAlgorithmSelect('rnascape')}>rnascape</div>
+                      <div onClick={() => handleAlgorithmSelect('viennarna')}>viennarna</div>
                     </div>
                   )}
                 </div>
@@ -195,6 +200,7 @@ const Home = () => {
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
                 <div id="right_column" onClick={window.reset_graph_colors}>
                   <NewPythonGraph
+                    pdbid={pdbid}
                     setGraphData={setGraphData}
                     setTooLarge={setTooLarge}
                     setRotationMatrix={setRotationMatrix}
