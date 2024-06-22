@@ -263,7 +263,7 @@ function SeqViewer({chainsObject, tooLarge}){
        script2.async = true;
 
     return  <div><button id="seq-button" ref={buttonRef} class="button4 button4" onClick={populate}>Show sequence viewer</button> 
-       <select onChange={selectOption} class='dropdown' id="horizontal-center" hidden="true"></select>
+       <select onChange={selectOption} class='dropdown' id="horizontal-center" hidden={true}></select>
        <div class="sequence_view"></div>
                </div>;
 }
