@@ -84,7 +84,7 @@ const Landing = () => {
           </Form>
         </div>
         <div className="flex justify-center mt-4 space-x-2">
-          {['1IVS', '7VNV', '3J9M', '6L9H', '2GIS'].map((id) => (
+          {['1IVS', '4OO8', '7ORN', '3TRZ', '7XWZ', '3LDY'].map((id) => (
             <Button
               key={id}
               variant="outline-light"
