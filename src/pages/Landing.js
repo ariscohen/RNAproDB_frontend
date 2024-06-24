@@ -44,17 +44,17 @@ const Landing = () => {
             </div>
       <div className="w-full px-6 pb-6 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-30 lg:pb-10">
         <div className="w-full lg:pt-8 lg:pr-10">
-          <img
+          {/*<img
             className="h-20 mx-auto"
             src="/Logo.webp"
             alt="Rohs Lab"
-          />
+          />*/}
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-8xl">
-              Start Searching <br /> RNA-Protein Complex
+            <h1 className="mt-6 text-lg leading-8 text-gray-100 sm:text-3xl">
+              RNAProDB is a database, analysis and interactive exploration tool for RNA-protein complexes.
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-100 sm:text-xl">
-              RNAProDB is a database, structure processing pipeline and visualization tool to analyze RNA-protein complexes.
+          <p className="text-4xl font-bold tracking-tight text-white sm:text-xl">
+              In adidtion to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
             </p>
           </div>
         </div>
@@ -95,11 +95,11 @@ const Landing = () => {
           ))}
         </div>
       </div>
-      <div className="w-full py-10 bg-[#A2A0D3] text-center mt-10 opacity-90">
-        <p className="text-4xl font-semibold text-white">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumion.
+          {/*<div className="w-full py-10 bg-[#A2A0D3] text-center mt-10 opacity-90">
+        <p className="text-xl font-semibold text-white">
+          RNAproDB is designed to be an interactive experience for a scieintist looking to investigate structural features of nucleic acids and protein nucleic acids complexes on the PDB. For every structure multiple different visualization modes are provided (principle projection, tertiary structure aware 2D mapping and secondary structure based). 
         </p>
-      </div>
+      </div>*/}
 
       <div className="relative w-full px-6 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
   <div
@@ -122,7 +122,7 @@ const Landing = () => {
     <div className="flex justify-center lg:justify-end lg:pl-10">
       <div className="max-w-full lg:max-w-none">
         <img
-          src="/sample.png"
+          src="/1asz.svg"
           alt="App screenshot"
           className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
         />
