@@ -1,11 +1,11 @@
-#select-subgraph-button {
+/* #select-subgraph-button {
   float: right;
   display: inline-block;
   padding: 10px 20px;
   border: none;
   background-color: #f1f1f1;
   border-radius: 5px;
-  margin: 0 10px 0 0; /* Added right margin for spacing */
+  margin: 0 10px 0 0; 
   cursor: pointer;
 }
 
@@ -20,10 +20,32 @@
   border: none;
   background-color: lightblue;
   border-radius: 5px;
-  margin: 0 10px 0 0; /* Added right margin for spacing */
+  margin: 0 10px 0 0;
   cursor: pointer;
 }
 
 #generate-subgraph-button:hover{
   background-color: lightgreen;
+} */
+
+.button4 {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin: 0 10px 10px 0; /* Right margin for spacing between buttons, and bottom margin for spacing from the textarea */
+  cursor: pointer;
+}
+
+.button4:hover {
+  background-color: #D0D0D7;
+}
+
+.subgraph-textarea {
+  width: 100%; /* Takes full width of the container */
+  margin-top: 10px; /* Space above the textarea */
+  padding: 8px; /* Padding inside the textarea for better text visibility */
+  border-radius: 5px;
+  border: 1px solid #ccc; /* Adds a subtle border around the textarea */
+  box-sizing: border-box; /* Includes padding and border in the width */
 }
