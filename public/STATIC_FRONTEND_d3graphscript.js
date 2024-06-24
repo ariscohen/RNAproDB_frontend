@@ -399,14 +399,17 @@ filter.select("feMerge")
     .style("stroke", function(d) {return d.node_color_edge;})		// NODE-COLOR-EDGE
     //  .style("stroke", '#000')										// NODE-EDGE-COLOR (all black));
     
-    // Add text to Circles
-    d3.selectAll('g.node[shape_class="circle"]').append("text")
-    .attr("dx", -8) // negative is left
+  // Add text to Circles
+  d3.selectAll('g.node[shape_class="circle"]').append("text")
+    .attr("dx", function(d) {
+      return d.node_name.length === 1 ? -8 : -15; // Adjust horizontal displacement
+    })
     .attr("dy", 9)
-    .text(function(d) {return d.node_name}) // NODE-TEXT
-    .style("font-size", function(d) {return d.node_fontsize + "px";}) // set font size equal to node edge size
-    .style("fill", function(d) {return d.node_fontcolor;}) // set the text fill color to the same as node color
+    .text(function(d) { return d.node_name; }) // NODE-TEXT
+    .style("font-size", function(d) { return d.node_fontsize + "px"; }) // Set font size equal to node edge size
+    .style("fill", function(d) { return d.node_fontcolor; }) // Set the text fill color to the same as node color
     .style("font-family", "monospace");
+
     
     // Create Circles for nodes with shape_class of "squares"
     d3.selectAll('g.node[shape_class="rect"]').append("rect") 
