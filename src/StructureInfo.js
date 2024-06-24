@@ -41,6 +41,9 @@ function StructureInfo() {
         pdb_info
     } = structureInfo;
 
+    const classification = pdb_info?.struct_keywords?.pdbx_keywords;
+    const organism = pdb_info?.entity_src_gen?.[0]?.pdbx_organism_scientific;
+    const expressionSystem = pdb_info?.entity_src_gen?.[0]?.pdbx_host_organism_scientific;
     const authors = pdb_info?.citation?.[0]?.rcsb_authors?.join(', ');
     const experimentalModality = pdb_info?.exptl?.[0]?.method;
     const resolution = pdb_info?.rcsb_entry_info?.resolution_combined?.[0];
@@ -59,6 +62,9 @@ function StructureInfo() {
         <div id='structureInfoDiv'>
             {title && <h2>{title}</h2>}
             {protein_name && <p><strong>Protein Name:</strong> {protein_name}</p>}
+            {classification && <p><strong>Classification:</strong> {classification}</p>}
+            {organism && <p><strong>Organism:</strong> {organism}</p>}
+            {expressionSystem && <p><strong>Expression System:</strong> {expressionSystem}</p>}
             {doi && <p><strong>DOI:</strong> <a href={doiLink} target="_blank" rel="noopener noreferrer">{doi}</a></p>}
             {authors && <p><strong>Authors:</strong> {authors}</p>}
             {molecularWeight !== undefined && <p><strong>Molecular Weight:</strong> {molecularWeight} kDa</p>}
@@ -76,3 +82,4 @@ function StructureInfo() {
 }
 
 export default StructureInfo;
+
