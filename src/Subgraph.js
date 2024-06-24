@@ -34,7 +34,7 @@ function Subgraph({ setSubgraph, tooLarge }) {
         className="button4 button4"
         onClick={handleSelectSubgraphClick}
       >
-        {showInput ? "Hide Subgraph" : "Select Subgraph"}
+        {showInput ? "Hide subgraph" : "Select subgraph"}
       </button>
 
       {showGenerateButton &&
@@ -43,7 +43,7 @@ function Subgraph({ setSubgraph, tooLarge }) {
           className="button4 button4"
           onClick={handleGenerateSubgraphClick}
         >
-          Generate Subgraph
+          Generate subgraph
         </button>
       }
 

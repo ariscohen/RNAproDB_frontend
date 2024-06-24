@@ -79,8 +79,8 @@ const Home = () => {
 
       // Ensure ZoomFit is called with correct parameters
       // ZoomFit(0, setInitialTranslate, setInitialScale);
-      document.getElementById('rotation_value').value = 0;
-      document.getElementById('graph_rotation_slider').value = 0;
+      //document.getElementById('rotation_value').value = 0;
+      //document.getElementById('graph_rotation_slider').value = 0;
     };
 
     checkSvgAndFit();
@@ -112,7 +112,7 @@ const Home = () => {
         <div className="column">
           <div className ="left-col">
           <div className="structure-info">
-          <h5>Structure Info</h5>
+          <h5>Structure info</h5>
               <StructureInfo />
           </div>
                 {/* {graphData && tooLarge !== true && (
@@ -121,7 +121,7 @@ const Home = () => {
                     </div>
                 )} */}
             <div className="viewer-container">
-                    <h5>Sequence Viewer</h5>
+                    <h5>Sequence viewer</h5>
                     {chainsObject !== false && (
                             <div className="seq-viewer">
                                 <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
@@ -136,16 +136,16 @@ const Home = () => {
           </div>
         </div>
           <div className="column" ref={columnRef} id="right_column_top">
-            <h5>Interface Visualization</h5>
+            <h5>Interface explorer</h5>
             <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none', paddingTop: '0px' }} ref={graphRef}>
               <div className="row-top">
                 <div>
-                  <span>Relax Graph </span>
+                  <span>Relax graph </span>
                   <label className="switch">
                     <input id="forcefieldButton" type="checkbox" />
                     <span className="slider round"></span>
                   </label>
-                  <span style={{ marginLeft: '40px' }}>Indicate H-Bonds </span>
+                  <span style={{ marginLeft: '40px' }}>Indicate H-bonds </span>
                   <label className="switch">
                     <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
                     <span className="slider round"></span>
@@ -164,7 +164,7 @@ const Home = () => {
                       </label>
                     </React.Fragment>
                   )}
-                  <span style={{ marginLeft: '40px' }}>Hide Proteins</span>
+                  <span style={{ marginLeft: '40px' }}>Hide protein </span>
                       <label className="switch">
                         <input
                           id="toggleProteinCheckbox"

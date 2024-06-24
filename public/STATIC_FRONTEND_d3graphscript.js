@@ -437,7 +437,7 @@ filter.select("feMerge")
       // Attempt to parse the tooltip_table JSON
       try {
           const tooltipData = JSON.parse(event.tooltip_table);
-          console.log("tooltipData", tooltipData);
+          //console.log("tooltipData", tooltipData);
   
           // Append data to the tooltip content
           Object.entries(tooltipData).forEach(([key, value]) => {
@@ -477,7 +477,7 @@ filter.select("feMerge")
             // Attempt to parse the tooltip_table JSON
       try {
         const tooltipData = JSON.parse(d.tooltip_table);
-        console.log("tooltipData", tooltipData);
+        //console.log("tooltipData", tooltipData);
 
         // Append data to the tooltip content
         Object.entries(tooltipData).forEach(([key, value]) => {
@@ -488,6 +488,7 @@ filter.select("feMerge")
         console.error("Error parsing tooltip_table:", error);
         content += "<em>Error in tooltip data</em>";
     }
+
 
     return content;
 }
@@ -1250,8 +1251,50 @@ function restart() {
   force.start();
 }
 
+function setProteinOpacity(){ //currently links only, opacity conflicts with node coloring currently
+        var opacityScale = d3.scale.linear()
+              .domain([2, 13])
+              .range([1, 0.1]);
+
+        svg.selectAll(".link")
+          .filter(function(d) { return d.source.shape === 'rect' || d.target.shape === 'rect'; })
+          .style("opacity", function(d) {
+            //var sourceIsRect = d.source.type === 'rect';
+            //var targetIsCircle = d.target.type === 'circle';
+            //if (sourceIsRect && targetIsCircle || targetIsCircle && sourceIsRect) {
+                console.log("hereee", opacityScale(d.distance_3d), d.distance_3d)
+              return opacityScale(d.distance_3d);
+            //}
+            //return 1;
+          });
+                        
+
+         //svg.selectAll(".waterMediatedCircle")
+         // .filter(function(d) { return d.source.shape === 'rect' || d.target.shape === 'rect'; })
+         //   .style("opacity", function(d) {
+         //   var sourceIsRect = d.source.type === 'rect';
+         //   var targetIsCircle = d.target.type === 'circle';
+         //   if (sourceIsRect && targetIsCircle || targetIsCircle && sourceIsRect) {
+         //     return opacityScale(d.distance_3d);
+         //   }
+         //   return 1;
+         // });
+
+
+
+        //svg.selectAll('g.node[shape_class="rect"]')
+        //    .style("opacity", function(d) {
+        //    var linkedNode = graph.links.find(link => (link.source === d && link.target.type === 'circle') || (link.target === d && link.source.type === 'circle'));
+        //     if (linkedNode) {
+        //      
+        //      return opacityScale(linkedNode.distance_3d);
+        //    }
+        //    return 1;
+        //  });
+
+}
 function toggleTertiaryEdges(isChecked) {
-  console.log("In here bb");
+  //console.log("In here bb");
   // Select all link elements and update their visibility
   svg.selectAll(".link")
   .filter(function(d) { return d.source.shape !== 'rect' && d.target.shape !== 'rect'; })
@@ -1371,7 +1414,10 @@ graph.nodes.forEach(function(d) {
       d.fixed = false;  // Proteins can move
   }
 });
+
+setProteinOpacity() // set protein node edge opacity based on Centroid distance distance_3d
 // Start the simulation for 2 seconds
+
 force.start();
 setTimeout(function() {
     force.stop();  // Stop the simulation after 2 seconds
