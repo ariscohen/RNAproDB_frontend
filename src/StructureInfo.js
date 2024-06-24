@@ -1,14 +1,78 @@
-// src/NGLViewer.js
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import './StructureInfo.css';
 
 function StructureInfo() {
     let { pdbid } = useParams();
-    useEffect(() => { //loads scripts async
-  }, []);
+    const location = useLocation();
+    const [structureInfo, setStructureInfo] = useState(null);
 
-  return <div id='structureInfoDiv'>Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. Lorem ipsum dolor. </div>;
+    useEffect(() => {
+        const fetchStructureInfo = async () => {
+            const cacheKey = `structureInfo-${pdbid}`;
+            const cachedData = sessionStorage.getItem(cacheKey);
+
+            if (cachedData) {
+                setStructureInfo(JSON.parse(cachedData));
+                return;
+            }
+
+            try {
+                const IP = `localhost`;
+                const response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}&algorithm=pca&isFirst=true`);
+                const data = await response.json();
+                sessionStorage.setItem(cacheKey, JSON.stringify(data));
+                setStructureInfo(data);
+            } catch (error) {
+                console.error('Error fetching structure info:', error);
+            }
+        };
+
+        fetchStructureInfo();
+    }, [pdbid]);
+
+    if (!structureInfo) {
+        return <div>Loading...</div>;
+    }
+
+    const {
+        title,
+        protein_name,
+        pdb_info
+    } = structureInfo;
+
+    const authors = pdb_info?.citation?.[0]?.rcsb_authors?.join(', ');
+    const experimentalModality = pdb_info?.exptl?.[0]?.method;
+    const resolution = pdb_info?.rcsb_entry_info?.resolution_combined?.[0];
+    const pubmedId = pdb_info?.citation?.[0]?.pdbx_database_id_pub_med;
+    const numberProtEntities = pdb_info?.rcsb_entry_info?.polymer_entity_count_protein;
+    const numberRNAEntities = pdb_info?.rcsb_entry_info?.polymer_entity_count_rna;
+    const numberDNAEntities = pdb_info?.rcsb_entry_info?.polymer_entity_count_dna;
+    const numberHybridEntities = pdb_info?.rcsb_entry_info?.polymer_entity_count_nucleic_acid_hybrid;
+    const molecularWeight = pdb_info?.rcsb_entry_info?.molecular_weight;
+    const doi = pdb_info?.citation?.[0]?.pdbx_database_id_doi;
+    const doiLink = doi ? `https://doi.org/${doi}` : null;
+    const pfamId = pdb_info?.rcsb_external_references?.find(ref => ref.type === "Pfam")?.id || "Not available";
+    const rfamId = pdb_info?.rcsb_external_references?.find(ref => ref.type === "Rfam")?.id || "Not available";
+
+    return (
+        <div id='structureInfoDiv'>
+            {title && <h2>{title}</h2>}
+            {protein_name && <p><strong>Protein Name:</strong> {protein_name}</p>}
+            {doi && <p><strong>DOI:</strong> <a href={doiLink} target="_blank" rel="noopener noreferrer">{doi}</a></p>}
+            {authors && <p><strong>Authors:</strong> {authors}</p>}
+            {molecularWeight !== undefined && <p><strong>Molecular Weight:</strong> {molecularWeight} kDa</p>}
+            {experimentalModality && <p><strong>Experimental Modality:</strong> {experimentalModality}</p>}
+            {resolution && <p><strong>Imaging Resolution:</strong> {resolution} Å</p>}
+            {pubmedId && <p><strong>PubMed ID:</strong> {pubmedId}</p>}
+            {pfamId !== "Not available" && <p><strong>Pfam ID:</strong> {pfamId}</p>}
+            {rfamId !== "Not available" && <p><strong>Rfam ID:</strong> {rfamId}</p>}
+            {numberProtEntities !== undefined && <p><strong>Number of Protein Entities:</strong> {numberProtEntities}</p>}
+            {numberRNAEntities !== undefined && <p><strong>Number of RNA Entities:</strong> {numberRNAEntities}</p>}
+            {numberDNAEntities !== undefined && <p><strong>Number of DNA Entities:</strong> {numberDNAEntities}</p>}
+            {numberHybridEntities !== undefined && <p><strong>Number of Nucleic Acid Hybrid Entities:</strong> {numberHybridEntities}</p>}
+        </div>  
+    );
 }
 
 export default StructureInfo;
