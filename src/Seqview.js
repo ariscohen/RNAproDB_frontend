@@ -215,7 +215,7 @@ function SeqViewer({chainsObject, tooLarge}){
                 // add selected node to subgraph textbox
                 let textBox = document.getElementById("subgraph-textbox");
                 if (textBox) {  // Check if the textBox is not null
-                    textBox.value += `${selected_chain}:${resid},`;
+                    textBox.value += `${selected_chain}:${resid}:,`;
                 }
                 
                 try{
