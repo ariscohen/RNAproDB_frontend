@@ -147,7 +147,7 @@ const Home = () => {
                   </label>
                   <span style={{ marginLeft: '40px' }}>Indicate H-bonds </span>
                   <label className="switch">
-                    <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
+                    <input id="toggleHBondsCheckbox" type="checkbox" defaultChecked={true} onChange={window.toggleHBondEdgeColors} />
                     <span className="slider round"></span>
                   </label>
                   {algorithm == "viennarna" && (
