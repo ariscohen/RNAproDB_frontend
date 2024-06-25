@@ -87,7 +87,7 @@ const Home = () => {
   }, [dimensions]);
 
   const downloadGraphHandler = (format) => {
-    DownloadGraph(format, graphRef, setInitialTranslate, setInitialScale);
+    DownloadGraph(format, graphRef, pdbid, algorithm, setInitialTranslate, setInitialScale);
   };
 
   const handleRotationSliderChange = (e) => {

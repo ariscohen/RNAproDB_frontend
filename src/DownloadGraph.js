@@ -1,9 +1,9 @@
 // import ZoomFit from './ZoomFit.js';
 
-const DownloadGraph = async (format, graphRef, setInitialTranslate, setInitialScale) => {
+const DownloadGraph = async (format, graphRef, pdbid, algorithm, setInitialTranslate, setInitialScale) => {
     // ZoomFit(0, setInitialTranslate, setInitialScale);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const svgElement = graphRef.current.querySelector('svg');
       if (!svgElement) return;
 
@@ -41,6 +41,24 @@ const DownloadGraph = async (format, graphRef, setInitialTranslate, setInitialSc
           document.body.removeChild(a);
         };
         img.src = url;
+      } else if (format === 'json') {
+        try {
+          const response = await fetch(`http://localhost:8000/rnaprodb/download_json/?pdbid=${pdbid}&algorithm=${algorithm}`);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const graphData = await response.json();
+          const blob = new Blob([JSON.stringify(graphData)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'graph.json';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (error) {
+          console.error('There was a problem with the fetch operation:', error);
+        }
       }
     }, 500);
 };
