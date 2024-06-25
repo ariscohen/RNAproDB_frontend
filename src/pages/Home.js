@@ -70,7 +70,7 @@ const Home = () => {
 
   useEffect(() => {
     const checkSvgAndFit = () => {
-      const svg = d3.select("#right_column").select("svg");
+      const svg = window.d3.select("#right_column").select("svg");
 
       if (!svg.node()) {
         setTimeout(checkSvgAndFit, 100);

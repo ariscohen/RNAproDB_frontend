@@ -5,19 +5,19 @@ import './fornac.css';
 import $ from 'jquery';
 
 function SSViewer() {
-    let { pdbid } = useParams();
-    useEffect(() => { //loads scripts async
-    const loadSS = () => {
-        var container = new FornaContainer("#rna_ss", {'applyForce': false});
+  //   let { pdbid } = useParams();
+  //   useEffect(() => { //loads scripts async
+  //   const loadSS = () => {
+  //       var container = new FornaContainer("#rna_ss", {'applyForce': false});
 
-        var options = {'structure': '((..((....)).(((....))).))',
-                       'sequence':             'CGCUUCAUAUAAUCCUAAUGACCUAU'};
+  //       var options = {'structure': '((..((....)).(((....))).))',
+  //                      'sequence':             'CGCUUCAUAUAAUCCUAAUGACCUAU'};
 
-        container.addRNA(options.structure, options);
-    };
+  //       container.addRNA(options.structure, options);
+  //   };
 
-    loadSS();
-  }, []);
+  //   loadSS();
+  // }, []);
 
   return <div id='rna_ss'> </div>;
 }
