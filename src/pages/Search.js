@@ -12,51 +12,102 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
 
-export function MolecularWeightRange(props) {
-  const [minWeight, setMinWeight] = useState(0);
-  const [maxWeight, setMaxWeight] = useState(100);
+// export function MolecularWeightRange(props) {
+//   const [minWeight, setMinWeight] = useState(0);
+//   const [maxWeight, setMaxWeight] = useState(100);
 
-  const handleMinWeightChange = (event) => {
-    const value = event.target.value;
-    setMinWeight(value);
-    if (props.onChange) {
-      props.onChange([value, maxWeight]);
+//   const handleMinWeightChange = (event) => {
+//     const value = event.target.value;
+//     setMinWeight(value);
+//     if (props.onChange) {
+//       props.onChange([value, maxWeight]);
+//     }
+//   };
+
+//   const handleMaxWeightChange = (event) => {
+//     const value = event.target.value;
+//     setMaxWeight(value);
+//     if (props.onChange) {
+//       props.onChange([minWeight, value]);
+//     }
+//   };
+
+//   return (
+//     <Box
+//       component="form"
+//       sx={{
+//         '& .MuiTextField-root': { m: 1, width: '25ch' },
+//       }}
+//       noValidate
+//       autoComplete="off"
+//     >
+//       <div>
+//         <TextField
+//           id="min-weight"
+//           label={`Minimum`}
+//           value={minWeight}
+//           onChange={handleMinWeightChange}
+//           type="number"
+//         />
+//         <TextField
+//           id="max-weight"
+//           label={`Maximum`}
+//           value={maxWeight}
+//           onChange={handleMaxWeightChange}
+//           type="number"
+//         />
+//       </div>
+//     </Box>
+//   );
+// }
+
+
+function MolecularWeightSlider(props) {
+  const [value, setValue] = React.useState([0, 1500]);
+
+  const marks = [
+    { value: 0, label: '0' },
+    { value: 1500, label: '1500' },
+  ];
+
+  const minDistance = 2;
+
+  const handleChange = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
     }
-  };
 
-  const handleMaxWeightChange = (event) => {
-    const value = event.target.value;
-    setMaxWeight(value);
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 1500 - minDistance);
+        setValue([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setValue([clamped - minDistance, clamped]);
+      }
+    } else {
+      setValue(newValue);
+    }
+
     if (props.onChange) {
-      props.onChange([minWeight, value]);
+      props.onChange(newValue);
     }
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
-        <TextField
-          id="min-weight"
-          label={`Minimum`}
-          value={minWeight}
-          onChange={handleMinWeightChange}
-          type="number"
-        />
-        <TextField
-          id="max-weight"
-          label={`Maximum`}
-          value={maxWeight}
-          onChange={handleMaxWeightChange}
-          type="number"
-        />
-      </div>
+    <Box sx={{ width: 300 }}>
+      <Slider
+        getAriaLabel={() => 'Year range'}
+        onChange={handleChange}
+        value={value}
+        track={false}
+        marks={marks}
+        valueLabelDisplay="on"
+        min={0}
+        max={1500}
+        step={1}
+        disableSwap
+      />
     </Box>
   );
 }
@@ -517,17 +568,10 @@ return (
         <p><b> Number of Protein Polymers </b></p>
       </div>
 
-      <div className='MolecularWeightRange'>
-        <MolecularWeightRange onChange={(value) => updateSearchParams({'minWeight': value[0], 'maxWeight': value[1]})} />
+      <div className='MolecularWeightSlider'>
+        <MolecularWeightSlider onChange={(value) => updateSearchParams({'minWeight': value[0], 'maxWeight': value[1]})} />
         <p><b> Molecular Weight (kDa) </b></p>
       </div>
-
-      {/* 
-
-      <div className='YearRangeSlider'>
-        <YearRangeSlider updateSearchParams={updateSearchParams} />
-        <p><b> Publication Year </b></p>
-      </div> */}
 
     </div>
 
