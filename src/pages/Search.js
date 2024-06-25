@@ -12,7 +12,26 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
 
-export function MolecularWeightRange() {
+export function MolecularWeightRange(props) {
+  const [minWeight, setMinWeight] = useState(0);
+  const [maxWeight, setMaxWeight] = useState(100);
+
+  const handleMinWeightChange = (event) => {
+    const value = event.target.value;
+    setMinWeight(value);
+    if (props.onChange) {
+      props.onChange([value, maxWeight]);
+    }
+  };
+
+  const handleMaxWeightChange = (event) => {
+    const value = event.target.value;
+    setMaxWeight(value);
+    if (props.onChange) {
+      props.onChange([minWeight, value]);
+    }
+  };
+
   return (
     <Box
       component="form"
@@ -24,73 +43,20 @@ export function MolecularWeightRange() {
     >
       <div>
         <TextField
-          id="outlined-multiline-flexible"
-          label="Minimum: 5kDa"
-          multiline
-          maxRows={4}
+          id="min-weight"
+          label={`Minimum`}
+          value={minWeight}
+          onChange={handleMinWeightChange}
+          type="number"
         />
         <TextField
-          id="outlined-textarea"
-          label="Maximum: 100kDa"
-          placeholder="Placeholder"
-          multiline
+          id="max-weight"
+          label={`Maximum`}
+          value={maxWeight}
+          onChange={handleMaxWeightChange}
+          type="number"
         />
-        {/* <TextField
-          id="outlined-multiline-static"
-          label="Multiline"
-          multiline
-          rows={4}
-          defaultValue="Default Value"
-        /> */}
       </div>
-      {/* <div>
-        <TextField
-          id="filled-multiline-flexible"
-          label="Multiline"
-          multiline
-          maxRows={4}
-          variant="filled"
-        />
-        <TextField
-          id="filled-textarea"
-          label="Multiline Placeholder"
-          placeholder="Placeholder"
-          multiline
-          variant="filled"
-        />
-        <TextField
-          id="filled-multiline-static"
-          label="Multiline"
-          multiline
-          rows={4}
-          defaultValue="Default Value"
-          variant="filled"
-        />
-      </div> */}
-      {/* <div>
-        <TextField
-          id="standard-multiline-flexible"
-          label="Multiline"
-          multiline
-          maxRows={4}
-          variant="standard"
-        />
-        <TextField
-          id="standard-textarea"
-          label="Multiline Placeholder"
-          placeholder="Placeholder"
-          multiline
-          variant="standard"
-        />
-        <TextField
-          id="standard-multiline-static"
-          label="Multiline"
-          multiline
-          rows={4}
-          defaultValue="Default Value"
-          variant="standard"
-        />
-      </div> */}
     </Box>
   );
 }
@@ -403,40 +369,40 @@ function YearRangeSlider(props) {
 }
 
 
-   function NucleicAcidSelector() {
-    const [selectedModalities, setSelectedModalities] = React.useState(['DNA', 'RNA', 'NA Hybrid']);
+function NucleicAcidSelector({ updateSearchParams }) {
+  const [selectedNucleicAcids, setSelectedNucleicAcids] = React.useState(['DNA (only)', 'RNA (only)', 'Hybrid']);
 
-    const handleToggle = (modality) => (event) => {
-      const newChecked = [...selectedModalities];
-      if (event.target.checked) {
-        newChecked.push(modality);
-      } else {
-        const index = newChecked.indexOf(modality);
-        newChecked.splice(index, 1);
-      }
-  
-      setSelectedModalities(newChecked);
-      updateSearchParams({ nucleicAcidType: newChecked });
-    };
-      
-      return (
-        <FormGroup>
-        {['RNA', 'DNA', 'NA Hybrid'].map((modality) => (
-          <FormControlLabel
-            key={modality}
-            control={
-              <Checkbox
-                checked={selectedModalities.includes(modality)}
-                onChange={handleToggle(modality)}
-                name={modality}
-              />
-            }
-            label={modality}
-          />
-        ))}
-      </FormGroup>
-    );
-  }
+  const handleToggle = (type) => (event) => {
+    const newChecked = [...selectedNucleicAcids];
+    if (event.target.checked) {
+      newChecked.push(type);
+    } else {
+      const index = newChecked.indexOf(type);
+      newChecked.splice(index, 1);
+    }
+
+    setSelectedNucleicAcids(newChecked);
+    updateSearchParams({ nucleicAcidType: newChecked });
+  };
+
+  return (
+    <FormGroup>
+      {['RNA (only)', 'DNA (only)', 'Hybrid'].map((type) => (
+        <FormControlLabel
+          key={type}
+          control={
+            <Checkbox
+              checked={selectedNucleicAcids.includes(type)}
+              onChange={handleToggle(type)}
+              name={type}
+            />
+          }
+          label={type}
+        />
+      ))}
+    </FormGroup>
+  );
+}
 
 
 
@@ -458,6 +424,9 @@ const [searchParams, setSearchParams] = useState({
   experimentalModality: '',
   minYear: '',
   maxYear: '',
+  nucleicAcidType: '',
+  minWeight: '',
+  maxWeight: '',
   // Add other parameters as needed
 });
 
@@ -549,8 +518,8 @@ return (
       </div>
 
       <div className='MolecularWeightRange'>
-        <MolecularWeightRange />
-        <p><b> Molecular Weight Range (Da) </b></p>
+        <MolecularWeightRange onChange={(value) => updateSearchParams({'minWeight': value[0], 'maxWeight': value[1]})} />
+        <p><b> Molecular Weight (kDa) </b></p>
       </div>
 
       {/* 
