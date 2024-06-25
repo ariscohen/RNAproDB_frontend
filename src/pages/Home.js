@@ -181,7 +181,7 @@ const Home = () => {
                 />
               </div>
               <div className="row-bottom">
-                <img src="/legend.svg" alt="Legend" className="responsive_img" />
+                <img src="/legend.svg" alt="Legend" className="responsive_img" style={{ width: '100%', maxWidth: '800px', height: 'auto' }} />
                 <div className="dropdown">
                   <button onClick={() => setShowDropdown(!showDropdown)} className="dropdown-button">
                     Algorithm: {algorithm}
