@@ -54,7 +54,7 @@ const Landing = () => {
               RNAProDB is a database and interactive exploration tool to analyze RNA-protein complexes.
             </h1>
           <p className="text-4xl font-bold tracking-tight text-white sm:text-xl">
-              In adidtion to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
+              In addition to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
             </p>
           </div>
         </div>
@@ -115,7 +115,7 @@ const Landing = () => {
       <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
         Interactive explorer
       </h2>
-      <p className="mt-6 text-2xl text-bold leading-8 text-gray-600">
+      <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
         <span className="highlight"></span>For every structure page RNAproDB provides an interactive explorer laying out the nucleic acid structure in 2D along with interacting protein residues. The user has a choice to select from three different algorithms: Projection based, Tertiary structure aware 2D mapping and secondary structure based mapping. The explorer provides information on Hydrogen bonds, water-mediated hydrogen bonds, information on modified nucleotides, mismatched base pairings and Leontis-Westhof base pairing classification. The interactive explorer is connected with the "Structure viewer" and "Sequence viewer" which are also presented in the same page. Additionally, subgraphs can be generated based on residue/nucleotide node selection by the user.
       </p>
     </div>
@@ -152,7 +152,7 @@ const Landing = () => {
             <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
               Sequence and structure viewer
             </h2>
-            <p className="mt-6 text-2xl text-bold leading-8 text-gray-600">
+            <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
               <span className="highlight"></span> The sequence and 3D structure viewers are implemented to aid exporing the interactive interface visualization. Residues selected on sequence viewer are highlighted in the interactive explorer and also focused on in the structure viewer. Similarly, selections made on the interactive explorer is also brought to focus in the structure viewer. For visual clarity, options to hide solvent molecules and cartoon representation is available. 
             </p>
           </div>

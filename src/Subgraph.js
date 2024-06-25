@@ -50,7 +50,7 @@ function Subgraph({ setSubgraph, tooLarge }) {
     {showInput && <textarea
         id="subgraph-textbox"
         className="subgraph-textarea"
-        placeholder="Click nodes or enter comma separated residues: chain:residueNumber,chain:residueNumber..."
+        placeholder="Click nodes or enter comma separated residues: chain:residueNumber:icode,chain:residueNumber:icode..."
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}
     />}
