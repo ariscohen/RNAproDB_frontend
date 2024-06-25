@@ -74,8 +74,9 @@ function StructureInfo() {
     const releaseDateRaw = structureInfo.rcsb_accession_info?.initial_release_date;
     const releaseDate = formatDateString(releaseDateRaw);
 
-    const revisionDateRaw = structureInfo.pdbx_audit_revision_history?.[0]?.revision_date;
-    const revisionDate = formatDateString(revisionDateRaw);
+    const revisionDates = structureInfo.pdbx_audit_revision_history?.map(entry => entry.revision_date) || [];
+    const latestRevisionDateRaw = revisionDates.length > 0 ? new Date(Math.max(...revisionDates.map(date => new Date(date)))) : null;
+    const latestRevisionDate = formatDateString(latestRevisionDateRaw);
 
     return (
         <div id='structureInfoDiv'>
@@ -85,7 +86,7 @@ function StructureInfo() {
             {expressionSystem && <p><strong>Expression System:</strong> {expressionSystem}</p>}
             {doi && <p><strong>DOI:</strong> <a href={doiLink} target="_blank" rel="noopener noreferrer">{doi}</a></p>}
             {releaseDate && <p><strong>Release Date:</strong> {releaseDate}</p>}
-            {revisionDate && <p><strong>Latest Revision Date:</strong> {revisionDate}</p>}
+            {latestRevisionDate && <p><strong>Latest Revision Date:</strong> {latestRevisionDate}</p>}
             {authors && <p><strong>Authors:</strong> {authors}</p>}
             {molecularWeight !== undefined && <p><strong>Molecular Weight:</strong> {molecularWeight} kDa</p>}
             {experimentalModality && <p><strong>Experimental Modality:</strong> {experimentalModality}</p>}
