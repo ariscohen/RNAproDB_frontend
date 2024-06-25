@@ -100,6 +100,10 @@ iframe#webpack-dev-server-client-overlay {
   display: inline-block;
 }
 
+.dropdown-button, .dropdown-content {
+  white-space: nowrap; /* Ensures dropdown text does not wrap */
+}
+
 .download-buttons .dropdown-content {
   display: none;
   position: absolute;
@@ -240,6 +244,7 @@ iframe#webpack-dev-server-client-overlay {
 
 .row-top {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start; /* Align items to the left */
   align-items: center;
   width: 100%;
@@ -249,6 +254,7 @@ iframe#webpack-dev-server-client-overlay {
 
 .row-bottom {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start; /* Align items to the left */
   align-items: center;
   width: 100%;
@@ -290,4 +296,9 @@ iframe#webpack-dev-server-client-overlay {
 .seq-viewer, .ngl-viewer {
   flex-grow: 0;
   flex-shrink: 0;
+}
+
+.subgraph-container {
+  /* flex: 1 0 100%; */
+  margin-top: 10px; 
 }

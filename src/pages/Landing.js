@@ -44,17 +44,17 @@ const Landing = () => {
             </div>
       <div className="w-full px-6 pb-6 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-30 lg:pb-10">
         <div className="w-full lg:pt-8 lg:pr-10">
-          <img
+          {/*<img
             className="h-20 mx-auto"
             src="/Logo.webp"
             alt="Rohs Lab"
-          />
+          />*/}
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-8xl">
-              Start Searching <br /> RNA-Protein Complex
+            <h1 className="mt-6 text-lg leading-8 text-gray-100 sm:text-3xl">
+              RNAProDB is a database and interactive exploration tool to analyze RNA-protein complexes.
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-100 sm:text-xl">
-              RNAProDB is a database, structure processing pipeline and visualization tool to analyze RNA-protein complexes.
+          <p className="text-4xl font-bold tracking-tight text-white sm:text-xl">
+              In adidtion to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
             </p>
           </div>
         </div>
@@ -84,7 +84,7 @@ const Landing = () => {
           </Form>
         </div>
         <div className="flex justify-center mt-4 space-x-2">
-          {['1IVS', '7VNV', '3J9M', '6L9H', '2GIS'].map((id) => (
+          {['1IVS', '4OO8', '7ORN', '3TRZ', '7XWZ', '3LDY'].map((id) => (
             <Button
               key={id}
               variant="outline-light"
@@ -95,11 +95,11 @@ const Landing = () => {
           ))}
         </div>
       </div>
-      <div className="w-full py-10 bg-[#A2A0D3] text-center mt-10 opacity-90">
-        <p className="text-4xl font-semibold text-white">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumion.
+          {/*<div className="w-full py-10 bg-[#A2A0D3] text-center mt-10 opacity-90">
+        <p className="text-xl font-semibold text-white">
+          RNAproDB is designed to be an interactive experience for a scieintist looking to investigate structural features of nucleic acids and protein nucleic acids complexes on the PDB. For every structure multiple different visualization modes are provided (principle projection, tertiary structure aware 2D mapping and secondary structure based). 
         </p>
-      </div>
+      </div>*/}
 
       <div className="relative w-full px-6 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
   <div
@@ -112,17 +112,17 @@ const Landing = () => {
   </div>
   <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
     <div className="w-full lg:pt-8 lg:pr-10">
-      <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-6xl">
-        Search with Ease
+      <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
+        Interactive explorer
       </h2>
       <p className="mt-6 text-2xl text-bold leading-8 text-gray-600">
-        <span className="highlight">Search</span> thousands of RNA-protein complex structures based on features of the RNA, protein or RNA-protein interactions.
+        <span className="highlight"></span>For every structure page RNAproDB provides an interactive explorer laying out the nucleic acid structure in 2D along with interacting protein residues. The user has a choice to select from three different algorithms: Projection based, Tertiary structure aware 2D mapping and secondary structure based mapping. The explorer provides information on Hydrogen bonds, water-mediated hydrogen bonds, information on modified nucleotides, mismatched base pairings and Leontis-Westhof base pairing classification. The interactive explorer is connected with the "Structure viewer" and "Sequence viewer" which are also presented in the same page. Additionally, subgraphs can be generated based on residue/nucleotide node selection by the user.
       </p>
     </div>
     <div className="flex justify-center lg:justify-end lg:pl-10">
       <div className="max-w-full lg:max-w-none">
         <img
-          src="/sample.png"
+          src="/1asz.svg"
           alt="App screenshot"
           className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
         />
@@ -142,24 +142,24 @@ const Landing = () => {
           <div className="flex justify-center lg:justify-start lg:pr-10">
             <div className="max-w-full lg:max-w-none">
             <img
-              src="/sample.png"
+              src="/1asz.png"
               alt="App screenshot"
               className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
             />
             </div>
           </div>
           <div className="w-full lg:pt-8 lg:pl-10">
-            <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-6xl">
-              Visualize for all purposes
+            <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
+              Sequence and structure viewer
             </h2>
             <p className="mt-6 text-2xl text-bold leading-8 text-gray-600">
-              <span className="highlight">Visualize</span> data using customizable, interactive visualizations. These can be exported for use in publications, or used as a data exploration tool.
+              <span className="highlight"></span> The sequence and 3D structure viewers are implemented to aid exporing the interactive interface visualization. Residues selected on sequence viewer are highlighted in the interactive explorer and also focused on in the structure viewer. Similarly, selections made on the interactive explorer is also brought to focus in the structure viewer. For visual clarity, options to hide solvent molecules and cartoon representation is available. 
             </p>
           </div>
         </div>
       </div>
 
-      <div
+          {/*<div
         className="w-full px-6 lg:px-8 mb-8"
       >
         <dl className="mt-16 grid grid-cols-1 gap-4 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
@@ -189,7 +189,7 @@ const Landing = () => {
             </a>
           ))}
         </dl>
-      </div>
+      </div>*/}
     </div>
   );
 };

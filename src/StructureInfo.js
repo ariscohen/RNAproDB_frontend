@@ -79,8 +79,7 @@ function StructureInfo() {
 
     return (
         <div id='structureInfoDiv'>
-            {/* {title && <p><strong>Title:</strong> {title}</p>} */}
-            {protein_name && <p> {protein_name}</p>}
+            {protein_name && <p style={{ textAlign: 'center' }}> {protein_name}</p>}
             {classification && <p><strong>Classification:</strong> {classification}</p>}
             {organism && <p><strong>Organism:</strong> {organism}</p>}
             {expressionSystem && <p><strong>Expression System:</strong> {expressionSystem}</p>}

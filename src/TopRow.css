@@ -4,7 +4,7 @@
     color: #fff; /* Text color */
     padding: 1rem; /* Add padding for a modern look */
     text-align: center;
-    /* max-height: 50px; */
+    max-height: 50px; /* Comment out to make top row responsive */
   }
   
   .top-row h1 {

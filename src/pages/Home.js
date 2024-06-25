@@ -70,7 +70,7 @@ const Home = () => {
 
   useEffect(() => {
     const checkSvgAndFit = () => {
-      const svg = d3.select("#right_column").select("svg");
+      const svg = window.d3.select("#right_column").select("svg");
 
       if (!svg.node()) {
         setTimeout(checkSvgAndFit, 100);
@@ -150,7 +150,7 @@ const Home = () => {
                     <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
                     <span className="slider round"></span>
                   </label>
-                  {algorithm == "SecondaryStructure" && (
+                  {algorithm == "viennarna" && (
                     <React.Fragment>
                       <span style={{ marginLeft: '40px' }}>Indicate Tertiary Structure </span>
                       <label className="switch">
@@ -195,7 +195,9 @@ const Home = () => {
                     </div>
                   )}
                 </div>
-                <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
+                <div className="subgraph-container">
+                  <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
+                </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
                 <div id="right_column" onClick={window.reset_graph_colors}>

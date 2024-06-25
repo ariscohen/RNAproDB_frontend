@@ -28,34 +28,34 @@ function Subgraph({ setSubgraph, tooLarge }) {
   }, [tooLarge]);
 
   return (
-    <div>
-      <button
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end' }}>
+    <button
         id="select-subgraph-button"
-        className="button4 button4"
+        className="button4"
         onClick={handleSelectSubgraphClick}
-      >
-        {showInput ? "Hide subgraph" : "Select subgraph"}
-      </button>
+    >
+        {showInput ? "Hide subgraph selection" : "Select subgraph"}
+    </button>
 
-      {showGenerateButton &&
+    {showGenerateButton &&
         <button
-          id="generate-subgraph-button"
-          className="button4 button4"
-          onClick={handleGenerateSubgraphClick}
+            id="generate-subgraph-button"
+            className="button4"
+            onClick={handleGenerateSubgraphClick}
         >
-          Generate subgraph
+            Generate subgraph
         </button>
-      }
+    }
 
-      {showInput && <textarea
+    {showInput && <textarea
         id="subgraph-textbox"
-        type="text"
-        style={{ width: '100%', marginTop: '10px' }}
+        className="subgraph-textarea"
         placeholder="Click nodes or enter comma separated residues: chain:residueNumber,chain:residueNumber..."
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}
-      />}
-    </div>
+    />}
+</div>
+
   );
 }
 

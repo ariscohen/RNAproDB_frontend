@@ -5,11 +5,11 @@ const DownloadButtons = ({ downloadGraphHandler, handleFlipX, handleFlipY, handl
   return (
     <div className="download-buttons">
       <div className="dropdown">
-        <button>Flip</button>
+        {/* <button>Flip</button>
         <div className="dropdown-content">
           <button onClick={() => window.handleFlipX()}>Flip by X-axis</button>
           <button onClick={() => window.handleFlipY()}>Flip by Y-axis</button>
-        </div>
+        </div> */}
       </div>
       <div className="dropdown">
         <button>Download</button>
