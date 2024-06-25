@@ -14,9 +14,9 @@ function NewPythonGraph({ pdbid, dimensions, subgraph, algorithm, isFirst, setSS
         let response = null;
         const IP = `localhost`;
         if (!subgraph) {
-          response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}&algorithm=${algorithm}&isFirst=${isFirst}`);
+          response = await fetch(`http://${IP}/rnaprodb-backend/rnaprodb/run-script?pdbid=${pdbid}&algorithm=${algorithm}&isFirst=${isFirst}`);
         } else {
-          response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}&subgraph=${subgraph}&algorithm=${algorithm}&isFirst=${isFirst}`);
+          response = await fetch(`http://${IP}/rnaprodb-backend/rnaprodb/run-script?pdbid=${pdbid}&subgraph=${subgraph}&algorithm=${algorithm}&isFirst=${isFirst}`);
         } 
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.indexOf("application/json") !== -1) {

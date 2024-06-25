@@ -19,7 +19,7 @@ function StructureInfo() {
 
             try {
                 const IP = `localhost`;
-                const response = await fetch(`http://${IP}:8000/rnaprodb/run-script?pdbid=${pdbid}&algorithm=pca&isFirst=true`);
+                const response = await fetch(`http://${IP}/rnaprodb/run-script?pdbid=${pdbid}&algorithm=pca&isFirst=true`);
                 const data = await response.json();
                 sessionStorage.setItem(cacheKey, JSON.stringify(data));
                 setStructureInfo(data);

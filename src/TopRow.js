@@ -6,7 +6,7 @@ import TitleContext from './TitleContext';
 
 function TopRow() {
   const location = useLocation();
-  const pdbid = location.pathname.split('/')[1];  // Split the pathname and get the second segment
+  const pdbid = location.pathname.split('/')[2];  // Split the pathname and get the second segment
   const { title } = useContext(TitleContext);
 
   // console.log("pdbid is: ");
