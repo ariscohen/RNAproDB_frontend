@@ -496,7 +496,7 @@ const handleSearch = async () => {
   setHasSearched(true);
   let data;
   try {
-  const response = await fetch('http://localhost:8000/search/pypdb/', {
+  const response = await fetch('http://localhost/rnaprodb-backend/search/pypdb/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

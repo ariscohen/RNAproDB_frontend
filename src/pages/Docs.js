@@ -23,7 +23,7 @@ export default function Docs() {
             </p>
 
             <img
-                src="/sequence_viewer.png"
+                src="/rnaprodb/sequence_viewer.png"
                 alt="Sequence Viewer Screenshot"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -38,7 +38,7 @@ export default function Docs() {
             </p>
 
             <img
-                src="/3d_structure.png"
+                src="/rnaprodb/3d_structure.png"
                 alt="3D Structure Screenshot"
                 className="w-1/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -51,7 +51,7 @@ export default function Docs() {
             </p>
 
             <img
-                src="/interface_explorer.png"
+                src="/rnaprodb/interface_explorer.png"
                 alt="Interface Explorer Screenshot"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -72,7 +72,7 @@ export default function Docs() {
             </p>
 
             <img
-                src="/legend.svg"
+                src="/rnaprodb/legend.svg"
                 alt="Legend"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -84,7 +84,7 @@ export default function Docs() {
             </p>
 
             <img
-                src="/toggle.png"
+                src="/rnaprodb/toggle.png"
                 alt="Toggle Screenshot"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -102,7 +102,7 @@ export default function Docs() {
             </p>
 
             <img
-                src="/generate_subgraph.png"
+                src="/rnaprodb/generate_subgraph.png"
                 alt="Generate Subgraph"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -120,7 +120,7 @@ export default function Docs() {
             <h3 className="text-[#A2A0D3] font-bold mt-5">2. Advanced Search</h3>
 
             <img
-                src="/1asz.svg"
+                src="/rnaprodb/1asz.svg"
                 alt="Advanced Search"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />

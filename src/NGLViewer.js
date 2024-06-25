@@ -27,16 +27,16 @@ function NGLViewer(rotationMatrix, algorithm) {
     useEffect(() => { 
     const loadNGL = () => {
       const script1 = document.createElement('script');
-      script1.src = '/ngl.js';
+      script1.src = '/rnaprodb/ngl.js';
       script1.async = true;
 
       const script2 = document.createElement('script');
-      script2.src = '/ngl_viewer_functions_nm.js';
+      script2.src = '/rnaprodb/ngl_viewer_functions_nm.js';
       script2.async = true;
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
-          window.loadStructure(`/cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
+          window.loadStructure(`/rnaprodb/cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
         });
         document.body.appendChild(script2);
       });

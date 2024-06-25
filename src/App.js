@@ -11,7 +11,7 @@ export default function App() {
         <MainNavBar />
         <Routes>
           <Route index element={<Landing />} />
-          <Route path="/rnaprodb/home" element={<Home />} />
+          <Route path="/rnaprodb/" element={<Landing />} />
           <Route path="/rnaprodb/:pdbid/:urlAlgorithm" element={<Home />} />
           <Route path="/rnaprodb/:pdbid" element={<Home />} />
           <Route path="/rnaprodb/search" element={<Search />} />

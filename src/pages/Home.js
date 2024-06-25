@@ -99,7 +99,7 @@ const Home = () => {
     if(selectedAlgorithm === algorithm){
       return;
     }
-    window.location = `${window.location.origin}/${pdbid}/${selectedAlgorithm}`;
+    window.location = `${window.location.origin}/rnaprodb/${pdbid}/${selectedAlgorithm}`;
   };
 
   return (
@@ -181,7 +181,7 @@ const Home = () => {
                 />
               </div>
               <div className="row-bottom">
-                <img src="/legend.svg" alt="Legend" className="responsive_img" />
+                <img src="/rnaprodb/legend.svg" alt="Legend" className="responsive_img" />
                 <div className="dropdown">
                   <button onClick={() => setShowDropdown(!showDropdown)} className="dropdown-button">
                     Algorithm: {algorithm}

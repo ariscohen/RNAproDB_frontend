@@ -10,7 +10,7 @@ const Landing = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch('/ids.txt')
+    fetch('/rnaprodb/ids.txt')
       .then(response => response.text())
       .then(text => {
         const ids = text.split(',').map(id => id.trim().toUpperCase());
@@ -24,7 +24,7 @@ const Landing = () => {
       setShowNotFoundMessage(false);
       setIsLoading(true);
       setTimeout(() => {
-        window.location.href = `/${searchTerm}`;
+        window.location.href = `/rnaprodb/${searchTerm}`;
       }, 500);
     } else {
       setShowNotFoundMessage(true);
@@ -88,7 +88,7 @@ const Landing = () => {
             <Button
               key={id}
               variant="outline-light"
-              onClick={() => window.location.href = `/${id.toLowerCase()}`}
+              onClick={() => window.location.href = `/rnaprodb/${id.toLowerCase()}`}
             >
               {id}
             </Button>
@@ -122,7 +122,7 @@ const Landing = () => {
     <div className="flex justify-center lg:justify-end lg:pl-10">
       <div className="max-w-full lg:max-w-none">
         <img
-          src="/1asz.svg"
+          src="/rnaprodb/1asz.svg"
           alt="App screenshot"
           className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
         />
@@ -142,7 +142,7 @@ const Landing = () => {
           <div className="flex justify-center lg:justify-start lg:pr-10">
             <div className="max-w-full lg:max-w-none">
             <img
-              src="/1asz.png"
+              src="/rnaprodb/1asz.png"
               alt="App screenshot"
               className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
             />

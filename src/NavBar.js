@@ -14,7 +14,7 @@ function MainNavBar() {
     const location = useLocation(); // Get the current path
 
     useEffect(() => {
-        fetch('/ids.txt')
+        fetch('/rnaprodb/ids.txt')
             .then(response => response.text())
             .then(text => {
                 const ids = text.split(',').map(id => id.trim().toUpperCase());
@@ -28,7 +28,7 @@ function MainNavBar() {
             setShowNotFoundMessage(false);
             setIsLoading(true); 
             setTimeout(() => {
-                window.location.href = `/${searchTerm}`; 
+                window.location.href = `/rnaprodb/${searchTerm}`; 
             }, 500); 
         } else {
             setShowNotFoundMessage(true);
@@ -48,8 +48,8 @@ function MainNavBar() {
                         navbarScroll
                     >
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/search">Advanced Search</Nav.Link>
-                        <Nav.Link as={Link} to="/docs">Documentation</Nav.Link>
+                        <Nav.Link as={Link} to="/rnaprodb/search">Advanced Search</Nav.Link>
+                        <Nav.Link as={Link} to="/rnaprodb/docs">Documentation</Nav.Link>
                     </Nav>
                     {location.pathname !== "/" && ( // Conditionally render search form
                         <Form className="d-flex" onSubmit={handleSearch}>
