@@ -12,7 +12,7 @@ function NewPythonGraph({ pdbid, dimensions, subgraph, algorithm, isFirst, setSS
     async function fetchData() {
       try {
         let response = null;
-        const IP = `localhost`;
+        const IP = `rohslab.usc.edu`;
         if (!subgraph) {
           response = await fetch(`http://${IP}/rnaprodb-backend/rnaprodb/run-script?pdbid=${pdbid}&algorithm=${algorithm}&isFirst=${isFirst}`);
         } else {
