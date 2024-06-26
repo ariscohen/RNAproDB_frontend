@@ -87,7 +87,7 @@ const Home = () => {
   }, [dimensions]);
 
   const downloadGraphHandler = (format) => {
-    DownloadGraph(format, graphRef, setInitialTranslate, setInitialScale);
+    DownloadGraph(format, graphRef, pdbid, algorithm, setInitialTranslate, setInitialScale);
   };
 
   const handleRotationSliderChange = (e) => {
@@ -147,7 +147,7 @@ const Home = () => {
                   </label>
                   <span style={{ marginLeft: '40px' }}>Indicate H-bonds </span>
                   <label className="switch">
-                    <input id="toggleHBondsCheckbox" type="checkbox" onChange={window.toggleHBondEdgeColors} />
+                    <input id="toggleHBondsCheckbox" type="checkbox" defaultChecked={true} onChange={window.toggleHBondEdgeColors} />
                     <span className="slider round"></span>
                   </label>
                   {algorithm == "viennarna" && (
@@ -181,7 +181,7 @@ const Home = () => {
                 />
               </div>
               <div className="row-bottom">
-                <img src="/rnaprodb/legend.svg" alt="Legend" className="responsive_img" />
+                <img src="/rnaprodb/legend.svg" alt="Legend" className="responsive_img" style={{ width: '100%', maxWidth: '800px', height: 'auto' }} />
                 <div className="dropdown">
                   <button onClick={() => setShowDropdown(!showDropdown)} className="dropdown-button">
                     Algorithm: {algorithm}

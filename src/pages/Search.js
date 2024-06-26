@@ -63,11 +63,11 @@ import TextField from '@mui/material/TextField';
 
 
 function MolecularWeightSlider(props) {
-  const [value, setValue] = React.useState([0, 1500]);
+  const [value, setValue] = React.useState([0.01, 800]);
 
   const marks = [
     { value: 0, label: '0' },
-    { value: 1500, label: '1500' },
+    { value: 800, label: '800' },
   ];
 
   const minDistance = 2;
@@ -79,7 +79,7 @@ function MolecularWeightSlider(props) {
 
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
-        const clamped = Math.min(newValue[0], 1500 - minDistance);
+        const clamped = Math.min(newValue[0], 800 - minDistance);
         setValue([clamped, clamped + minDistance]);
       } else {
         const clamped = Math.max(newValue[1], minDistance);
@@ -104,7 +104,7 @@ function MolecularWeightSlider(props) {
         marks={marks}
         valueLabelDisplay="on"
         min={0}
-        max={1500}
+        max={800}
         step={1}
         disableSwap
       />

@@ -16,6 +16,7 @@ const DownloadButtons = ({ downloadGraphHandler, handleFlipX, handleFlipY, handl
         <div className="dropdown-content">
           <button onClick={() => downloadGraphHandler('svg')}>Download SVG</button>
           <button onClick={() => downloadGraphHandler('png')}>Download PNG</button>
+          <button onClick={() => downloadGraphHandler('json')}>Download JSON</button>
         </div>
       </div>
       {/* <div className="slider-container">
