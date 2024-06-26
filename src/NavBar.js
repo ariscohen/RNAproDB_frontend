@@ -39,7 +39,7 @@ function MainNavBar() {
     return (
         <Navbar expand="lg" className="bg-body-tertiary main-nav-bar">
             <Container fluid>
-                <Navbar.Brand as={Link} to="/" className="site-title">RNAproDB</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/rnaprodb/" className="site-title">RNAproDB</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -47,7 +47,7 @@ function MainNavBar() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/rnaprodb/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/rnaprodb/search">Advanced Search</Nav.Link>
                         <Nav.Link as={Link} to="/rnaprodb/docs">Documentation</Nav.Link>
                     </Nav>
