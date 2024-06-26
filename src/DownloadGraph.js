@@ -43,7 +43,7 @@ const DownloadGraph = async (format, graphRef, pdbid, algorithm, setInitialTrans
       img.src = url;
     } else if (format === 'json') {
       try {
-        const response = await fetch(`https://rohslab.usc.edu/rnaprodb/download_json/?pdbid=${pdbid}&algorithm=${algorithm}`);
+        const response = await fetch(`https://rohslab.usc.edu/rnaprodb-backend/rnaprodb/download_json/?pdbid=${pdbid}&algorithm=${algorithm}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
