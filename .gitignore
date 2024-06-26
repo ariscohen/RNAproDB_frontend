@@ -24,3 +24,5 @@ yarn-error.log*
 
 public/cifs/
 public/pdb_thumbnails/
+build/cifs/
+build/pdb_thumbnails/
