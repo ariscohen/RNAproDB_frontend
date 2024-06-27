@@ -1,14 +1,14 @@
 export default function Docs() {
     return (
         <div className="content text-left">
-            <h1 className="text-[#000000] font-bold mt-5 w-full pl-8 pr-8">RNAProDB Documentation</h1>
+            <h1 className="text-[#000000] font-bold mt-5 w-full pl-8 pr-8">Documentation</h1>
 
             <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">Introduction</h2>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                <b className="text-[#A2A0D3]">RNAProDB</b> is an advanced web server and database designed to assist researchers in the structural analysis of RNA-protein complexes.
+                <b className="text-[#A2A0D3]">RNAproDB</b> is an advanced web server and database designed to assist researchers in the structural analysis of RNA-protein complexes.
                 <br />
-                <b className="text-[#A2A0D3]">RNAProDB</b> provides an interactive explorer on every structure page, displaying the nucleic acid structure in 2D along with interacting protein residues.
+                <b className="text-[#A2A0D3]">RNAproDB</b> provides an interactive explorer on every structure page, displaying the nucleic acid structure in 2D along with interacting protein residues.
                 <br />
                 Users can select from different algorithms for mapping the structure, and subgraphs can be generated based on residue or nucleotide node selection by the user.
             </p>
@@ -62,7 +62,7 @@ export default function Docs() {
                        <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.3. Interface Explorer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                The interface explorer is the core feature of RNAProDB, allowing users to view estimated 2D mappings of RNA-protein complexes.
+                The interface explorer is the core feature of RNAproDB, allowing users to view estimated 2D mappings of RNA-protein complexes.
                 <br />
                 Users can choose among three algorithms: projection-based, tertiary structure-aware 2D mapping, and secondary structure-based mapping.
                 <br />

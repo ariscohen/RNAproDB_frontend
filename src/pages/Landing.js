@@ -51,7 +51,7 @@ const Landing = () => {
           />*/}
           <div className="text-center">
             <h1 className="mt-6 text-lg leading-8 text-gray-100 sm:text-3xl">
-              RNAProDB is a database and interactive exploration tool to analyze RNA-protein complexes.
+              RNAproDB is a database and interactive exploration tool to analyze RNA-protein complexes.
             </h1>
           <p className="text-4xl font-bold tracking-tight text-white sm:text-xl">
               In addition to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
