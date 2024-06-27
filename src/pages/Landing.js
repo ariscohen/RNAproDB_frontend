@@ -42,7 +42,7 @@ const Landing = () => {
                 className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#A2A0D3] to-[#A2A0D3] opacity-60"
               />
             </div>
-      <div className="w-full px-6 pb-6 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-30 lg:pb-10">
+      <div className="w-full px-3 pb-3 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-15 lg:pb-10">
         <div className="w-full lg:pt-8 lg:pr-10">
           {/*<img
             className="h-20 mx-auto"
@@ -59,31 +59,31 @@ const Landing = () => {
           </div>
         </div>
       </div>
-      <div className="w-full px-6 lg:px-8 mb-10">
-        <div className="flex justify-center">
-          <Form className="w-full max-w-lg" onSubmit={handleSearch}>
-            <Form.Group controlId="formSearch">
-              <Form.Control
-                type="text"
-                placeholder="Enter RNA-Protein Complex ID."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="p-2 rounded-md"
-              />
-            </Form.Group>
-            <div className="text-center mt-4">
-              <Button variant="primary" type="submit">
-                Search
-              </Button>
-            </div>
-            {showNotFoundMessage && (
-              <div className="mt-4 text-red-500 text-center">
-                ID not found. Please try again.
-              </div>
-            )}
-          </Form>
+        <div className="w-full px-6 lg:px-8 mb-5">
+  <div className="flex justify-center">
+    <Form className="w-full max-w-lg" onSubmit={handleSearch}>
+      <div className="flex items-center">
+        <Form.Group controlId="formSearch" className="flex-grow">
+          <Form.Control
+            type="text"
+            placeholder="Enter RNA-Protein Complex ID."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="p-2 rounded-md"
+          />
+        </Form.Group>
+        <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded-md">
+          Search
+        </button>
+      </div>
+      {showNotFoundMessage && (
+        <div className="mt-4 text-red-500 text-center">
+          ID not found. Please try again.
         </div>
-        <div className="flex justify-center mt-4 space-x-2">
+      )}
+    </Form>
+  </div>
+          <div className="flex justify-center mt-4 space-x-3">
           {['1IVS', '1UN6', '4OO8', '7ORN', '3TRZ', '7XWZ', '3LDY'].map((id) => (
             <Button
               key={id}
@@ -101,7 +101,7 @@ const Landing = () => {
         </p>
       </div>*/}
 
-      <div className="relative w-full px-6 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
+      <div className="relative w-full px-3 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
   <div
     className="absolute left-1/2 top-0 -z-10 transform -translate-x-1/2 blur-3xl"
     aria-hidden="true"
