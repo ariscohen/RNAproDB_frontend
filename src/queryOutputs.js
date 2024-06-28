@@ -146,8 +146,8 @@ const QueryOutput = ({ data, isError }) => {
     rows: data.map(item => ({
       ...item, // spread other properties
       quickView: <img src={`pdb_thumbnails/${item.id}_assembly1.png`} alt={item.id} style={{ width: '45px', height: '45px' }} />,
-      id: <Link to={`/${item.id}`} target='_blank' rel="noopener noreferrer">{item.id}</Link>,
-      title: <Link to={`/${item.id}`} target='_blank' rel="noopener noreferrer">{item.title}</Link>,
+      id: <Link to={`/rnaprodb/${item.id}`} target='_blank' rel="noopener noreferrer">{item.id}</Link>,
+      title: <Link to={`/rnaprodb/${item.id}`} target='_blank' rel="noopener noreferrer">{item.title}</Link>,
     }))
   };
 
@@ -276,7 +276,7 @@ const QueryOutput = ({ data, isError }) => {
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               <strong>
                 ID:&nbsp;
-              <Link to={`/${item.id}`} target='_blank' rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <Link to={`/rnaprodb/${item.id}`} target='_blank' rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                 {item.id}
               </Link>
               </strong>
