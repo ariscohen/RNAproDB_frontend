@@ -109,11 +109,11 @@ const Home = () => {
         <div id="tooltip"></div>
         <div id="edgeTooltip"></div>
         <div className="whole_container">
-        <div className="column">
+        <div className="column" id="left_column_wrapper">
           <div className ="left-col">
-          <div className="structure-info">
-          <h5>Structure info</h5>
-              <StructureInfo />
+          <div className="structure-info" id="left_column_top">
+            <h5>Structure info</h5>
+                <StructureInfo />
           </div>
                 {/* {graphData && tooLarge !== true && (
                     <div className="ss-python-graph">

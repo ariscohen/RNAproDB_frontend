@@ -302,3 +302,24 @@ iframe#webpack-dev-server-client-overlay {
   /* flex: 1 0 100%; */
   margin-top: 10px; 
 }
+
+
+@media (max-width: 768px) {
+  .viewer-container {
+    flex: 100%;
+  }
+  .structure-info {
+    flex: 100%;
+  }
+  .ss-python-graph {
+    flex: 0 0 100%;
+  }
+
+  .left-col {
+    flex-direction: column; /* Change to column to stack items vertically on mobile */
+  }
+  .whole_container {
+    grid-template-columns: 100%; /* Switch to one column for mobile */
+  }
+
+}

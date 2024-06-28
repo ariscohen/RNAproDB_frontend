@@ -8,7 +8,7 @@ export default function Docs() {
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 <b className="text-[#A2A0D3]">RNAproDB</b> is an advanced web server and database designed to assist researchers in the structural analysis of RNA-protein complexes.
                 <br />
-                <b className="text-[#A2A0D3]">RNAproDB</b> provides an interactive explorer on every structure page, displaying the nucleic acid structure in 2D along with interacting protein residues.
+                <b className="text-[#A2A0D3]">RNAproDB</b> provides an interface explorer on every structure page, displaying the nucleic acid structure in 2D along with interacting protein residues.
                 <br />
                 Users can select from different algorithms for mapping the structure, and subgraphs can be generated based on residue or nucleotide node selection by the user.
             </p>
