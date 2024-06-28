@@ -6,11 +6,11 @@ export default function Docs() {
             <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">Introduction</h2>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                <b className="text-[#A2A0D3]">RNAproDB</b> is an advanced web server and database designed to assist researchers in the structural analysis of RNA-protein complexes.
+                <b className="text-[#A2A0D3]">RNAproDB</b> is an interactive database designed to assist researchers in the structural analysis of RNA-protein complexes.
                 <br />
                 <b className="text-[#A2A0D3]">RNAproDB</b> provides an interface explorer on every structure page, displaying the nucleic acid structure in 2D along with interacting protein residues.
                 <br />
-                Users can select from different algorithms for mapping the structure, and subgraphs can be generated based on residue or nucleotide node selection by the user.
+                Users can select from different algorithms for mapping the structure, and subgraphs can be generated based on residue or nucleotide selection by the user.
             </p>
             </div>
 
@@ -18,11 +18,11 @@ export default function Docs() {
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can search RNA-protein complex structures and sequences using a search box available on the landing page or at the top of any other page on the website.
+                Users can search structures and sequences via a search box available on the landing page or at the top navigation bar.
                 <br />
-                Users can either input their own <b className="text-[#A2A0D3]">PDB identifier</b> or use pre-existing example identifiers suggested as a button.
+                Users can also input a <b className="text-[#A2A0D3]">PDB identifier</b> to access a structure (biological assembly 1 as available on the PDB).
                 <br />
-                This functionality provides a <b className="text-[#A2A0D3]">sequence viewer</b>, a <b className="text-[#A2A0D3]">3D structure viewer</b>, and an <b className="text-[#A2A0D3]">interface explorer</b> with a brief structural overview.
+                Each structure page provides a <b className="text-[#A2A0D3]">sequence viewer</b>, a <b className="text-[#A2A0D3]">3D structure viewer</b>, and an <b className="text-[#A2A0D3]">interface explorer</b> with relevant structure information.
             </p>
             </div>
 
@@ -33,9 +33,9 @@ export default function Docs() {
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 Users can view the sequence of the given RNA-protein complex.
                 <br />
-                Within the sequence viewer, users can select a specific chain ID using a dropdown button provided at the top-right.
+                Within the sequence viewer, users can select a specific chain ID using a dropdown button.
                 <br />
-                Within the sequence, users can select and choose specific residues to generate a subgraph.
+                Within the sequence, users can select and choose specific residues to generate a subgraph and/or highlight them. Hovering over a residue displays the residue number.
             </p>
             </div>
             <img
@@ -47,7 +47,7 @@ export default function Docs() {
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.2.  Structure Viewer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can view the 3D structure of the complex using the NGL Viewer.
+                Users can view the 3D structure of the complex using the Structure Viewer.
                 <br />
                 For visual clarity, options to show <b className="text-[#A2A0D3]">solvent molecules</b> and <b className="text-[#A2A0D3]">display cartoon representations</b> are available.
             </p>
@@ -62,17 +62,15 @@ export default function Docs() {
                        <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.3. Interface Explorer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                The interface explorer is the core feature of RNAproDB, allowing users to view estimated 2D mappings of RNA-protein complexes.
+                The interface explorer is a core feature of RNAproDB, allowing users to view estimated 2D mappings of RNA-protein complexes.
                 <br />
                 Users can choose among three algorithms: projection-based, tertiary structure-aware 2D mapping, and secondary structure-based mapping.
                 <br />
                 The projection-based algorithm, <b className="text-[#A2A0D3]">Principal Component Analysis (PCA)</b>, calculates centroids to predict coordinates.
                 <br />
-                <b className="text-[#A2A0D3]">RNAscape</b> provides tertiary structure-aware 2D mapping, considering three-dimensional interactions and spatial constraints of RNA molecules.
+                The <b className="text-[#A2A0D3]">RNAscape</b> option provides tertiary structure-aware 2D mapping, considering three-dimensional interactions and spatial constraints of RNA molecules.
                 <br />
-                <b className="text-[#A2A0D3]">ViennaRNA</b> offers secondary structure-based mapping, using dynamic programming algorithms to predict RNA secondary structure based on thermodynamic stability.
-                <br />
-                Users can select the algorithm from a dropdown menu, and the graph will be generated using D3.js accordingly.
+                The <b className="text-[#A2A0D3]">ViennaRNA</b> option offers secondary structure-based mapping.
             </p>
             </div>
              <img
@@ -84,9 +82,9 @@ export default function Docs() {
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Each component of the graph is indicated in this legend.
+                The components of the graph are indicated in the below legend, other than Leontis-Westhof annotations which are displayed on the right side of the graph.
                 <br />
-                Users can click each component to gather tooltip data for each residue.
+                Hovering over nodes or edges on the graph provides more extensive information on corresponding residues and/or interactions.
             </p>
             </div>
              <img
@@ -98,15 +96,15 @@ export default function Docs() {
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can also utilize toggles for an enhanced experience.
+                RNAproDB provides various quick options to customize the graph.
                 <br />
-                The <b className="text-[#A2A0D3]">"Relax Graph"</b> option loosens the graph for a more disassembled view.
+                The <b className="text-[#A2A0D3]">"Relax graph"</b> option loosens the graph for a more disassembled view.
                 <br />
-                <b className="text-[#A2A0D3]">"Indicate H-bonds"</b> shows existing hydrogen bonds in red, estimated using HBPLUS.
+                <b className="text-[#A2A0D3]">"Indicate H-bonds"</b> shows existing direct hydrogen bonds in red.
                 <br />
-                <b className="text-[#A2A0D3]">"Hide Protein"</b> removes protein information from the complex.
+                <b className="text-[#A2A0D3]">"Hide protein"</b> removes protein residues and corresponding interactions from the visualization.
                 <br />
-                For ViennaRNA, there is also an <b className="text-[#A2A0D3]">"Indicate Tertiary Structure"</b> option that highlights regions of the RNA secondary structure involved in tertiary interactions.
+                For the ViennaRNA option, there is also an option called <b className="text-[#A2A0D3]">"Indicate tertiary structure"</b> which can be turned off to declutter the secondary structure visualization.
             </p>
             </div>
              <img
@@ -118,13 +116,13 @@ export default function Docs() {
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                By clicking specific residues from the sequence viewer or interface explorer, or by entering a residue and its position, users can generate subgraphs.
+                By clicking specific residues in the sequence viewer or interface explorer, or by entering a residue and its position, users can generate subgraphs.
                 <br />
-                Users can click <b className="text-[#A2A0D3]">"Select Subgraph"</b> and then proceed to define the region of interest.
+                Users can click <b className="text-[#A2A0D3]">"Select subgraph"</b> and then proceed to define the region of interest.
                 <br />
-                After that, clicking <b className="text-[#A2A0D3]">"Generate Subgraph"</b> will produce the desired subgraph.
+                Afterwards, clicking <b className="text-[#A2A0D3]">"Generate subgraph"</b> will produce a subraph using the first-order neighbors of the selected nodes.
                 <br />
-                Once users generate the most satisfactory image, they can download it in <b className="text-[#A2A0D3]">PNG</b> or <b className="text-[#A2A0D3]">SVG</b> format using the download button.
+                Once users create a satisfactory graph, they can download it in <b className="text-[#A2A0D3]">PNG</b> or <b className="text-[#A2A0D3]">SVG</b> format using the download button. The download button also provides the raw analyzed data in <b className="text-[#A2A0D3]">JSON</b> format.
             </p>
             </div>
              <img
@@ -142,8 +140,6 @@ export default function Docs() {
                 Users can filter by nucleic acid type, resolution range (Å), publication year, number of nucleic acid polymers, number of protein polymers, molecular weight range (Da), and specific authors or keywords.
                 <br />
                 The results can be displayed in either card view or table view, containing an <b className="text-[#A2A0D3]">image of the structure, ID, title, and authors</b>.
-                <br />
-                This advanced search is particularly useful for finding RNA-protein complexes that meet specific criteria.
                 <br />
                 Users can either copy PDB IDs to the clipboard or download the data based on their needs.
             </p>
