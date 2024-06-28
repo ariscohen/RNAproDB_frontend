@@ -218,7 +218,7 @@ const Home = () => {
                     setInitialGraphData={setInitialGraphData}
                   />
                 </div>
-                <div style={{ marginLeft: '20px', textAlign: 'center' }}>
+                <div id="legend_div" style={{ marginLeft: '20px', textAlign: 'center' }}>
                   <img src={basePairingLegend} alt="Base Pairing Legend" className="base-pairing-legend" style={{ height: '400px' }} />
                   <div style={{ marginTop: '10px', fontSize: '16px', textAlign: 'left' }}>
                     <div><b>c</b>: cis</div>

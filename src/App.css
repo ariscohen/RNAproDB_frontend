@@ -321,5 +321,10 @@ iframe#webpack-dev-server-client-overlay {
   .whole_container {
     grid-template-columns: 100%; /* Switch to one column for mobile */
   }
-
+  #left_column_top{
+    display: none;
+  }
+  #legend_div{
+    display: none;
+  }
 }
