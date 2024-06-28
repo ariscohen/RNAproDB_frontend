@@ -580,7 +580,7 @@ return (
     {hasSearched && ( // Render only if a search has been performed
       isLoading ? (
         <div className='loading-container'>
-          <img src="/loading2.gif" alt="Loading..." />
+          <img src="/rnaprodb/loading2.gif" alt="Loading..." />
         </div>
       ) : isError ? (
         <p>Error occurred while fetching data.</p>
