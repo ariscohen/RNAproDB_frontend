@@ -304,7 +304,7 @@ iframe#webpack-dev-server-client-overlay {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .viewer-container {
     flex: 100%;
   }
