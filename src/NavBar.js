@@ -40,7 +40,11 @@ function MainNavBar() {
         <Navbar expand="lg" className="bg-body-tertiary main-nav-bar">
             <Container fluid>
                 <Navbar.Brand as={Link} to="/rnaprodb/" className="site-title">RNAproDB</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
+                <Navbar.Toggle aria-controls="navbarScroll">
+                    <div style={{ width: '30px', height: '3px', backgroundColor: 'white', margin: '6px 0' }}></div>
+                    <div style={{ width: '30px', height: '3px', backgroundColor: 'white', margin: '6px 0' }}></div>
+                    <div style={{ width: '30px', height: '3px', backgroundColor: 'white', margin: '6px 0' }}></div>
+                </Navbar.Toggle>
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="me-auto my-2 my-lg-0"
@@ -55,7 +59,7 @@ function MainNavBar() {
                         <Form className="d-flex" onSubmit={handleSearch}>
                             <Form.Control
                                 type="search"
-                                placeholder={showNotFoundMessage ? "PDB ID not found" : "Search by PDB ID"}
+                                placeholder={showNotFoundMessage ? "PDB ID not found" : "Enter a PDB ID."}
                                 className={showNotFoundMessage ? "me-2 search-not-found" : "me-2"}
                                 aria-label="Search"
                                 value={searchTerm}

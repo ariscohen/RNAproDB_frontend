@@ -42,13 +42,13 @@ const Landing = () => {
                 className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#A2A0D3] to-[#A2A0D3] opacity-60"
               />
             </div>
-      <div className="w-full px-3 pb-3 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-15 lg:pb-10">
+      {/* <div className="w-full px-3 pb-3 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-15 lg:pb-10">
         <div className="w-full lg:pt-8 lg:pr-10">
-          {/*<img
+          <img
             className="h-20 mx-auto"
             src="/Logo.webp"
             alt="Rohs Lab"
-          />*/}
+          />
           <div className="text-center">
             <h1 className="mt-6 text-lg leading-8 text-gray-100 sm:text-3xl">
               RNAproDB is a database and interactive exploration tool to analyze RNA-protein complexes.
@@ -58,7 +58,69 @@ const Landing = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
+      {/* <div className="w-full px-3 pb-3 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-15 lg:pb-10">
+  <div className="w-full lg:pt-8 lg:pr-10">
+    <div className="text-center">
+      <h1 className="mt-6 text-3xl leading-8 text-gray-100 sm:text-4xl md:text-5xl lg:text-6xl">
+        RNAproDB is a database and interactive exploration tool to analyze RNA-protein complexes.
+      </h1>
+      <p className="text-xl font-bold tracking-tight text-white sm:text-lg md:text-md lg:text-sm">
+        In addition to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
+      </p>
+    </div>
+  </div>
+</div> */}
+{/* <div className="w-full px-3 pb-3 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-15 lg:pb-10">
+  <div className="w-full lg:pt-8 lg:pr-10">
+    <div className="text-center">
+      <h1 className="mt-6 text-xl leading-8 text-gray-100 sm:text-3xl md:text-4xl lg:text-5xl">
+        RNAproDB is a database and interactive exploration tool to analyze RNA-protein complexes.
+      </h1>
+      <p className="text-lg font-bold tracking-tight text-white sm:text-xl md:text-2xl lg:text-3xl">
+        In addition to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
+      </p>
+    </div>
+  </div>
+</div> */}
+{/* <div className="w-full px-3 pb-3 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-15 lg:pb-10">
+  <div className="w-full lg:pt-8 lg:pr-10">
+    <div className="text-center">
+      <h1 className="mt-6 text-xl leading-8 text-gray-100 sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl">
+        RNAproDB is a database and interactive exploration tool to analyze RNA-protein complexes.
+      </h1>
+      <p className="text-lg font-bold tracking-tight text-white sm:text-lg md:text-xl lg:text-2xl xl:text-2xl">
+        In addition to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
+      </p>
+    </div>
+  </div>
+</div> */}
+{/* <div className="w-full px-3 pb-3 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-15 lg:pb-10">
+  <div className="w-full lg:pt-8 lg:pr-10">
+    <div className="text-center">
+      <h1 className="mt-6 text-xl leading-8 text-gray-100 sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl">
+        RNAproDB is a database and interactive exploration tool to analyze RNA-protein complexes.
+      </h1>
+      <p className="text-sm font-bold tracking-tight text-white sm:text-xs md:text-lg lg:text-2xl xl:text-2xl">
+        In addition to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
+      </p>
+    </div>
+  </div>
+</div> */}
+<div className="w-full px-3 pb-3 pt-10 sm:pb-8 lg:flex lg:px-8 lg:pt-15 lg:pb-10">
+  <div className="w-full lg:pt-8 lg:pr-10">
+    <div className="text-center">
+      <h1 className="mt-6 text-lg leading-8 text-gray-100 sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl">
+        RNAproDB is a database and interactive exploration tool to analyze RNA-protein complexes.
+      </h1>
+      <p className="text-xs tracking-tight text-white sm:text-sm md:text-base lg:text-xl xl:text-xl">
+        In addition to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
+      </p>
+    </div>
+  </div>
+</div>
+
+
         <div className="w-full px-6 lg:px-8 mb-5">
   <div className="flex justify-center">
     <Form className="w-full max-w-lg" onSubmit={handleSearch}>
@@ -66,7 +128,7 @@ const Landing = () => {
         <Form.Group controlId="formSearch" className="flex-grow">
           <Form.Control
             type="text"
-            placeholder="Enter RNA-Protein Complex ID."
+            placeholder="Enter a PDB ID."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="p-2 rounded-md"
