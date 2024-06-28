@@ -421,7 +421,9 @@ function YearRangeSlider(props) {
 
 
 function NucleicAcidSelector({ updateSearchParams }) {
-  const [selectedNucleicAcids, setSelectedNucleicAcids] = React.useState(['DNA (only)', 'RNA (only)', 'Hybrid']);
+  // const [selectedNucleicAcids, setSelectedNucleicAcids] = React.useState(['DNA (only)', 'RNA (only)', 'Hybrid']);
+  const [selectedNucleicAcids, setSelectedNucleicAcids] = React.useState(['RNA (only)']);
+
 
   const handleToggle = (type) => (event) => {
     const newChecked = [...selectedNucleicAcids];
