@@ -114,7 +114,7 @@ const Landing = () => {
         RNAproDB is a database and interactive exploration tool to analyze RNA-protein complexes.
       </h1>
       <p className="text-xs tracking-tight text-white sm:text-sm md:text-base lg:text-xl xl:text-xl">
-        In addition to RNA-protein complexes, the collection also covers structures including DNA and NA-hybrids.
+        In addition to RNA-protein complexes, the collection also includes structures containing DNA and NA-hybrids.
       </p>
     </div>
   </div>
@@ -178,7 +178,7 @@ const Landing = () => {
         Interface explorer
       </h2>
       <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
-        <span className="highlight"></span>For every structure page RNAproDB provides an interface explorer laying out the nucleic acid structure in 2D along with interacting protein residues. The user has a choice to select from three different algorithms: Projection based, Tertiary structure aware 2D mapping and secondary structure based mapping. The explorer provides information on Hydrogen bonds, water-mediated hydrogen bonds, information on modified nucleotides, mismatched base pairings and Leontis-Westhof base pairing classification. The interface explorer is connected with the "Structure viewer" and "Sequence viewer" which are also presented in the same page. Additionally, subgraphs can be generated based on residue/nucleotide node selection by the user.
+        <span className="highlight"></span>For every structure page, RNAproDB provides an interface explorer laying out the nucleic acid structure in 2D along with interacting protein residues. The user has a choice to select from three different algorithms: Projection based, Tertiary structure aware 2D mapping, and secondary structure based mapping. The interface explorer provides information on hydrogen bonds, water-mediated hydrogen bonds, modified nucleotides, base pairings, and Leontis-Westhof classifications. The interface explorer is connected with the "Structure viewer" and "Sequence viewer", presented in the same page. Additionally, subgraphs can be generated based on residue/nucleotide selection by the user.
       </p>
     </div>
     <div className="flex justify-center lg:justify-end lg:pl-10">
@@ -215,7 +215,7 @@ const Landing = () => {
               Sequence and structure viewer
             </h2>
             <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
-              <span className="highlight"></span> The sequence and 3D structure viewers are implemented to aid exploring the interactive interface visualization. Residues selected on sequence viewer are highlighted in the interface explorer and also focused on in the structure viewer. Similarly, selections made on the interface explorer is also brought to focus in the structure viewer. For visual clarity, options to hide solvent molecules and cartoon representation is available. 
+              <span className="highlight"></span> The sequence and 3D structure viewers aid in exploring the interface visualization. Residues selected on sequence viewer are highlighted in the interface explorer and structure viewer. Similarly, selections made within the interface explorer are also brought into focus in the structure viewer. For visual clarity, options to hide solvent molecules and cartoon representations are available. 
             </p>
           </div>
         </div>
