@@ -24,13 +24,15 @@ function Upload() {
             // Create an instance of FormData
             const formData = new FormData();
 
+            console.log(document.cookie);
+
             // Append the file to the FormData instance
             const csrftoken = getCsrfToken();
 
-            if (!csrftoken) {
-                console.error('CSRF token not found.');
-                return;
-            }
+            // if (!csrftoken) {
+            //     console.error('CSRF token not found.');
+            //     return;
+            // }
 
             fetch('/rnaprodb-backend/rnaprodb/handle_upload', {
                 method: 'POST',
