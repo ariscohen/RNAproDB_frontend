@@ -42,7 +42,10 @@ function Upload() {
             }
             return response.json();
         })
-        .then(data => console.log('Success:', data))
+        .then(data => {
+            console.log('Success:', data)
+            window.location = `${window.location.origin}/rnaprodb/${data.id}`
+        })
         .catch(error => console.error('Error:', error));
         }
     };
