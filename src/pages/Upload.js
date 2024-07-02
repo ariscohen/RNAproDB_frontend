@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Upload.css';
 import Cookies from 'js-cookie';
-import axios from 'axios';
 
 function getCookie(name) {
     let cookieValue = null;
@@ -39,11 +38,13 @@ function Upload() {
             // const csrftoken = Cookies.get('csrftoken');
 
             // Fetch API to send the file to the server
-            axios.post('/rnaprodb-backend/rnaprodb/handle_upload', formData, { // Adjust the URL to match your Django route
+            fetch('/rnaprodb-backend/rnaprodb/handle_upload', { // Adjust the URL to match your Django route
+                method: 'POST',
+                body: formData,
                 headers: {
                     'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token in the request header
                 },
-                withCredentials: true, 
+                credentials: 'include', 
             })
             .then(response => response.json())
             .then(data => {
