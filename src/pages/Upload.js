@@ -23,28 +23,27 @@ function Upload() {
 
             // Create an instance of FormData
             const formData = new FormData();
-
-            console.log(document.cookie);
+            formData.append('file', file); // 'file' is the key your backend will look for
 
             // Append the file to the FormData instance
             const csrftoken = getCsrfToken();
 
-            // if (!csrftoken) {
-            //     console.error('CSRF token not found.');
-            //     return;
-            // }
-
             fetch('/rnaprodb-backend/rnaprodb/handle_upload', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRFToken': csrftoken,
-                },
-                credentials: 'include',
-            })
-            .then(response => response.json())
-            .then(data => console.log('Success:', data))
-            .catch(error => console.error('Error:', error));
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            credentials: 'include', // Ensures cookies are sent with the request
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => console.log('Success:', data))
+        .catch(error => console.error('Error:', error));
         }
     };
     
