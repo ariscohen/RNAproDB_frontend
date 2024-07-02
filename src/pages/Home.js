@@ -20,7 +20,7 @@ import basePairingLegend from '../lw_base_pairing_legend.svg'; // Import the ima
 import ZoomFit from '../ZoomFit';
 import SSPythonGraph from '../SSPythonGraph.js';
 import StructureInfo from '../StructureInfo.js';
-
+import Table from "../Table.js";
 const Home = () => {
   const { pdbid, urlAlgorithm } = useParams();
   const columnRef = useRef(null);
@@ -238,6 +238,7 @@ const Home = () => {
             )}
           </div>
         </div>
+        <Table />
       </TitleContext.Provider>
     </div>
   );

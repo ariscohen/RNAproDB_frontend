@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainNavBar from './NavBar';
 import './NavBar.css';
 import BotRow from './BotRow';
+import Table from './Table'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/rnaprodb/search" element={<Search />} />
           <Route path="/rnaprodb/docs" element={<Docs />} />
           <Route path="/rnaprodb/upload" element={<Upload />} />
+          <Route path="/table" element={<Table />} />
         </Routes>
         <BotRow />
       </BrowserRouter>

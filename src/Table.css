@@ -1,0 +1,64 @@
+/* App.css */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  margin-right: 5px;
+  transition: background 0.3s;
+}
+
+.tabs button:hover {
+  background: #e0e0e0;
+}
+
+.tabs button.active {
+  background: #ddd;
+  border-bottom: 2px solid #007bff;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+}
+
+.table-wrapper {
+  max-height: 600px; /* Set the max height for the table container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  width: 80%;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
