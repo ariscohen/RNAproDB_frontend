@@ -44,7 +44,7 @@ function Upload() {
         })
         .then(data => {
             console.log('Success:', data)
-            window.location = `${window.location.origin}/rnaprodb/${data.id}`
+            // window.location = `${window.location.origin}/rnaprodb/${data.id}`
         })
         .catch(error => console.error('Error:', error));
         }
