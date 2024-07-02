@@ -53,6 +53,7 @@ function MainNavBar() {
                     >
                         <Nav.Link as={Link} to="/rnaprodb/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/rnaprodb/search">Advanced Search</Nav.Link>
+                        <Nav.Link as={Link} to="/rnaprodb/upload">Upload</Nav.Link>
                         <Nav.Link as={Link} to="/rnaprodb/docs">Documentation</Nav.Link>
                     </Nav>
                     {location.pathname !== "/" && ( // Conditionally render search form

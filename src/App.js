@@ -1,4 +1,4 @@
-import { Home, Search, Docs, Landing } from './pages';
+import { Home, Search, Docs, Landing, Upload } from './pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainNavBar from './NavBar';
 import './NavBar.css';
@@ -16,6 +16,7 @@ export default function App() {
           <Route path="/rnaprodb/:pdbid" element={<Home />} />
           <Route path="/rnaprodb/search" element={<Search />} />
           <Route path="/rnaprodb/docs" element={<Docs />} />
+          <Route path="/rnaprodb/upload" element={<Upload />} />
         </Routes>
         <BotRow />
       </BrowserRouter>

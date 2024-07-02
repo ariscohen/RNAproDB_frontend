@@ -20,7 +20,7 @@ function Upload() {
             formData.append('file', file);
 
             // Fetch API to send the file to the server
-            fetch('/rnaprodb-backend/rnaprodb/handle_upload/', { // Adjust the URL to match your Django route
+            fetch('/rnaprodb-backend/rnaprodb/handle_upload', { // Adjust the URL to match your Django route
                 method: 'POST',
                 body: formData,
             })
