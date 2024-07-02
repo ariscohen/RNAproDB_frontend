@@ -29,6 +29,7 @@ function Upload() {
                 headers: {
                     'X-CSRFToken': csrftoken,  // Include CSRF token in the request header
                 },
+                credentials: 'include', 
             })
             .then(response => response.json())
             .then(data => {
