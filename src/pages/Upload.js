@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Upload.css';
+import Cookies from 'js-cookie';
 
 function Upload() {
     const [file, setFile] = useState(null);
@@ -19,10 +20,15 @@ function Upload() {
             // Append the file to the FormData instance
             formData.append('file', file);
 
+            const csrftoken = Cookies.get('csrftoken');
+
             // Fetch API to send the file to the server
             fetch('/rnaprodb-backend/rnaprodb/handle_upload', { // Adjust the URL to match your Django route
                 method: 'POST',
                 body: formData,
+                headers: {
+                    'X-CSRFToken': csrftoken,  // Include CSRF token in the request header
+                },
             })
             .then(response => response.json())
             .then(data => {

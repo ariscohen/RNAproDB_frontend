@@ -22,6 +22,7 @@
     "d3": "^7.8.5",
     "file-saver": "^2.0.5",
     "jquery": "^3.7.1",
+    "js-cookie": "^3.0.5",
     "material-ui-popup-state": "^5.1.2",
     "mdb-react-ui-kit": "^7.2.0",
     "mdbreact": "^5.2.0",
