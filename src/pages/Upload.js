@@ -2,20 +2,12 @@ import React, { useState } from 'react';
 import './Upload.css';
 import Cookies from 'js-cookie';
 
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
-  }
+function getCsrfToken() {
+    return document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='))
+        ?.split('=')[1];
+}
 
 function Upload() {
     const [file, setFile] = useState(null);
@@ -33,30 +25,27 @@ function Upload() {
             const formData = new FormData();
 
             // Append the file to the FormData instance
-            formData.append('file', file);
+            const csrftoken = getCsrfToken();
 
-            // const csrftoken = Cookies.get('csrftoken');
+            if (!csrftoken) {
+                console.error('CSRF token not found.');
+                return;
+            }
 
-            // Fetch API to send the file to the server
-            fetch('/rnaprodb-backend/rnaprodb/handle_upload', { // Adjust the URL to match your Django route
+            fetch('/rnaprodb-backend/rnaprodb/handle_upload', {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token in the request header
+                    'X-CSRFToken': csrftoken,
                 },
-                credentials: 'include', 
+                credentials: 'include',
             })
             .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Handle success, such as displaying a message or processing the response
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                // Handle errors here
-            });
+            .then(data => console.log('Success:', data))
+            .catch(error => console.error('Error:', error));
         }
     };
+    
 
     return (
         <div className="upload-container">
