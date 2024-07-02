@@ -1,8 +1,9 @@
-import { Home, Search, Docs, Landing } from './pages';
+import { Home, Search, Docs, Landing} from './pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainNavBar from './NavBar';
 import './NavBar.css';
 import BotRow from './BotRow';
+import Table from './Table'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/:pdbid" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/docs" element={<Docs />} />
+          <Route path="/table" element={<Table />} />
         </Routes>
         <BotRow />
       </BrowserRouter>
