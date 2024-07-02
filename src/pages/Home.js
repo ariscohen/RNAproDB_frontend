@@ -111,10 +111,12 @@ const Home = () => {
         <div className="whole_container">
         <div className="column" id="left_column_wrapper">
           <div className ="left-col">
-          <div className="structure-info" id="left_column_top">
+          {pdbid && pdbid.length < 7 && 
+          (<div className="structure-info" id="left_column_top">
             <h5>Structure info</h5>
                 <StructureInfo />
           </div>
+          )}
                 {/* {graphData && tooLarge !== true && (
                     <div className="ss-python-graph">
                         <SSPythonGraph graphData={graphData}/>
