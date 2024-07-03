@@ -62,7 +62,7 @@ function Upload() {
                     {isLoading ? 'Uploading...' : 'Upload File'}
                 </button>
             </form>
-            {isLoading && <div className="loading-spinner">Loading...</div>}
+            {isLoading && <div className="loading-spinner"></div>}
         </div>
     );
 }
