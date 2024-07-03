@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Table.css'
 import { useParams } from 'react-router-dom';
 
-function Table(data) {
+function Table({data}) {
   const [activeTab, setActiveTab] = useState('');
 
   useEffect(() => {
