@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Upload.css';
-// import Cookies from 'js-cookie';
 
 function getCsrfToken() {
     return document.cookie
@@ -12,15 +11,17 @@ function getCsrfToken() {
 function Upload() {
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null); // State to hold error message
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
+        setError(null); // Clear error message when user selects a new file
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (file) {
-            setIsLoading(true); // Start loading
+            setIsLoading(true);
             const formData = new FormData();
             formData.append('file', file);
 
@@ -41,17 +42,17 @@ function Upload() {
                 return response.json();
             })
             .then(data => {
-                setIsLoading(false); // Stop loading on success
+                setIsLoading(false);
                 console.log('Success:', data);
                 window.location = `${window.location.origin}/rnaprodb/${data.id}`;
             })
             .catch(error => {
-                setIsLoading(false); // Stop loading on error
+                setIsLoading(false);
+                setError('Error: File upload failed. Please try again.'); // Set error message
                 console.error('Error:', error);
             });
         }
     };
-    
 
     return (
         <div className="upload-container">
@@ -63,6 +64,7 @@ function Upload() {
                 </button>
             </form>
             {isLoading && <div className="loading-spinner"></div>}
+            {error && <div className="error-message">{error}</div>} {/* Display error message */}
         </div>
     );
 }
