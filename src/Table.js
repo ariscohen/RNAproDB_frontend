@@ -8,6 +8,8 @@ function Table(data) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('JSON Data:', data);
+        alert(data);
         setActiveTab(Object.keys(data)[0]); // Set the first tab as active by default
       } catch (error) {
         console.error('Error fetching the JSON data:', error);
@@ -15,7 +17,7 @@ function Table(data) {
     };
 
     fetchData();
-  }, [data]);
+  }, []);
 
   const renderTable = (key) => {
     if (!data[key]) return null;
