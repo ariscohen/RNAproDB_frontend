@@ -131,12 +131,12 @@ const Home = () => {
                     )}
                     {rotationMatrix !== false && tooLarge !== true && (
                         <div className="ngl-viewer">
-                            <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
-                            <div>
+                            <div style={{ marginTop: '5px', marginBottom: '5px' }}>
                                 <strong>Rotate:</strong> drag + left click &nbsp;
                                 <strong>Translate:</strong> drag + right click &nbsp;
                                 <strong>Zoom:</strong> scroll
                             </div>
+                            <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
                         </div>
                     )}
             </div>
