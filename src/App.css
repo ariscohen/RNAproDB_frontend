@@ -312,14 +312,14 @@ iframe#webpack-dev-server-client-overlay {
 
 /* Styles for the SS Python Graph */
 .ss-python-graph {
-  margin-left: 10px;
-  flex: 0 30%; /* Takes up 30% of the container */
+  margin-left: 20px;
+  flex: 0 27%; /* Takes up 30% of the container */
   padding-right: 10px; /* Optional, adds spacing between the two elements */
 }
 
 /* Styles for the Table */
 .table-container { /* Assuming Table component has a wrapper div with this class */
-  flex: 0 70%; /* Takes up 70% of the container */
+  flex: 0 67%; /* Takes up 70% of the container */
 }
 
 @media (max-width: 1050px) {
@@ -331,6 +331,7 @@ iframe#webpack-dev-server-client-overlay {
   }
   .ss-python-graph, .table-container {
     flex: 0 0 100%;
+    margin-left: 0;
   }
   
   .left-col, .bottom_row {
