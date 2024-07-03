@@ -243,7 +243,7 @@ const Home = () => {
             )}
           </div>
         </div>
-        <Table data={tableData}/>
+        {rotationMatrix !== false && (<Table data={tableData}/>)}
       </TitleContext.Provider>
     </div>
   );
