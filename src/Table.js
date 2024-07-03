@@ -47,6 +47,7 @@ function Table({data}) {
 
   return (
     <div>
+      <h5>Tabular data</h5>
       <div className="tabs">
         {Object.keys(data).map((key) => (
           <button key={key} onClick={() => setActiveTab(key)} className={activeTab === key ? 'active' : ''}>
