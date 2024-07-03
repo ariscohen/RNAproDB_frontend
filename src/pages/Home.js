@@ -119,11 +119,11 @@ const Home = () => {
                 <StructureInfo />
           </div>
           )}
-                {/* {graphData && tooLarge !== true && (
+                {graphData && tooLarge !== true && (
                     <div className="ss-python-graph">
                         <SSPythonGraph graphData={graphData}/>
                     </div>
-                )} */}
+                )}
             <div className="viewer-container">
                     <h5>Sequence viewer</h5>
                     {chainsObject !== false && (
