@@ -48,7 +48,7 @@ function Upload() {
             })
             .catch(error => {
                 setIsLoading(false);
-                setError('Error: File upload failed. Please try again.'); // Set error message
+                setError('Error: File upload failed. Please ensure the file is a biological assembly CIF file containing RNA. It should be under 50 MB and properly formatted.'); // Set error message
                 console.error('Error:', error);
             });
         }
