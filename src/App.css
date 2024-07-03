@@ -276,10 +276,10 @@ iframe#webpack-dev-server-client-overlay {
   flex: 2; /* Adjusted to handle the margin */
 }
 
-.ss-python-graph {
-  flex: 0 0 48%; /* Adjusted to handle the margin */
-  margin-right: 2%; /* Adds margin to the right of the ss-python-graph */
-}
+/* .ss-python-graph {
+  flex: 0 0 48%;
+  margin-right: 2%;
+} */
 
 .structure-info {
   flex: 30%;
@@ -303,6 +303,23 @@ iframe#webpack-dev-server-client-overlay {
   margin-top: 10px; 
 }
 
+/* Container for the lower row */
+.bottom_row {
+  display: flex;
+  flex-wrap: wrap; /* Allows child elements to wrap onto the next line on smaller screens */
+  margin-top: 20px; /* Optional, adds some space from the top */
+}
+
+/* Styles for the SS Python Graph */
+.ss-python-graph {
+  flex: 0 30%; /* Takes up 30% of the container */
+  padding-right: 10px; /* Optional, adds spacing between the two elements */
+}
+
+/* Styles for the Table */
+.table-container { /* Assuming Table component has a wrapper div with this class */
+  flex: 0 70%; /* Takes up 70% of the container */
+}
 
 @media (max-width: 1050px) {
   .viewer-container {
@@ -311,11 +328,11 @@ iframe#webpack-dev-server-client-overlay {
   .structure-info {
     flex: 100%;
   }
-  .ss-python-graph {
+  .ss-python-graph, .table-container {
     flex: 0 0 100%;
   }
-
-  .left-col {
+  
+  .left-col, .bottom_row {
     flex-direction: column; /* Change to column to stack items vertically on mobile */
   }
   .whole_container {

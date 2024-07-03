@@ -218,11 +218,7 @@ const Home = () => {
                     setInitialGraphData={setInitialGraphData}
                     setTableData={setTableData}
                   />
-                                  {graphData && tooLarge !== true && (
-                    <div className="ss-python-graph">
-                        <SSPythonGraph graphData={graphData}/>
-                    </div>
-                )}
+
                 </div>
                 <div id="legend_div" style={{ marginLeft: '20px', textAlign: 'center' }}>
                   <img src={basePairingLegend} alt="Base Pairing Legend" className="base-pairing-legend" style={{ height: '400px' }} />
@@ -244,7 +240,19 @@ const Home = () => {
             )}
           </div>
         </div>
-        {rotationMatrix !== false && (<Table data={tableData}/>)}
+        <div className='bottom_row'>
+          {graphData && !tooLarge && (
+            <div className="ss-python-graph">
+              <SSPythonGraph graphData={graphData}/>
+            </div>
+          )}
+          {rotationMatrix && (
+            <div className="table-container">
+              <Table data={tableData}/>
+            </div>
+          )}
+        </div>
+
       </TitleContext.Provider>
     </div>
   );
