@@ -119,11 +119,7 @@ const Home = () => {
                 <StructureInfo />
           </div>
           )}
-                {graphData && tooLarge !== true && (
-                    <div className="ss-python-graph">
-                        <SSPythonGraph graphData={graphData}/>
-                    </div>
-                )}
+
             <div className="viewer-container">
                     <h5>Sequence viewer</h5>
                     {chainsObject !== false && (
@@ -222,6 +218,11 @@ const Home = () => {
                     setInitialGraphData={setInitialGraphData}
                     setTableData={setTableData}
                   />
+                                  {graphData && tooLarge !== true && (
+                    <div className="ss-python-graph">
+                        <SSPythonGraph graphData={graphData}/>
+                    </div>
+                )}
                 </div>
                 <div id="legend_div" style={{ marginLeft: '20px', textAlign: 'center' }}>
                   <img src={basePairingLegend} alt="Base Pairing Legend" className="base-pairing-legend" style={{ height: '400px' }} />
