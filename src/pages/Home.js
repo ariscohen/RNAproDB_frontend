@@ -219,6 +219,11 @@ const Home = () => {
                     setTooLarge3d={setTooLarge3d}
                     setInitialGraphData={setInitialGraphData}
                   />
+                  <div>
+                                <strong>Rotate:</strong> drag + left click &nbsp;
+                                <strong>Translate:</strong> drag + right click &nbsp;
+                                <strong>Zoom:</strong> scroll
+                            </div>
                 </div>
                 <div id="legend_div" style={{ marginLeft: '20px', textAlign: 'center' }}>
                   <img src={basePairingLegend} alt="Base Pairing Legend" className="base-pairing-legend" style={{ height: '400px' }} />
