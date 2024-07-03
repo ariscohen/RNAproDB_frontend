@@ -31,7 +31,7 @@
 .table-wrapper {
   max-height: 600px; /* Set the max height for the table container */
   overflow-y: auto; /* Enable vertical scrolling */
-  width: 80%;
+  width: 100%;
   margin-top: 20px;
   border: 1px solid #ddd;
 }
