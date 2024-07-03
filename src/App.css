@@ -312,7 +312,7 @@ iframe#webpack-dev-server-client-overlay {
 
 /* Styles for the SS Python Graph */
 .ss-python-graph {
-  margin-left: 20px;
+  margin-left: 40px;
   flex: 0 27%; /* Takes up 30% of the container */
   padding-right: 10px; /* Optional, adds spacing between the two elements */
 }

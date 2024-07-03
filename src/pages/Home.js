@@ -248,6 +248,7 @@ const Home = () => {
           )}
           {rotationMatrix && (
             <div className="table-container">
+              <h5>Tabular data</h5>
               <Table data={tableData}/>
             </div>
           )}

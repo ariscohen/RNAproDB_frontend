@@ -53,7 +53,7 @@ function SSPythonGraph({ graphData }) { // Ensure props are correctly destructur
 
   return (
     <div className="ss-graph-div">
-      <h5>Secondary Structure Selector</h5>
+      <h5>Secondary structure selector</h5>
       <iframe
         ref={iframeRef}
         src={`${process.env.PUBLIC_URL}/ssd3.html`}
