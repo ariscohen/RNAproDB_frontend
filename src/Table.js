@@ -2,35 +2,34 @@ import React, { useState, useEffect } from 'react';
 import './Table.css'
 import { useParams } from 'react-router-dom';
 
-function Table() {
-  const [data, setData] = useState({});
+function Table(data) {
   const [activeTab, setActiveTab] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/1ivs_table.json?cache-bust=${Date.now()}`);
-        console.log('Response:', response);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(`/1ivs_table.json?cache-bust=${Date.now()}`);
+  //       console.log('Response:', response);
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
 
-        const responseText = await response.text();
-        console.log('Response Text:', responseText);
+  //       const responseText = await response.text();
+  //       console.log('Response Text:', responseText);
 
-        const jsonData = JSON.parse(responseText);
-        console.log('JSON Data:', jsonData);
+  //       const jsonData = JSON.parse(responseText);
+  //       console.log('JSON Data:', jsonData);
 
-        setData(jsonData);
-        setActiveTab(Object.keys(jsonData)[0]); // Set the first tab as active by default
-      } catch (error) {
-        console.error('Error fetching the JSON data:', error);
-      }
-    };
+  //       setData(jsonData);
+  //       setActiveTab(Object.keys(jsonData)[0]); // Set the first tab as active by default
+  //     } catch (error) {
+  //       console.error('Error fetching the JSON data:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const renderTable = (key) => {
     if (!data[key]) return null;

@@ -41,6 +41,8 @@ const Home = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
 
+  const [tableData, setTableData] = useState({});
+
   const [graphData, setGraphData] = useState(null); // DATA FOR SS PYTHON GRAPH
 
   const checkboxRef = useRef(null); // for the toggle tertiary checkbox
@@ -218,6 +220,7 @@ const Home = () => {
                     tooLarge3d={tooLarge3d}
                     setTooLarge3d={setTooLarge3d}
                     setInitialGraphData={setInitialGraphData}
+                    setTableData={setTableData}
                   />
                 </div>
                 <div id="legend_div" style={{ marginLeft: '20px', textAlign: 'center' }}>
@@ -240,7 +243,7 @@ const Home = () => {
             )}
           </div>
         </div>
-        <Table />
+        <Table data={tableData}/>
       </TitleContext.Provider>
     </div>
   );

@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import TitleContext from './TitleContext';
 import $ from 'jquery';
 
-function NewPythonGraph({ pdbid, dimensions, subgraph, algorithm, isFirst, setSS, setChainsObject, setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData, setGraphData }) {
+function NewPythonGraph({ pdbid, dimensions, subgraph, algorithm, isFirst, setSS, setChainsObject, 
+  setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData, setGraphData, setTableData }) {
   const [data, setData] = useState(null);
   const { setTitle } = useContext(TitleContext);
   const [tooLargeMessage, setTooLargeMessage] = useState('');
@@ -46,6 +47,7 @@ function NewPythonGraph({ pdbid, dimensions, subgraph, algorithm, isFirst, setSS
         setTooLarge(false);
         setTooLargeMessage("");
       }
+      setTableData(data.table || {});
       setTitle(data.protein_name || "Missing PDB ID");
       if (data.output.ss) {
         setSS(data.output.ss);
