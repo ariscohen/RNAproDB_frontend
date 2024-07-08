@@ -531,7 +531,7 @@ const handleSearch = async () => {
 
 return (
   <div className='content'>
-    <h1 className='search_title'>Advanced Search</h1>
+    <h3 className='search_title'>Search</h3>
     <div className='SearchTextField'>
     <SearchTextField onSearchTermChange={(value) => updateSearchParams({ searchTerm: value })} onEnterPress={handleSearch} />
     </div>
