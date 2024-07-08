@@ -1,22 +1,17 @@
-/* .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-} */
-
 .content {
     display: flex;
-    flex-direction: column; /* Default to column for mobile */
+    flex-direction: row;
     width: 100%;
-    padding: 20px; /* Adjust as needed */
+    gap: 20px;
 }
 
 .search-container {
-    flex: 3; /* Takes more space on desktop */
+    flex: 1; /* Adjust this to change the proportion */
+    max-width: 30%; /* Set a maximum width for the left column */
     display: flex;
     flex-direction: column;
-    padding-right: 20px; /* Adds separation between search and results */
+    align-items: center; /* Center children horizontally */
+    padding: 10px; /* Optional padding for better spacing */
 }
 
 .search_title{
@@ -33,115 +28,34 @@
     width: 100px;
 }
 
-.ResolutionSlider{
+/* Each search control fills the width of its container */
+.SearchTextField, .NucleicAcidSelector, .ExperimentalModalitySelector,
+.ResolutionSlider, .YearRangeSlider, .NASlider, .ProteinSlider,
+.MolecularWeightSlider {
+    width: 100%; /* Each element takes full width of its container */
     display: flex;
     flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+    align-items: center; /* Center each element vertically */
+    margin-bottom: 20px; /* Adds bottom margin for spacing */
 }
 
-.ExperimentalModalitySelector{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+.SearchTextField {
+    max-width: 100%; /* Utilize the full width available */
 }
-
-.NucleicAcidSelector{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
-}
-
-.NASlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
-
-}
-
-.ProteinSlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
-}
-
-.YearRangeSlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
-}
-
-.MolecularWeightSlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
-}
-  
-.horizontal_container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.horizontal_container_2{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.SearchTextField{
-    margin-bottom: 3em;
-    margin-top: 1em;
-}
-
-/* .QueryResults{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin: 3em;
-    text-align: center;
-} */
-
 
 .QueryResults {
-    flex: 2; /* Takes lesser space than search on desktop */
-    width: 100%; /* Full width on mobile */
-}
-
-@media (min-width: 768px) {
-    .content {
-        flex-direction: row; /* Switch to row layout for desktop */
-    }
-    .search-container,
-    .QueryResults {
-        flex-direction: column;
-        align-items: stretch; /* Stretch child elements full width */
-    }
+    flex: 3; /* Takes up remaining space */
+    width: 70%; /* Corresponding width */
 }
 
 @media (max-width: 768px) {
-    .search-container {
-        padding-right: 0; /* Remove padding on mobile */
+    .content {
+        flex-direction: column;
+    }
+
+    .search-container,
+    .QueryResults {
+        width: 100%; /* Full width on mobile */
+        max-width: none; /* Override any max-width set */
     }
 }

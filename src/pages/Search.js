@@ -536,7 +536,6 @@ return (
       <div className='SearchTextField'>
         <SearchTextField onSearchTermChange={(value) => updateSearchParams({ searchTerm: value })} onEnterPress={handleSearch} />
       </div>
-      <div className='horizontal_container'>
         <div className='NucleicAcidSelector'>
           <NucleicAcidSelector updateSearchParams={updateSearchParams}/>
           <p><b>Nucleic Acid Type</b></p>
@@ -556,9 +555,7 @@ return (
           <YearRangeSlider onChange={(value) => updateSearchParams({'minYear': value[0], 'maxYear': value[1]})} />
           <p><b>Publication Year</b></p>
         </div>
-      </div>
 
-      <div className='horizontal_container_2'>
         <div className='NASlider'>
           <NA_Slider onChange={(value) => updateSearchParams({'minNA': value[0], 'maxNA': value[1]})} />
           <p><b>Number of Nucleic Acid Polymers</b></p>
@@ -573,7 +570,6 @@ return (
           <MolecularWeightSlider onChange={(value) => updateSearchParams({'minWeight': value[0], 'maxWeight': value[1]})} />
           <p><b>Molecular Weight (kDa)</b></p>
         </div>
-      </div>
 
       <Button variant="contained" onClick={handleSearch}>Search</Button>
     </div>
