@@ -1,9 +1,22 @@
-.content {
+/* .content {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Aligns content to the top */
-    align-items: center; /* Keeps the content centered horizontally */
-    /* Remove height: 100vh to allow the container to grow with the content */
+    justify-content: flex-start;
+    align-items: center;
+} */
+
+.content {
+    display: flex;
+    flex-direction: column; /* Default to column for mobile */
+    width: 100%;
+    padding: 20px; /* Adjust as needed */
+}
+
+.search-container {
+    flex: 3; /* Takes more space on desktop */
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px; /* Adds separation between search and results */
 }
 
 .search_title{
@@ -101,11 +114,34 @@
     margin-top: 1em;
 }
 
-.QueryResults{
+/* .QueryResults{
     display: flex;
     flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
+    align-items: center;
+    width: 100%;
+    margin: 3em;
     text-align: center;
+} */
+
+
+.QueryResults {
+    flex: 2; /* Takes lesser space than search on desktop */
+    width: 100%; /* Full width on mobile */
+}
+
+@media (min-width: 768px) {
+    .content {
+        flex-direction: row; /* Switch to row layout for desktop */
+    }
+    .search-container,
+    .QueryResults {
+        flex-direction: column;
+        align-items: stretch; /* Stretch child elements full width */
+    }
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        padding-right: 0; /* Remove padding on mobile */
+    }
 }
