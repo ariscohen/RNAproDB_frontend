@@ -526,6 +526,10 @@ const handleSearch = async () => {
 //     .catch(error => console.error('Error fetching data:', error));
 // };
 
+useEffect(() => {
+  handleSearch();  // Call the search function to load initial data
+}, []);  // Empty dependency array means this effect runs once after initial render
+
 return (
   <div className='content'>
     <div className='search-container'>

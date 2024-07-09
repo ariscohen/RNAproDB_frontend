@@ -151,7 +151,7 @@ const QueryOutput = ({ data, isError }) => {
     }))
   };
 
-  const [viewMode, setViewMode] = useState('card');
+  const [viewMode, setViewMode] = useState('table');
 
   const handleViewChange = (event, newView) => {
     if (newView !== null) {
@@ -234,11 +234,11 @@ const QueryOutput = ({ data, isError }) => {
         aria-label="View mode"
         sx={{ marginBottom: 2, alignSelf: 'center', marginLeft: 2, width: '100%' }}
       >
-        <ToggleButton value="card" aria-label="Card View">
-          Card View
-        </ToggleButton>
         <ToggleButton value="table" aria-label="Table View">
           Table View
+        </ToggleButton>
+        <ToggleButton value="card" aria-label="Card View">
+          Card View
         </ToggleButton>
       </ToggleButtonGroup>
 
