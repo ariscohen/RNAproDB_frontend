@@ -248,6 +248,12 @@ const Home = () => {
           </div>
         </div>
         <div className='bottom_row'>
+        {graphData && !tooLarge && (
+          <div className="ss-instructions-div">
+            Lorem ipsum dolor sit amet.
+            </div>
+        )}
+
           {graphData && !tooLarge && (
             <div className="ss-python-graph">
               <SSPythonGraph graphData={graphData}/>

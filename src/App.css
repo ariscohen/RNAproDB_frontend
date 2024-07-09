@@ -322,6 +322,21 @@ iframe#webpack-dev-server-client-overlay {
   flex: 0 67%; /* Takes up 70% of the container */
 }
 
+.ss-instructions-div {
+  background-color: #f7f7f7; /* Light gray background */
+  color: #333; /* Dark gray text - better for readability than pure black */
+  padding: 20px; /* Adds space inside the div */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin: 10px; /* Adds space outside the div */
+  height: 98%;
+  text-align: left; /* Ensure everything else is left-aligned */
+}
+
+.ss-instructions-div h2 {
+  text-align: center; /* Center the title element */
+}
+
 @media (max-width: 1050px) {
   .viewer-container {
     flex: 100%;
