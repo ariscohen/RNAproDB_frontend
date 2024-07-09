@@ -199,7 +199,7 @@ const Home = () => {
                   <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
                 </div>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
 
                 <div id="right_column" onClick={window.reset_graph_colors}>
                 <div style={{ marginTop: '0px', marginBottom: '5px' }}>
