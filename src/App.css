@@ -330,7 +330,7 @@ iframe#webpack-dev-server-client-overlay {
   border-radius: 8px; /* Rounded corners for a modern look */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   margin: 10px; /* Adds space outside the div */
-  margin-left: 30px;
+  margin-left: 40px;
   height: 98%;
   text-align: left; /* Ensure everything else is left-aligned */
 }
