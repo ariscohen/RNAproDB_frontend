@@ -251,6 +251,17 @@ const Home = () => {
         {graphData && !tooLarge && (
           <div className="ss-instructions-div">
             Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
             </div>
         )}
 
