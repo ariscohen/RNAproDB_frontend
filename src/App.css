@@ -319,7 +319,7 @@ iframe#webpack-dev-server-client-overlay {
 
 /* Styles for the Table */
 .table-container { /* Assuming Table component has a wrapper div with this class */
-  flex: 0 50%; /* Takes up 70% of the container */
+  flex: 0 46%; /* Takes up 70% of the container */
 }
 
 .ss-instructions-div {
@@ -330,7 +330,7 @@ iframe#webpack-dev-server-client-overlay {
   border-radius: 8px; /* Rounded corners for a modern look */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   margin: 10px; /* Adds space outside the div */
-  margin-left: 20px;
+  margin-left: 30px;
   height: 98%;
   text-align: left; /* Ensure everything else is left-aligned */
 }
