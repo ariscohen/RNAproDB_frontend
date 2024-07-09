@@ -95,7 +95,7 @@ function MolecularWeightSlider(props) {
   };
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box className="Slider-container" sx={{ width: 150 }}>
       <Slider
         getAriaLabel={() => 'Year range'}
         onChange={handleChange}
@@ -160,7 +160,7 @@ function ResolutionSlider(props) {
   };
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box className="Slider-container" sx={{ width: 150 }}>
       <Slider
         getAriaLabel={() => 'Resolution range'}
         onChange={handleChange}
@@ -222,7 +222,7 @@ function NA_Slider(props) {
   };
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box className="Slider-container" sx={{ width: 150 }}>
       <Slider
         getAriaLabel={() => 'Resolution range'}
         onChange={handleChange}
@@ -284,7 +284,7 @@ function ProteinSlider(props) {
   };
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box className="Slider-container" sx={{ width: 150 }}>
       <Slider
         getAriaLabel={() => 'Resolution range'}
         onChange={handleChange}
@@ -319,7 +319,7 @@ function ExperimentalModalitySelector({ updateSearchParams }) {
   };
 
   return (
-    <FormGroup>
+    <FormGroup className="FormGroup">
       {['X-ray', 'EM', 'NMR', 'Neutron', 'Multiple methods', 'Other'].map((modality) => (
         <FormControlLabel
           key={modality}
@@ -353,18 +353,15 @@ function SearchTextField( {onSearchTermChange, onEnterPress}) {
   return (
     <Paper
       component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+      className="paper-style"
       onKeyDown={handleKeyDown}
     >
       <InputBase
-        sx={{ ml: 1, flex: 1 }}
+        className="input-base-style"
         placeholder="Filter by authors or keyword"
-        inputProps={{ 'aria-label': 'filters by authors or keyword' }}
+        inputProps={{ 'aria-label': 'filter by authors or keyword' }}
         onChange={handleInputChange}
       />
-      {/* <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon />
-      </IconButton> */}
     </Paper>
   );
 }
@@ -402,7 +399,7 @@ function YearRangeSlider(props) {
   };
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box className="Slider-container" sx={{ width: 150 }}>
       <Slider
         getAriaLabel={() => 'Year range'}
         onChange={handleChange}
@@ -439,7 +436,7 @@ function NucleicAcidSelector({ updateSearchParams }) {
   };
 
   return (
-    <FormGroup>
+    <FormGroup className="FormGroup">
       {['RNA (only)', 'DNA (only)', 'Hybrid'].map((type) => (
         <FormControlLabel
           key={type}
@@ -536,14 +533,15 @@ return (
       <div className='SearchTextField'>
         <SearchTextField onSearchTermChange={(value) => updateSearchParams({ searchTerm: value })} onEnterPress={handleSearch} />
       </div>
+      <Button className="ari-search-button" variant="contained" onClick={handleSearch}>Search</Button>
         <div className='NucleicAcidSelector'>
-          <NucleicAcidSelector updateSearchParams={updateSearchParams}/>
           <p><b>Nucleic Acid Type</b></p>
+          <NucleicAcidSelector updateSearchParams={updateSearchParams}/>
         </div>
 
         <div className='ExperimentalModalitySelector'>
-          <ExperimentalModalitySelector updateSearchParams={updateSearchParams} />
           <p><b>Experimental Modality</b></p>
+          <ExperimentalModalitySelector updateSearchParams={updateSearchParams} />
         </div>
 
         <div className='ResolutionSlider'>
@@ -561,6 +559,7 @@ return (
           <p><b>Number of Nucleic Acid Polymers</b></p>
         </div>
 
+
         <div className='ProteinSlider'>
           <ProteinSlider onChange={(value) => updateSearchParams({'minProtein': value[0], 'maxProtein': value[1]})} />
           <p><b>Number of Protein Polymers</b></p>
@@ -570,8 +569,6 @@ return (
           <MolecularWeightSlider onChange={(value) => updateSearchParams({'minWeight': value[0], 'maxWeight': value[1]})} />
           <p><b>Molecular Weight (kDa)</b></p>
         </div>
-
-      <Button variant="contained" onClick={handleSearch}>Search</Button>
     </div>
 
     <div className='QueryResults'>
