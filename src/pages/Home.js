@@ -202,10 +202,10 @@ const Home = () => {
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
 
                 <div id="right_column" onClick={window.reset_graph_colors}>
-                <div style={{ marginTop: '0px', marginBottom: '0px' }}>
+                <div style={{ marginTop: '0px', marginBottom: '5px' }}>
                                 <strong>Translate:</strong> drag + left click &nbsp;
-                                <strong>Zoom:</strong> scroll
-                                <strong>Show info:</strong> hover
+                                <strong>Zoom:</strong> scroll &nbsp;
+                                <strong>Show info:</strong> hover &nbsp;
                                 <strong>Select:</strong> click (shift to multi-select) &nbsp;
                             </div>
                   <NewPythonGraph
