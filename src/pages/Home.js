@@ -200,6 +200,11 @@ const Home = () => {
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+              <div style={{ marginTop: '5px', marginBottom: '5px' }}>
+                                <strong>Rotate:</strong> drag + left click &nbsp;
+                                <strong>Translate:</strong> drag + right click &nbsp;
+                                <strong>Zoom:</strong> scroll
+                            </div>
                 <div id="right_column" onClick={window.reset_graph_colors}>
                   <NewPythonGraph
                     pdbid={pdbid}
