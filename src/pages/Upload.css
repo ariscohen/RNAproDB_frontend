@@ -37,8 +37,8 @@
 
 .upload-button {
     padding: 10px 20px;
-    background-color: #0056b3;
-    color: white;
+    /* background-color: #0056b3; */
+    color: rgb(219, 219, 219);
     border: none;
     border-radius: 4px;
     cursor: pointer;
