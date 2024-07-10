@@ -163,7 +163,7 @@ const Landing = () => {
         </p>
       </div>*/}
 
-      <div className="relative w-full px-3 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
+  <div className="relative w-full px-3 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
   <div
     className="absolute left-1/2 top-0 -z-10 transform -translate-x-1/2 blur-3xl"
     aria-hidden="true"
@@ -172,6 +172,8 @@ const Landing = () => {
       className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#B22222] to-[#B22222] opacity-20"
     />
   </div>
+  
+  {/* Interface explorer */}
   <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
     <div className="w-full lg:pt-8 lg:pr-10">
       <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
@@ -193,49 +195,101 @@ const Landing = () => {
   </div>
 </div>
 
-      <div className="w-full h-1 bg-[#B22222]"></div>
-      <div
-        className="w-full px-6 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5"
-        style={{
-          backgroundColor: '#FFFFFF',
-        }}
-      >
-        <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
-          <div className="flex justify-center lg:justify-start lg:pr-10">
-            <div className="max-w-full lg:max-w-none">
-            <img
-              src="/rnaprodb/1asz.png"
-              alt="App screenshot"
-              className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
-            />
-            </div>
-          </div>
-          <div className="w-full lg:pt-8 lg:pl-10">
-            <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
-              Sequence and structure viewer
-            </h2>
-            <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
-              <span className="highlight"></span> The sequence and 3D structure viewers aid in exploring the interface visualization. Residues selected on sequence viewer are highlighted in the interface explorer and structure viewer. Similarly, selections made within the interface explorer are also brought into focus in the structure viewer. For visual clarity, options to hide solvent molecules and cartoon representations are available. 
-            </p>
-          </div>
-          <div className="w-full lg:pt-8 lg:pl-10">
-            <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
-              Secondary structure selector
-            </h2>
-            <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
-              <span className="highlight"></span> The Secondary structure selector is a coarse-grained visualization that shows broad secondary structure elements of the structure. It can be used to quickly find and visualize certain areas of the structure.
-            </p>
-          </div>
-          <div className="w-full lg:pt-8 lg:pl-10">
-            <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
-              Tabular data
-            </h2>
-            <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
-              <span className="highlight"></span> The tabular data field provides interaction data, hydrogen bonding, and other important information computed by the RNAproDB pipeline. These data can also be visualized in the Interface explorer by hovering over a node.
-            </p>
-          </div>
-        </div>
+{/* Sequence and structure viewer */}
+<div className="w-full h-1 bg-[#B22222]"></div>
+<div className="relative w-full px-3 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
+  <div
+    className="absolute left-1/2 top-0 -z-10 transform -translate-x-1/2 blur-3xl"
+    aria-hidden="true"
+  >
+    <div
+      className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#B22222] to-[#B22222] opacity-20"
+    />
+  </div>
+  <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
+    <div className="w-full lg:pt-8 lg:pr-10">
+      <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
+        Sequence and structure viewer
+      </h2>
+      <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
+        <span className="highlight"></span>The sequence and 3D structure viewers aid in exploring the interface visualization. Residues selected on sequence viewer are highlighted in the interface explorer and structure viewer. Similarly, selections made within the interface explorer are also brought into focus in the structure viewer. For visual clarity, options to hide solvent molecules and cartoon representations are available.
+        </p>
+    </div>
+    <div className="flex justify-center lg:justify-end lg:pl-10">
+      <div className="max-w-full lg:max-w-none">
+        <img
+          src="/rnaprodb/1asz.png"
+          alt="App screenshot"
+          className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
+        />
       </div>
+    </div>
+  </div>
+</div>
+
+{/* Secondary structure selector */}
+<div className="w-full h-1 bg-[#B22222]"></div>
+<div className="relative w-full px-3 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
+  <div
+    className="absolute left-1/2 top-0 -z-10 transform -translate-x-1/2 blur-3xl"
+    aria-hidden="true"
+  >
+    <div
+      className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#B22222] to-[#B22222] opacity-20"
+    />
+  </div>
+  <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
+    <div className="w-full lg:pt-8 lg:pr-10">
+      <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
+        Secondary structure selector
+      </h2>
+      <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
+        <span className="highlight"></span>The Secondary structure selector is a coarse-grained visualization that shows broad secondary structure elements of the structure. It can be used to quickly find and visualize certain areas of the structure.
+        </p>
+    </div>
+    <div className="flex justify-center lg:justify-end lg:pl-10">
+      <div className="max-w-full lg:max-w-none">
+        <img
+          src="/rnaprodb/1asz.png"
+          alt="App screenshot"
+          className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* Tabular data */}
+<div className="w-full h-1 bg-[#B22222]"></div>
+<div className="relative w-full px-3 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
+  <div
+    className="absolute left-1/2 top-0 -z-10 transform -translate-x-1/2 blur-3xl"
+    aria-hidden="true"
+  >
+    <div
+      className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#B22222] to-[#B22222] opacity-20"
+    />
+  </div>
+  <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
+    <div className="w-full lg:pt-8 lg:pr-10">
+      <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
+        Tabular data
+      </h2>
+      <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
+        <span className="highlight"></span>The tabular data field provides interaction data, hydrogen bonding, and other important information computed by the RNAproDB pipeline. These data can also be visualized in the Interface explorer by hovering over a node.
+        </p>
+    </div>
+    <div className="flex justify-center lg:justify-end lg:pl-10">
+      <div className="max-w-full lg:max-w-none">
+        <img
+          src="/rnaprodb/1asz.png"
+          alt="App screenshot"
+          className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
+        />
+      </div>
+    </div>
+  </div>
+</div>
 
           {/*<div
         className="w-full px-6 lg:px-8 mb-8"
