@@ -353,6 +353,7 @@ iframe#webpack-dev-server-client-overlay {
     margin-right: 0;
     padding-right: 0;
     width: 100%;
+    margin-bottom: 10px;
   }
   
   .left-col, .bottom_row {
