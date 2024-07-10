@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/rnaprodb/static/css/main.d46e1e69.css",
+    "main.css": "/rnaprodb/static/css/main.94f4941b.css",
     "main.js": "/rnaprodb/static/js/main.7a1ed0a0.js",
     "static/js/787.cda612ba.chunk.js": "/rnaprodb/static/js/787.cda612ba.chunk.js",
     "static/media/fa-solid-900.ttf": "/rnaprodb/static/media/fa-solid-900.45a265d0f07b31cde85f.ttf",
@@ -14,12 +14,12 @@
     "static/media/fa-v4compatibility.ttf": "/rnaprodb/static/media/fa-v4compatibility.2eb7b3ef25042305f3ff.ttf",
     "static/media/fa-v4compatibility.woff2": "/rnaprodb/static/media/fa-v4compatibility.b3049b13a93f07e026fc.woff2",
     "index.html": "/rnaprodb/index.html",
-    "main.d46e1e69.css.map": "/rnaprodb/static/css/main.d46e1e69.css.map",
+    "main.94f4941b.css.map": "/rnaprodb/static/css/main.94f4941b.css.map",
     "main.7a1ed0a0.js.map": "/rnaprodb/static/js/main.7a1ed0a0.js.map",
     "787.cda612ba.chunk.js.map": "/rnaprodb/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d46e1e69.css",
+    "static/css/main.94f4941b.css",
     "static/js/main.7a1ed0a0.js"
   ]
 }
