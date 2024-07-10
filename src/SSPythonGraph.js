@@ -54,6 +54,11 @@ function SSPythonGraph({ graphData }) { // Ensure props are correctly destructur
   return (
     <div className="ss-graph-div">
       <h5>Secondary structure selector</h5>
+      <div style={{ marginTop: '0px', marginBottom: '5px' }}>
+                                <strong>Translate:</strong> drag + left click &nbsp;
+                                <strong>Zoom:</strong> scroll &nbsp;
+                                <strong>Add to subgraph:</strong> left click &nbsp;
+                            </div>
       <iframe
         ref={iframeRef}
         src={`${process.env.PUBLIC_URL}/ssd3.html`}
