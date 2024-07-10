@@ -320,7 +320,7 @@ iframe#webpack-dev-server-client-overlay {
 
 /* Styles for the Table */
 .table-container { /* Assuming Table component has a wrapper div with this class */
-  flex: 0 0 50%; /* Do not grow, do not shrink, basis of 50% */
+  flex: 0 0 45%; /* Do not grow, do not shrink, basis of 50% */
 }
 
 .ss-instructions-div {
