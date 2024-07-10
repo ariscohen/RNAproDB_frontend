@@ -1,3 +1,7 @@
+body, button, input, textarea {
+  font-family: 'Arial', sans-serif !important; /* Replace 'Roboto' with your font */
+}
+
 .App {
   text-align: center;
 }
