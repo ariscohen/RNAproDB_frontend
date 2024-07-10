@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f0f4f8;
+    background-color: white;
 }
 
 .upload-title {
@@ -21,7 +21,7 @@
     width: 100%;
     max-width: 500px;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #dbdbdb;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 8px;
 }
@@ -37,7 +37,7 @@
 
 .upload-button {
     padding: 10px 20px;
-    /* background-color: #0056b3; */
+    background-color: #0056b3;
     color: rgb(219, 219, 219);
     border: none;
     border-radius: 4px;
