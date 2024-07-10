@@ -218,6 +218,22 @@ const Landing = () => {
               <span className="highlight"></span> The sequence and 3D structure viewers aid in exploring the interface visualization. Residues selected on sequence viewer are highlighted in the interface explorer and structure viewer. Similarly, selections made within the interface explorer are also brought into focus in the structure viewer. For visual clarity, options to hide solvent molecules and cartoon representations are available. 
             </p>
           </div>
+          <div className="w-full lg:pt-8 lg:pl-10">
+            <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
+              Secondary structure selector
+            </h2>
+            <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
+              <span className="highlight"></span> The Secondary structure selector is a coarse-grained visualization that shows broad secondary structure elements of the structure. It can be used to quickly find and visualize certain areas of the structure.
+            </p>
+          </div>
+          <div className="w-full lg:pt-8 lg:pl-10">
+            <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
+              Tabular data
+            </h2>
+            <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
+              <span className="highlight"></span> The tabular data field provides interaction data, hydrogen bonding, and other important information computed by the RNAproDB pipeline. These data can also be visualized in the Interface explorer by hovering over a node.
+            </p>
+          </div>
         </div>
       </div>
 

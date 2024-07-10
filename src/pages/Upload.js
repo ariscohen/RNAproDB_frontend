@@ -57,7 +57,7 @@ function Upload() {
     return (
         <div className="upload-container">
             <h1 className="upload-title">Upload your CIF file</h1>
-            <p>The file should be a CIF biological assembly file containing both RNA and protein. Files up to 10 MB are currently supported to provide informative visualizations.</p>
+            <p>The file should be a CIF biological assembly file containing both RNA and protein. Files up to 10 MB are currently supported to ensure informative visualizations.</p>
             <form onSubmit={handleSubmit} className="upload-form">
                 <input type="file" onChange={handleFileChange} accept=".cif" className="file-input"/>
                 <button type="submit" className="upload-button" disabled={isLoading}>
