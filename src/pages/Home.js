@@ -252,9 +252,8 @@ const Home = () => {
           <div className="ss-instructions-div">
             <p>The <b>Secondary structure selector</b> is a coarse-grained visualization that shows broad secondary structure elements of the structure.</p>
             <p>It can be used to quickly find and visualize certain areas of the structure.</p>
-            <p>Left clicking an element will open the subgraph view in <b>Interface explorer</b>, adding the corresponding nodes. Simply click <b>Generate subgraph</b> to then show only those nodes.</p>
-            <p>Multiple elements can be selected. Simply click additional elements to add their nodes to the subgraph.</p>
-            <p>A subgraph will show the first-order neighbors of all the selected nodes.</p>
+            <p>Left clicking an element will open the subgraph view in <b>Interface explorer</b>, adding its corresponding nodes. Simply click <b>Generate subgraph</b> to then visualize these nodes and their neighbors.</p>
+            <p>Multiple elements can be added to a subgraph by clicking additional elements one-by-one.</p>
             <p>Protein elements are shown to orient the user; however, they are not interactable. To view them in the subgraph, simply select the secondary structure element to which they are connected.</p>
             </div>
         )}
