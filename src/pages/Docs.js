@@ -131,11 +131,27 @@ export default function Docs() {
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-
-            <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">2. Advanced Search</h2>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.4. Secondary structure selector</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                The advanced search feature allows users to query our database of over <b className="text-[#A2A0D3]">15000 structures</b> using specific conditions.
+                The Secondary structure selector is a coarse-grained visualization that shows broad secondary structure elements of the structure.
+                <br />
+                It can be used to quickly find and visualize certain areas of the structure.
+                <br />
+                Left clicking an element will open the subgraph view in Interface explorer, adding its corresponding nodes. Simply click Generate subgraph to then visualize these nodes and their neighbors.
+            </p>
+            </div>
+
+            <img
+                src="/rnaprodb/1asz_ss.png"
+                alt="Search"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
+
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.5. Search</h4>
+            <div className="pl-8 pr-8 w-full">
+            <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
+                The search feature allows users to query our database of over <b className="text-[#A2A0D3]">15000 structures</b> using specific conditions.
                 <br />
                 Users can filter by nucleic acid type, resolution range (Å), publication year, number of nucleic acid polymers, number of protein polymers, molecular weight range (Da), and specific authors or keywords.
                 <br />
@@ -147,7 +163,7 @@ export default function Docs() {
 
             <img
                 src="/rnaprodb/1asz.svg"
-                alt="Advanced Search"
+                alt="Search"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
