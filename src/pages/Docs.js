@@ -144,7 +144,7 @@ export default function Docs() {
 
             <img
                 src="/rnaprodb/1asz_ss.png"
-                alt="Search"
+                alt="1asz secondary structure selector"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
