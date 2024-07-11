@@ -154,7 +154,7 @@ const Landing = () => {
     />
   </div>
   <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
-    <div className="flex justify-center lg:justify-end lg:pl-10">
+    <div className="flex justify-center lg:justify-end lg:pr-10">
       <div className="max-w-full lg:max-w-none">
         <img
           src="/rnaprodb/1asz.png"
@@ -219,7 +219,7 @@ const Landing = () => {
     />
   </div>
   <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
-    <div className="flex justify-center lg:justify-end lg:pl-10">
+    <div className="flex justify-center lg:justify-end lg:pr-10">
       <div className="max-w-full lg:max-w-none">
         <img
           src="/rnaprodb/1asz_table.png"
