@@ -48,6 +48,7 @@ const Home = () => {
   const checkboxRef = useRef(null); // for the toggle tertiary checkbox
 
   const algorithm = urlAlgorithm || 'pca'; // get algorithm from link
+  const [algorithmText, setAlgorithmText] = useState(false);
 
   // if checkbox toggled, call the tertiary edges stuff
   useEffect(() => {
@@ -103,6 +104,17 @@ const Home = () => {
     }
     window.location = `${window.location.origin}/rnaprodb/${pdbid}/${selectedAlgorithm}`;
   };
+
+    // set algorithm text
+    useEffect(() => {
+      if (algorithm === 'pca'){
+        setAlgorithmText("Projection");
+      } else if (algorithm === 'viennarna'){
+        setAlgorithmText("ViennaRNA");
+      }else if (algorithm === "rnascape"){
+        setAlgorithmText("RNAscape");
+      }
+    });
 
   return (
     <div className="App">
@@ -184,7 +196,7 @@ const Home = () => {
                 <img src="/rnaprodb/legend.svg" alt="Legend" className="responsive_img" style={{ width: '100%', maxWidth: '800px', height: 'auto' }} />
                 <div className="dropdown">
                   <button onClick={() => setShowDropdown(!showDropdown)} className="dropdown-button">
-                    Algorithm: {algorithm}
+                    Algorithm: {algorithmText}
                   </button>
                   {showDropdown && (
                     <div className="dropdown-content">
