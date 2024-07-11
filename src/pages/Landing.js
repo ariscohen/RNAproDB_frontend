@@ -57,7 +57,7 @@ const Landing = () => {
               {/* <p className="text-xs tracking-tight text-white sm:text-sm md:text-base lg:text-xl xl:text-xl">
         In addition to RNA-protein complexes, the collection also includes structures containing DNA and NA-hybrids.
       </p> */}
-      <button type="button" onClick={handleUploadRedirect} className="ml-2 p-2 bg-blue-500 text-white rounded-md">
+      <button type="button" onClick={handleUploadRedirect} className="ml-2 p-2 bg-transparent text-white rounded-md border-2 border-white transition duration-300 ease-in-out hover:bg-white hover:text-blue-500">
           Upload a structure
         </button>
               <p className="text-xs tracking-tight text-white sm:text-sm md:text-base lg:text-xl xl:text-xl" style={{ marginTop: '20px' }}>
