@@ -189,9 +189,9 @@ const Home = () => {
                   {showDropdown && (
                     <div className="dropdown-content">
                       {/* <div onClick={() => handleAlgorithmSelect('None')}>None</div> */}
-                      <div onClick={() => handleAlgorithmSelect('pca')}>pca</div>
-                      <div onClick={() => handleAlgorithmSelect('rnascape')}>rnascape</div>
-                      <div onClick={() => handleAlgorithmSelect('viennarna')}>viennarna</div>
+                      <div onClick={() => handleAlgorithmSelect('pca')}>Projection</div>
+                      <div onClick={() => handleAlgorithmSelect('rnascape')}>RNAscape</div>
+                      <div onClick={() => handleAlgorithmSelect('viennarna')}>ViennaRNA</div>
                     </div>
                   )}
                 </div>
