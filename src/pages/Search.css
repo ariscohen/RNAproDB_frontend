@@ -1,9 +1,20 @@
 .content {
     display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 20px;
+}
+
+.search-container {
+    flex: 1; /* Adjust this to change the proportion */
+    max-width: 300px; /* Set a maximum width for the left column */
+    display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Aligns content to the top */
-    align-items: center; /* Keeps the content centered horizontally */
-    /* Remove height: 100vh to allow the container to grow with the content */
+    align-items: center; /* Center children horizontally */
+    padding: 10px; /* Optional padding for better spacing */
+    overflow-y: auto; /* Add scroll to the search container */
+    max-height: 90vh; /* Adjust based on viewport height */
+    text-align: left;
 }
 
 .search_title{
@@ -20,92 +31,94 @@
     width: 100px;
 }
 
-.ResolutionSlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+.ResolutionSlider, .YearRangeSlider, .NASlider, .ProteinSlider, .MolecularWeightSlider {
+    /* margin-bottom: 10px; */
+    text-align: left;
+    align-items: flex-start; /* Align content to the left */
+    text-align: left; /* Ensure labels are aligned to the left */
+    margin-top: 27px;
+    width: 100%;
+    padding-left: 20px;
 }
 
-.ExperimentalModalitySelector{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+.SearchTextField, .search-button {
+    width: 90%; /* Adjust width as necessary */
+    margin: 10px 0; /* Uniform vertical margin */
 }
 
-.NucleicAcidSelector{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+.SearchTextField {
+    max-width: 100%; /* Utilize the full width available */
 }
 
-.NASlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
-
+.QueryResults {
+    flex: 3; /* Takes up remaining space */
+    width: 70%; /* Corresponding width */
 }
 
-.ProteinSlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+.FormGroup {
+    margin-bottom: 10px; /* Less space between groups */
 }
 
-.YearRangeSlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+.FormControlLabel {
+    margin-bottom: 5px; /* Reduce space between each checkbox */
 }
 
-.MolecularWeightSlider{
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+.FormControlLabel-label {
+    margin-left: 5px; /* Reduce space between checkbox and label */
 }
-  
-.horizontal_container{
+
+/* Style adjustments for resolution and other sliders */
+.Slider-container {
+    width: 100%;
+    padding: 5px 0; /* Compact padding around sliders */
+}
+
+
+/* Style for the Paper component in SearchTextField, if you can add a className to it */
+.paper-style {
+    width: 100%; /* Make sure the Paper component takes full available width */
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 8px 16px; /* Adjust padding to better fit the design */
 }
 
-.horizontal_container_2{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.input-base-style {
+    flex-grow: 1; /* Ensures the input field expands to fill space */
 }
 
-.SearchTextField{
-    margin-bottom: 3em;
-    margin-top: 1em;
+.ari-search-button {
+    margin-bottom: 10px !important; /* Adds 20px space below the button */
 }
 
-.QueryResults{
+.NucleicAcidSelector,
+.ExperimentalModalitySelector {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Keeps the slider and its label centered horizontally */
-    width: 100%; /* Ensures the slider takes the full width if needed */
-    margin: 3em; /* Adds some space between the title and the slider */
-    text-align: center;
+    align-items: flex-start; /* Aligns children (checkboxes and labels) to the left */
+    width: 100%;
+    padding-left: 10px;
+}
+
+.NucleicAcidSelector p,
+.ExperimentalModalitySelector p {
+    width: 100%; /* Ensures the paragraph (title) takes full width */
+    text-align: left; /* Aligns text to the left */
+}
+
+.Box {
+    width: calc(100% - 20px); /* Adjust the width to be slightly less than 100% if needed for padding */
+    margin-left: 10px; /* Ensures alignment starts at the same horizontal point */
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .search-container,
+    .QueryResults {
+        width: 100%; /* Full width on mobile */
+        max-width: none; /* Override any max-width set */
+    }
 }

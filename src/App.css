@@ -1,3 +1,7 @@
+body, button, input, textarea {
+  font-family: 'Arial', sans-serif !important; /* Replace 'Roboto' with your font */
+}
+
 .App {
   text-align: center;
 }
@@ -276,10 +280,10 @@ iframe#webpack-dev-server-client-overlay {
   flex: 2; /* Adjusted to handle the margin */
 }
 
-.ss-python-graph {
-  flex: 0 0 48%; /* Adjusted to handle the margin */
-  margin-right: 2%; /* Adds margin to the right of the ss-python-graph */
-}
+/* .ss-python-graph {
+  flex: 0 0 48%;
+  margin-right: 2%;
+} */
 
 .structure-info {
   flex: 30%;
@@ -303,6 +307,42 @@ iframe#webpack-dev-server-client-overlay {
   margin-top: 10px; 
 }
 
+/* Container for the lower row */
+.bottom_row {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 20px; /* Optional, adds some space from the top */
+  overflow-x: auto;
+  align-items: flex-start;
+}
+
+/* Styles for the SS Python Graph */
+.ss-python-graph {
+  flex: 0 0 30%;
+  padding-right: 10px;
+}
+
+/* Styles for the Table */
+.table-container { /* Assuming Table component has a wrapper div with this class */
+  flex: 0 0 45%; /* Do not grow, do not shrink, basis of 50% */
+}
+
+.ss-instructions-div {
+  flex: 0 20%;
+  background-color: #f7f7f7; /* Light gray background */
+  color: #333; /* Dark gray text - better for readability than pure black */
+  padding: 20px; /* Adds space inside the div */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-right: 10px; /* Adds space outside the div */
+  margin-left: 40px;
+  height: 98%;
+  text-align: left; /* Ensure everything else is left-aligned */
+}
+
+.ss-instructions-div h2 {
+  text-align: center; /* Center the title element */
+}
 
 @media (max-width: 1050px) {
   .viewer-container {
@@ -311,11 +351,16 @@ iframe#webpack-dev-server-client-overlay {
   .structure-info {
     flex: 100%;
   }
-  .ss-python-graph {
+  .ss-python-graph, .table-container {
     flex: 0 0 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+    width: 100%;
+    margin-bottom: 10px;
   }
-
-  .left-col {
+  
+  .left-col, .bottom_row {
     flex-direction: column; /* Change to column to stack items vertically on mobile */
   }
   .whole_container {
@@ -325,6 +370,9 @@ iframe#webpack-dev-server-client-overlay {
     display: none;
   }
   #legend_div{
+    display: none;
+  }
+  .ss-instructions-div{
     display: none;
   }
 }

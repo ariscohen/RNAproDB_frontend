@@ -2,28 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './Table.css'
 import { useParams } from 'react-router-dom';
 
-function Table() {
-  const [data, setData] = useState({});
+function Table({data}) {
   const [activeTab, setActiveTab] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/1ivs_table.json?cache-bust=${Date.now()}`);
-        console.log('Response:', response);
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const responseText = await response.text();
-        console.log('Response Text:', responseText);
-
-        const jsonData = JSON.parse(responseText);
-        console.log('JSON Data:', jsonData);
-
-        setData(jsonData);
-        setActiveTab(Object.keys(jsonData)[0]); // Set the first tab as active by default
+        // console.log('JSON Data:', data);
+        setActiveTab(Object.keys(data)[0]); // Set the first tab as active by default
       } catch (error) {
         console.error('Error fetching the JSON data:', error);
       }
@@ -61,6 +47,7 @@ function Table() {
 
   return (
     <div>
+      <h5>Tabular data</h5>
       <div className="tabs">
         {Object.keys(data).map((key) => (
           <button key={key} onClick={() => setActiveTab(key)} className={activeTab === key ? 'active' : ''}>

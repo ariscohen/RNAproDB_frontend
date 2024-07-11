@@ -41,6 +41,8 @@ const Home = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
 
+  const [tableData, setTableData] = useState({});
+
   const [graphData, setGraphData] = useState(null); // DATA FOR SS PYTHON GRAPH
 
   const checkboxRef = useRef(null); // for the toggle tertiary checkbox
@@ -111,15 +113,13 @@ const Home = () => {
         <div className="whole_container">
         <div className="column" id="left_column_wrapper">
           <div className ="left-col">
-          <div className="structure-info" id="left_column_top">
+          {pdbid && pdbid.length < 7 && 
+          (<div className="structure-info" id="left_column_top">
             <h5>Structure info</h5>
                 <StructureInfo />
           </div>
-                {/* {graphData && tooLarge !== true && (
-                    <div className="ss-python-graph">
-                        <SSPythonGraph graphData={graphData}/>
-                    </div>
-                )} */}
+          )}
+
             <div className="viewer-container">
                     <h5>Sequence viewer</h5>
                     {chainsObject !== false && (
@@ -199,8 +199,15 @@ const Home = () => {
                   <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
                 </div>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
+
                 <div id="right_column" onClick={window.reset_graph_colors}>
+                <div style={{ marginTop: '0px', marginBottom: '5px' }}>
+                                <strong>Translate:</strong> drag + left click &nbsp;
+                                <strong>Zoom:</strong> scroll &nbsp;
+                                <strong>Show info:</strong> hover &nbsp;
+                                <strong>Select:</strong> click (shift to multi-select) &nbsp;
+                            </div>
                   <NewPythonGraph
                     pdbid={pdbid}
                     setGraphData={setGraphData}
@@ -216,7 +223,9 @@ const Home = () => {
                     tooLarge3d={tooLarge3d}
                     setTooLarge3d={setTooLarge3d}
                     setInitialGraphData={setInitialGraphData}
+                    setTableData={setTableData}
                   />
+
                 </div>
                 <div id="legend_div" style={{ marginLeft: '20px', textAlign: 'center' }}>
                   <img src={basePairingLegend} alt="Base Pairing Legend" className="base-pairing-legend" style={{ height: '400px' }} />
@@ -238,7 +247,29 @@ const Home = () => {
             )}
           </div>
         </div>
-        <Table />
+        <div className='bottom_row'>
+        {graphData && !tooLarge && (
+          <div className="ss-instructions-div">
+            <p>The <b>Secondary structure selector</b> is a coarse-grained visualization that shows broad secondary structure elements of the structure.</p>
+            <p>It can be used to quickly find and visualize certain areas of the structure.</p>
+            <p>Left clicking an element will open the subgraph view in <b>Interface explorer</b>, adding its corresponding nodes. Simply click <b>Generate subgraph</b> to then visualize these nodes and their neighbors.</p>
+            <p>Multiple elements can be added to a subgraph by clicking additional elements one-by-one.</p>
+            <p>Protein elements are shown to orient the user; however, they are not interactable. To view them in the subgraph, simply select the secondary structure element to which they are connected.</p>
+            </div>
+        )}
+
+          {graphData && !tooLarge && (
+            <div className="ss-python-graph">
+              <SSPythonGraph graphData={graphData}/>
+            </div>
+          )}
+          {rotationMatrix && (
+            <div className="table-container">
+              <Table data={tableData}/>
+            </div>
+          )}
+        </div>
+
       </TitleContext.Provider>
     </div>
   );

@@ -1,6 +1,6 @@
 export default function Docs() {
     return (
-        <div className="content text-left">
+        <div className="content-doc text-left">
             <h1 className="text-[#000000] font-bold mt-5 w-full pl-8 pr-8">Documentation</h1>
 
             <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">Introduction</h2>
