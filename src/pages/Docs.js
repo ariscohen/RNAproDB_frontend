@@ -6,7 +6,7 @@ export default function Docs() {
             <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">Introduction</h2>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                <b className="text-[#A2A0D3]">RNAproDB</b> is an interactive database designed to assist researchers in the structural analysis of RNA-protein complexes.
+                <b className="text-[#A2A0D3]">RNAproDB</b> is a web server and interactive database designed to assist researchers in the structural analysis of RNA-protein complexes.
                 <br />
                 <b className="text-[#A2A0D3]">RNAproDB</b> provides an interface explorer on every structure page, displaying the nucleic acid structure in 2D along with interacting protein residues.
                 <br />
