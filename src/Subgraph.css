@@ -49,3 +49,11 @@
   border: 1px solid #ccc; /* Adds a subtle border around the textarea */
   box-sizing: border-box; /* Includes padding and border in the width */
 }
+
+#generate-subgraph-button{
+  color: white;
+  background-color: #4CAF50;
+}
+#generate-subgraph-button:hover {
+  background-color: #388E3C;
+}
