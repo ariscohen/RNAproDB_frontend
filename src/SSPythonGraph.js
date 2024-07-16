@@ -66,7 +66,7 @@ function SSPythonGraph({ graphData }) { // Ensure props are correctly destructur
         width="100%"
         height="700"
         onLoad={iframeLoadHandler}
-        style={{ border: '1px solid black' }}
+        style={{ border: '1px solid black'}} //overflow: 'hidden' 
       ></iframe>
     </div>
   );

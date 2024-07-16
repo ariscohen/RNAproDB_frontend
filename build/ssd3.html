@@ -116,26 +116,18 @@
         "ssSegments": "#dddddd"
       };
 
-      var svg = d3.select("#svg-container");
-      
       var minX = d3.min(nodes, function(d) { return d.x; });
       var minY = d3.min(nodes, function(d) { return d.y; });
       var maxX = d3.max(nodes, function(d) { return d.x; });
       var maxY = d3.max(nodes, function(d) { return d.y; });
 
-      var width = maxX - minX + 100;
-      var height = maxY - minY + 100;
-
-      svg.attr("width", width)
-         .attr("height", height);
-
+      var svg = d3.select("#svg-container")
+      
       var container = svg.append("g");
 
       var zoom = d3.behavior.zoom()
-        .scaleExtent([0.1, 10])
-        .on("zoom", zoomed);
-
-      svg.call(zoom);
+      .scaleExtent([0.1, 10])
+      .on("zoom", zoomed);
 
       var nonProteinNodes = nodes.filter(function(node) { return node.type !== "protein"; });
 
@@ -261,31 +253,6 @@
         .attr("y2", function(d) { return getNodeById(d.target).y - minY + 50; });
       
 
-
-      var nonProteinNodes = nodes.filter(function(node) { return node.type !== "protein"; });
-      fitGraphToView(nonProteinNodes);
-
-
-      var minX = d3.min(graph.nodes, function(d) { return d.x; });
-      var maxX = d3.max(graph.nodes, function(d) { return d.x; });
-      var minY = d3.min(graph.nodes, function(d) { return d.y; });
-      var maxY = d3.max(graph.nodes, function(d) { return d.y; });
-
-      var svgWidth = +svg.attr("width");
-      var svgHeight = +svg.attr("height");
-
-      var width = maxX - minX;
-      var height = maxY - minY;
-
-      var scale = 0.95 / Math.max(width / svgWidth, height / svgHeight);
-      var translate = [(svgWidth - width * scale) / 2 - minX * scale, (svgHeight - height * scale) / 2 - minY * scale];
-
-      zoom.scale(scale).translate(translate);
-      container.attr("transform", "translate(" + translate + ")scale(" + scale + ")");
-
-      svg.call(zoom);
-
-
       function zoomed() {
         container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       }
@@ -337,6 +304,78 @@
       function dragended(d) {
         d3.select(this).classed("dragging", false);
       }
+      function calculateGraphBounds() {
+        var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        
+        d3.selectAll(".node, .protein").each(function() {
+          var node = d3.select(this);
+          var x = +node.attr("cx") || +node.attr("x");
+          var y = +node.attr("cy") || +node.attr("y");
+          var r = +node.attr("r") || 0;
+          var width = +node.attr("width") || 0;
+          var height = +node.attr("height") || 0;
+
+          minX = Math.min(minX, x - r - width/2);
+          minY = Math.min(minY, y - r - height/2);
+          maxX = Math.max(maxX, x + r + width/2);
+          maxY = Math.max(maxY, y + r + height/2);
+        });
+
+        return {minX: minX, minY: minY, maxX: maxX, maxY: maxY};
+      }
+      function updateGraph() {
+        var width = document.body.clientWidth;
+        var height = 700;
+
+        svg.attr("width", width)
+          .attr("height", height);
+
+        var bounds = calculateGraphBounds();
+        var graphWidth = bounds.maxX - bounds.minX;
+        var graphHeight = bounds.maxY - bounds.minY;
+
+        // Add some padding
+        var padding = 20;
+
+        // Calculate scale to fit the entire graph with padding
+        var scaleX = (width - padding * 2) / graphWidth;
+        var scaleY = (height - padding * 2) / graphHeight;
+        var scale = Math.min(scaleX, scaleY);
+
+        // Calculate translation to center the graph
+        var translateX = (width / 2) - ((bounds.maxX + bounds.minX) / 2 * scale);
+        var translateY = (height / 2) - ((bounds.maxY + bounds.minY) / 2 * scale);
+
+        // Apply transformation
+        container.attr("transform", "translate(" + translateX + "," + translateY + ") scale(" + scale + ")");
+
+        // Update zoom behavior
+        zoom.scale(scale)
+            .translate([translateX, translateY])
+            .scaleExtent([scale * 0.5, scale * 4]);
+
+        svg.call(zoom);
+        // console.log("maxX:", maxX);
+        // console.log("maxY:", maxY);
+        // console.log("SVG dimensions:", width, height);
+        // console.log("Graph dimensions:", graphWidth, graphHeight);
+        // console.log("Scale:", scale);
+        // console.log("Translation:", translateX, translateY);
+        // svg.append("rect")
+        //   .attr("width", width)
+        //   .attr("height", height)
+        //   .style("fill", "none")
+        //   .style("stroke", "red");
+        //   container.append("circle")
+        //   .attr("cx", 0)
+        //   .attr("cy", 0)
+        //   .attr("r", 5)
+        //   .style("fill", "blue");
+      }
+      updateGraph();
+      window.addEventListener('resize', updateGraph);
+      d3.select("body").style("margin", "0").style("padding", "0");
+      svg.style("display", "block");
     }
     // });
   </script>

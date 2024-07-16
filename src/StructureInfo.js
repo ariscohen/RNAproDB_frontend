@@ -22,8 +22,7 @@ function StructureInfo() {
             }
 
             try {
-                const IP = `rohslab.usc.edu`;
-                const response = await fetch(`https://${IP}/rnaprodb-backend/rnaprodb/get_struct_info?pdbid=${pdbid}`);
+                const response = await fetch(`/rnaprodb-backend/rnaprodb/get_struct_info?pdbid=${pdbid}`);
                 const data = await response.json();
                 console.log("Fetched data", data); // Log the fetched data
                 sessionStorage.setItem(cacheKey, JSON.stringify(data));
