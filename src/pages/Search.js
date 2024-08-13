@@ -418,7 +418,7 @@ function YearRangeSlider(props) {
 
 
 function NucleicAcidSelector({ updateSearchParams }) {
-  const [selectedNucleicAcids, setSelectedNucleicAcids] = React.useState(['DNA (only)', 'RNA (only)', 'Hybrid']);
+  const [selectedNucleicAcids, setSelectedNucleicAcids] = React.useState(['DNA', 'RNA', 'Protein']);
   // const [selectedNucleicAcids, setSelectedNucleicAcids] = React.useState(['RNA (only)']);
 
 
@@ -437,7 +437,7 @@ function NucleicAcidSelector({ updateSearchParams }) {
 
   return (
     <FormGroup className="FormGroup">
-      {['RNA (only)', 'DNA (only)', 'Hybrid'].map((type) => (
+      {['RNA', 'DNA', 'Protein'].map((type) => (
         <FormControlLabel
           key={type}
           control={
