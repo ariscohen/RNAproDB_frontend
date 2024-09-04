@@ -185,14 +185,17 @@ filter.select("feMerge")
       .attr("markerHeight", 3)
       .attr("orient", "auto")
       .append("path")
-      .attr("d", "M0,-5L10,0L0,5"); // The shape of the arrow
+      .attr("d", "M0,-5L10,0L0,5")  // The shape of the arrow
+      .attr("fill", "#000");
 
-      // Create links with a "double stroke" effect for borders
+
+    // Create links with a "double stroke" effect for borders
     var link = svg.selectAll(".link")
     .data(graph.links)
     .enter().append("line")
     .attr("class","link")
     .style("stroke-dasharray", function(d) { 
+      console.log("Distance 3d for link:", d.distance_3d);
       return d.my_type === "pair" ? "10,10" : "none"; // "none" for solid
      })
      .style("stroke", function(d) { return d.color; }) // Colored stroke

@@ -539,7 +539,7 @@ return (
       </div>
       <Button className="ari-search-button" variant="contained" onClick={handleSearch}>Search</Button>
         <div className='NucleicAcidSelector'>
-          <p><b>Nucleic Acid Type</b></p>
+          <p><b>Molecule Type</b></p>
           <NucleicAcidSelector updateSearchParams={updateSearchParams}/>
         </div>
 

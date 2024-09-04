@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGL.js PDB Viewer</title>
+    <script src="ngl.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #viewport {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="viewport"></div>
+    <script>
+        // Create an NGL Stage object
+        var stage = new NGL.Stage("viewport");
+
+        // Load the PDB file
+        stage.loadFile("2r5z.pdb").then(function(o) {
+            o.addRepresentation("cartoon", {
+                color: "chainid"
+            });
+            o.autoView();
+        });
+
+        // Load the electrostatic map (.dx file)
+        // stage.loadFile("2r5z.dx", { isovalues: [-5, 0, 5] }).then(function(o) {
+        //     o.addRepresentation("surface", {
+        //         color: "electrostatic",  // Using electrostatic color scheme
+        //         opacity: 0.7,
+        //         contour: true
+        //     });
+        //     o.autoView();
+        // });
+    </script>
+</body>
+</html>

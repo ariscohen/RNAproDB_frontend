@@ -185,7 +185,9 @@ filter.select("feMerge")
       .attr("markerHeight", 3)
       .attr("orient", "auto")
       .append("path")
-      .attr("d", "M0,-5L10,0L0,5"); // The shape of the arrow
+      .attr("d", "M0,-5L10,0L0,5")  // The shape of the arrow
+      .attr("fill", "#000");
+
 
     // Create links with a "double stroke" effect for borders
     var link = svg.selectAll(".link")

@@ -19,29 +19,31 @@ const DownloadGraph = async (format, graphRef, pdbid, algorithm, setInitialTrans
       a.click();
       document.body.removeChild(a);
     } else if (format === 'png') {
+      const scale = 8;  // Increase this value for higher resolution; 2x or 3x is typical
       const svgData = new XMLSerializer().serializeToString(svgElement);
       const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
       const url = URL.createObjectURL(svgBlob);
-
+  
       const img = new Image();
       img.onload = function () {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-
-        ctx.drawImage(img, 0, 0);
-
-        const pngURL = canvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = pngURL;
-        a.download = `${pdbid}_${algorithm}_graph.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width * scale;  // Scale up canvas dimensions
+          canvas.height = img.height * scale;
+          const ctx = canvas.getContext('2d');
+          ctx.scale(scale, scale);  // Scale up the drawing context
+          ctx.drawImage(img, 0, 0);
+  
+          const pngURL = canvas.toDataURL('image/png');
+          const a = document.createElement('a');
+          a.href = pngURL;
+          a.download = `${pdbid}_${algorithm}_graph.png`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
       };
       img.src = url;
-    } else if (format === 'json') {
+  }
+   else if (format === 'json') {
       try {
         const response = await fetch(`https://rohslab.usc.edu/rnaprodb-backend/rnaprodb/download_json/?pdbid=${pdbid}&algorithm=${algorithm}`);
         if (!response.ok) {
