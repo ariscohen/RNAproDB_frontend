@@ -1,0 +1,20 @@
+.edge-threshold-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .edge-threshold-label {
+    white-space: nowrap;
+    margin-right: 16px;
+  }
+  
+  .edge-slider {
+    width: 200px;
+    margin-right: 16px;
+  }
+  
+  .edge-threshold-value {
+    min-width: 20px;
+    text-align: right;
+  }
