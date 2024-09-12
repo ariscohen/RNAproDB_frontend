@@ -195,7 +195,7 @@ filter.select("feMerge")
     .enter().append("line")
     .attr("class","link")
     .style("stroke-dasharray", function(d) { 
-      console.log("Distance 3d for link:", d.distance_3d);
+      // console.log("Distance 3d for link:", d.distance_3d);
       return d.my_type === "pair" ? "10,10" : "none"; // "none" for solid
      })
      .style("stroke", function(d) { return d.color; }) // Colored stroke
@@ -437,7 +437,7 @@ filter.select("feMerge")
     // New NODE tooltip code
     const tooltip = d3.select("#tooltip");
     function generateTooltipContent(event) {
-      console.log(event);
+      // console.log(event);
       let content = `<div style="text-align: center;"><strong>${event.node_name} ${event.rnaprodb_id.split(":")[1]}${event.icode}</strong></div>`;
   
       // Attempt to parse the tooltip_table JSON
@@ -477,7 +477,7 @@ filter.select("feMerge")
 
       // RAKTIM ADD EDGE STUFF HERE
       function generateEdgeTooltipContent(d) {
-        console.log(d);
+        // console.log(d);
     // You can customize this content based on the edge data
     let content = `<strong>Connection:</strong> ${d.source.node_name} to ${d.target.node_name}<br/>`;
             // Attempt to parse the tooltip_table JSON
@@ -1268,7 +1268,7 @@ function setProteinOpacity(){ //currently links only, opacity conflicts with nod
             //var sourceIsRect = d.source.type === 'rect';
             //var targetIsCircle = d.target.type === 'circle';
             //if (sourceIsRect && targetIsCircle || targetIsCircle && sourceIsRect) {
-                console.log("hereee", opacityScale(d.distance_3d), d.distance_3d)
+                // console.log("hereee", opacityScale(d.distance_3d), d.distance_3d)
               return opacityScale(d.distance_3d);
             //}
             //return 1;
@@ -1363,13 +1363,17 @@ function toggleTertiaryEdges(isChecked) {
 window.toggleTertiaryEdges = toggleTertiaryEdges;
 
 // Toggle function to hide/show protein-related elements
-function toggleProteinVisibility() {
+function toggleProteinVisibility(setVisible=false) {
   console.log("toggleProteinVisibility inside d3graphscript");
   var isVisible = d3.select("#toggleProteinCheckbox").property("checked");
 
+  if(setVisible){
+    isVisible = false;
+  }
+
   // Toggle links associated with protein nodes
   svg.selectAll(".link")
-    .filter(function(d) { return d.source.shape === 'rect' || d.target.shape === 'rect'; })
+    .filter(function(d) {return d.source.shape === 'rect' || d.target.shape === 'rect'; })
     .style("display", isVisible ? "none" : "inline");
 
   // Toggle protein nodes and their labels
@@ -1379,11 +1383,67 @@ function toggleProteinVisibility() {
   // Toggle associated decorative elements like circles, triangles, and squares on edges
   svg.selectAll(".waterMediatedCircle, .linkTriangleRight, .linkTriangleLeft, .linkSquareLeft, .linkSquareRight, .linkSquareCenter, .linkTriangleCenter, .linkCircleLeft, .linkCircleRight, .linkCircleCenter")
     .filter(function(d) { return d.source.shape === 'rect' || d.target.shape === 'rect'; })
-    .style("display", isVisible ? "none" : "inline");
+    .style("display", isVisible ? "none" : "inline");  
 }
 window.toggleProteinVisibility = toggleProteinVisibility;
 
+// Toggle function to hide/show protein-related elements
+function filterEdges(edgeThreshold) {
+  console.log("filtering edges inside d3graphscript");
+  edgeThreshold = parseFloat(edgeThreshold);
 
+  // first make everything visible
+  toggleProteinVisibility(true);
+
+  // proteins to keep
+  var proteinsToKeep = new Set();
+
+  // Toggle links associated only with protein nodes (circles are nucleotides)
+  // choose which ones to hide
+  svg.selectAll(".link")
+    .filter(function(d) {
+      // console.log(d); 
+      if (d.my_type === "pair" || d.my_type === "backbone"){ 
+        return false; // false means show // do not filter backbone or pairs
+      } 
+
+      if(d.distance_3d > edgeThreshold){
+        return true;
+      }
+
+      // keep the residues that should be shown
+      proteinsToKeep.add(d.source_id);
+      proteinsToKeep.add(d.target_id);
+      return false; // false means show
+    })
+    .style("display", "none");
+
+  svg.selectAll('g.node[shape_class="rect"]')
+    .filter(function(d) {
+      // console.log(d);
+      if(proteinsToKeep.has(d.rnaprodb_id)){
+        return false; // false means show
+      }
+      return true;
+    })
+    .style("display", "none");
+
+  // // Toggle associated decorative elements like circles, triangles, and squares on edges
+  svg.selectAll(".waterMediatedCircle, .linkTriangleRight, .linkTriangleLeft, .linkSquareLeft, .linkSquareRight, .linkSquareCenter, .linkTriangleCenter, .linkCircleLeft, .linkCircleRight, .linkCircleCenter")
+    .filter(function(d) { 
+      // false equals show
+      if(d.distance_3d <= edgeThreshold){
+        return false;
+      }
+      if (d.my_type === "pair" || d.my_type === "backbone"){
+        return false;
+      }
+      // true equals hide
+      return true;
+    })
+    .style("display", "none");  
+}
+window.filterEdges = filterEdges;
 
 function toggleHBondsColor() {
   var newColor = "red";

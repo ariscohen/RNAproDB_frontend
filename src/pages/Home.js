@@ -21,6 +21,7 @@ import ZoomFit from '../ZoomFit';
 import SSPythonGraph from '../SSPythonGraph.js';
 import StructureInfo from '../StructureInfo.js';
 import Table from "../Table.js";
+import EdgeThresholdSlider from '../EdgeThresh.js';
 const Home = () => {
   const { pdbid, urlAlgorithm } = useParams();
   const columnRef = useRef(null);
@@ -49,6 +50,7 @@ const Home = () => {
 
   const algorithm = urlAlgorithm || 'pca'; // get algorithm from link
   const [algorithmText, setAlgorithmText] = useState(false);
+
 
   // if checkbox toggled, call the tertiary edges stuff
   useEffect(() => {
@@ -210,6 +212,7 @@ const Home = () => {
                 <div className="subgraph-container">
                   <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
                 </div>
+                <EdgeThresholdSlider></EdgeThresholdSlider>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
 
