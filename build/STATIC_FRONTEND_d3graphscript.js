@@ -1402,18 +1402,18 @@ function filterEdges(edgeThreshold) {
   // choose which ones to hide
   svg.selectAll(".link")
     .filter(function(d) {
-      // console.log(d); 
       if (d.my_type === "pair" || d.my_type === "backbone"){ 
         return false; // false means show // do not filter backbone or pairs
       } 
 
       if(d.distance_3d > edgeThreshold){
+        console.log("Threshold for: ");
+        console.log(d);
         return true;
       }
-
       // keep the residues that should be shown
-      proteinsToKeep.add(d.source_id);
-      proteinsToKeep.add(d.target_id);
+      proteinsToKeep.add(d.source.rnaprodb_id);
+      proteinsToKeep.add(d.target.rnaprodb_id);
       return false; // false means show
     })
     .style("display", "none");

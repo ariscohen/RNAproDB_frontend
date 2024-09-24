@@ -51,6 +51,7 @@ const Home = () => {
   const algorithm = urlAlgorithm || 'pca'; // get algorithm from link
   const [algorithmText, setAlgorithmText] = useState(false);
 
+  const [triggerThreshReset, setTriggerThreshReset] = useState(false);
 
   // if checkbox toggled, call the tertiary edges stuff
   useEffect(() => {
@@ -105,6 +106,13 @@ const Home = () => {
       return;
     }
     window.location = `${window.location.origin}/rnaprodb/${pdbid}/${selectedAlgorithm}`;
+  };
+
+
+  // reset threshold after hiding protein
+  const handleProteinChange = (e) => {
+    setTriggerThreshReset(!triggerThreshReset);
+    window.toggleProteinVisibility();
   };
 
     // set algorithm text
@@ -184,7 +192,7 @@ const Home = () => {
                           id="toggleProteinCheckbox"
                           type="checkbox"
                           defaultChecked={false}
-                          onChange={(e) => window.toggleProteinVisibility()}
+                          onChange={handleProteinChange}
                         />
                         <span className="slider round"></span>
                       </label>
@@ -212,7 +220,7 @@ const Home = () => {
                 <div className="subgraph-container">
                   <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
                 </div>
-                <EdgeThresholdSlider></EdgeThresholdSlider>
+                <EdgeThresholdSlider resetThreshold = {triggerThreshReset}></EdgeThresholdSlider>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
 
