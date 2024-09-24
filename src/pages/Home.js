@@ -247,6 +247,8 @@ const Home = () => {
                     setTooLarge3d={setTooLarge3d}
                     setInitialGraphData={setInitialGraphData}
                     setTableData={setTableData}
+                    setTriggerThreshReset ={setTriggerThreshReset}
+                    triggerThreshReset={triggerThreshReset}
                   />
 
                 </div>

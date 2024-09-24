@@ -4,7 +4,7 @@ import TitleContext from './TitleContext';
 import $ from 'jquery';
 
 function NewPythonGraph({ pdbid, dimensions, subgraph, algorithm, isFirst, setSS, setChainsObject, 
-  setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData, setGraphData, setTableData }) {
+  setTooLarge, tooLarge, setRotationMatrix, setInitialGraphData, setGraphData, setTableData, setTriggerThreshReset, triggerThreshReset }) {
   const [data, setData] = useState(null);
   const { setTitle } = useContext(TitleContext);
   const [tooLargeMessage, setTooLargeMessage] = useState('');
@@ -98,6 +98,7 @@ function NewPythonGraph({ pdbid, dimensions, subgraph, algorithm, isFirst, setSS
 
           loadD3();
         }
+        setTriggerThreshReset(!triggerThreshReset);
       }
     }
   }, [data, dimensions, setTitle, setSS, setChainsObject, setRotationMatrix, setInitialGraphData]);
