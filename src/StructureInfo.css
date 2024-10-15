@@ -1,14 +1,34 @@
 #structureInfoDiv {
-    background-color: #f7f7f7; /* Light gray background */
-    color: #333; /* Dark gray text - better for readability than pure black */
-    padding: 20px; /* Adds space inside the div */
-    border-radius: 8px; /* Rounded corners for a modern look */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    margin: 10px; /* Adds space outside the div */
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
     height: 98%;
-    text-align: left; /* Ensure everything else is left-aligned */
+    text-align: left;
+    word-wrap: break-word; /* This will ensure long words/URLs break to the next line */
 }
+
+#structureInfoDiv p {
+    margin: 10px 0;
+    word-wrap: break-word; /* Ensure text wraps properly */
+    line-height: 1.5; /* Increase line height for better readability */
+}
+
 
 #structureInfoDiv h2 {
     text-align: center; /* Center the title element */
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+    #structureInfoDiv {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
+
+    #structureInfoDiv p {
+        font-size: 14px; /* Slightly reduce the font size on smaller screens */
+        line-height: 1.4;
+    }
 }

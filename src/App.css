@@ -266,18 +266,28 @@ iframe#webpack-dev-server-client-overlay {
 }
 
 
+/* Viewer container takes the remaining 70% and stacks seq-viewer and ngl-viewer */
 .viewer-container {
-  flex: 70%;
+  flex: 1; /* Take remaining space in left-col (70%) */
   display: flex;
-  flex-direction: column; /* This makes SeqViewer and NGLViewer stack vertically */
+  flex-direction: column; /* Stack seq-viewer and ngl-viewer vertically */
+  max-width: 70%; /* Ensure it doesn't overflow */
+  overflow: hidden;
 }
 
-.seq-viewer {
+/* .seq-viewer {
+  max-width: 100%;
   flex: 1;
 }
 
 .ngl-viewer {
-  flex: 2; /* Adjusted to handle the margin */
+  flex: 2;
+} */
+
+/* Ensure Sequence Viewer and NGL Viewer stack vertically within viewer-container */
+.seq-viewer, .ngl-viewer {
+  flex: 1; /* Both share the available vertical space equally */
+  max-width: 100%;
 }
 
 /* .ss-python-graph {
@@ -285,15 +295,15 @@ iframe#webpack-dev-server-client-overlay {
   margin-right: 2%;
 } */
 
+/* Structure info takes 30% of the left col */
 .structure-info {
-  flex: 30%;
-  margin-right: 20px; /* Add space between structure-info and viewer-container */
-  /* additional styles for padding, margin, etc., as needed */
+  flex: 0 0 30%; /* Fixed 30% width */
+  max-width: 30%; /* Ensure it doesn't overflow */
+  margin-right: 20px; /* Optional, to add some spacing */
 }
 
 .left-col{
   display: flex;
-  flex-direction: row; /* Ensure it's row to place items side by side */
   width: 100%;
 }
 
@@ -345,34 +355,40 @@ iframe#webpack-dev-server-client-overlay {
 }
 
 @media (max-width: 1050px) {
+  .structure-info,
   .viewer-container {
-    flex: 100%;
-  }
-  .structure-info {
-    flex: 100%;
-  }
-  .ss-python-graph, .table-container {
-    flex: 0 0 100%;
-    margin-left: 0;
-    margin-right: 0;
-    padding-right: 0;
     width: 100%;
-    margin-bottom: 10px;
+    max-width: 100%;
   }
-  
+
+  /* Adjust flex direction for left-col */
   .left-col, .bottom_row {
-    flex-direction: column; /* Change to column to stack items vertically on mobile */
+    flex-direction: column; /* Stack structure-info, seq-viewer, and ngl-viewer vertically */
+    width: 100%; /* Ensure left-col takes up full width */
   }
+
+  /* Ensure seq-viewer and ngl-viewer stack vertically and fill full width */
+  .seq-viewer, .ngl-viewer, .ss-python-graph, .table-container {
+    width: 100%; /* Full width for both */
+    max-width: 100%;  /* Ensure no overflow */
+  }
+
+  /* Ensure that the right column takes full width too */
   .whole_container {
     grid-template-columns: 100%; /* Switch to one column for mobile */
+    width: 100%; /* Full width for the container */
   }
-  #left_column_top{
+
+  /* Hide elements that are not needed on small screens */
+  #left_column_top {
     display: none;
   }
-  #legend_div{
+
+  #legend_div {
     display: none;
   }
-  .ss-instructions-div{
+
+  .ss-instructions-div {
     display: none;
   }
 }

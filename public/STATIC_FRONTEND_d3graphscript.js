@@ -1064,7 +1064,10 @@ function select_node(idToFind){
 
 // format of string should be chain:residue:#
 function d3_highlight_node(idToFind){
+  console.log("In d3 highlight node");
+  console.log("idtofind", idToFind);
   var curNode = select_node(idToFind);
+  console.log("curNode", curNode);
   reset_node_colors();
 
   // Set the color on click for rect

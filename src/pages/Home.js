@@ -22,6 +22,8 @@ import SSPythonGraph from '../SSPythonGraph.js';
 import StructureInfo from '../StructureInfo.js';
 import Table from "../Table.js";
 import EdgeThresholdSlider from '../EdgeThresh.js';
+import Electrostatics from '../Electrostatics.js';
+
 const Home = () => {
   const { pdbid, urlAlgorithm } = useParams();
   const columnRef = useRef(null);
@@ -134,29 +136,31 @@ const Home = () => {
         <div id="edgeTooltip"></div>
         <div className="whole_container">
         <div className="column" id="left_column_wrapper">
-          <div className ="left-col">
-          {pdbid && pdbid.length < 7 && 
-          (<div className="structure-info" id="left_column_top">
-            <h5>Structure info</h5>
-                <StructureInfo />
-          </div>
-          )}
-
-            <div className="viewer-container">
-                    <h5>Sequence viewer</h5>
-                    {chainsObject !== false && (
-                            <div className="seq-viewer">
-                                <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
-                            </div>
-                    )}
-                    {rotationMatrix !== false && tooLarge !== true && (
-                        <div className="ngl-viewer">
-                            <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
-                        </div>
-                    )}
-            </div>
-          </div>
+    <div className="left-col">
+      {/* Structure Info - Takes up 30% */}
+      {pdbid && pdbid.length < 7 && (
+        <div className="structure-info" id="left_column_top">
+          <h5>Structure Info</h5>
+          <StructureInfo />
         </div>
+      )}
+
+      {/* Viewer Container - Takes up the remaining 70%, stacking Sequence and NGL viewers */}
+      <div className="viewer-container">
+        <h5>Sequence Viewer</h5>
+        {chainsObject && (
+          <div className="seq-viewer">
+            <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
+          </div>
+        )}
+        {rotationMatrix && !tooLarge && (
+          <div className="ngl-viewer">
+            <NGLViewer rotationMatrix={rotationMatrix} algorithm={algorithm} />
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
           <div className="column" ref={columnRef} id="right_column_top">
             <h5>Interface explorer</h5>
             <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none', paddingTop: '0px' }} ref={graphRef}>
@@ -294,7 +298,9 @@ const Home = () => {
             </div>
           )}
         </div>
-
+        <div>
+          <Electrostatics />
+        </div>
       </TitleContext.Provider>
     </div>
   );
