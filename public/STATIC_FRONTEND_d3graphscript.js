@@ -9,6 +9,15 @@ tooltipColorDict = {
 var multiple_select = [];
 var prev_single_select;
 
+var transformState = {
+  translateX: 0,
+  translateY: 0,
+  rotation: 0,
+  scale: 1
+};
+
+let disableZoomFit = false;
+
 function static_d3graphscript(config = {
     // Default values
     width: 800,
@@ -59,9 +68,19 @@ function static_d3graphscript(config = {
         .attr("width", width)
         .attr("height", height)
         .attr("class","interfaceGraph")
-        .call(d3.behavior.zoom().on("zoom", function () { svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")") }))
-        .on("dblclick.zoom", null)
-        .append("g")
+        .call(d3.behavior.zoom().on("zoom", function () {
+          // Update the transform state with the current zoom translate and scale values
+          transformState.translateX = d3.event.translate[0];
+          transformState.translateY = d3.event.translate[1];
+          transformState.scale = d3.event.scale;
+      
+          // Apply the transformation, including rotation from transformState
+          svg.attr("transform", "translate(" + transformState.translateX + "," + transformState.translateY + ") " +
+                                "scale(" + transformState.scale + ") " +
+                                "rotate(" + transformState.rotation + ")");
+      }))
+              .on("dblclick.zoom", null)
+        .append("g");
 
     // Append a defs (definitions) section to your SVG
 var defs = svg.append("defs");
@@ -147,23 +166,26 @@ filter.select("feMerge")
     
     // DRAGGING START
     function dragstarted(d) {
-        if(isForcefieldActive){
-          force.start()
-        }
-        d3.event.sourceEvent.stopPropagation();
-        d3.select(this).classed("dragging", true);
+      disableZoomFit = true;
+      d3.event.sourceEvent.stopPropagation();
+      d3.select(this).classed("dragging", true);
+      d.fx = d.x; // Set the fixed position to the current position
+      d.fy = d.y;
+  }
+  
+  function dragged(d) {
+      d.fx = d3.event.x; // Update the fixed x-position
+      d.fy = d3.event.y; // Update the fixed y-position
+  }
+  
+  function dragended(d) {
+      d3.select(this).classed("dragging", false);
+      if (!d3.event.active) {
+          d.fx = null; // Allow the node to move freely again
+          d.fy = null;
       }
-      
-    function dragged(d) {
-    d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-    }
-    
-    function dragended(d) {
-    force.stop() //stop movement after dragging ends
-    d3.select(this).classed("dragging", false);
-    }
+  }
+  
     
     var drag = force.drag()
     .origin(function(d) { return d; })
@@ -358,22 +380,6 @@ filter.select("feMerge")
         .style("opacity", function(d) { return d.node_opacity; })
         .style("stroke-width", function(d) { return 2; })
         .style("stroke", "#4169e1");
-      
-
-    // // ADD TEXT ON THE EDGES (PART 1/2)
-    //  var linkText = svg.selectAll(".link-text")
-    //    .data(graph.links)
-    //    .enter().append("text")
-    //    .attr("class", "link-text")
-    //    .attr("font-size", function(d) {return d.label_fontsize + "px";})
-    //    .style("fill", function(d) {return d.label_color;})
-    //    .style("font-family", "Arial")
-    //    //.attr("transform", "rotate(90)")
-    //    .text(function(d) { return d.label; });
-    //   //  .attr("x1", function(d) { console.log(d); return d.source.x; }) // HI ARI TRYING THESE
-    //   //  .attr("y1", function(d) { console.log(d); return d.source.y; })
-    //   //  .attr("x2", function(d) { console.log(d); return d.target.x; })
-    //   //  .attr("y2", function(d) { console.log(d); return d.target.y; });
 
     // //Do the same with the circles for the nodes
     var node = svg.selectAll(".node")
@@ -411,7 +417,10 @@ filter.select("feMerge")
     .text(function(d) { return d.node_name; }) // NODE-TEXT
     .style("font-size", function(d) { return d.node_fontsize + "px"; }) // Set font size equal to node edge size
     .style("fill", function(d) { return d.node_fontcolor; }) // Set the text fill color to the same as node color
-    .style("font-family", "monospace");
+    .style("font-family", "monospace")
+    .attr("transform", function(d) {
+      return "rotate(" + transformState.rotation + ")";
+  });
 
     
     // Create Circles for nodes with shape_class of "squares"
@@ -431,7 +440,10 @@ filter.select("feMerge")
     .text(function(d) {return d.node_name}) // NODE-TEXT
     .style("font-size", function(d) {return d.node_fontsize + "px";}) // set font size equal to node edge size
     .style("fill", function(d) {return d.node_fontcolor;}) // set the text fill color to the same as node color
-    .style("font-family", "monospace");
+    .style("font-family", "monospace")
+    .attr("transform", function(d) {
+      return "rotate(" + transformState.rotation + ")";
+  });
     
 
     // New NODE tooltip code
@@ -627,41 +639,59 @@ waterMediatedCircle.on("mouseover", function(event, d) {
   
       var zoom = d3.behavior
       .zoom()
-      .scaleExtent([1/4, 4])
-      .on('zoom.zoom', function () {
-        // console.trace("zoom", d3.event.translate, d3.event.scale);
-        root.attr('transform',
-          'translate(' + d3.event.translate + ')'
-          +   'scale(' + d3.event.scale     + ')');
-      })
-      ;
+      .scaleExtent([1 / 4, 4])
+      .on('zoom', function () {
+          // Update the transformState with the new translation and scale
+          transformState.translateX = d3.event.translate[0];
+          transformState.translateY = d3.event.translate[1];
+          transformState.scale = d3.event.scale;
+  
+          // Apply the current translation, scaling, and rotation to the root
+          root.attr('transform',
+              'translate(' + transformState.translateX + ',' + transformState.translateY + ') ' +
+              'scale(' + transformState.scale + ') ' +
+              'rotate(' + transformState.rotation + ')'
+          );
+      });
+  
       function zoomFit(transitionDuration) {
+        if(disableZoomFit){
+          return;
+        }
+        console.log("In Zoom fit");
         var bounds = svg.node().getBBox();
-        // console.log(bounds)
         var parent = svg.node().parentElement;
-        var fullWidth  = parent.clientWidth  || parent.parentNode.clientWidth,
+        var fullWidth = parent.clientWidth || parent.parentNode.clientWidth,
             fullHeight = parent.clientHeight || parent.parentNode.clientHeight;
-      
-        // console.log(fullWidth, fullHeight)
-      
-        var width  = bounds.width,
+    
+        var width = bounds.width,
             height = bounds.height;
         var midX = bounds.x + width / 2,
             midY = bounds.y + height / 2;
-        if (width == 0 || height == 0) return; // nothing to fit
+        if (width === 0 || height === 0) return; // nothing to fit
         var scale = 0.85 / Math.max(width / fullWidth, height / fullHeight);
         var translate = [
-            fullWidth  / 2 - scale * midX,
+            fullWidth / 2 - scale * midX,
             fullHeight / 2 - scale * midY
         ];
-      
-        //console.trace("zoomFit", translate, scale);
-      
-        svg
-            .transition()
+    
+        // Update transformState with the new translation and scale
+        transformState.translateX = translate[0];
+        transformState.translateY = translate[1];
+        transformState.scale = scale;
+    
+        // Apply the updated transformation to the root with the current rotation
+        svg.transition()
             .duration(transitionDuration || 0) // milliseconds
             .call(zoom.translate(translate).scale(scale).event);
-      }
+    
+        root.attr('transform',
+            'translate(' + transformState.translateX + ',' + transformState.translateY + ') ' +
+            'scale(' + transformState.scale + ') ' +
+            'rotate(' + transformState.rotation + ')'
+        );
+    }
+    
 
       // Flip X and Flip Y button functionality
       function handleFlipX() {
@@ -895,128 +925,95 @@ function collide(alpha) {
     //   var hasZoomFit = false; // Flag to ensure zoomFit is only called once
     var timetostopautozoom = 0
     var zoomstopthreshold = 100 // parameter, may not be optimal !!
-      function tick(e) {
-        // Update link positions
-        link.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
-        
-          // linkOverlay.attr("x1", function(d) { return d.source.x; })
-          //   .attr("y1", function(d) { return d.source.y; })
-          //   .attr("x2", function(d) { return d.target.x; })
-          //   .attr("y2", function(d) { return d.target.y; });
-    
-        // Update node positions
-        node.attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });
-        d3.selectAll("circle").attr("cx", function(d) { return d.x; }) // change this 
-            .attr("cy", function(d) { return d.y; });
-        d3.selectAll("text").attr("x", function(d) { return d.x; })
-            .attr("y", function(d) { return d.y; })
-        // linkText.attr("x", function(d) { return (d.source.x + d.target.x) / 2; })  // ADD TEXT ON THE EDGES (PART 2/2)
-        //     .attr("y", function(d) { return (d.source.y + d.target.y) / 2; })
-        //     .attr("text-anchor", "middle");
-        //     ;
-        d3.selectAll("rect").attr("x", function(d) { return d.x; }) // change this 
-            .attr("y", function(d) { return d.y; });
-        node.each(collide(0.5)); //COLLISION DETECTION. High means a big fight to get untouchable nodes (default=0.5)
-
-        
-        linkTriangleRight.attr("transform", d => {
-            let dx = d.target.x - d.source.x;
-            let dy = d.target.y - d.source.y;
-            const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
-            return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8}) rotate(${angle})`;
-        })
-        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-
-        
-        linkSquareLeft.attr("transform", d => {
-            let dx = d.target.x - d.source.x;
-            let dy = d.target.y - d.source.y;
-            const angle = (Math.atan2(dy, dx) * (180 / Math.PI));
-            return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
-        })
-        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-
-        
-        linkSquareRight.attr("transform", d => {
-            let dx = d.target.x - d.source.x;
-            let dy = d.target.y - d.source.y;
-            const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
-            return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8}) rotate(${angle})`;
-        })
-        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-        
-        linkSquareCenter.attr("transform", d => {
-            let dx = d.target.x - d.source.x;
-            let dy = d.target.y - d.source.y;
-            const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
-            return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
-        })
-        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-        
-        linkTriangleCenter.attr("transform", d => {
-            let dx = d.target.x - d.source.x;
-            let dy = d.target.y - d.source.y;
-            const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
-            return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
-        })
-        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-        
-        linkCircleLeft.attr("transform", d => {
-            let dx = d.target.x - d.source.x;
-            let dy = d.target.y - d.source.y;
-            const angle = (Math.atan2(dy, dx) * (180 / Math.PI));
-            return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
-        })
-        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-        
-        linkCircleCenter.attr("transform", d => {
-            let dx = d.target.x - d.source.x;
-            let dy = d.target.y - d.source.y;
-            const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
-            return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
-        })
-        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-
-        waterMediatedCircle.attr("transform", d => {
+    function tick(e) {
+      // Update link positions
+      link.attr("x1", function(d) { return d.source.x; })
+          .attr("y1", function(d) { return d.source.y; })
+          .attr("x2", function(d) { return d.target.x; })
+          .attr("y2", function(d) { return d.target.y; });
+  
+      // Update node positions using transform to move entire group (g) elements
+      node.attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+      });
+  
+      // Update link decorations (arrows, squares, circles, etc.)
+      linkTriangleRight.attr("transform", function(d) {
           let dx = d.target.x - d.source.x;
           let dy = d.target.y - d.source.y;
           const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
-          return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
-      })
-      .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-      .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-
-        linkCircleRight.attr("transform", d => {
-          let dx = d.target.x - d.source.x;
-          let dy = d.target.y - d.source.y;
-          return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8})`;
-        })
-          .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-          .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
-
-        linkTriangleLeft.attr("transform", d => {
+          return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8}) rotate(${angle})`;
+      });
+  
+      linkTriangleLeft.attr("transform", function(d) {
           let dx = d.target.x - d.source.x;
           let dy = d.target.y - d.source.y;
           const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
           return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
-        })
-        .attr("x", d => (d.source.x + d.target.x) / 2 + (d.target.x - d.source.x) / 8)
-        .attr("y", d => (d.source.y + d.target.y) / 2 + (d.target.y - d.source.y) / 8);
+      });
+  
+      linkTriangleCenter.attr("transform", function(d) {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+      });
+  
+      linkSquareLeft.attr("transform", function(d) {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI));
+          return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
+      });
+  
+      linkSquareRight.attr("transform", function(d) {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8}) rotate(${angle})`;
+      });
+  
+      linkSquareCenter.attr("transform", function(d) {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+      });
+  
+      linkCircleLeft.attr("transform", function(d) {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI));
+          return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
+      });
+  
+      linkCircleCenter.attr("transform", function(d) {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+      });
+  
+      linkCircleRight.attr("transform", function(d) {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8})`;
+      });
+  
+      waterMediatedCircle.attr("transform", function(d) {
+          let dx = d.target.x - d.source.x;
+          let dy = d.target.y - d.source.y;
+          const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+          return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+      });
       
-        timetostopautozoom += 1
-        if (timetostopautozoom < zoomstopthreshold) zoomFit(0);
+      // Optional auto-zoom logic
+      timetostopautozoom += 1;
+      if (timetostopautozoom < zoomstopthreshold) {
+          zoomFit(0);
       }
+  }
+  
 
          // Call zoomFit once when the simulation cools down a bit
         // For example, at the half-way point of the simulation
@@ -1448,7 +1445,167 @@ function filterEdges(edgeThreshold) {
 }
 window.filterEdges = filterEdges;
 
+function rotateGraph(degrees) {
+  // Update the current rotation in transformState
+  transformState.rotation = (transformState.rotation + degrees) % 360;
+  console.log("New rotation is:", transformState.rotation);
+
+  // Reapply the transformation with the updated rotation for the entire graph
+  root.attr('transform',
+    'translate(' + transformState.translateX + ',' + transformState.translateY + ') ' +
+    'scale(' + transformState.scale + ') ' +
+    'rotate(' + transformState.rotation + ')'
+  );
+
+  // Rotate the nodes and their associated text
+  d3.selectAll('g.node').each(function(d) {
+    const nodeGroup = d3.select(this);
+
+    // Apply the translation to move the node group to its position
+    nodeGroup.attr('transform', 'translate(' + d.x + ',' + d.y + ')');
+
+    // Handle rotation for text labels separately
+    const textElement = nodeGroup.select('text');
+
+    if (d.shape === 'circle') {
+      // Rotate text around the node for circles
+      textElement.attr('transform', 'rotate(' + -transformState.rotation + ')');
+    } else if (d.shape === 'rect') {
+      // Apply rotation logic for squares (rect)
+      const size = d.node_size || 0;
+      const offsetX = size / 2;
+      const offsetY = size / 2;
+
+      // Rotate text around the center of the square
+      textElement.attr('transform',
+        'translate(' + offsetX + ',' + offsetY + ') ' +
+        'rotate(' + -transformState.rotation + ') ' +
+        'translate(' + -offsetX + ',' + -offsetY + ')'
+      );
+    }
+  });
+}
+window.rotateGraph = rotateGraph;
+
+function reflectGraph(axis) {
+  if (axis !== 'x' && axis !== 'y') {
+      console.error('Invalid axis. Use "x" or "y".');
+      return;
+  }
+
+  // Reflect nodes by updating their x or y coordinate to its negative value
+  graph.nodes.forEach(function(d) {
+      if (axis === 'x') {
+          d.y = -d.y; // Reflect across x-axis
+      } else if (axis === 'y') {
+          d.x = -d.x; // Reflect across y-axis
+      }
+  });
+
+  // Reapply the transformations to nodes
+  d3.selectAll('g.node')
+      .attr('transform', function(d) {
+          return 'translate(' + d.x + ',' + d.y + ')';
+      });
+
+  // Update link positions accordingly
+  link.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  // Update decorations (arrows, squares, circles, etc.) linked to the links
+  updateLinkDecorations();
+
+  // Reapply zoom, translation, and scaling if necessary
+  root.attr('transform',
+      'translate(' + transformState.translateX + ',' + transformState.translateY + ') ' +
+      'scale(' + transformState.scale + ') ' +
+      'rotate(' + transformState.rotation + ')'
+  );
+}
+window.reflectGraph = reflectGraph;
+
+// Helper function to update link decorations (arrows, squares, circles, etc.)
+function updateLinkDecorations() {
+  linkTriangleRight.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+      return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8}) rotate(${angle})`;
+  });
+
+  linkTriangleLeft.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+      return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
+  });
+
+  linkTriangleCenter.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+      return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+  });
+
+  linkSquareLeft.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI));
+      return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
+  });
+
+  linkSquareRight.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+      return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8}) rotate(${angle})`;
+  });
+
+  linkSquareCenter.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+      return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+  });
+
+  linkCircleLeft.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI));
+      return `translate(${(d.source.x + d.target.x) / 2 - dx / 8}, ${(d.source.y + d.target.y) / 2 - dy / 8}) rotate(${angle})`;
+  });
+
+  linkCircleCenter.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+      return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+  });
+
+  linkCircleRight.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      return `translate(${(d.source.x + d.target.x) / 2 + dx / 8}, ${(d.source.y + d.target.y) / 2 + dy / 8})`;
+  });
+
+  waterMediatedCircle.attr("transform", function(d) {
+      let dx = d.target.x - d.source.x;
+      let dy = d.target.y - d.source.y;
+      const angle = (Math.atan2(dy, dx) * (180 / Math.PI) - 90);
+      return `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2}) rotate(${angle})`;
+  });
+}
+
+
+
+
+
+
+
 function toggleHBondsColor() {
+  reflectGraph('y');
   var newColor = "red";
   const isChecked = document.getElementById("toggleHBondsCheckbox").checked;
 
