@@ -36,7 +36,7 @@ function NGLViewer(rotationMatrix, algorithm) {
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
-          window.loadStructure(`/rnaprodb/cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
+          window.loadStructure(`https://rohslab.usc.edu/rpdb_cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
         });
         document.body.appendChild(script2);
       });
