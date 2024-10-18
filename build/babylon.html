@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babylon.js PLY Viewer</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+
+    <canvas id="renderCanvas"></canvas>
+
+    <script>
+        window.addEventListener('wheel', function(event) {
+            event.preventDefault();
+        }, { passive: false });
+
+        let engine;
+        let scene;
+        let camera;
+
+        // Initialize Babylon.js engine
+        const canvas = document.getElementById("renderCanvas");
+        engine = new BABYLON.Engine(canvas, true);
+
+        // Function to create the Babylon.js scene
+        const createScene = (filename) => {
+            scene = new BABYLON.Scene(engine);
+            scene.clearColor = new BABYLON.Color3(1, 1, 1); // White background
+            
+            // Create an ArcRotateCamera to give an orbit-like control
+            camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 4, 3, BABYLON.Vector3.Zero(), scene);
+            camera.attachControl(canvas, true);
+            camera.lowerRadiusLimit = 2; // Prevent camera zooming too close
+
+            // Use only hemispheric light for global illumination
+            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+            light.intensity = 0.9;
+            const ambientLight = new BABYLON.HemisphericLight("ambientLight", new BABYLON.Vector3(0, -1, 0), scene);
+
+            ambientLight.intensity = 0.9;
+            light.diffuse = new BABYLON.Color3(1, 1, 1);  // Diffuse white light
+            light.specular = new BABYLON.Color3(0.25, 0.25, 0.25);  // Reduce the specular highlight
+            ambientLight.diffuse = new BABYLON.Color3(1, 1, 1);  // Diffuse white light
+            ambientLight.specular = new BABYLON.Color3(0.25, 0.25, 0.25);  // Reduce the specular highlight
+
+            // Load PLY file using Babylon.js loader
+            BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
+                // Loop over all the imported meshes
+                meshes.forEach(mesh => {
+                    const boundingInfo = mesh.getBoundingInfo();
+                    const boundingCenter = boundingInfo.boundingBox.centerWorld;
+                    mesh.position.subtractInPlace(boundingCenter);
+                    mesh.rotation.x = Math.PI / 2;  // Rotate mesh upright
+                    mesh.scaling = new BABYLON.Vector3(1, 1, 1);  // Adjust scale as needed
+                });
+
+                const boundingInfo = meshes[0].getBoundingInfo();
+                const size = boundingInfo.boundingBox.extendSizeWorld.length();
+                camera.setTarget(BABYLON.Vector3.Zero());
+                camera.radius = size * 2;  // Set the distance based on mesh size
+            });
+
+            // Start the render loop
+            engine.runRenderLoop(() => {
+                scene.render();
+            });
+        };
+
+        // Handle messages from the parent window
+        window.addEventListener('message', (event) => {
+            // Check for the message type to ensure we only process the correct message
+            if (event.data.type === 'filename') {
+                const filename = event.data.filename;
+                console.log('Received filename:', filename);
+                createScene(`https://rohslab.usc.edu/electrostatics/${filename}`);  // Create the scene with the received filename
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener("resize", () => {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

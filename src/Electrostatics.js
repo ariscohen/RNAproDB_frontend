@@ -5,7 +5,7 @@ import './Electrostatics.css';
 
 function Electrostatics() {
     const location = useLocation();
-    const pdbid = location.pathname.split('/')[1];
+    const pdbid = location.pathname.split('/')[2];
     const { title } = useContext(TitleContext);
     const iframeRef = useRef(null);
     
@@ -24,11 +24,11 @@ function Electrostatics() {
         if (iframeRef.current) {
             let filename;
             if (option === 'all') {
-                filename = `1jj8.ply`;
+                filename = `full_${pdbid}.ply`;
             } else if (option === 'protein') {
-                filename = `1jj8_protein.ply`;
+                filename = `pro_${pdbid}.ply`;
             } else if (option === 'nucleicAcid') {
-                filename = `1jj8_dna.ply`;
+                filename = `na_${pdbid}.ply`;
             }
 
             // Send the filename to the iframe

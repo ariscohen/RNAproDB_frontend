@@ -1112,94 +1112,84 @@ function add_node_to_subgraph(chain, num, icode){
 }
 
   // COLOR ON CLICK
-function color_on_click() {
-  // Give the original color back for all nodes!
-  if (!d3.event.shiftKey)  reset_node_colors();
-  //console.log(d3.select(this).select())
-
-  var name_split = d3.select(this)[0][0]["__data__"]["name"].split(":");
-  var chain = name_split[0];
-  var residue = name_split[2];
-  var icode = d3.select(this)[0][0]["__data__"]["icode"]
-
-  // console.log(chain);
-  // console.log(residue);
-  // console.log(icode);
-
-  add_node_to_subgraph(chain, residue, icode);
-
-  var nodeIdToFind = d3.select(this)[0][0]["__data__"]["name"]; // replace this with the ID you want to search for
-  var escapedId = nodeIdToFind.replace(/:/g, "\\:");
-  var foundNode = d3.select("#" + escapedId);
-
-  // console.log(chain);
-  // console.log(residue);
-  var selectionString = residue+":" + chain;
-  // console.log(selectionString);
-  if (d3.event.shiftKey){
-      if (multiple_select.includes(selectionString) ){
-          // console.log("here")
-          d3.select(this).select("circle")
-              .style("fill", function(d) {return d.node_color;})
-              .style("opacity", function(d) {return d.node_opacity;})
-              .style("stroke", function(d) {return d.node_color_edge;})
-              .style("stroke-width", function(d) {return d.edge_width*2;})
-              .attr("r", function(d) { return d.node_size; })
-          ;
-          d3.select(this).select("rect")
-              .style("fill", function(d) {return d.node_color;})
-              .style("opacity", function(d) {return d.node_opacity;})
-              .style("stroke", function(d) {return d.node_color_edge;})
-              .style("stroke-width", function(d) {return d.edge_width*2;})
-          ;
-          index = multiple_select.indexOf(selectionString);
-          multiple_select.splice(index, 1);
+  function color_on_click() {
+    // Give the original color back for all nodes!
+    if (!d3.event.shiftKey) reset_node_colors();
+  
+    const nodeData = d3.select(this).datum();
+    var name_split = nodeData.name.split(":");
+    var chain = name_split[0];
+    var residue = name_split[2];
+    var icode = nodeData.icode;
+  
+    add_node_to_subgraph(chain, residue, icode);
+  
+    var nodeIdToFind = nodeData.name; // replace this with the ID you want to search for
+    var escapedId = nodeIdToFind.replace(/:/g, "\\:");
+    var foundNode = d3.select("#" + escapedId);
+  
+    var selectionString = residue + ":" + chain;
+  
+    if (d3.event.shiftKey) {
+      if (multiple_select.includes(selectionString)) {
+        d3.select(this).select("circle")
+          .style("fill", function(d) { return d.node_color; })
+          .style("opacity", function(d) { return d.node_opacity; })
+          .style("stroke", function(d) { return d.node_color_edge; })
+          .style("stroke-width", function(d) { return d.edge_width * 2; })
+          .attr("r", function(d) { return d.node_size; });
+  
+        d3.select(this).select("rect")
+          .style("fill", function(d) { return d.node_color; })
+          .style("opacity", function(d) { return d.node_opacity; })
+          .style("stroke", function(d) { return d.node_color_edge; })
+          .style("stroke-width", function(d) { return d.edge_width * 2; });
+  
+        index = multiple_select.indexOf(selectionString);
+        multiple_select.splice(index, 1);
+  
+        setTimeout(() => {
           parent.zoomOnClick(multiple_select);
-          return;
+        }, 100);  // Small delay to allow the graph to fully update
+        return;
       }
   
       multiple_select.push(selectionString);
-      parent.zoomOnClick(multiple_select);
-  }
-  else{
+      setTimeout(() => {
+        parent.zoomOnClick(multiple_select);
+      }, 100);
+    } else {
       multiple_select = [];
-      try{ // try catch in the case the graph isn't there!
-        parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer! 
-      }
-      catch(error){
+      try {
+        setTimeout(() => {
+          parent.zoomOnClick(selectionString);  // zooms in on Residue in NGLViewer!
+        }, 100);  // Small delay to ensure everything is fully updated
+      } catch (error) {
         console.error(error);
       }
-  }
-  // stage_nm1.getComponentsByName("my_structure").autoView()
-
-      
-  if (!d3.event.shiftKey) {
+    }
+  
+    if (!d3.event.shiftKey) {
       if (prev_single_select == selectionString) {
-              reset_node_colors();
-              prev_single_select = null;
-              parent.resetView();
-              return;
+        reset_node_colors();
+        prev_single_select = null;
+        parent.resetView();
+        return;
+      } else {
+        prev_single_select = selectionString;
       }
-      else{
-          prev_single_select = selectionString;
-      }
-
+    }
+  
+    // Set the color on click for circles
+    d3.select(this).select("circle")
+      .style("fill", "yellow")
+      .attr("r", function(d) { return d.node_size * 1.5; });
+  
+    // Set the color on click for rect
+    d3.select(this).select("rect")
+      .style("fill", "yellow");
   }
   
-  // Set the color on click for circles
-  d3.select(this).select("circle")
-  // .style("fill", {{ CLICK_FILL }})
-  .style("fill", "yellow")
-  // .style("stroke", "{{ CLICK_STROKE }}")
-  // .style("stroke-width", {{ CLICK_STROKEW }})
-  .attr("r", function(d) { return d.node_size*1.5; })
-  // .attr("r", function(d) { return d.node_size*1});
-
-  // Set the color on click for rect
-  d3.select(this).select("rect")
-  .style("fill", "yellow");
-
-}
 function connectedNodes() {
   if (toggle == 0) {
     //Reduce the opacity of all but the neighbouring nodes
