@@ -117,7 +117,8 @@
 
 /* Number bar styling */
 .number-bar {
-  font-family: "Courier New", monospace;
+  /* font-family: "Courier New", monospace; */
+  font-family: monospace;
   white-space: nowrap;      /* Prevent wrapping */
   /* padding: 1rem;  */
 }

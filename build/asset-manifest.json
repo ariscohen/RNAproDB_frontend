@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/rnaprodb/static/css/main.cdc34cfa.css",
+    "main.css": "/rnaprodb/static/css/main.8a18d4c0.css",
     "main.js": "/rnaprodb/static/js/main.df92cb18.js",
     "static/js/787.cda612ba.chunk.js": "/rnaprodb/static/js/787.cda612ba.chunk.js",
     "static/media/fa-solid-900.ttf": "/rnaprodb/static/media/fa-solid-900.45a265d0f07b31cde85f.ttf",
@@ -14,12 +14,12 @@
     "static/media/fa-v4compatibility.ttf": "/rnaprodb/static/media/fa-v4compatibility.2eb7b3ef25042305f3ff.ttf",
     "static/media/fa-v4compatibility.woff2": "/rnaprodb/static/media/fa-v4compatibility.b3049b13a93f07e026fc.woff2",
     "index.html": "/rnaprodb/index.html",
-    "main.cdc34cfa.css.map": "/rnaprodb/static/css/main.cdc34cfa.css.map",
+    "main.8a18d4c0.css.map": "/rnaprodb/static/css/main.8a18d4c0.css.map",
     "main.df92cb18.js.map": "/rnaprodb/static/js/main.df92cb18.js.map",
     "787.cda612ba.chunk.js.map": "/rnaprodb/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cdc34cfa.css",
+    "static/css/main.8a18d4c0.css",
     "static/js/main.df92cb18.js"
   ]
 }
