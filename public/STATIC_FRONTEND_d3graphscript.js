@@ -9,21 +9,19 @@ tooltipColorDict = {
 var multiple_select = [];
 var prev_single_select;
 
-var transformState = {
-  translateX: 0,
-  translateY: 0,
-  rotation: 0,
-  scale: 1
-};
-
-let disableZoomFit = false;
-
 function static_d3graphscript(config = {
     // Default values
     width: 800,
     height: 600,
     graph: null,
   }) {
+    let transformState = {
+      translateX: 0,
+      translateY: 0,
+      rotation: 0,
+      scale: 1
+    };
+    let disableZoomFit = false;
     //Constants for the SVG
     var width = config.width;
     var height = config.height;

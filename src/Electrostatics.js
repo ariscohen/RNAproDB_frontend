@@ -8,9 +8,46 @@ function Electrostatics() {
     const pdbid = location.pathname.split('/')[2];
     const { title } = useContext(TitleContext);
     const iframeRef = useRef(null);
-    
+
+    const [hasAll, setHasAll] = useState(false);
+    const [hasProtein, setHasProtein] = useState(false);
+    const [hasNA, setHasNA] = useState(false);
+
+
+    useEffect(() => {
+        // Helper function to check if a file exists
+        const checkFileExists = async (url) => {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                return response.status === 200;
+            } catch (error) {
+                console.error('Error checking file:', error);
+                return false;
+            }
+        };
+
+        // URLs for the files to check
+        const allUrl = `/electrostatics/full_${pdbid}.ply`;
+        const proteinUrl = `/electrostatics/pro_${pdbid}.ply`;
+        const naUrl = `/electrostatics/na_${pdbid}.ply`;
+
+        // Check each file and set the corresponding state
+        const checkFiles = async () => {
+            const allExists = await checkFileExists(allUrl);
+            const proteinExists = await checkFileExists(proteinUrl);
+            const naExists = await checkFileExists(naUrl);
+
+            setHasAll(allExists);
+            setHasProtein(proteinExists);
+            setHasNA(naExists);
+        };
+
+        // Run the file checks on page load
+        checkFiles();
+    }, [pdbid]);
+
     // State to manage the dropdown selection
-    const [selectedOption, setSelectedOption] = useState('all');
+    const [selectedOption, setSelectedOption] = useState('all'); // maybe remove if does not exist
 
     // Function to handle dropdown change
     const handleDropdownChange = (event) => {
@@ -83,29 +120,39 @@ function Electrostatics() {
 
     return (
         <div className="electro-div">
-            <h5>Electrostatics</h5>
-            <div style={{ marginTop: '0px', marginBottom: '5px' }}>
-                <strong>Translate:</strong> drag + left click &nbsp;
-                <strong>Zoom:</strong> scroll &nbsp;
-                <strong>Select component:</strong>
-                {/* Dropdown to toggle between states */}
-                <select value={selectedOption} onChange={handleDropdownChange} style={{ marginLeft: '20px' }}>
-                    <option value="all">All (protein and NA)</option>
-                    <option value="protein">Protein only</option>
-                    <option value="nucleicAcid">Nucleic Acid only</option>
-                </select>
-            </div>
-            <iframe
-                ref={iframeRef}
-                src={`${process.env.PUBLIC_URL}/babylon.html`}
-                title="Electrostatics Graph"
-                width="100%"
-                height="700"
-                onLoad={iframeLoadHandler}
-                style={{ border: '1px solid black' }}
-            ></iframe>
+          <h5>Electrostatics</h5>
+          <div style={{ marginTop: '0px', marginBottom: '5px' }}>
+            <strong>Translate:</strong> drag + left click &nbsp;
+            <strong>Zoom:</strong> scroll &nbsp;
+            <strong>Select component:</strong>
+            {/* Dropdown to toggle between states */}
+            {hasAll || hasProtein || hasNA ? (
+              <select
+                value={selectedOption}
+                onChange={handleDropdownChange}
+                style={{ marginLeft: '20px' }}
+              >
+                {hasAll && <option value="all">All (protein and NA)</option>}
+                {hasProtein && <option value="protein">Protein only</option>}
+                {hasNA && <option value="nucleicAcid">Nucleic Acid only</option>}
+              </select>
+            ) : (
+              <span style={{ marginLeft: '20px' }}>No components available</span>
+            )}
+          </div>
+          {(hasAll || hasProtein || hasNA) && (
+          <iframe
+            ref={iframeRef}
+            src={`${process.env.PUBLIC_URL}/babylon.html`}
+            title="Electrostatics Graph"
+            width="100%"
+            height="700"
+            onLoad={iframeLoadHandler}
+            style={{ border: '1px solid black' }}
+          ></iframe>
+          )}
         </div>
-    );
+      );
 }
 
 export default Electrostatics;
