@@ -1505,14 +1505,35 @@ function reflectGraph(axis) {
   // Update decorations (arrows, squares, circles, etc.) linked to the links
   updateLinkDecorations();
 
-  // Reapply zoom, translation, and scaling if necessary
-  root.attr('transform',
-      'translate(' + transformState.translateX + ',' + transformState.translateY + ') ' +
-      'scale(' + transformState.scale + ') ' +
-      'rotate(' + transformState.rotation + ')'
-  );
+  // Use D3's zoom behavior to automatically fit the graph within view
+  const bounds = root.node().getBBox();
+  const parent = svg.node().parentElement;
+  const fullWidth = parent.clientWidth || parent.parentNode.clientWidth;
+  const fullHeight = parent.clientHeight || parent.parentNode.clientHeight;
+
+  // Calculate the scale and translation to fit the bounding box within the view
+  const width = bounds.width;
+  const height = bounds.height;
+  const midX = bounds.x + width / 2;
+  const midY = bounds.y + height / 2;
+
+  if (width > 0 && height > 0) {
+    const scale = 0.85 / Math.max(width / fullWidth, height / fullHeight);
+    const translate = [
+      fullWidth / 2 - scale * midX,
+      fullHeight / 2 - scale * midY
+    ];
+
+    // Apply the zoom transformation
+    root.transition()
+        .duration(750)
+        .attr('transform', `translate(${translate}) scale(${scale})`);
+  }
 }
+
 window.reflectGraph = reflectGraph;
+
+
 
 // Helper function to update link decorations (arrows, squares, circles, etc.)
 function updateLinkDecorations() {
