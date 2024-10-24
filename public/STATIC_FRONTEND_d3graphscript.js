@@ -193,7 +193,6 @@ filter.select("feMerge")
       
       // DRAGGING STOP
       
-      // Create arrow for backbone
       svg.append("defs").selectAll("marker")
       .data(["arrowRNAscape"]) // A unique identifier for the arrow marker
       .enter().append("marker")
@@ -203,29 +202,97 @@ filter.select("feMerge")
       .attr("refY", 0)
       .attr("markerWidth", 3)
       .attr("markerHeight", 3)
+      .attr("markerUnits", "strokeWidth") // This ensures the arrow scales with line width
       .attr("orient", "auto")
       .append("path")
       .attr("d", "M0,-5L10,0L0,5")  // The shape of the arrow
-      .attr("fill", "#000");
+      .attr("fill", "#000")
+      .attr("stroke", "none"); // Make sure there is no stroke on the arrow to prevent export issues
 
+      svg.append("defs").selectAll("marker")
+      .data(["simpleArrow"]) // Unique identifier for the arrow marker
+      .enter().append("marker")
+      .attr("id", "simpleArrow")
+      .attr("viewBox", "0 0 10 10")
+      .attr("refX", 5)  // Adjust the reference position
+      .attr("refY", 5)
+      .attr("markerWidth", 4)  // Default marker width
+      .attr("markerHeight", 4) // Default marker height
+      .attr("orient", "auto-start-reverse")  // Make sure the arrow points in the correct direction
+      .append("path")
+      .attr("d", "M 0 0 L 10 5 L 0 10 z")  // Simplified arrow shape for better compatibility
+      .attr("fill", "#000");  // Fill color for the arrow
 
     // Create links with a "double stroke" effect for borders
-    var link = svg.selectAll(".link")
-    .data(graph.links)
-    .enter().append("line")
-    .attr("class","link")
-    .style("stroke-dasharray", function(d) { 
-      // console.log("Distance 3d for link:", d.distance_3d);
-      return d.my_type === "pair" ? "10,10" : "none"; // "none" for solid
-     })
-     .style("stroke", function(d) { return d.color; }) // Colored stroke
-    .style("stroke-opacity", 1)
-    .style("stroke-width", function(d) { return d.edge_width + 4; }) // Make the black stroke wider
-    .attr("x1", function(d) { return d.source.x; })
-    .attr("y1", function(d) { return d.source.y; })
-    .attr("x2", function(d) { return d.target.x; })
-    .attr("y2", function(d) { return d.target.y; })
-    .attr("marker-end", function(d) { return d.my_type === "backbone" ? "url(#arrowRNAscape)" : null}); // Apply the arrow marker to "backbone" links
+    // var link = svg.selectAll(".link")
+    // .data(graph.links)
+    // .enter().append("line")
+    // .attr("class", "link")
+    // .attr("stroke-dasharray", function(d) { 
+    //   return d.my_type === "pair" ? "10,10" : "none"; // "none" for solid
+    // })
+    // .attr("stroke", function(d) { return d.color || "#000"; }) // Explicitly set color
+    // .attr("stroke-opacity", 1)
+    // .attr("stroke-width", function(d) { return d.edge_width + 4; }) // Explicitly set width
+    // .attr("x1", function(d) { return d.source.x; })
+    // .attr("y1", function(d) { return d.source.y; })
+    // .attr("x2", function(d) { return d.target.x; })
+    // .attr("y2", function(d) { return d.target.y; });
+    // .attr("marker-end", function(d) { return d.my_type === "backbone" ? "url(#simpleArrow)" : null });
+
+
+// Create links without marker-end
+// Create links without marker-end
+// Create links without marker-end
+var link = svg.selectAll(".link")
+.data(graph.links)
+.enter().append("line")
+.attr("class","link")
+.style("stroke-dasharray", function(d) { 
+  // console.log("Distance 3d for link:", d.distance_3d);
+  return d.my_type === "pair" ? "10,10" : "none"; // "none" for solid
+ })
+ .style("stroke", function(d) { return d.color; }) // Colored stroke
+.style("stroke-opacity", 1)
+.style("stroke-width", function(d) { return d.edge_width + 4; }) // Make the black stroke wider
+.attr("x1", function(d) { return d.source.x; })
+.attr("y1", function(d) { return d.source.y; })
+.attr("x2", function(d) { return d.target.x; })
+.attr("y2", function(d) { return d.target.y; });
+
+// Add arrowhead as a separate path
+svg.selectAll(".arrowhead")
+  .data(graph.links.filter(d => d.my_type === "backbone")) // Only add arrows to "backbone" links
+  .enter().append("path")
+  .attr("class", "arrowhead")
+  .attr("d", function(d) {
+    // Calculate the angle of the line
+    const dx = d.target.x - d.source.x;
+    const dy = d.target.y - d.source.y;
+    const angle = Math.atan2(dy, dx);
+
+    // Define arrowhead dimensions
+    const refX = 30; // Shorten the arrow length
+    const arrowWidth = 12; // Increase the arrow width for a wider appearance
+    const offset = 15; // Offset to move the arrowhead away from the target node
+
+    // Calculate the base of the arrowhead, including the offset
+    const arrowBaseX = d.target.x - ((refX + offset) * Math.cos(angle));
+    const arrowBaseY = d.target.y - ((refX + offset) * Math.sin(angle));
+
+    // Calculate the points for the arrowhead
+    const p1 = `${d.target.x - (offset * Math.cos(angle))},${d.target.y - (offset * Math.sin(angle))}`;
+    const p2 = `${arrowBaseX + (arrowWidth * Math.sin(angle))},${arrowBaseY - (arrowWidth * Math.cos(angle))}`;
+    const p3 = `${arrowBaseX - (arrowWidth * Math.sin(angle))},${arrowBaseY + (arrowWidth * Math.cos(angle))}`;
+
+    return `M ${p1} L ${p2} L ${p3} Z`;
+  })
+  .attr("fill", "#000")
+  .attr("stroke", "none"); // Make sure there is no stroke on the arrow to prevent export issues
+
+
+
+
 
       const edges = graph.links;
       const length = 12; // Define the length variable
@@ -924,11 +991,8 @@ function collide(alpha) {
     var timetostopautozoom = 0
     var zoomstopthreshold = 100 // parameter, may not be optimal !!
     function tick(e) {
-      // Update link positions
-      link.attr("x1", function(d) { return d.source.x; })
-          .attr("y1", function(d) { return d.source.y; })
-          .attr("x2", function(d) { return d.target.x; })
-          .attr("y2", function(d) { return d.target.y; });
+      // Update link positions and arrowheads
+      updateLinkAndArrowheads(); 
   
       // Update node positions using transform to move entire group (g) elements
       node.attr("transform", function(d) {
@@ -1510,10 +1574,7 @@ function reflectGraph(axis) {
       });
 
   // Update link positions accordingly
-  link.attr("x1", function (d) { return d.source.x; })
-      .attr("y1", function (d) { return d.source.y; })
-      .attr("x2", function (d) { return d.target.x; })
-      .attr("y2", function (d) { return d.target.y; });
+  updateLinkAndArrowheads();
 
   // Update decorations (arrows, squares, circles, etc.) linked to the links
   updateLinkDecorations();
@@ -1623,7 +1684,39 @@ function updateLinkDecorations() {
 }
 
 
+// Function to update link and arrowhead positions
+function updateLinkAndArrowheads() {
+  // Update link positions
+  link.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
 
+  // Update arrowhead positions
+  svg.selectAll(".arrowhead")
+    .attr("d", function(d) {
+      // Calculate the angle of the line
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const angle = Math.atan2(dy, dx);
+
+      // Define arrowhead dimensions
+      const refX = 30; // Shorten the arrow length
+      const arrowWidth = 12; // Increase the arrow width for a wider appearance
+      const offset = 15; // Offset to move the arrowhead away from the target node
+
+      // Calculate the base of the arrowhead, including the offset
+      const arrowBaseX = d.target.x - ((refX + offset) * Math.cos(angle));
+      const arrowBaseY = d.target.y - ((refX + offset) * Math.sin(angle));
+
+      // Calculate the points for the arrowhead
+      const p1 = `${d.target.x - (offset * Math.cos(angle))},${d.target.y - (offset * Math.sin(angle))}`;
+      const p2 = `${arrowBaseX + (arrowWidth * Math.sin(angle))},${arrowBaseY - (arrowWidth * Math.cos(angle))}`;
+      const p3 = `${arrowBaseX - (arrowWidth * Math.sin(angle))},${arrowBaseY + (arrowWidth * Math.cos(angle))}`;
+
+      return `M ${p1} L ${p2} L ${p3} Z`;
+    });
+}
 
 
 
