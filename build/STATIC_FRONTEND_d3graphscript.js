@@ -1505,7 +1505,7 @@ function reflectGraph(axis) {
   // Update decorations (arrows, squares, circles, etc.) linked to the links
   updateLinkDecorations();
 
-  // Use D3's zoom behavior to automatically fit the graph within view
+  // Use D3's zoom behavior to automatically fit the graph within view without changing the rotation
   const bounds = root.node().getBBox();
   const parent = svg.node().parentElement;
   const fullWidth = parent.clientWidth || parent.parentNode.clientWidth;
@@ -1524,14 +1524,15 @@ function reflectGraph(axis) {
       fullHeight / 2 - scale * midY
     ];
 
-    // Apply the zoom transformation
+    // Apply the zoom transformation without changing the rotation
     root.transition()
         .duration(750)
-        .attr('transform', `translate(${translate}) scale(${scale})`);
+        .attr('transform', `translate(${translate}) scale(${scale}) rotate(${transformState.rotation})`);
   }
 }
 
 window.reflectGraph = reflectGraph;
+
 
 
 
