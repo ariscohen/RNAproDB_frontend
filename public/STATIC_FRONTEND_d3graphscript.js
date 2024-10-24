@@ -1481,31 +1481,47 @@ function reflectGraph(axis) {
       return;
   }
 
-  // Reflect nodes by updating their x or y coordinate to its negative value
-  graph.nodes.forEach(function(d) {
+  // Get the current rotation in radians
+  const angle = (transformState.rotation * Math.PI) / 180;
+
+  // Move nodes to their equivalent positions in the zero-rotation frame
+  graph.nodes.forEach(function (d) {
+      const rotatedX = d.x * Math.cos(angle) - d.y * Math.sin(angle);
+      const rotatedY = d.x * Math.sin(angle) + d.y * Math.cos(angle);
+
+      // Update the node positions to their recalculated values
+      d.x = rotatedX;
+      d.y = rotatedY;
+  });
+
+  // Reflect nodes based on the chosen axis
+  graph.nodes.forEach(function (d) {
       if (axis === 'x') {
-          d.y = -d.y; // Reflect across x-axis
+          d.y = -d.y; // Reflect across the x-axis
       } else if (axis === 'y') {
-          d.x = -d.x; // Reflect across y-axis
+          d.x = -d.x; // Reflect across the y-axis
       }
   });
 
   // Reapply the transformations to nodes
   d3.selectAll('g.node')
-      .attr('transform', function(d) {
+      .attr('transform', function (d) {
           return 'translate(' + d.x + ',' + d.y + ')';
       });
 
   // Update link positions accordingly
-  link.attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
+  link.attr("x1", function (d) { return d.source.x; })
+      .attr("y1", function (d) { return d.source.y; })
+      .attr("x2", function (d) { return d.target.x; })
+      .attr("y2", function (d) { return d.target.y; });
 
   // Update decorations (arrows, squares, circles, etc.) linked to the links
   updateLinkDecorations();
 
-  // Use D3's zoom behavior to automatically fit the graph within view without changing the rotation
+  // Reset the rotation to zero
+  rotateGraph(0);
+
+  // Use D3's zoom behavior to automatically fit the graph within view
   const bounds = root.node().getBBox();
   const parent = svg.node().parentElement;
   const fullWidth = parent.clientWidth || parent.parentNode.clientWidth;
@@ -1518,22 +1534,20 @@ function reflectGraph(axis) {
   const midY = bounds.y + height / 2;
 
   if (width > 0 && height > 0) {
-    const scale = 0.85 / Math.max(width / fullWidth, height / fullHeight);
-    const translate = [
-      fullWidth / 2 - scale * midX,
-      fullHeight / 2 - scale * midY
-    ];
+      const scale = 0.85 / Math.max(width / fullWidth, height / fullHeight);
+      const translate = [
+          fullWidth / 2 - scale * midX,
+          fullHeight / 2 - scale * midY
+      ];
 
-    // Apply the zoom transformation without changing the rotation
-    root.transition()
-        .duration(750)
-        .attr('transform', `translate(${translate}) scale(${scale}) rotate(${transformState.rotation})`);
+      // Apply the zoom transformation
+      root.transition()
+          .duration(750)
+          .attr('transform', `translate(${translate}) scale(${scale})`);
   }
 }
 
 window.reflectGraph = reflectGraph;
-
-
 
 
 // Helper function to update link decorations (arrows, squares, circles, etc.)
