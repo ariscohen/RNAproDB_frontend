@@ -1435,7 +1435,7 @@ window.filterEdges = filterEdges;
 
 function rotateGraph(degrees) {
   // Update the current rotation in transformState
-  transformState.rotation = (transformState.rotation + degrees) % 360;
+  transformState.rotation = degrees % 360;
   console.log("New rotation is:", transformState.rotation);
 
   // Reapply the transformation with the updated rotation for the entire graph
@@ -1593,7 +1593,6 @@ function updateLinkDecorations() {
 
 
 function toggleHBondsColor() {
-  reflectGraph('y');
   var newColor = "red";
   const isChecked = document.getElementById("toggleHBondsCheckbox").checked;
 

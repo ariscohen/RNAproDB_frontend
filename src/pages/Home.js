@@ -23,6 +23,7 @@ import StructureInfo from '../StructureInfo.js';
 import Table from "../Table.js";
 import EdgeThresholdSlider from '../EdgeThresh.js';
 import Electrostatics from '../Electrostatics.js';
+import GraphOps from '../GraphOps.js';
 
 const Home = () => {
   const { pdbid, urlAlgorithm } = useParams();
@@ -226,6 +227,7 @@ const Home = () => {
                 </div>
                 <EdgeThresholdSlider resetThreshold = {triggerThreshReset}></EdgeThresholdSlider>
               </div>
+              <GraphOps subgraph = {subgraph}/>
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
 
                 <div id="right_column" onClick={window.reset_graph_colors}>
