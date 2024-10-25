@@ -33,3 +33,62 @@
     font-size: 12px;
     pointer-events: none;
   }
+
+
+  .download-buttons-ss {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center; /* Centers the buttons horizontally */
+  }
+  
+  .download-buttons-ss .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px; /* Adjusts space between Download and Hide Labels */
+  }
+  
+  .dropdown-button, .dropdown-content {
+    white-space: nowrap; /* Ensures dropdown text does not wrap */
+  }
+  
+  .download-buttons-ss .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .download-buttons-ss .dropdown-content button {
+    background-color: #f1f1f1;
+    color: black;
+    border: 1px solid #f1f1f1;
+    padding: 10px 20px;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+  }
+  
+  .download-buttons-ss .dropdown-content button:hover {
+    background-color: #ddd;
+  }
+  
+  .download-buttons-ss .dropdown button {
+    background-color: #f1f1f1;
+    color: black;
+    border: 1px solid #f1f1f1;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .download-buttons-ss .dropdown button:hover {
+    background-color: #ddd;
+  }
+  

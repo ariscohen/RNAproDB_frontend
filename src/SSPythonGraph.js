@@ -80,18 +80,20 @@ function SSPythonGraph({ graphData }) {
         <strong>Zoom:</strong> scroll &nbsp;
         <strong>Add to subgraph:</strong> left click &nbsp;
       </div>
-      <div className='download-buttons'>
-        <div className='dropdown'>
+      <div className="download-buttons-ss">
+        <div className="dropdown">
           <button>Download</button>
           <div className="dropdown-content">
-                <button onClick={() => handleDownloadClick('png')}>Download PNG</button>
-                <button onClick={() => handleDownloadClick('svg')}>Download SVG</button>
+            <button onClick={() => handleDownloadClick('png')}>Download PNG</button>
+            <button onClick={() => handleDownloadClick('svg')}>Download SVG</button>
           </div>
         </div>
         {/* Button to toggle node labels */}
-        <button onClick={toggleLabels}>
-          {labelsVisible ? "Hide Labels" : "Show Labels"}
-        </button>
+        <div className="dropdown">
+          <button onClick={toggleLabels}>
+            {labelsVisible ? "Hide Labels" : "Show Labels"}
+          </button>
+        </div>
       </div>
       <iframe
         ref={iframeRef}
@@ -104,6 +106,7 @@ function SSPythonGraph({ graphData }) {
       ></iframe>
     </div>
   );
+  
 }
 
 export default SSPythonGraph;
