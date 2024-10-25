@@ -66,10 +66,14 @@ function SSPythonGraph({ graphData }) {
         <strong>Zoom:</strong> scroll &nbsp;
         <strong>Add to subgraph:</strong> left click &nbsp;
       </div>
-      <button>Download</button>
-      <div className="download-dropdown">
-            <button onClick={() => handleDownloadClick('png')}>Download PNG</button>
-            <button onClick={() => handleDownloadClick('svg')}>Download SVG</button>
+      <div className='download-buttons'>
+        <div className='dropdown'>
+          <button>Download</button>
+          <div className="dropdown-content">
+                <button onClick={() => handleDownloadClick('png')}>Download PNG</button>
+                <button onClick={() => handleDownloadClick('svg')}>Download SVG</button>
+          </div>
+        </div>
       </div>
       <iframe
         ref={iframeRef}
