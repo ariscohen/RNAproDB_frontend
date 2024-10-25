@@ -8,6 +8,9 @@ function SSPythonGraph({ graphData }) {
   const pdbid = location.pathname.split('/')[1];
   const { title } = useContext(TitleContext);
   const iframeRef = useRef(null);
+  
+  // State to track label visibility
+  const [labelsVisible, setLabelsVisible] = useState(true);
 
   // Function to handle received messages
   const handleReceiveMessage = event => {
@@ -58,6 +61,17 @@ function SSPythonGraph({ graphData }) {
     }
   };
 
+  // Toggle label visibility in the iframe
+  const toggleLabels = () => {
+    setLabelsVisible(!labelsVisible); // Toggle state
+    if (iframeRef.current) {
+      iframeRef.current.contentWindow.postMessage({
+        type: 'toggleNodeLabels',
+        visible: !labelsVisible
+      }, '*');
+    }
+  };
+
   return (
     <div className="ss-graph-div">
       <h5>Secondary structure selector</h5>
@@ -74,6 +88,10 @@ function SSPythonGraph({ graphData }) {
                 <button onClick={() => handleDownloadClick('svg')}>Download SVG</button>
           </div>
         </div>
+        {/* Button to toggle node labels */}
+        <button onClick={toggleLabels}>
+          {labelsVisible ? "Hide Labels" : "Show Labels"}
+        </button>
       </div>
       <iframe
         ref={iframeRef}

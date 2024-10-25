@@ -133,6 +133,20 @@
     }
   });
 
+// Function to hide or show node labels
+function toggleNodeLabels(visible) {
+  d3.selectAll(".node-label")
+    .style("display", visible ? "block" : "none");
+}
+
+// Listen for messages to hide or show node labels
+window.addEventListener('message', function(event) {
+  if (event.data.type === 'toggleNodeLabels') {
+    toggleNodeLabels(event.data.visible); // Set visibility based on the 'visible' property in the message
+  }
+});
+
+
 
   // Use the function to get the 'file' parameter from the URL
   // var fileName = getQueryVariable("file") || 'default_SSgraph.json';  // Provide a default file
