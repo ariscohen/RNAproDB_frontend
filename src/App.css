@@ -354,6 +354,10 @@ iframe#webpack-dev-server-client-overlay {
   text-align: center; /* Center the title element */
 }
 
+.seq-viewer{
+  margin-bottom: 20px;
+}
+
 @media (max-width: 1050px) {
   .structure-info,
   .viewer-container {

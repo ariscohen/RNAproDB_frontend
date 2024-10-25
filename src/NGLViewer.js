@@ -5,24 +5,10 @@ import './NGLViewer.css'
 
 function NGLViewer(rotationMatrix, algorithm) {
     let { pdbid } = useParams();
-
-  // Handle outside click for dropdown
-  //useEffect(() => {
-  //  function handleClickOutside(event) {
-  //    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //      setShowDropdown(false);
-  //    }
-  //  }
-
-   // document.addEventListener("mousedown", handleClickOutside);
-   // return () => {
-   //   document.removeEventListener("mousedown", handleClickOutside);
-   // };
-  //}, []);
+    const viewportRef = useRef(null);
 
     const [isCartoonVisible, setIsCartoonVisible] = useState(true);
     const [isWaterVisible, setIsWaterVisible] = useState(true);
-    // Define the function to handle the button click
 
     useEffect(() => { 
     const loadNGL = () => {
@@ -36,7 +22,9 @@ function NGLViewer(rotationMatrix, algorithm) {
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
+          // window.loadStructure(`/rnaprodb/cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
           window.loadStructure(`https://rohslab.usc.edu/rpdb_cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
+
         });
         document.body.appendChild(script2);
       });
@@ -45,7 +33,7 @@ function NGLViewer(rotationMatrix, algorithm) {
     };
 
     loadNGL();
-  }, [rotationMatrix, algorithm]); // CHECK WHETHER THIS DEPENDENCY IS NEEDEED
+  }, [rotationMatrix, algorithm]);
 
      // Function to call the update_show_water function
      const handleToggleWater = () => {
@@ -57,30 +45,52 @@ function NGLViewer(rotationMatrix, algorithm) {
     setIsWaterVisible(prevState => !prevState);
   };
 
-       // Function to call the update_show_water function
-       const handleToggleCartoon = () => {
-        if (isCartoonVisible) {
-            window.cartoonInvisible();}
-        else if(!isCartoonVisible){
-            window.cartoonVisible();
-        } else {
-            console.error("function not found");
-        }
-        setIsCartoonVisible(prevState => !prevState);
-    };
+  // Function to call the update_show_cartoon function
+  const handleToggleCartoon = () => {
+      if (isCartoonVisible) {
+          window.cartoonInvisible();
+      }
+      else if(!isCartoonVisible){
+          window.cartoonVisible();
+      } else {
+          console.error("function not found");
+      }
+      setIsCartoonVisible(prevState => !prevState);
+  };
+
+  // Function to handle download as PNG
+  const handleDownloadPNG = () => {
+    if (viewportRef.current) {
+      window.stage_nm1.makeImage({
+        factor: 2, // Resolution factor
+        antialias: true,
+        trim: false,
+        transparent: true
+      }).then(function(blob) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${pdbid}_structure.png`;
+        link.click();
+      }).catch(function(e) {
+        console.error('Image generation failed:', e);
+      });
+    }
+  };
 
   return (
     <div>
       <h5>3D structure</h5>
       <button className="button4" id="toggle-water" onClick={handleToggleWater}>Toggle Solvent</button>
       <button className="button4" id="toggle-cartoon" onClick={handleToggleCartoon}>Toggle Cartoon</button>
+      <button className="button4" id="download-png" onClick={handleDownloadPNG}>Download PNG</button>
       <div style={{ marginTop: '5px', marginBottom: '5px' }}>
-                                <strong>Rotate:</strong> drag + left click &nbsp;
-                                <strong>Translate:</strong> drag + right click &nbsp;
-                                <strong>Zoom:</strong> scroll
-                            </div>
+        <strong>Rotate:</strong> drag + left click &nbsp;
+        <strong>Translate:</strong> drag + right click &nbsp;
+        <strong>Zoom:</strong> scroll
+      </div>
       <div
         id="viewport"
+        ref={viewportRef}
         style={{
           width: '100%',
           height: '700px',

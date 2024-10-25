@@ -4,3 +4,34 @@
     margin-right: 40px;
     margin-bottom: 20px;
 }
+
+.electroSelect {
+    padding: 10px;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ecf9f9;
+    color: #333;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Styling for dropdown hover and focus state */
+  .electroSelect:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .electroSelect:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
+  }
+  
+  /* Styling for dropdown options */
+  .electro-div option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+  }
+  

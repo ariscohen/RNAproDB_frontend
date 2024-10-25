@@ -130,7 +130,7 @@ function Electrostatics() {
               <select
                 value={selectedOption}
                 onChange={handleDropdownChange}
-                style={{ marginLeft: '20px' }}
+                className='electroSelect'
               >
                 {hasAll && <option value="all">All (protein and NA)</option>}
                 {hasProtein && <option value="protein">Protein only</option>}
