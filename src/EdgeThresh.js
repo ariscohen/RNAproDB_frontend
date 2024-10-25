@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './EdgeThresh.css';
 
 const EdgeThresholdSlider = ({resetThreshold}) => {
-  const [edgeThreshold, setEdgeThreshold] = useState(15);
+  const [edgeThreshold, setEdgeThreshold] = useState(8);
   const [isReset, setIsReset] = useState(false);
 
   // This is the function that will be called when the prop changes
   const handleReset = () => {
     setIsReset(true);
-    setEdgeThreshold(15);
+    setEdgeThreshold(8);
     // Your specific function logic here
   };
 
@@ -51,7 +51,7 @@ const EdgeThresholdSlider = ({resetThreshold}) => {
         value={edgeThreshold}
         onChange={handleEdgeSliderChange}
       />
-      <span className="edge-threshold-value">{edgeThreshold}</span>
+      <span className="edge-threshold-value">{edgeThreshold} Å</span>
     </div>
   );
 };
