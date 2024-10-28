@@ -36,7 +36,14 @@
             // Create an ArcRotateCamera to give an orbit-like control
             camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 4, 3, BABYLON.Vector3.Zero(), scene);
             camera.attachControl(canvas, true);
-            camera.lowerRadiusLimit = 2; // Prevent camera zooming too close
+
+            // Remove limits on beta angle to allow full rotation
+            camera.lowerBetaLimit = null;
+            camera.upperBetaLimit = null;
+
+            // Optional: Set radius limits for better control
+            camera.lowerRadiusLimit = 1; // Prevent camera zooming too close
+            camera.upperRadiusLimit = 100; // Prevent camera zooming out too far
 
             // Use only hemispheric light for global illumination
             const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
@@ -78,6 +85,7 @@
             if (event.data.type === 'filename') {
                 const filename = event.data.filename;
                 console.log('Received filename:', filename);
+                // createScene(`http://localhost/electrostatics/${filename}`);  // Create the scene with the received filename
                 createScene(`https://rohslab.usc.edu/electrostatics/${filename}`);  // Create the scene with the received filename
             }
         });
