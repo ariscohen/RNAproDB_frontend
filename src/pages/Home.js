@@ -55,6 +55,8 @@ const Home = () => {
   const [algorithmText, setAlgorithmText] = useState(false);
 
   const [triggerThreshReset, setTriggerThreshReset] = useState(false);
+  const [showProtein, setShowProtein] = useState(true);
+
 
   // if checkbox toggled, call the tertiary edges stuff
   useEffect(() => {
@@ -114,7 +116,7 @@ const Home = () => {
 
   // reset threshold after hiding protein
   const handleProteinChange = (e) => {
-    setTriggerThreshReset(!triggerThreshReset);
+    setShowProtein(!showProtein);
     window.toggleProteinVisibility();
   };
 
@@ -195,6 +197,7 @@ const Home = () => {
                         <input
                           id="toggleProteinCheckbox"
                           type="checkbox"
+                          value={showProtein}
                           defaultChecked={false}
                           onChange={handleProteinChange}
                         />
@@ -223,7 +226,7 @@ const Home = () => {
                 <div className="subgraph-container">
                   <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
                 </div>
-                <EdgeThresholdSlider resetThreshold = {triggerThreshReset}></EdgeThresholdSlider>
+                <EdgeThresholdSlider resetThreshold = {triggerThreshReset} showProtein={showProtein}></EdgeThresholdSlider>
               </div>
               <GraphOps subgraph = {subgraph}/>
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>

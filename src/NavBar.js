@@ -60,7 +60,7 @@ function MainNavBar() {
                         <Form className="d-flex" onSubmit={handleSearch}>
                             <Form.Control
                                 type="search"
-                                placeholder={showNotFoundMessage ? "PDB ID not found" : "Enter a PDB ID."}
+                                placeholder={showNotFoundMessage ? "PDB ID not found" : "Enter a PDB ID (1un6)"}
                                 className={showNotFoundMessage ? "me-2 search-not-found" : "me-2"}
                                 aria-label="Search"
                                 value={searchTerm}

@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './EdgeThresh.css';
 
-const EdgeThresholdSlider = ({resetThreshold}) => {
+const EdgeThresholdSlider = ({resetThreshold, showProtein}) => {
   const [edgeThreshold, setEdgeThreshold] = useState(8);
   const [isReset, setIsReset] = useState(false);
 
    // This is the function that will be called when the prop changes
    const handleReset = () => {
+    console.log("IS RESET!");
     setIsReset(true);
     setEdgeThreshold(8);
     callHandleEdgeSliderChange(8);
   };
 
-  // Use useEffect to watch for changes in the prop and call the function
+  // if hide/show protein, may need to reset the threshold!
   useEffect(() => {
-    handleReset();
-  }, [resetThreshold]);
+    console.log("Use effect for resetThreshold!");
+    if(showProtein){
+      handleReset();
+    }else{
+      setEdgeThreshold(0);
+    }
+  }, [showProtein]);
 
   const callHandleEdgeSliderChange = (value) => {
+    console.log("callHandleEdgeSliderChange!");
+
     // Function to wait until window.filterEdges is available
     const waitForFilterEdges = () => {
       if (typeof window.filterEdges === 'function') {
@@ -33,6 +41,7 @@ const EdgeThresholdSlider = ({resetThreshold}) => {
   };
 
   function handleEdgeSliderChange(event) {
+    console.log("handleEdgeSliderChange!");
     const newValue = event.target.value;
     setEdgeThreshold(newValue);
 
