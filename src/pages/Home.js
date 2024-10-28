@@ -207,7 +207,6 @@ const Home = () => {
                 />
               </div>
               <div className="row-bottom">
-                <img src="/rnaprodb/legend.svg" alt="Legend" className="responsive_img" style={{ width: '100%', maxWidth: '800px', height: 'auto' }} />
                 <div className="dropdown">
                   <button onClick={() => setShowDropdown(!showDropdown)} className="dropdown-button">
                     Algorithm: {algorithmText}
@@ -268,6 +267,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              <img src="/rnaprodb/legend.svg" alt="Legend" className="responsive_img" style={{ width: '100%', maxWidth: '800px', height: 'auto' }} />
             </div>
             {activeTab === 'ssgraph' && ss !== false && (
               <SSiframe ss={ss} />
