@@ -5,28 +5,41 @@ const EdgeThresholdSlider = ({resetThreshold}) => {
   const [edgeThreshold, setEdgeThreshold] = useState(8);
   const [isReset, setIsReset] = useState(false);
 
-  // This is the function that will be called when the prop changes
-  const handleReset = () => {
+   // This is the function that will be called when the prop changes
+   const handleReset = () => {
     setIsReset(true);
     setEdgeThreshold(8);
-    // Your specific function logic here
+    callHandleEdgeSliderChange(8);
   };
 
   // Use useEffect to watch for changes in the prop and call the function
   useEffect(() => {
-      handleReset();
-  }, [resetThreshold]); // Call handleFunction whenever triggerFunction changes
+    handleReset();
+  }, [resetThreshold]);
 
-  
-// break into setting it and not setting it!
+  const callHandleEdgeSliderChange = (value) => {
+    // Function to wait until window.filterEdges is available
+    const waitForFilterEdges = () => {
+      if (typeof window.filterEdges === 'function') {
+        // When available, call the function with the value
+        window.filterEdges(value);
+      } else {
+        // Retry every 100ms until window.filterEdges is available
+        setTimeout(waitForFilterEdges, 100);
+      }
+    };
+
+    waitForFilterEdges();
+  };
+
   function handleEdgeSliderChange(event) {
     const newValue = event.target.value;
     setEdgeThreshold(newValue);
 
-    // consider the hide protein checkbox
+    // Consider the hide protein checkbox
     const checkbox = document.getElementById('toggleProteinCheckbox');
-    const isChecked = checkbox.checked;
-    if(isChecked){
+    const isChecked = checkbox && checkbox.checked;
+    if (isChecked) {
       window.toggleProteinVisibility();
       checkbox.checked = !checkbox.checked;
     }
@@ -36,9 +49,8 @@ const EdgeThresholdSlider = ({resetThreshold}) => {
       return;
     }
 
-    window.filterEdges(newValue);
-    // Implement any functionality that depends on the slider's value
-}
+    callHandleEdgeSliderChange(newValue);
+  }
 
   return (
     <div className="edge-threshold-container">
