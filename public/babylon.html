@@ -43,7 +43,7 @@
 
             // Optional: Set radius limits for better control
             camera.lowerRadiusLimit = 1; // Prevent camera zooming too close
-            camera.upperRadiusLimit = 100; // Prevent camera zooming out too far
+            camera.upperRadiusLimit = 1000; // Prevent camera zooming out too far
 
             // Use only hemispheric light for global illumination
             const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
