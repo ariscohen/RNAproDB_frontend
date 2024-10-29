@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
-import Checkbox from '@mui/material/Checkbox';
+// import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
@@ -321,17 +321,15 @@ function ExperimentalModalitySelector({ updateSearchParams }) {
   return (
     <FormGroup className="FormGroup">
       {['X-ray', 'EM', 'NMR', 'Neutron', 'Multiple methods', 'Other'].map((modality) => (
-        <FormControlLabel
-          key={modality}
-          control={
-            <Checkbox
+            <label key={modality} className="search-checkbox">
+            <input
+              type="checkbox"
               checked={selectedModalities.includes(modality)}
               onChange={handleToggle(modality)}
               name={modality}
             />
-          }
-          label={modality}
-        />
+            <span>{modality}</span>
+          </label>
       ))}
     </FormGroup>
   );
@@ -438,17 +436,15 @@ function NucleicAcidSelector({ updateSearchParams }) {
   return (
     <FormGroup className="FormGroup">
       {['RNA', 'DNA', 'Protein'].map((type) => (
-        <FormControlLabel
-          key={type}
-          control={
-            <Checkbox
+        <label key={type} className="search-checkbox">
+            <input
+              type="checkbox"
               checked={selectedNucleicAcids.includes(type)}
               onChange={handleToggle(type)}
               name={type}
             />
-          }
-          label={type}
-        />
+            <span>{type}</span>
+        </label>
       ))}
     </FormGroup>
   );
