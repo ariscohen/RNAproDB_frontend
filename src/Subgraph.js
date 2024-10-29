@@ -28,7 +28,7 @@ function Subgraph({ setSubgraph, tooLarge }) {
   }, [tooLarge]);
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center'}}>
     <button
         id="select-subgraph-button"
         className="button4"

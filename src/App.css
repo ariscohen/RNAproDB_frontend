@@ -97,7 +97,7 @@ iframe#webpack-dev-server-client-overlay {
 
 .download-buttons {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -154,9 +154,9 @@ iframe#webpack-dev-server-client-overlay {
   background-color: #ddd;
 }
 
-.download-buttons > .dropdown, .slider-container {
+/* .download-buttons > .dropdown, .slider-container {
   margin: 0 0 0 20px;
-}
+} */
 
 .slider-container {
   display: flex;
@@ -252,11 +252,12 @@ iframe#webpack-dev-server-client-overlay {
 .row-top {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* Align items to the left */
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   margin-top: 20px;
   padding-bottom: 10px;
+  gap: 20px;
 }
 
 .row-bottom {
@@ -317,7 +318,9 @@ iframe#webpack-dev-server-client-overlay {
 
 .subgraph-container {
   /* flex: 1 0 100%; */
-  margin-top: 10px; 
+  margin-top: 10px;
+  flex-wrap: wrap;
+  display: flex;
 }
 
 /* Container for the lower row */

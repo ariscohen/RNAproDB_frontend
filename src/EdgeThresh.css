@@ -1,11 +1,12 @@
 .edge-threshold-container {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    flex-wrap: wrap;
   }
   
   .edge-threshold-label {
-    white-space: nowrap;
+    /* white-space: nowrap; */
     margin-right: 16px;
   }
   

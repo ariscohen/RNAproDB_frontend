@@ -167,20 +167,19 @@ const Home = () => {
             <h5>Interface explorer</h5>
             <div style={{ display: activeTab === '2dgraph' ? 'block' : 'none', paddingTop: '0px' }} ref={graphRef}>
               <div className="row-top">
-                <div>
                   <span>Relax graph </span>
                   <label className="switch">
                     <input id="forcefieldButton" type="checkbox" />
                     <span className="slider round"></span>
                   </label>
-                  <span style={{ marginLeft: '40px' }}>Indicate H-bonds </span>
+                  <span>Indicate H-bonds </span>
                   <label className="switch">
                     <input id="toggleHBondsCheckbox" type="checkbox" defaultChecked={true} onChange={window.toggleHBondEdgeColors} />
                     <span className="slider round"></span>
                   </label>
                   {algorithm == "viennarna" && (
                     <React.Fragment>
-                      <span style={{ marginLeft: '40px' }}>Indicate Tertiary Structure </span>
+                      <span>Indicate Tertiary Structure </span>
                       <label className="switch">
                         <input
                           id="toggleTertiaryCheckbox"
@@ -192,7 +191,7 @@ const Home = () => {
                       </label>
                     </React.Fragment>
                   )}
-                  <span style={{ marginLeft: '40px' }}>Hide protein </span>
+                  <span>Hide protein </span>
                       <label className="switch">
                         <input
                           id="toggleProteinCheckbox"
@@ -203,14 +202,15 @@ const Home = () => {
                         />
                         <span className="slider round"></span>
                       </label>
-                </div>
-                <DownloadButtons
-                  downloadGraphHandler={downloadGraphHandler}
-                  handleRotationSliderChange={handleRotationSliderChange}
-                />
-              </div>
-              <div className="row-bottom">
-                <div className="dropdown">
+
+              {/* </div> */}
+              {/* <div className="row-bottom"> */}
+
+
+                <EdgeThresholdSlider resetThreshold = {triggerThreshReset} showProtein={showProtein}></EdgeThresholdSlider>
+              
+              <GraphOps subgraph = {subgraph}/>
+              <div className="dropdown">
                   <button onClick={() => setShowDropdown(!showDropdown)} className="dropdown-button">
                     Algorithm: {algorithmText}
                   </button>
@@ -226,9 +226,11 @@ const Home = () => {
                 <div className="subgraph-container">
                   <Subgraph tooLarge={tooLarge} setSubgraph={setSubgraph} />
                 </div>
-                <EdgeThresholdSlider resetThreshold = {triggerThreshReset} showProtein={showProtein}></EdgeThresholdSlider>
+              <DownloadButtons
+                  downloadGraphHandler={downloadGraphHandler}
+                  handleRotationSliderChange={handleRotationSliderChange}
+                />
               </div>
-              <GraphOps subgraph = {subgraph}/>
               <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
 
                 <div id="right_column" onClick={window.reset_graph_colors}>

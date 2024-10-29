@@ -62,7 +62,7 @@ const EdgeThresholdSlider = ({resetThreshold, showProtein}) => {
   }
 
   return (
-    <div className="edge-threshold-container">
+    <span className="edge-threshold-container">
       <span className="edge-threshold-label">Edge threshold:</span>
       <input
         type="range"
@@ -73,7 +73,7 @@ const EdgeThresholdSlider = ({resetThreshold, showProtein}) => {
         onChange={handleEdgeSliderChange}
       />
       <span className="edge-threshold-value">{edgeThreshold} Å</span>
-    </div>
+    </span>
   );
 };
 
