@@ -279,6 +279,11 @@ iframe#webpack-dev-server-client-overlay {
   overflow: hidden;
 }
 
+.viewer-container.full-width {
+  max-width: 100%; /* Takes full width when no structure info */
+}
+
+
 /* .seq-viewer {
   max-width: 100%;
   flex: 1;

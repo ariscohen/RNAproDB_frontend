@@ -148,7 +148,7 @@ const Home = () => {
       )}
 
       {/* Viewer Container - Takes up the remaining 70%, stacking Sequence and NGL viewers */}
-      <div className="viewer-container">
+      <div className={`viewer-container ${(pdbid && pdbid < 7) ? '' : 'full-width'}`}>
         <h5>Sequence Viewer</h5>
         {chainsObject && (
           <div className="seq-viewer">
