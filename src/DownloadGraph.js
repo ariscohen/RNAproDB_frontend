@@ -19,7 +19,7 @@ const DownloadGraph = async (format, graphRef, pdbid, algorithm, setInitialTrans
       a.click();
       document.body.removeChild(a);
     } else if (format === 'png') {
-      const scale = 8;  // Increase this value for higher resolution; 2x or 3x is typical
+      const scale = 3;  // Increase this value for higher resolution; 2x or 3x is typical
       const svgData = new XMLSerializer().serializeToString(svgElement);
       const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
       const url = URL.createObjectURL(svgBlob);
