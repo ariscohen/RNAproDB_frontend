@@ -12,7 +12,8 @@ function Electrostatics() {
     const [hasAll, setHasAll] = useState(false);
     const [hasProtein, setHasProtein] = useState(false);
     const [hasNA, setHasNA] = useState(false);
-
+    const [hasRunElectrostatics, setHasRunElectrostatics] = useState(false);
+    const [showMessage, setShowMessage] = useState(false);
 
     useEffect(() => {
         // Helper function to check if a file exists
@@ -30,16 +31,19 @@ function Electrostatics() {
         const allUrl = `/electrostatics/full_${pdbid}.ply`;
         const proteinUrl = `/electrostatics/pro_${pdbid}.ply`;
         const naUrl = `/electrostatics/na_${pdbid}.ply`;
+        const ipUrl = `/electrostatics/ip_${pdbid}.txt`;
 
         // Check each file and set the corresponding state
         const checkFiles = async () => {
             const allExists = await checkFileExists(allUrl);
             const proteinExists = await checkFileExists(proteinUrl);
             const naExists = await checkFileExists(naUrl);
+            const ipExists = await checkFileExists(ipUrl);
 
             setHasAll(allExists);
             setHasProtein(proteinExists);
             setHasNA(naExists);
+            setHasRunElectrostatics(ipExists);
         };
 
         // Run the file checks on page load
@@ -116,7 +120,24 @@ function Electrostatics() {
         };
     }, []);
 
-    
+    const runElectrostaticsScript = async (pdbid) => {
+        try {
+          const response = await fetch(`/rnaprodb-backend/rnaprodb/run-electrostatics?pdbid=${pdbid}`);
+          if (!response.ok) {
+            throw new Error('Failed to run electrostatics script');
+          }
+          const result = await response.json();
+          console.log('Script ran successfully:', result);
+          // You can add more handling here if needed
+        } catch (error) {
+          console.error('Error:', error.message);
+          alert('There was an error running the script');
+        }
+        finally{
+            setHasRunElectrostatics(true);
+            setShowMessage(true);
+        }
+      };
 
     return (
         <div className="electro-div">
@@ -151,6 +172,26 @@ function Electrostatics() {
             style={{ border: '1px solid black' }}
           ></iframe>
           )}
+        {(!(hasAll || hasProtein || hasNA) && pdbid.length > 7 && !hasRunElectrostatics) && (
+        <div>
+            <button className="run-el-btn" onClick={() => runElectrostaticsScript(pdbid)}>
+            Run Electrostatics
+            </button>
+        </div>
+        )}
+        {showMessage && (
+            <div>
+                Your structure is now running. Please check back by reloading/bookmarking the page in about 15 minutes.
+            </div>
+        )
+        }
+
+            {hasRunElectrostatics && !showMessage && (
+            <div>
+                Electrostatics is currently running. Please check back by reloading the page in about 15 minutes.
+            </div>
+        )}
+
         </div>
       );
 }
