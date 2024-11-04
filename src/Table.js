@@ -45,6 +45,37 @@ function Table({data}) {
     );
   };
 
+  const handleDownloadCSV = () => {
+    if (!data[activeTab]) return;
+
+    const rows = data[activeTab];
+    const csvContent = rows.map(row => row).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${activeTab}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleDownloadJSON = () => {
+    if (!data[activeTab]) return;
+
+    const jsonContent = JSON.stringify(data[activeTab], null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${activeTab}.json`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
       <h5>Tabular data</h5>
@@ -53,9 +84,14 @@ function Table({data}) {
           <button key={key} onClick={() => setActiveTab(key)} className={activeTab === key ? 'active' : ''}>
             {key}
           </button>
+
         ))}
+        <button onClick={handleDownloadCSV}>Download</button>
       </div>
       <div className="table-container">{renderTable(activeTab)}</div>
+      <div className="download-buttons">
+        {/* <button onClick={handleDownloadJSON}>Download JSON</button> */}
+      </div>
     </div>
   );
 }
