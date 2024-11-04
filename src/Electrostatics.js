@@ -161,6 +161,18 @@ function Electrostatics() {
               <span style={{ marginLeft: '20px' }}>No components available</span>
             )}
           </div>
+          <img 
+            src='/rnaprodb/electrostatics_bar.png' 
+            style={{ 
+                maxHeight: '100px', 
+                height: 'auto', 
+                width: 'auto', 
+                display: 'block', 
+                margin: 'auto' 
+            }} 
+            alt="Electrostatics Bar"
+            />
+
           {(hasAll || hasProtein || hasNA) && (
           <iframe
             ref={iframeRef}
