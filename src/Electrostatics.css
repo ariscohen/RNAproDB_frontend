@@ -45,3 +45,16 @@
   .run-el-btn:hover {
     background-color: #D0D0D7;  
     }
+
+    .button4 {
+      padding: 10px 20px;
+      border: none;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      margin: 0 10px 10px 0; /* Right margin for spacing between buttons, and bottom margin for spacing from the textarea */
+      cursor: pointer;
+    }
+    
+    .button4:hover {
+      background-color: #D0D0D7;
+    }

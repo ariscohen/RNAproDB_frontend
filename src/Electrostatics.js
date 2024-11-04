@@ -196,7 +196,7 @@ function Electrostatics() {
             alt="Electrostatics Bar"
             />
             {/* Download current PLY file if one is being shown and is available*/}
-            <button className="download-ply-btn" onClick={handleDownloadPLY}>Download</button>
+            <button className="button4" onClick={handleDownloadPLY}>Download</button>
             </div>
             )}
 
