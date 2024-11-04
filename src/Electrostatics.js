@@ -139,6 +139,27 @@ function Electrostatics() {
         }
       };
 
+    // Function to handle downloading the current PLY file
+    const handleDownloadPLY = () => {
+        let filename;
+        if (selectedOption === 'all') {
+            filename = `full_${pdbid}.ply`;
+        } else if (selectedOption === 'protein') {
+            filename = `pro_${pdbid}.ply`;
+        } else if (selectedOption === 'nucleicAcid') {
+            filename = `na_${pdbid}.ply`;
+        }
+
+        if (filename) {
+            const link = document.createElement('a');
+            link.href = `/electrostatics/${filename}`;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    };
+
     return (
         <div className="electro-div">
           <h5>Electrostatics</h5>
@@ -161,6 +182,8 @@ function Electrostatics() {
               <span style={{ marginLeft: '20px' }}>No components available</span>
             )}
           </div>
+          {(hasAll || hasProtein || hasNA) && (
+            <div>
           <img 
             src='/rnaprodb/electrostatics_bar.png' 
             style={{ 
@@ -172,6 +195,11 @@ function Electrostatics() {
             }} 
             alt="Electrostatics Bar"
             />
+            {/* Download current PLY file if one is being shown and is available*/}
+            <button className="download-ply-btn" onClick={handleDownloadPLY}>Download</button>
+            </div>
+            )}
+
 
           {(hasAll || hasProtein || hasNA) && (
           <iframe
