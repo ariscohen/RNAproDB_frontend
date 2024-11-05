@@ -14,13 +14,15 @@ function MainNavBar() {
     const location = useLocation(); // Get the current path
 
     useEffect(() => {
-        fetch('/rnaprodb/ids.txt')
-            .then(response => response.text())
-            .then(text => {
-                const ids = text.split(',').map(id => id.trim().toUpperCase());
+        fetch('/rnaprodb-backend/rnaprodb/get-struct-list')
+            .then(response => response.json())  // Parse response as JSON
+            .then(data => {
+                const ids = data.structures.split(',').map(id => id.trim().toUpperCase());
                 setPdbIds(ids);
-            });
+            })
+            .catch(error => console.error('Error fetching structures:', error));
     }, []);
+    
 
     const handleSearch = (event) => {
         event.preventDefault();
