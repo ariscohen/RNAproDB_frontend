@@ -185,7 +185,7 @@ function Electrostatics() {
           {(hasAll || hasProtein || hasNA) && (
             <div>
           <img 
-            src='/rnaprodb/electrostatics_bar.png' 
+            src='/rnaprodb/electrostatics_bar.svg' 
             style={{ 
                 maxHeight: '100px', 
                 height: 'auto', 
