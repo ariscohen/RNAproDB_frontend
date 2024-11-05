@@ -184,17 +184,6 @@ function Electrostatics() {
           </div>
           {(hasAll || hasProtein || hasNA) && (
             <div>
-          <img 
-            src='/rnaprodb/electrostatics_bar.svg' 
-            style={{ 
-                maxHeight: '100px', 
-                height: 'auto', 
-                width: 'auto', 
-                display: 'block', 
-                margin: 'auto' 
-            }} 
-            alt="Electrostatics Bar"
-            />
             {/* Download current PLY file if one is being shown and is available*/}
             <button className="button4" onClick={handleDownloadPLY}>Download</button>
             </div>
