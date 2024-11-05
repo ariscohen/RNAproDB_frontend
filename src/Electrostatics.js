@@ -212,6 +212,25 @@ function Electrostatics() {
             style={{ border: '1px solid black' }}
           ></iframe>
           )}
+
+
+{(hasAll || hasProtein || hasNA) && (
+            <div>
+          <img 
+            src='/rnaprodb/electrostatics_bar.svg' 
+            style={{ 
+                maxHeight: '100px', 
+                height: 'auto', 
+                width: 'auto', 
+                display: 'block', 
+                margin: 'auto' 
+            }} 
+            alt="Electrostatics Bar"
+            />
+            </div>
+            )}
+
+
         {(!(hasAll || hasProtein || hasNA) && pdbid.length > 7 && !hasRunElectrostatics) && (
         <div>
             <button className="run-el-btn" onClick={() => runElectrostaticsScript(pdbid)}>
