@@ -240,20 +240,44 @@ filter.select("feMerge")
     // .attr("y2", function(d) { return d.target.y; });
     // .attr("marker-end", function(d) { return d.my_type === "backbone" ? "url(#simpleArrow)" : null });
 
+var duplicatePairs = {};
 
-// Create links without marker-end
-// Create links without marker-end
 // Create links without marker-end
 var link = svg.selectAll(".link")
 .data(graph.links)
 .enter().append("line")
 .attr("class","link")
 .style("stroke-dasharray", function(d) { 
-  // console.log("Distance 3d for link:", d.distance_3d);
-  return d.my_type === "pair" ? "10,10" : "none"; // "none" for solid
- })
+    return d.my_type === "pair" ? "10,10" : "none"; 
+})
  .style("stroke", function(d) { return d.color; }) // Colored stroke
-.style("stroke-opacity", 1)
+// .style("stroke-opacity", 1)
+.style("stroke-opacity", function(d){
+  if (d.my_type === "pair") {
+    // Check if the pair exists in either direction (A->B or B->A)
+    if ((duplicatePairs[d.source_id] && duplicatePairs[d.source_id].includes(d.target_id)) ||
+        (duplicatePairs[d.target_id] && duplicatePairs[d.target_id].includes(d.source_id))) {
+      // If the pair or its reverse already exists, skip this edge
+      return 0; // Skip by not setting stroke-dasharray
+    }
+    
+    // Add the pair in both directions to track uniqueness
+    if (!duplicatePairs[d.source_id]) {
+      duplicatePairs[d.source_id] = [];
+    }
+    duplicatePairs[d.source_id].push(d.target_id);
+    
+    if (!duplicatePairs[d.target_id]) {
+      duplicatePairs[d.target_id] = [];
+    }
+    duplicatePairs[d.target_id].push(d.source_id);
+    
+    return 1; // Set stroke-dasharray for unique pairs
+  }
+  
+  // For non-pair types, default to solid stroke
+  return 1;
+})
 .style("stroke-width", function(d) { return d.edge_width + 4; }) // Make the black stroke wider
 .attr("x1", function(d) { return d.source.x; })
 .attr("y1", function(d) { return d.source.y; })
