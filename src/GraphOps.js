@@ -50,8 +50,8 @@ const GraphOps = ({ subgraph }) => {
             />
             <span>{rotation}°</span>
             <div className="reflect-buttons">
-                <button className="reflect-button" onClick={handleReflectX}>Reflect X</button>
-                <button className="reflect-button" onClick={handleReflectY}>Reflect Y</button>
+                <button className="reflect-button" onClick={handleReflectY}>Reflect X</button>
+                <button className="reflect-button" onClick={handleReflectX}>Reflect Y</button>
             </div>
         </>
     );
