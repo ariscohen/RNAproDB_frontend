@@ -162,27 +162,30 @@ filter.select("feMerge")
     force.start(); // Start the simulation with nodes fixed
 
     
-    // DRAGGING START
-    function dragstarted(d) {
-      disableZoomFit = true;
-      d3.event.sourceEvent.stopPropagation();
-      d3.select(this).classed("dragging", true);
-      d.fx = d.x; // Set the fixed position to the current position
-      d.fy = d.y;
+// DRAGGING START
+function dragstarted(d) {
+  disableZoomFit = true;
+  d3.event.sourceEvent.stopPropagation();
+  d3.select(this).classed("dragging", true);
+  d.fixed = true; // Set the node to be fixed when dragging starts
+}
+
+function dragged(d) {
+  d.px = d3.event.x; // Update the previous x position
+  d.py = d3.event.y; // Update the previous y position
+  d.x = d3.event.x;  // Update the current x position
+  d.y = d3.event.y;  // Update the current y position
+  tick(); // Update positions immediately
+}
+
+function dragended(d) {
+  d3.select(this).classed("dragging", false);
+  if(isForcefieldActive){
+    d.fixed = false; // Keep the node fixed after dragging ends
   }
-  
-  function dragged(d) {
-      d.fx = d3.event.x; // Update the fixed x-position
-      d.fy = d3.event.y; // Update the fixed y-position
-  }
-  
-  function dragended(d) {
-      d3.select(this).classed("dragging", false);
-      if (!d3.event.active) {
-          d.fx = null; // Allow the node to move freely again
-          d.fy = null;
-      }
-  }
+}
+
+
   
     
     var drag = force.drag()
@@ -1565,72 +1568,61 @@ window.rotateGraph = rotateGraph;
 
 function reflectGraph(axis) {
   if (axis !== 'x' && axis !== 'y') {
-      console.error('Invalid axis. Use "x" or "y".');
-      return;
+    console.error('Invalid axis. Use "x" or "y".');
+    return;
   }
 
   // Get the current rotation in radians
   const angle = (transformState.rotation * Math.PI) / 180;
 
   // Move nodes to their equivalent positions in the zero-rotation frame
-  graph.nodes.forEach(function (d) {
-      const rotatedX = d.x * Math.cos(angle) - d.y * Math.sin(angle);
-      const rotatedY = d.x * Math.sin(angle) + d.y * Math.cos(angle);
+  graph.nodes.forEach(function(d) {
+    const rotatedX = d.x * Math.cos(angle) - d.y * Math.sin(angle);
+    const rotatedY = d.x * Math.sin(angle) + d.y * Math.cos(angle);
 
-      // Update the node positions to their recalculated values
-      d.x = rotatedX;
-      d.y = rotatedY;
+    // Update node positions
+    d.x = rotatedX;
+    d.y = rotatedY;
+    d.px = rotatedX;
+    d.py = rotatedY;
   });
 
   // Reflect nodes based on the chosen axis
-  graph.nodes.forEach(function (d) {
-      if (axis === 'x') {
-          d.y = -d.y; // Reflect across the x-axis
-      } else if (axis === 'y') {
-          d.x = -d.x; // Reflect across the y-axis
-      }
+  graph.nodes.forEach(function(d) {
+    if (axis === 'x') {
+      d.y = -d.y;
+      d.py = -d.py;
+    } else if (axis === 'y') {
+      d.x = -d.x;
+      d.px = -d.px;
+    }
+    d.fixed = true; // Fix the node at the new position
   });
 
-  // Reapply the transformations to nodes
+  // Update node positions in the DOM
   d3.selectAll('g.node')
-      .attr('transform', function (d) {
-          return 'translate(' + d.x + ',' + d.y + ')';
-      });
+    .attr('transform', function(d) {
+      return 'translate(' + d.x + ',' + d.y + ')';
+    });
 
-  // Update link positions accordingly
+  // Update link positions
   updateLinkAndArrowheads();
 
-  // Update decorations (arrows, squares, circles, etc.) linked to the links
+  // Update decorations linked to the links
   updateLinkDecorations();
 
   // Reset the rotation to zero
   rotateGraph(0);
 
-  // Use D3's zoom behavior to automatically fit the graph within view
-  const bounds = root.node().getBBox();
-  const parent = svg.node().parentElement;
-  const fullWidth = parent.clientWidth || parent.parentNode.clientWidth;
-  const fullHeight = parent.clientHeight || parent.parentNode.clientHeight;
+  // Optionally restart the force simulation
+  // force.start(); // Uncomment if you want the simulation to continue
 
-  // Calculate the scale and translation to fit the bounding box within the view
-  const width = bounds.width;
-  const height = bounds.height;
-  const midX = bounds.x + width / 2;
-  const midY = bounds.y + height / 2;
-
-  if (width > 0 && height > 0) {
-      const scale = 0.85 / Math.max(width / fullWidth, height / fullHeight);
-      const translate = [
-          fullWidth / 2 - scale * midX,
-          fullHeight / 2 - scale * midY
-      ];
-
-      // Apply the zoom transformation
-      root.transition()
-          .duration(750)
-          .attr('transform', `translate(${translate}) scale(${scale})`);
-  }
+  // Adjust zoom and pan to fit the graph
+  adjustZoomToFitGraph();
 }
+
+
+
 
 window.reflectGraph = reflectGraph;
 
