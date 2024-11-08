@@ -5,6 +5,8 @@ import './NGLViewer.css'
 
 function NGLViewer(rotationMatrix, algorithm) {
     let { pdbid } = useParams();
+    const lowercasePdbid = pdbid?.toLowerCase(); // Convert pdbid to lowercase if it exists
+
     const viewportRef = useRef(null);
 
     const [isCartoonVisible, setIsCartoonVisible] = useState(true);
@@ -22,8 +24,8 @@ function NGLViewer(rotationMatrix, algorithm) {
 
       script1.addEventListener('load', () => {
         script2.addEventListener('load', () => {
-          // window.loadStructure(`/rnaprodb/cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
-          window.loadStructure(`https://rohslab.usc.edu/rpdb_cifs/${pdbid}-assembly1.cif`, {rotationMatrix, algorithm});
+          // window.loadStructure(`/rnaprodb/cifs/${lowercasePdbid}-assembly1.cif`, {rotationMatrix, algorithm});
+          window.loadStructure(`https://rohslab.usc.edu/rpdb_cifs/${lowercasePdbid}-assembly1.cif`, {rotationMatrix, algorithm});
 
         });
         document.body.appendChild(script2);
@@ -69,7 +71,7 @@ function NGLViewer(rotationMatrix, algorithm) {
       }).then(function(blob) {
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = `${pdbid}_structure.png`;
+        link.download = `${lowercasePdbid}_structure.png`;
         link.click();
       }).catch(function(e) {
         console.error('Image generation failed:', e);
