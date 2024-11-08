@@ -27,6 +27,7 @@ import GraphOps from '../GraphOps.js';
 
 const Home = () => {
   const { pdbid, urlAlgorithm } = useParams();
+  const lowercasePdbid = pdbid?.toLowerCase(); // Convert pdbid to lowercase if it exists
   const columnRef = useRef(null);
   const graphRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -98,7 +99,7 @@ const Home = () => {
   }, [dimensions]);
 
   const downloadGraphHandler = (format) => {
-    DownloadGraph(format, graphRef, pdbid, algorithm, setInitialTranslate, setInitialScale);
+    DownloadGraph(format, graphRef, lowercasePdbid, algorithm, setInitialTranslate, setInitialScale);
   };
 
   const handleRotationSliderChange = (e) => {
@@ -110,7 +111,7 @@ const Home = () => {
     if(selectedAlgorithm === algorithm){
       return;
     }
-    window.location = `${window.location.origin}/rnaprodb/${pdbid}/${selectedAlgorithm}`;
+    window.location = `${window.location.origin}/rnaprodb/${lowercasePdbid}/${selectedAlgorithm}`;
   };
 
 
@@ -140,7 +141,7 @@ const Home = () => {
         <div className="column" id="left_column_wrapper">
     <div className="left-col">
       {/* Structure Info - Takes up 30% */}
-      {pdbid && pdbid.length < 7 && (
+      {lowercasePdbid && lowercasePdbid.length < 7 && (
         <div className="structure-info" id="left_column_top">
           <h5>Structure Info</h5>
           <StructureInfo />
@@ -148,7 +149,7 @@ const Home = () => {
       )}
 
       {/* Viewer Container - Takes up the remaining 70%, stacking Sequence and NGL viewers */}
-      <div className={`viewer-container ${(pdbid && pdbid < 7) ? '' : 'full-width'}`}>
+      <div className={`viewer-container ${(lowercasePdbid && lowercasePdbid < 7) ? '' : 'full-width'}`}>
         <h5>Sequence Viewer</h5>
         {chainsObject && (
           <div className="seq-viewer">
@@ -241,7 +242,7 @@ const Home = () => {
                                 <strong>Select:</strong> click (shift to multi-select) &nbsp;
                             </div>
                   <NewPythonGraph
-                    pdbid={pdbid}
+                    pdbid={lowercasePdbid}
                     setGraphData={setGraphData}
                     setTooLarge={setTooLarge}
                     setRotationMatrix={setRotationMatrix}
