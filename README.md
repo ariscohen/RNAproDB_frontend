@@ -1,10 +1,6 @@
-# Getting Started with Create React App
+## RNAproDB frontend setup
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
+Note:  We recommend running RNAproDB at [https://rohslab.usc.edu/rnaprodb/](https://rohslab.usc.edu/rnaprodb/). This repository is provided for users to explore our implementation. Please note that the backend repository is separate and can be found here: [https://github.com/timkartar/RNAproDB](https://github.com/timkartar/RNAproDB).
 
 ### `npm start`
 
