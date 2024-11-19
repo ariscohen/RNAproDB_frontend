@@ -11,3 +11,5 @@ Note: we recommend running RNAproDB at [https://rohslab.usc.edu/rnaprodb/](https
 7. `npm run build`
 8. Optional: Install django [https://docs.djangoproject.com/en/5.1/topics/install/](https://docs.djangoproject.com/en/5.1/topics/install/) to integrate backend and frontend (please ensure backend is set up)
 9. Restart apache (`sudo systemctl restart apache2`)
+
+Example output is available at [https://rohslab.usc.edu/rnaprodb/1ivs](https://rohslab.usc.edu/rnaprodb/1ivs)
