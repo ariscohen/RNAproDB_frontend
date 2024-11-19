@@ -58,3 +58,11 @@
     .button4:hover {
       background-color: #D0D0D7;
     }
+
+    .electrostatics-iframe {
+      height: 1000px;
+      max-height: 100vh; /* Limits height to the viewport height if 1000px is too large */
+      width: 100%; /* Ensures it takes up full width */
+      border: 1px solid black; /* Matches the inline style */
+      box-sizing: border-box; /* Ensures padding and border are included in width/height */
+    }

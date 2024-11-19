@@ -190,17 +190,16 @@ function Electrostatics() {
             )}
 
 
-          {(hasAll || hasProtein || hasNA) && (
-          <iframe
-            ref={iframeRef}
-            src={`${process.env.PUBLIC_URL}/babylon.html`}
-            title="Electrostatics Graph"
-            width="100%"
-            height="700"
-            onLoad={iframeLoadHandler}
-            style={{ border: '1px solid black' }}
-          ></iframe>
-          )}
+            {(hasAll || hasProtein || hasNA) && (
+            <iframe
+                ref={iframeRef}
+                src={`${process.env.PUBLIC_URL}/babylon.html`}
+                title="Electrostatics Graph"
+                width="100%"
+                className="electrostatics-iframe"
+                onLoad={iframeLoadHandler}
+            ></iframe>
+            )}
 
 
 {(hasAll || hasProtein || hasNA) && (
