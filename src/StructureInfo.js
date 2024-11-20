@@ -82,21 +82,21 @@ function StructureInfo() {
             {protein_name && <p style={{ textAlign: 'center' }}> <b>{pdbid}:</b><br/>{protein_name}</p>}
             {classification && <p><strong>Classification:</strong> {classification}</p>}
             {organism && <p><strong>Organism:</strong> {organism}</p>}
-            {expressionSystem && <p><strong>Expression System:</strong> {expressionSystem}</p>}
+            {expressionSystem && <p><strong>Expression system:</strong> {expressionSystem}</p>}
             {doi && <p><strong>DOI:</strong> <a href={doiLink} target="_blank" rel="noopener noreferrer">{doi}</a></p>}
-            {releaseDate && <p><strong>Release Date:</strong> {releaseDate}</p>}
-            {latestRevisionDate && <p><strong>Latest Revision Date:</strong> {latestRevisionDate}</p>}
+            {releaseDate && <p><strong>Release date:</strong> {releaseDate}</p>}
+            {latestRevisionDate && <p><strong>Latest revision date:</strong> {latestRevisionDate}</p>}
             {authors && <p><strong>Authors:</strong> {authors}</p>}
-            {molecularWeight !== undefined && <p><strong>Molecular Weight:</strong> {molecularWeight} kDa</p>}
-            {experimentalModality && <p><strong>Experimental Modality:</strong> {experimentalModality}</p>}
-            {resolution && <p><strong>Imaging Resolution:</strong> {resolution} Å</p>}
+            {molecularWeight !== undefined && <p><strong>Molecular weight:</strong> {molecularWeight} kDa</p>}
+            {experimentalModality && <p><strong>Experimental modality:</strong> {experimentalModality}</p>}
+            {resolution && <p><strong>Imaging resolution:</strong> {resolution} Å</p>}
             {pubmedId && <p><strong>PubMed ID:</strong> {pubmedId}</p>}
             {pfamId && pfamId !== "Not available" && <p><strong>Pfam ID:</strong> {pfamId}</p>}
             {rfamId && rfamId !== "Not available" && <p><strong>Rfam ID:</strong> {rfamId}</p>}
-            {numberProtEntities !== undefined && <p><strong>Number of Protein Entities:</strong> {numberProtEntities}</p>}
-            {numberRNAEntities !== undefined && <p><strong>Number of RNA Entities:</strong> {numberRNAEntities}</p>}
-            {numberDNAEntities !== undefined && <p><strong>Number of DNA Entities:</strong> {numberDNAEntities}</p>}
-            {numberHybridEntities !== undefined && <p><strong>Number of Nucleic Acid Hybrid Entities:</strong> {numberHybridEntities}</p>}
+            {numberProtEntities !== undefined && <p><strong>Number of protein entities:</strong> {numberProtEntities}</p>}
+            {numberRNAEntities !== undefined && <p><strong>Number of RNA entities:</strong> {numberRNAEntities}</p>}
+            {numberDNAEntities !== undefined && <p><strong>Number of DNA entities:</strong> {numberDNAEntities}</p>}
+            {numberHybridEntities !== undefined && <p><strong>Number of NA hybrid entities:</strong> {numberHybridEntities}</p>}
         </div>  
     );
 }
