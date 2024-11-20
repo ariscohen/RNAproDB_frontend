@@ -91,7 +91,7 @@ function SSPythonGraph({ graphData }) {
         {/* Button to toggle node labels */}
         <div className="dropdown">
           <button onClick={toggleLabels}>
-            {labelsVisible ? "Hide Labels" : "Show Labels"}
+            {labelsVisible ? "Hide labels" : "Show labels"}
           </button>
         </div>
       </div>
