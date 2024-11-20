@@ -143,14 +143,14 @@ const Home = () => {
       {/* Structure Info - Takes up 30% */}
       {lowercasePdbid && lowercasePdbid.length < 7 && (
         <div className="structure-info" id="left_column_top">
-          <h5>Structure Info</h5>
+          <h5>Structure info</h5>
           <StructureInfo />
         </div>
       )}
 
       {/* Viewer Container - Takes up the remaining 70%, stacking Sequence and NGL viewers */}
       <div className={`viewer-container ${(lowercasePdbid && lowercasePdbid < 7) ? '' : 'full-width'}`}>
-        <h5>Sequence Viewer</h5>
+        <h5>Sequence viewer</h5>
         {chainsObject && (
           <div className="seq-viewer">
             <SeqViewer chainsObject={chainsObject} tooLarge={tooLarge} />
