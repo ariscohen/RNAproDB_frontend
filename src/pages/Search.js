@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper';
 
 import InputBase from '@mui/material/InputBase';
 
-import Checkbox from '@mui/material/Checkbox';
+// import Checkbox from '@mui/material/Checkbox';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -604,13 +604,9 @@ function ExperimentalModalitySelector({ updateSearchParams }) {
 
       {['X-ray', 'EM', 'NMR', 'Neutron', 'Multiple methods', 'Other'].map((modality) => (
 
-        <FormControlLabel
-
-          key={modality}
-
-          control={
-
-            <Checkbox
+          <label key={modality} className="search-checkbox">
+          <input
+            type="checkbox"
 
               checked={selectedModalities.includes(modality)}
 
@@ -619,13 +615,8 @@ function ExperimentalModalitySelector({ updateSearchParams }) {
               name={modality}
 
             />
-
-          }
-
-          label={modality}
-
-        />
-
+          <span>{modality}</span>
+          </label>
       ))}
 
     </FormGroup>
@@ -822,13 +813,9 @@ function NucleicAcidSelector({ updateSearchParams }) {
 
       {['RNA', 'DNA', 'Protein'].map((type) => (
 
-        <FormControlLabel
-
-          key={type}
-
-          control={
-
-            <Checkbox
+<label key={type} className="search-checkbox">
+<input
+  type="checkbox"
 
               checked={selectedNucleicAcids.includes(type)}
 
@@ -837,12 +824,8 @@ function NucleicAcidSelector({ updateSearchParams }) {
               name={type}
 
             />
-
-          }
-
-          label={type}
-
-        />
+            <span>{type}</span>
+            </label>
 
       ))}
 
