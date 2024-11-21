@@ -255,8 +255,28 @@ const QueryOutput = ({ data, isError }) => {
         <>
         <Button onClick={() => handleSortChange('id')}>Sort by ID</Button>
         <Button onClick={() => handleSortChange('year')}>Sort by Year</Button>
-        <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ width: '100%', marginTop: 2 }} >
-          <Pagination count={count} page={page} onChange={handleChange} />
+        <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ width: '100%', marginTop: 2 }}>
+          <Pagination
+            count={count}
+            page={page}
+            onChange={handleChange}
+            sx={{
+              '.MuiPaginationItem-root': {
+                fontSize: '1rem', // Increase font size
+                padding: '10px', // Add padding for larger buttons
+                borderRadius: '8px', // Round the edges
+                color: 'black', // Text color
+                '&:hover': {
+                  backgroundColor: '#e0e0e0', // Light gray background on hover
+                },
+              },
+              '.MuiPaginationItem-root.Mui-selected': {
+                backgroundColor: 'green', // Selected button background color
+                color: 'white', // Selected button text color
+                fontWeight: 'bold',
+              },
+            }}
+          />
         </Stack>
         {getData(sortedData, page, itemsPerPage).map((item) => (
         <Card key={item.id} variant="outlined" sx={{ width: 'calc(25% - 32px)', marginBottom: 2, marginLeft:"8px", marginRight:"8px" }}>
