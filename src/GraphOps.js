@@ -39,7 +39,7 @@ const GraphOps = ({ subgraph }) => {
 
     return (
         <>
-            <label htmlFor="rotation-slider">Rotate Graph:</label>
+            <label htmlFor="rotation-slider">Rotate graph:</label>
             <input
                 id="rotation-slider"
                 type="range"
