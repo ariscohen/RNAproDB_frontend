@@ -68,7 +68,7 @@ function MainNavBar() {
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
-                            <Button variant="outline-success" type="submit">Search</Button>
+                            <Button className="white-text" variant="outline-success" type="submit">Search</Button>
                         </Form>
                     )}
                 </Navbar.Collapse>

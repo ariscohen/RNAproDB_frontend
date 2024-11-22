@@ -10,22 +10,31 @@ export default function Docs() {
                 <br />
                 <b className="text-[#A2A0D3]">RNAproDB</b> provides an interface explorer on every structure page, displaying the nucleic acid structure in 2D along with interacting protein residues.
                 <br />
-                Users can select from different algorithms for mapping the structure, and subgraphs can be generated based on residue or nucleotide selection by the user.
+                Users can select various algorithms to map the structure, and subgraphs can be generated based on secondary structure or selection by the user.
             </p>
             </div>
+            <img
+                src="/rnaprodb/abstract.png"
+                alt="RNAproDB abstract"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
 
-            <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">1. Search</h2>
+            <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">1. Features</h2>
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can search structures and sequences via a search box available on the landing page or at the top navigation bar.
+                Users can input a <b className="text-[#A2A0D3]">PDB identifier</b> on the top navigation bar to access a specific structure (biological assembly 1).
                 <br />
-                Users can also input a <b className="text-[#A2A0D3]">PDB identifier</b> to access a structure (biological assembly 1 as available on the PDB).
+                Users can also search keywords and more specific features via the dedicated search page.
                 <br />
-                Each structure page provides a <b className="text-[#A2A0D3]">sequence viewer</b>, a <b className="text-[#A2A0D3]">3D structure viewer</b>, and an <b className="text-[#A2A0D3]">interface explorer</b> with relevant structure information.
+                Each structure page provides a <b className="text-[#A2A0D3]">sequence viewer</b>, a <b className="text-[#A2A0D3]">3D structure viewer</b>, an <b className="text-[#A2A0D3]">electrostatics viewer</b>, a <b className="text-[#A2A0D3]">secondary structure selector</b>, and an <b className="text-[#A2A0D3]">interface explorer</b> with relevant structure information.
             </p>
             </div>
-
+            <img
+                src="/rnaprodb/nav_search_bar.png"
+                alt="Search bar"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
             
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.1. Sequence Viewer</h4>
 
@@ -44,7 +53,7 @@ export default function Docs() {
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.2.  Structure Viewer</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.2. Structure Viewer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 Users can view the 3D structure of the complex using the Structure Viewer.
@@ -53,7 +62,7 @@ export default function Docs() {
             </p>
             </div>
              <img
-                src="/rnaprodb/1asz.png"
+                src="/rnaprodb/3d_structure.png"
                 alt=" Structure Screenshot"
                 className="w-1/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -82,13 +91,13 @@ export default function Docs() {
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                The components of the graph are indicated in the below legend, other than Leontis-Westhof annotations which are displayed on the right side of the graph.
+                A legend for the graph is available below the graph, other than Leontis-Westhof annotations which are displayed on the right side of the graph.
                 <br />
                 Hovering over nodes or edges on the graph provides more extensive information on corresponding residues and/or interactions.
             </p>
             </div>
              <img
-                src="/rnaprodb/legend.svg"
+                src="/rnaprodb/hover.png"
                 alt="Legend"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -162,7 +171,7 @@ export default function Docs() {
             </div>
 
             <img
-                src="/rnaprodb/1asz.svg"
+                src="/rnaprodb/search_card_view.png"
                 alt="Search"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
