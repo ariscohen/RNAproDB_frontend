@@ -1279,26 +1279,44 @@ function add_node_to_subgraph(chain, num, icode){
       .style("fill", "yellow");
   }
   
-function connectedNodes() {
-  if (toggle == 0) {
-    //Reduce the opacity of all but the neighbouring nodes
-    d = d3.select(this).node().__data__;
-    node.style("opacity", function(o) {
-      return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
-    });
-    link.style("opacity", function(o) {
-      return d.index == o.source.index | d.index == o.target.index ? 1 : 0.1;
-    });
-    //Reduce the op
-    toggle = 1;
-  } else {
-    //Put them back to opacity=1
-    node.style("opacity", 0.95);
-    link.style("opacity", 1);
-
-    toggle = 0;
+  function connectedNodes() {
+    if (toggle === 0) {
+      // Get the data for the clicked node
+      const d = d3.select(this).node().__data__;
+  
+      // Set opacity for nodes
+      node.style("opacity", function(o) {
+        return neighboring(d, o) || neighboring(o, d) ? 1 : 0.1;
+      });
+  
+      // Set opacity for links
+      link.style("opacity", function(o) {
+        return d.index === o.source.index || d.index === o.target.index ? 1 : 0.1;
+      });
+  
+      // Set opacity for arrowheads
+      svg.selectAll(".arrowhead").style("opacity", function(o) {
+        return d.index === o.source.index || d.index === o.target.index ? 1 : 0.1;
+      });
+  
+      // Set opacity for other edge shapes
+      svg.selectAll(".waterMediatedCircle, .linkTriangleRight, .linkTriangleLeft, .linkSquareLeft, .linkSquareRight, .linkSquareCenter, .linkTriangleCenter, .linkCircleLeft, .linkCircleRight, .linkCircleCenter")
+        .style("opacity", function(o) {
+          return d.index === o.source.index || d.index === o.target.index ? 1 : 0.1;
+        });
+  
+      toggle = 1;
+    } else {
+      // Reset opacity for all elements
+      node.style("opacity", 0.95);
+      link.style("opacity", 1);
+      svg.selectAll(".arrowhead, .waterMediatedCircle, .linkTriangleRight, .linkTriangleLeft, .linkSquareLeft, .linkSquareRight, .linkSquareCenter, .linkTriangleCenter, .linkCircleLeft, .linkCircleRight, .linkCircleCenter")
+        .style("opacity", 1);
+  
+      toggle = 0;
+    }
   }
-}
+  
 //*************************************************************
 
 
