@@ -66,11 +66,11 @@ body, button, input, textarea {
   text-align: center;
 }
 
-svg {
+.interfaceGraph {
   flex: 1;
   background: white;
-  /* border: 1px solid #000;
-  border-width: 2px 1px 1px 2px; */
+  border: 1px solid #000;
+  border-width: 2px 1px 1px 2px;
 }
 
 iframe#webpack-dev-server-client-overlay {
