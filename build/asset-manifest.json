@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rnaprodb/static/css/main.16019265.css",
-    "main.js": "/rnaprodb/static/js/main.ed8789b0.js",
+    "main.js": "/rnaprodb/static/js/main.b17f9b96.js",
     "static/js/787.cda612ba.chunk.js": "/rnaprodb/static/js/787.cda612ba.chunk.js",
     "static/media/fa-solid-900.ttf": "/rnaprodb/static/media/fa-solid-900.45a265d0f07b31cde85f.ttf",
     "static/media/InterVariable-Italic.woff2": "/rnaprodb/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
@@ -22,11 +22,11 @@
     "static/media/fa-v4compatibility.woff2": "/rnaprodb/static/media/fa-v4compatibility.b3049b13a93f07e026fc.woff2",
     "index.html": "/rnaprodb/index.html",
     "main.16019265.css.map": "/rnaprodb/static/css/main.16019265.css.map",
-    "main.ed8789b0.js.map": "/rnaprodb/static/js/main.ed8789b0.js.map",
+    "main.b17f9b96.js.map": "/rnaprodb/static/js/main.b17f9b96.js.map",
     "787.cda612ba.chunk.js.map": "/rnaprodb/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.16019265.css",
-    "static/js/main.ed8789b0.js"
+    "static/js/main.b17f9b96.js"
   ]
 }

@@ -23,9 +23,9 @@ export default function Docs() {
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can input a <b className="text-[#A2A0D3]">PDB identifier</b> on the top navigation bar to access a specific structure (biological assembly 1).
+                Users can input a <b className="text-[#A2A0D3]">PDB identifier</b> on the top navigation bar to access a specific structure (biological assembly 1). Users can also find structures with search keywords and more specific filters in the dedicated search page.
                 <br />
-                Users can also search keywords and more specific features via the dedicated search page.
+                Structures can be uploaded by clicking <b className="text-[#A2A0D3]">Upload</b> on the homepage or the top navigation bar. RNAproDB supports CIF biological assembly files up to 10 MB.
                 <br />
                 Each structure page provides a <b className="text-[#A2A0D3]">sequence viewer</b>, a <b className="text-[#A2A0D3]">3D structure viewer</b>, an <b className="text-[#A2A0D3]">electrostatics viewer</b>, a <b className="text-[#A2A0D3]">secondary structure selector</b>, and an <b className="text-[#A2A0D3]">interface explorer</b> with relevant structure information.
             </p>
@@ -36,7 +36,7 @@ export default function Docs() {
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
             
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.1. Sequence Viewer</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.1. Sequence viewer</h4>
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
@@ -53,7 +53,7 @@ export default function Docs() {
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.2. Structure Viewer</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.2. Structure viewer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 Users can view the 3D structure of the complex using the Structure Viewer.
@@ -64,11 +64,11 @@ export default function Docs() {
              <img
                 src="/rnaprodb/3d_structure.png"
                 alt=" Structure Screenshot"
-                className="w-1/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-1/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-grsay-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
 
-                       <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.3. Interface Explorer</h4>
+                       <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.3. Interface explorer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 The interface explorer is a core feature of RNAproDB, allowing users to view estimated 2D mappings of RNA-protein complexes.
