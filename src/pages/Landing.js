@@ -240,37 +240,38 @@ const Landing = () => {
       </div>
 </div>
 
-          {/*<div
-        className="w-full px-6 lg:px-8 mb-8"
-      >
-        <dl className="mt-16 grid grid-cols-1 gap-4 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              id: 1,
-              name: "Search",
-              icon: "/search.svg",
-              url: "/search",
-            },
-            {
-              id: 2,
-              name: "Advanced Search",
-              icon: "/advanced_search.svg",
-              url: "/search",
-            },
-            {
-              id: 3,
-              name: "Documentation",
-              icon: "/documentation.svg",
-              url: "/docs",
-            },
-          ].map((item) => (
-            <a href={item.url} key={item.id} className="flex flex-col items-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-200">
-              <img src={item.icon} alt={item.name} className="h-16 w-16 mb-4" />
-              <dt className="text-base font-semibold leading-6 text-gray-800">{item.name}</dt>
-            </a>
-          ))}
-        </dl>
-      </div>*/}
+{/* Electrostatics */}
+<div className="w-full h-1 bg-[#B22222]"></div>
+<div className="relative w-full px-3 pb-6 pt-5 sm:pb-4 lg:flex lg:px-8 lg:pt-10 lg:pb-5" style={{ backgroundColor: 'white' }}>
+  <div
+    className="absolute left-1/2 top-0 -z-10 transform -translate-x-1/2 blur-3xl"
+    aria-hidden="true"
+  >
+    <div
+      className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#B22222] to-[#B22222] opacity-20"
+    />
+  </div>
+  <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:ml-40 lg:mr-40">
+    <div className="w-full lg:pt-8 lg:pr-10">
+      <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
+      Electrostatics
+      </h2>
+      <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
+      <span className="highlight"></span>RNAproDB offers an electrostatics panel to view the electrostatic potential on the surface of a nucleic acid, protein, and their full complex in three dimensions. The electrostatics panel supports full rotation and zooming of a structure, allowing pockets and less accessible areas to be explored. Differences in electrostatic potential can be intuitively seen in red (more negative) and blue (more positive) color shading.
+      </p>
+    </div>
+    <div className="flex justify-center lg:justify-end lg:pl-10">
+      <div className="max-w-full lg:max-w-none">
+        <img
+          src="/rnaprodb/electrostatics_image.png"
+          alt="App screenshot"
+          className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 };
