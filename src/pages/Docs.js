@@ -173,6 +173,8 @@ export default function Docs() {
                 The electrostatics panel supports full rotation and zooming of a structure, allowing pockets and less accessible areas to be explored. Differences in electrostatic potential can be intuitively seen in red (more negative) and blue (more positive) color shading.
                 <br />
                 Electrostatic potential visualizations are pre-computed for structures in the RNAproDB collection. For user uploaded structures, an option to compute the electrostatic potential is provided in the report page after initial processing is complete.
+                <br/>
+                Depending on the suitability of a structure, visualizations for NA only, protein only, and both NA and protein can be selected.
             </p>
             </div>
             <img
