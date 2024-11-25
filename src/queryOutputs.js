@@ -356,7 +356,7 @@ const QueryOutput = ({ data, isError }) => {
 
       {viewMode === 'table' && (
         <div style={{ width: '100%' }}>
-          <DataTable value={sortedData} stripedRows paginator paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+          <DataTable className="custom-data-table" value={sortedData} stripedRows paginator paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
           currentPageReportTemplate="{first} to {last} of {totalRecords}" sortMode='multiple' rows={itemsPerPage} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}>
               <Column field="quickView" header="Quick View" body={(rowData) => (
                 <img src={`pdb_thumbnails/${rowData.id}_assembly1.png`} alt={rowData.id} style={{ width: '45px', height: '45px' }} />
