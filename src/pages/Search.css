@@ -49,13 +49,12 @@
 
 
 .loading-container {
-
     height: 400px;
-
-    display: flex;
-
     width: 400px;
-
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center;    /* Vertically center */
+    margin: 0 auto;         /* Center the container itself */
 }
 
 
