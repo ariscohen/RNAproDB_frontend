@@ -19,6 +19,7 @@ const GraphOps = ({ subgraph }) => {
         setRotation(newRotation);
         if (typeof window.rotateGraph === 'function') {
             window.rotateGraph(newRotation);
+            // window.adjustZoomToFitGraph();
         }
     };
 

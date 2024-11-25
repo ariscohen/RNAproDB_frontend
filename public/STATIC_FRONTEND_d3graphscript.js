@@ -1638,11 +1638,45 @@ function reflectGraph(axis) {
   // Adjust zoom and pan to fit the graph
   adjustZoomToFitGraph();
 }
-
-
-
-
 window.reflectGraph = reflectGraph;
+
+function adjustZoomToFitGraph() {
+  // Get the bounding box of all nodes
+  const nodes = graph.nodes;
+  const padding = 20; // Add padding around the graph for better spacing
+
+  const xMin = d3.min(nodes, d => d.x);
+  const xMax = d3.max(nodes, d => d.x);
+  const yMin = d3.min(nodes, d => d.y);
+  const yMax = d3.max(nodes, d => d.y);
+
+  // Calculate the dimensions of the graph
+  const graphWidth = xMax - xMin;
+  const graphHeight = yMax - yMin;
+
+  // Get the dimensions of the SVG container
+  const svgWidth = svg.node().parentElement.clientWidth;
+  const svgHeight = svg.node().parentElement.clientHeight;
+
+  // Calculate the scale to fit the graph within the SVG, preserving aspect ratio
+  const scale = Math.min(
+    (svgWidth - 2 * padding) / graphWidth,
+    (svgHeight - 2 * padding) / graphHeight
+  );
+
+  // Calculate the translation to center the graph within the SVG
+  const translateX = (svgWidth - scale * (xMax + xMin)) / 2;
+  const translateY = (svgHeight - scale * (yMax + yMin)) / 2;
+
+  // Apply the zoom transformation
+  root.transition()
+    .duration(750)
+    .attr('transform', `translate(${translateX},${translateY}) scale(${scale})`);
+
+  // Update the zoom behavior to align with the new transformation
+  zoom.translate([translateX, translateY]).scale(scale);
+}
+window.adjustZoomToFitGraph = adjustZoomToFitGraph;
 
 
 // Helper function to update link decorations (arrows, squares, circles, etc.)
