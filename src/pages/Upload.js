@@ -48,7 +48,7 @@ function Upload() {
             })
             .catch(error => {
                 setIsLoading(false);
-                setError('Error: File upload failed. Please ensure the file is a biological assembly CIF file containing RNA. It should be under 50 MB and properly formatted.'); // Set error message
+                setError('Error: File upload failed. Please ensure the file is a biological assembly CIF or PDB file containing RNA. It should be under 10 MB and properly formatted.'); // Set error message
                 console.error('Error:', error);
             });
         }
@@ -56,10 +56,10 @@ function Upload() {
 
     return (
         <div className="upload-container">
-            <h1 className="upload-title">Upload a CIF file</h1>
-            <p>The file should be a CIF biological assembly file containing nucleic acids. Files up to 10 MB are currently supported to ensure informative visualizations.</p>
+            <h1 className="upload-title">Upload</h1>
+            <p>The file should be a CIF or PDB biological assembly file containing nucleic acids. Files up to 10 MB are currently supported to ensure informative visualizations.</p>
             <form onSubmit={handleSubmit} className="upload-form">
-                <input type="file" onChange={handleFileChange} accept=".cif" className="file-input"/>
+                <input type="file" onChange={handleFileChange} accept=".cif, .pdb" className="file-input"/>
                 <button type="submit" className="upload-button" disabled={isLoading}>
                     {isLoading ? 'Uploading...' : 'Upload File'}
                 </button>
