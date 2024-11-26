@@ -49,12 +49,16 @@
 
 
 .loading-container {
-    height: 400px;
-    width: 400px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;           /* Full width */
+    height: 100vh;          /* Full height */
     display: flex;
     justify-content: center; /* Horizontally center */
     align-items: center;    /* Vertically center */
-    margin: 0 auto;         /* Center the container itself */
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: Add a light overlay */
+    z-index: 9999;          /* Make sure it overlays other content */
 }
 
 
