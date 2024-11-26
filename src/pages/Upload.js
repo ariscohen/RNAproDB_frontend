@@ -56,7 +56,7 @@ function Upload() {
 
     return (
         <div className="upload-container">
-            <h1 className="upload-title">Upload</h1>
+            <h1 className="upload-title">Upload a CIF or PDB file</h1>
             <p>The file should be a CIF or PDB biological assembly file containing nucleic acids. Files up to 10 MB are currently supported to ensure informative visualizations.</p>
             <form onSubmit={handleSubmit} className="upload-form">
                 <input type="file" onChange={handleFileChange} accept=".cif, .pdb" className="file-input"/>
