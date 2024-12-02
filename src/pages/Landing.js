@@ -61,15 +61,15 @@ const Landing = () => {
           Upload a structure
         </button>
               <p className="text-xs tracking-tight text-white sm:text-sm md:text-base lg:text-xl xl:text-xl" style={{ marginTop: '20px' }}>
-        or search a PDB ID:
+        or try a PDB ID below:
       </p>
     </div>
   </div>
 </div>
 
 
-        <div className="w-full px-6 lg:px-8 mb-5">
-  <div className="flex justify-center">
+        <div className="w-full mb-5">
+  {/* <div className="flex justify-center">
     <Form className="w-full max-w-lg" onSubmit={handleSearch}>
       <div className="flex items-center">
         <Form.Group controlId="formSearch" className="flex-grow">
@@ -91,9 +91,9 @@ const Landing = () => {
         </div>
       )}
     </Form>
-  </div>
-          <div className="flex justify-center mt-4 space-x-3">
-          {['1IVS', '1UN6', '4OO8', '7ORN', '3TRZ', '7XWZ'].map((id) => (
+  </div> */}
+          <div className="flex justify-center mt-1 space-x-3">
+          {['1IVS', '1UN6', '7ORN', '7XWZ'].map((id) => (
             <Button
               key={id}
               variant="outline-light"
