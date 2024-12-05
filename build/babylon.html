@@ -74,10 +74,10 @@
             // });
            // Load PLY file using Babylon.js loader
            BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
-    if (meshes.length === 0) {
-        console.error("No meshes were loaded.");
-        return;
-    }
+    // if (meshes.length === 0) {
+    //     console.error("No meshes were loaded.");
+    //     return;
+    // }
 
     let min = new BABYLON.Vector3(Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE);
     let max = new BABYLON.Vector3(-Number.MAX_VALUE, -Number.MAX_VALUE, -Number.MAX_VALUE);
