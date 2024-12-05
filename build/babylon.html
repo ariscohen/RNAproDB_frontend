@@ -70,42 +70,56 @@
             //     const boundingInfo = meshes[0].getBoundingInfo();
             //     const size = boundingInfo.boundingBox.extendSizeWorld.length();
             //     camera.setTarget(BABYLON.Vector3.Zero());
-            //     camera.radius = size * 100;  // Set the distance based on mesh size
+            //     camera.radius = size * 2;  // Set the distance based on mesh size
             // });
            // Load PLY file using Babylon.js loader
-                BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
-                    // Filter meshes that have valid bounding info
-                    const validMeshes = meshes.filter(mesh => mesh.getBoundingInfo && mesh.getBoundingInfo() !== undefined);
+           BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
+    if (meshes.length === 0) {
+        console.error("No meshes were loaded.");
+        return;
+    }
 
-                    if (validMeshes.length === 0) {
-                        console.error("No valid meshes found with bounding information.");
-                        return;
-                    }
+    let min = new BABYLON.Vector3(Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE);
+    let max = new BABYLON.Vector3(-Number.MAX_VALUE, -Number.MAX_VALUE, -Number.MAX_VALUE);
 
-                    // Calculate the bounding box for all valid meshes
-                    let min = validMeshes[0].getBoundingInfo().boundingBox.minimumWorld;
-                    let max = validMeshes[0].getBoundingInfo().boundingBox.maximumWorld;
+    meshes.forEach(mesh => {
+        if (mesh.getVerticesData) {
+            const positions = mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            if (positions) {
+                for (let i = 0; i < positions.length; i += 3) {
+                    const x = positions[i];
+                    const y = positions[i + 1];
+                    const z = positions[i + 2];
 
-                    validMeshes.forEach(mesh => {
-                        const boundingInfo = mesh.getBoundingInfo();
-                        min = BABYLON.Vector3.Minimize(min, boundingInfo.boundingBox.minimumWorld);
-                        max = BABYLON.Vector3.Maximize(max, boundingInfo.boundingBox.maximumWorld);
-                    });
+                    min = BABYLON.Vector3.Minimize(min, new BABYLON.Vector3(x, y, z));
+                    max = BABYLON.Vector3.Maximize(max, new BABYLON.Vector3(x, y, z));
+                }
+            }
+        }
+    });
 
-                    // Calculate the center and size of the combined bounding box
-                    const center = BABYLON.Vector3.Center(min, max);
-                    const size = max.subtract(min).length();
+    if (min.equals(new BABYLON.Vector3(Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE))) {
+        console.error("No vertex data found in the loaded meshes.");
+        return;
+    }
 
-                    // Adjust camera to fit the bounding box
-                    camera.setTarget(center); // Focus the camera on the bounding box center
-                    camera.radius = size * 1.5; // Adjust radius to include all meshes comfortably
+    // Calculate center and size of the bounding box
+    const center = BABYLON.Vector3.Center(min, max);
+    const size = max.subtract(min).length();
 
-                    // Center the meshes at the origin
-                    validMeshes.forEach(mesh => {
-                        mesh.position.subtractInPlace(center);
-                        mesh.rotation.x = Math.PI / 2; // Rotate upright if needed
-                    });
-                });
+    // Adjust camera to fit the bounding box
+    camera.setTarget(center); // Focus the camera on the bounding box center
+    camera.radius = size * 2; // Adjust radius to include all meshes comfortably
+
+    // Center the meshes at the origin
+    meshes.forEach(mesh => {
+        mesh.position.subtractInPlace(center);
+        mesh.rotation.x = Math.PI / 2; // Rotate upright if needed
+    });
+
+    console.log("Bounding box calculated manually:", { min, max, center, size });
+});
+
 
 
 
