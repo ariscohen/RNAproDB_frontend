@@ -57,22 +57,56 @@
             ambientLight.specular = new BABYLON.Color3(0.25, 0.25, 0.25);  // Reduce the specular highlight
 
             // Load PLY file using Babylon.js loader
-            BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
-                // Loop over all the imported meshes
-                meshes.forEach(mesh => {
-                    const boundingInfo = mesh.getBoundingInfo();
-                    const boundingCenter = boundingInfo.boundingBox.centerWorld;
-                    mesh.position.subtractInPlace(boundingCenter);
-                    mesh.rotation.x = Math.PI / 2;  // Rotate mesh upright
-                    mesh.scaling = new BABYLON.Vector3(1, 1, 1);  // Adjust scale as needed
+            // BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
+            //     // Loop over all the imported meshes
+            //     meshes.forEach(mesh => {
+            //         const boundingInfo = mesh.getBoundingInfo();
+            //         const boundingCenter = boundingInfo.boundingBox.centerWorld;
+            //         mesh.position.subtractInPlace(boundingCenter);
+            //         mesh.rotation.x = Math.PI / 2;  // Rotate mesh upright
+            //         mesh.scaling = new BABYLON.Vector3(1, 1, 1);  // Adjust scale as needed
+            //     });
+
+            //     const boundingInfo = meshes[0].getBoundingInfo();
+            //     const size = boundingInfo.boundingBox.extendSizeWorld.length();
+            //     camera.setTarget(BABYLON.Vector3.Zero());
+            //     camera.radius = size * 100;  // Set the distance based on mesh size
+            // });
+           // Load PLY file using Babylon.js loader
+                BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
+                    // Filter meshes that have valid bounding info
+                    const validMeshes = meshes.filter(mesh => mesh.getBoundingInfo && mesh.getBoundingInfo() !== undefined);
+
+                    if (validMeshes.length === 0) {
+                        console.error("No valid meshes found with bounding information.");
+                        return;
+                    }
+
+                    // Calculate the bounding box for all valid meshes
+                    let min = validMeshes[0].getBoundingInfo().boundingBox.minimumWorld;
+                    let max = validMeshes[0].getBoundingInfo().boundingBox.maximumWorld;
+
+                    validMeshes.forEach(mesh => {
+                        const boundingInfo = mesh.getBoundingInfo();
+                        min = BABYLON.Vector3.Minimize(min, boundingInfo.boundingBox.minimumWorld);
+                        max = BABYLON.Vector3.Maximize(max, boundingInfo.boundingBox.maximumWorld);
+                    });
+
+                    // Calculate the center and size of the combined bounding box
+                    const center = BABYLON.Vector3.Center(min, max);
+                    const size = max.subtract(min).length();
+
+                    // Adjust camera to fit the bounding box
+                    camera.setTarget(center); // Focus the camera on the bounding box center
+                    camera.radius = size * 1.5; // Adjust radius to include all meshes comfortably
+
+                    // Center the meshes at the origin
+                    validMeshes.forEach(mesh => {
+                        mesh.position.subtractInPlace(center);
+                        mesh.rotation.x = Math.PI / 2; // Rotate upright if needed
+                    });
                 });
 
-                const boundingInfo = meshes[0].getBoundingInfo();
-                const size = boundingInfo.boundingBox.extendSizeWorld.length();
-                camera.setTarget(BABYLON.Vector3.Zero());
-                camera.radius = size * 100;  // Set the distance based on mesh size
-            });
-           
 
 
             // Start the render loop
