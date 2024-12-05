@@ -59,18 +59,18 @@
             // Load PLY file using Babylon.js loader
             BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
                 // Loop over all the imported meshes
-                meshes.forEach(mesh => {
-                    const boundingInfo = mesh.getBoundingInfo();
-                    const boundingCenter = boundingInfo.boundingBox.centerWorld;
-                    mesh.position.subtractInPlace(boundingCenter);
-                    mesh.rotation.x = Math.PI / 2;  // Rotate mesh upright
-                    mesh.scaling = new BABYLON.Vector3(1, 1, 1);  // Adjust scale as needed
-                });
+                // meshes.forEach(mesh => {
+                //     const boundingInfo = mesh.getBoundingInfo();
+                //     const boundingCenter = boundingInfo.boundingBox.centerWorld;
+                //     mesh.position.subtractInPlace(boundingCenter);
+                //     mesh.rotation.x = Math.PI / 2;  // Rotate mesh upright
+                //     mesh.scaling = new BABYLON.Vector3(1, 1, 1);  // Adjust scale as needed
+                // });
 
-                const boundingInfo = meshes[0].getBoundingInfo();
-                const size = boundingInfo.boundingBox.extendSizeWorld.length();
-                camera.setTarget(BABYLON.Vector3.Zero());
-                camera.radius = size * 2;  // Set the distance based on mesh size
+                // const boundingInfo = meshes[0].getBoundingInfo();
+                // const size = boundingInfo.boundingBox.extendSizeWorld.length();
+                // camera.setTarget(BABYLON.Vector3.Zero());
+                // camera.radius = size * 2;  // Set the distance based on mesh size
                 camera.radius = 1000 * 2;  // Set the distance based on mesh size
             });
            // Load PLY file using Babylon.js loader
