@@ -57,70 +57,23 @@
             ambientLight.specular = new BABYLON.Color3(0.25, 0.25, 0.25);  // Reduce the specular highlight
 
             // Load PLY file using Babylon.js loader
-            // BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
-            //     // Loop over all the imported meshes
-            //     meshes.forEach(mesh => {
-            //         const boundingInfo = mesh.getBoundingInfo();
-            //         const boundingCenter = boundingInfo.boundingBox.centerWorld;
-            //         mesh.position.subtractInPlace(boundingCenter);
-            //         mesh.rotation.x = Math.PI / 2;  // Rotate mesh upright
-            //         mesh.scaling = new BABYLON.Vector3(1, 1, 1);  // Adjust scale as needed
-            //     });
+            BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
+                // Loop over all the imported meshes
+                meshes.forEach(mesh => {
+                    const boundingInfo = mesh.getBoundingInfo();
+                    const boundingCenter = boundingInfo.boundingBox.centerWorld;
+                    mesh.position.subtractInPlace(boundingCenter);
+                    mesh.rotation.x = Math.PI / 2;  // Rotate mesh upright
+                    mesh.scaling = new BABYLON.Vector3(1, 1, 1);  // Adjust scale as needed
+                });
 
-            //     const boundingInfo = meshes[0].getBoundingInfo();
-            //     const size = boundingInfo.boundingBox.extendSizeWorld.length();
-            //     camera.setTarget(BABYLON.Vector3.Zero());
-            //     camera.radius = size * 2;  // Set the distance based on mesh size
-            // });
+                const boundingInfo = meshes[0].getBoundingInfo();
+                const size = boundingInfo.boundingBox.extendSizeWorld.length();
+                camera.setTarget(BABYLON.Vector3.Zero());
+                camera.radius = size * 2;  // Set the distance based on mesh size
+                camera.radius = 1000 * 2;  // Set the distance based on mesh size
+            });
            // Load PLY file using Babylon.js loader
-           BABYLON.SceneLoader.ImportMesh("", "", filename, scene, function (meshes) {
-    // if (meshes.length === 0) {
-    //     console.error("No meshes were loaded.");
-    //     return;
-    // }
-
-    let min = new BABYLON.Vector3(Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE);
-    let max = new BABYLON.Vector3(-Number.MAX_VALUE, -Number.MAX_VALUE, -Number.MAX_VALUE);
-
-    meshes.forEach(mesh => {
-        if (mesh.getVerticesData) {
-            const positions = mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
-            if (positions) {
-                for (let i = 0; i < positions.length; i += 3) {
-                    const x = positions[i];
-                    const y = positions[i + 1];
-                    const z = positions[i + 2];
-
-                    min = BABYLON.Vector3.Minimize(min, new BABYLON.Vector3(x, y, z));
-                    max = BABYLON.Vector3.Maximize(max, new BABYLON.Vector3(x, y, z));
-                }
-            }
-        }
-    });
-
-    if (min.equals(new BABYLON.Vector3(Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE))) {
-        console.error("No vertex data found in the loaded meshes.");
-        return;
-    }
-
-    // Calculate center and size of the bounding box
-    const center = BABYLON.Vector3.Center(min, max);
-    const size = max.subtract(min).length();
-
-    // Adjust camera to fit the bounding box
-    camera.setTarget(center); // Focus the camera on the bounding box center
-    camera.radius = size * 2; // Adjust radius to include all meshes comfortably
-
-    // Center the meshes at the origin
-    meshes.forEach(mesh => {
-        mesh.position.subtractInPlace(center);
-        mesh.rotation.x = Math.PI / 2; // Rotate upright if needed
-    });
-
-    console.log("Bounding box calculated manually:", { min, max, center, size });
-});
-
-
 
 
             // Start the render loop
