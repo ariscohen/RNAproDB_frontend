@@ -221,7 +221,7 @@ function add_to_list(l, atom){
 function loadStructure(structure_url, rotationMatrix) {
   // console.log("08/12/2019")
   stage_nm1 = new NGL.Stage("viewport", {backgroundColor: "white", opacity: 0});
-
+  console.log("Structure url is: " + structure_url);
   
   return stage_nm1.loadFile(structure_url, {name: "my_structure"}).then(function (init_component) 
   { 
