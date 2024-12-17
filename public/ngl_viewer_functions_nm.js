@@ -222,8 +222,6 @@ function loadStructure(structure_url, rotationMatrix) {
   // console.log("08/12/2019")
   stage_nm1 = new NGL.Stage("viewport", {backgroundColor: "white", opacity: 0});
   console.log("Structure url is: " + structure_url);
-  structure_url = "http://rnaprodb.usc.edu" + structure_url;
-  console.log("New strucutre url is: " + structure_url);
   return stage_nm1.loadFile(structure_url, {name: "my_structure"}).then(function (init_component) 
   { 
     var mySstrucColors = NGL.ColormakerRegistry.addScheme(function (params) 
