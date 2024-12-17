@@ -176,8 +176,8 @@ const QueryOutput = ({ data, isError }) => {
     rows: sortedData.map(item => ({
       ...item,
       quickView: <img src={`pdb_thumbnails/${item.id}_assembly1.png`} alt={item.id} style={{ width: '45px', height: '45px' }} />,
-      id: <Link to={`/rnaprodb/${item.id}`} target='_blank' rel="noopener noreferrer">{item.id}</Link>,
-      title: <Link to={`/rnaprodb/${item.id}`} target='_blank' rel="noopener noreferrer">{item.title}</Link>,
+      id: <Link to={`/${item.id}`} target='_blank' rel="noopener noreferrer">{item.id}</Link>,
+      title: <Link to={`/${item.id}`} target='_blank' rel="noopener noreferrer">{item.title}</Link>,
     }))
   };
 
@@ -285,7 +285,7 @@ const QueryOutput = ({ data, isError }) => {
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               <strong>
                 ID:&nbsp;
-              <Link to={`/rnaprodb/${item.id}`} target='_blank' rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <Link to={`/${item.id}`} target='_blank' rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                 {item.id}
               </Link>
               </strong>
@@ -362,13 +362,13 @@ const QueryOutput = ({ data, isError }) => {
                 <img src={`pdb_thumbnails/${rowData.id}_assembly1.png`} alt={rowData.id} style={{ width: '45px', height: '45px' }} />
               )} />
               <Column field="id" header="ID" sortable body={(rowData) => (
-                <Link to={`/rnaprodb/${rowData.id}`} target='_blank' rel="noopener noreferrer">{rowData.id}</Link>
+                <Link to={`/${rowData.id}`} target='_blank' rel="noopener noreferrer">{rowData.id}</Link>
               )} />
               <Column field="doi" header="DOI"  />
               <Column field="pubmed" header="Pubmed"  />
               <Column field="year" header="Year Published" sortable />
               <Column field="title" header="Title" sortable body={(rowData) => (
-                <Link to={`/rnaprodb/${rowData.id}`} target='_blank' rel="noopener noreferrer">{rowData.title}</Link>
+                <Link to={`/${rowData.id}`} target='_blank' rel="noopener noreferrer">{rowData.title}</Link>
               )} />
               <Column field="authors" header="Authors" sortable />
           </DataTable>

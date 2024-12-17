@@ -15,11 +15,11 @@ function NGLViewer(rotationMatrix, algorithm) {
     useEffect(() => { 
     const loadNGL = () => {
       const script1 = document.createElement('script');
-      script1.src = '/rnaprodb/ngl.js';
+      script1.src = '/ngl.js';
       script1.async = true;
 
       const script2 = document.createElement('script');
-      script2.src = '/rnaprodb/ngl_viewer_functions_nm.js';
+      script2.src = '/ngl_viewer_functions_nm.js';
       script2.async = true;
 
       script1.addEventListener('load', () => {

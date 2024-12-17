@@ -30,7 +30,7 @@ function MainNavBar() {
             setShowNotFoundMessage(false);
             setIsLoading(true); 
             setTimeout(() => {
-                window.location.href = `/rnaprodb/${searchTerm}`; 
+                window.location.href = `/${searchTerm}`; 
             }, 500); 
         } else {
             setShowNotFoundMessage(true);
@@ -41,7 +41,7 @@ function MainNavBar() {
     return (
         <Navbar expand="lg" className="bg-body-tertiary main-nav-bar">
             <Container fluid>
-                <Navbar.Brand as={Link} to="/rnaprodb/" className="site-title">RNAproDB</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/" className="site-title">RNAproDB</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll">
                     <div style={{ width: '30px', height: '3px', backgroundColor: 'white', margin: '6px 0' }}></div>
                     <div style={{ width: '30px', height: '3px', backgroundColor: 'white', margin: '6px 0' }}></div>
@@ -53,10 +53,10 @@ function MainNavBar() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link as={Link} to="/rnaprodb/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/rnaprodb/search">Search</Nav.Link>
-                        <Nav.Link as={Link} to="/rnaprodb/upload">Upload</Nav.Link>
-                        <Nav.Link as={Link} to="/rnaprodb/docs">Documentation</Nav.Link>
+                        <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/search">Search</Nav.Link>
+                        <Nav.Link as={Link} to="/upload">Upload</Nav.Link>
+                        <Nav.Link as={Link} to="/docs">Documentation</Nav.Link>
                     </Nav>
                     {location.pathname !== "/" && ( // Conditionally render search form
                         <Form className="d-flex" onSubmit={handleSearch}>

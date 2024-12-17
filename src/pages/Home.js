@@ -111,7 +111,7 @@ const Home = () => {
     if(selectedAlgorithm === algorithm){
       return;
     }
-    window.location = `${window.location.origin}/rnaprodb/${lowercasePdbid}/${selectedAlgorithm}`;
+    window.location = `${window.location.origin}/${lowercasePdbid}/${selectedAlgorithm}`;
   };
 
 
@@ -273,7 +273,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <img src="/rnaprodb/legend.svg" alt="Legend" className="responsive_img" style={{ width: '100%', maxWidth: '800px', height: 'auto' }} />
+              <img src="/legend.svg" alt="Legend" className="responsive_img" style={{ width: '100%', maxWidth: '800px', height: 'auto' }} />
             </div>
             {activeTab === 'ssgraph' && ss !== false && (
               <SSiframe ss={ss} />

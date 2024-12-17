@@ -11,12 +11,12 @@ export default function App() {
         <MainNavBar />
         <Routes>
           <Route index element={<Landing />} />
-          <Route path="/rnaprodb/" element={<Landing />} />
-          <Route path="/rnaprodb/:pdbid/:urlAlgorithm" element={<Home />} />
-          <Route path="/rnaprodb/:pdbid" element={<Home />} />
-          <Route path="/rnaprodb/search" element={<Search />} />
-          <Route path="/rnaprodb/docs" element={<Docs />} />
-          <Route path="/rnaprodb/upload" element={<Upload />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/:pdbid/:urlAlgorithm" element={<Home />} />
+          <Route path="/:pdbid" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/docs" element={<Docs />} />
+          <Route path="/upload" element={<Upload />} />
         </Routes>
         <BotRow />
       </BrowserRouter>

@@ -14,7 +14,7 @@ export default function Docs() {
             </p>
             </div>
             <img
-                src="/rnaprodb/abstract.png"
+                src="/abstract.png"
                 alt="RNAproDB abstract"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -31,7 +31,7 @@ export default function Docs() {
             </p>
             </div>
             <img
-                src="/rnaprodb/nav_search_bar.png"
+                src="/nav_search_bar.png"
                 alt="Search bar"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -48,7 +48,7 @@ export default function Docs() {
             </p>
             </div>
             <img
-                src="/rnaprodb/sequence_viewer.png"
+                src="/sequence_viewer.png"
                 alt="Sequence Viewer Screenshot"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -62,7 +62,7 @@ export default function Docs() {
             </p>
             </div>
              <img
-                src="/rnaprodb/3d_structure.png"
+                src="/3d_structure.png"
                 alt=" Structure Screenshot"
                 className="w-1/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-grsay-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -83,7 +83,7 @@ export default function Docs() {
             </p>
             </div>
              <img
-                src="/rnaprodb/interface_explorer.png"
+                src="/interface_explorer.png"
                 alt="Interface Explorer Screenshot"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -97,7 +97,7 @@ export default function Docs() {
             </p>
             </div>
              <img
-                src="/rnaprodb/hover.png"
+                src="/hover.png"
                 alt="Legend"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -124,7 +124,7 @@ export default function Docs() {
             </p>
             </div>
              <img
-                src="/rnaprodb/toggle.png"
+                src="/toggle.png"
                 alt="Toggle Screenshot"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -142,7 +142,7 @@ export default function Docs() {
             </p>
             </div>
              <img
-                src="/rnaprodb/generate_subgraph.png"
+                src="/generate_subgraph.png"
                 alt="Generate Subgraph"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -160,7 +160,7 @@ export default function Docs() {
             </div>
 
             <img
-                src="/rnaprodb/1asz_ss.png"
+                src="/1asz_ss.png"
                 alt="1asz secondary structure selector"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -178,7 +178,7 @@ export default function Docs() {
             </p>
             </div>
             <img
-                src="/rnaprodb/electrostatics.png"
+                src="/electrostatics.png"
                 alt="electrostatics interactive visualization"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
@@ -197,7 +197,7 @@ export default function Docs() {
             </div>
 
             <img
-                src="/rnaprodb/search_card_view.png"
+                src="/search_card_view.png"
                 alt="Search"
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />

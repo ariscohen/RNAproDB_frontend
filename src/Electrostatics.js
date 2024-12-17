@@ -5,7 +5,7 @@ import './Electrostatics.css';
 
 function Electrostatics() {
     const location = useLocation();
-    const pdbid = location.pathname.split('/')[2];
+    const pdbid = location.pathname.split('/')[1];
     const { title } = useContext(TitleContext);
     const iframeRef = useRef(null);
 
@@ -205,7 +205,7 @@ function Electrostatics() {
 {(hasAll || hasProtein || hasNA) && (
             <div>
           <img 
-            src='/rnaprodb/electro_legend.png' 
+            src='/electro_legend.png' 
             style={{ 
                 maxHeight: '100px', 
                 height: 'auto', 
