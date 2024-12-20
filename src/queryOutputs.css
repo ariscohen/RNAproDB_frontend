@@ -1,0 +1,131 @@
+.custom-pagination .MuiPaginationItem-root {
+    font-size: 1rem; /* Increase font size */
+    padding: 10px; /* Add padding */
+    border-radius: 8px; /* Round corners */
+    color: black; /* Text color */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  .custom-pagination .MuiPaginationItem-root:hover {
+    background-color: #e0e0e0; /* Light gray background on hover */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  .custom-pagination .MuiPaginationItem-root.Mui-selected {
+    background-color: green; /* Background color for selected */
+    color: white; /* Text color for selected */
+    font-weight: bold; /* Make selected button bold */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* General button styling for paginator elements */
+.p-paginator-element {
+    font-size: 14px; /* Adjust font size */
+    padding: 8px 12px; /* Add padding for a larger clickable area */
+    border: 1px solid #ccc; /* Add a subtle border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    color: #333; /* Text color */
+    cursor: pointer; /* Pointer cursor */
+    transition: all 0.3s ease; /* Smooth transitions */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Hover effect */
+  .p-paginator-element:hover {
+    background-color: #e0e0e0; /* Change background on hover */
+    border-color: #bbb; /* Darken border on hover */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Active button styling */
+  .p-paginator-element:active,
+  .p-paginator-element.p-link.p-highlight {
+    background-color: #007bff; /* Highlight color for active button */
+    color: #fff; /* White text */
+    border-color: #007bff; /* Match border to highlight color */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Disabled button styling */
+  .p-paginator-element.p-disabled {
+    background-color: #f0f0f0; /* Lighter background */
+    color: #aaa; /* Lighter text color */
+    cursor: not-allowed; /* Show not-allowed cursor */
+    border-color: #ddd; /* Subtle border */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Base styling for the dropdown trigger button */
+.p-dropdown-trigger {
+    display: inline-flex; /* Ensures proper alignment */
+    align-items: center; /* Centers icon vertically */
+    justify-content: center; /* Centers icon horizontally */
+    font-size: 14px; /* Adjust font size */
+    padding: 8px 12px; /* Add padding for a larger clickable area */
+    border: 1px solid #ccc; /* Subtle border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    color: #333; /* Text color */
+    cursor: pointer; /* Pointer cursor */
+    transition: all 0.3s ease; /* Smooth transitions */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Hover effect */
+  .p-dropdown-trigger:hover {
+    background-color: #e0e0e0; /* Change background on hover */
+    border-color: #bbb; /* Darken border on hover */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Active state styling */
+  .p-dropdown-trigger:active {
+    background-color: #007bff; /* Highlight color for active state */
+    color: white; /* Text color for active state */
+    border-color: #007bff; /* Match border to highlight color */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Styling for the dropdown icon inside the trigger button */
+  .p-dropdown-trigger-icon {
+    fill: #333; /* Default icon color */
+    transition: fill 0.3s ease; /* Smooth transition for color */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Hover effect for the icon */
+  .p-dropdown-trigger:hover .p-dropdown-trigger-icon {
+    fill: #007bff; /* Highlight icon color on hover */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  /* Disabled state styling */
+  .p-dropdown-trigger[aria-disabled="true"] {
+    background-color: #f0f0f0; /* Lighter background */
+    color: #aaa; /* Lighter text color */
+    cursor: not-allowed; /* Show not-allowed cursor */
+    border-color: #ddd; /* Subtle border */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  .p-dropdown-trigger[aria-disabled="true"] .p-dropdown-trigger-icon {
+    fill: #aaa; /* Disabled icon color */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+  
+  .p-dropdown-label {
+    margin-right: 8px; /* Adjust spacing as needed */
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+  }
+
+  .p-icon,
+.p-sortable-column-icon {
+  stroke: none; /* Remove stroke around paths */
+  font-family: 'Arial', sans-serif; /* Customize the font-family */
+}
+
+.custom-data-table {
+    font-family: 'Arial', sans-serif; /* Customize the font-family */
+}
