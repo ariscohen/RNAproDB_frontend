@@ -544,7 +544,8 @@ function loadStructure(structure_url, rotationMatrix) {
             var mp = pickingProxy.mouse.position
             var full_atom_name = atom.qualifiedName()
             var end_res_name = full_atom_name.indexOf(":")
-            tooltip.innerText = full_atom_name.substring(0, end_res_name) //displays just residue name and number
+            // tooltip.innerText = full_atom_name.substring(0, end_res_name) //displays just residue name and number
+            tooltip.innerText = full_atom_name //displays just residue name and number
             tooltip.style.bottom = window.innerHeight - mp.y + 3 + "px"
             tooltip.style.left = mp.x + 3 + "px"
             tooltip.style.display = "block"
