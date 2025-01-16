@@ -750,7 +750,7 @@ waterMediatedCircle.on("mouseover", function(event, d) {
         if(disableZoomFit){
           return;
         }
-        console.log("In Zoom fit");
+        // console.log("In Zoom fit");
         var bounds = svg.node().getBBox();
         var parent = svg.node().parentElement;
         var fullWidth = parent.clientWidth || parent.parentNode.clientWidth,
@@ -1150,10 +1150,10 @@ function select_node(idToFind){
 
 // format of string should be chain:residue:#
 function d3_highlight_node(idToFind){
-  console.log("In d3 highlight node");
-  console.log("idtofind", idToFind);
+  // console.log("In d3 highlight node");
+  // console.log("idtofind", idToFind);
   var curNode = select_node(idToFind);
-  console.log("curNode", curNode);
+  // console.log("curNode", curNode);
   reset_node_colors();
 
   // Set the color on click for rect
@@ -1397,7 +1397,7 @@ function setProteinOpacity(){ //currently links only, opacity conflicts with nod
 
 }
 function toggleTertiaryEdges(isChecked) {
-  //console.log("In here bb");
+  // console.log("Toggling tertiary edges!");
   // Select all link elements and update their visibility
   svg.selectAll(".link")
   .filter(function(d) { return d.source.shape !== 'rect' && d.target.shape !== 'rect'; })
@@ -1461,7 +1461,7 @@ window.toggleTertiaryEdges = toggleTertiaryEdges;
 
 // Toggle function to hide/show protein-related elements
 function toggleProteinVisibility(setVisible=false) {
-  console.log("toggleProteinVisibility inside d3graphscript");
+  // console.log("toggleProteinVisibility inside d3graphscript");
   var isVisible = d3.select("#toggleProteinCheckbox").property("checked");
 
   if(setVisible){
@@ -1486,7 +1486,7 @@ window.toggleProteinVisibility = toggleProteinVisibility;
 
 // Toggle function to hide/show protein-related elements
 function filterEdges(edgeThreshold) {
-  console.log("filtering edges inside d3graphscript");
+  // console.log("filtering edges inside d3graphscript");
   edgeThreshold = parseFloat(edgeThreshold);
 
   // first make everything visible
@@ -1503,9 +1503,14 @@ function filterEdges(edgeThreshold) {
         return false; // false means show // do not filter backbone or pairs
       } 
 
+      // always show NA-NA interactions
+
+      // always show NA/NA interactions, including water-mediated H bonds
+      if(d.source.shape === "circle" && d.target.shape === "circle"){
+        return false;
+      }
+
       if(d.distance_3d > edgeThreshold){
-        console.log("Threshold for: ");
-        console.log(d);
         return true;
       }
       // keep the residues that should be shown
@@ -1517,7 +1522,6 @@ function filterEdges(edgeThreshold) {
 
   svg.selectAll('g.node[shape_class="rect"]')
     .filter(function(d) {
-      // console.log(d);
       if(proteinsToKeep.has(d.rnaprodb_id)){
         return false; // false means show
       }
@@ -1535,6 +1539,12 @@ function filterEdges(edgeThreshold) {
       if (d.my_type === "pair" || d.my_type === "backbone"){
         return false;
       }
+
+      // always show NA-NA edges
+      if(d.source.shape === "circle" && d.target.shape === "circle"){
+        return false;
+      }
+
       // true equals hide
       return true;
     })
@@ -1545,7 +1555,7 @@ window.filterEdges = filterEdges;
 function rotateGraph(degrees) {
   // Update the current rotation in transformState
   transformState.rotation = degrees % 360;
-  console.log("New rotation is:", transformState.rotation);
+  // console.log("New rotation is:", transformState.rotation);
 
   // Reapply the transformation with the updated rotation for the entire graph
   root.attr('transform',
@@ -1793,7 +1803,7 @@ function toggleHBondsColor() {
   var newColor = "red";
   const isChecked = document.getElementById("toggleHBondsCheckbox").checked;
 
-  console.log("Checkbox is checked:", isChecked);
+  // console.log("Checkbox is checked:", isChecked);
 
   // Select all link elements and update their color
   var links = svg.selectAll(".link")
@@ -1807,7 +1817,7 @@ function toggleHBondsColor() {
               return d.color;  // Revert to original color otherwise
           }
       });
-  console.log("Colors updated based on checkbox state.");
+  // console.log("Colors updated based on checkbox state.");
 }
 
 
