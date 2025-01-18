@@ -217,6 +217,98 @@ export default function Docs() {
                 <br />
                 <b className="text-[#A2A0D3]">Electrostatics</b> visualizations can be downloaded as a Polygon File Format (PLY) for each component type.
             </p>
+
+
+            <hr className="my-8 border-t-2 border-[#A2A0D3]" />
+
+            <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">Step-by-step Use Case</h2>
+            <div className="pl-8 pr-8 w-full">
+            <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
+            The Cryo-EM structure of SARS-CoV-2 nsp10-nsp14 (WT)-RNA24 (PDB ID 7N0B) is important for understanding mismatch recognition in A-form double-helical RNA structure by a SARS-CoV-2 proofreading enzyme <a href='https://www.science.org/doi/epdf/10.1126/science.abi9310' target='_blank'>[Reference]</a>. After searching the ID in RNAproDB, we are presented with the following page, which includes structure info, 3D viewer, interface explorer, etc.
+            </p>
+
+            <img
+                src="/entering_page.png"
+                alt="Entering Page"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
+            </div>
+
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">Sequence Viewer</h4>
+            <div className="pl-8 pr-8 w-full">
+            <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
+                The sequence viewer lists 4 chains, each corresponding to the following complexes:
+                <ul>
+                    <li>Chain id: A – nonstructural protein 10 (nsp10), the cofactor</li>
+                    <li>Chain id: B – nonstructural protein 14 (nsp14), proofreading exoribonuclease</li>
+                    <li>Chain id: T – T-strand (template) RNA</li>
+                    <li>Chain id: D – P-strand (product) RNA</li>
+                </ul>
+            </p>
+            <img
+                src="/example_sequence_viewer.png"
+                alt="Sequence Viewer"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
+            </div>
+
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">Interface Explorer</h4>
+            <div className="pl-8 pr-8 w-full">
+            <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
+                The interface explorer shows the C-U mismatch formed by the hairpin RNA at the 3’ end of the strand (denoted by the orange dotted pair line). By setting the protein-RNA edge threshold to 15 Å, the interface explorer displays the interaction of amino acids from the proofreading exonuclease (nsp14) with the RNA. The nsp14 residues connected to the mismatched nucleotides likely help recognize or stabilize the mismatch in a way that allows nsp14 to excise the wrong nucleotide.
+            </p>
+            </div>
+
+            <div className="pl-8 pr-8 w-full">
+            <img
+                src="/7n0b_pca_graph.png"
+                alt="Partial Projection"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
+            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">Partial Projection</p>
+            </div>
+
+            <div className="pl-8 pr-8 w-full">
+            <img
+                src="/7n0b_rnascape_graph.png"
+                alt="RNAscape"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
+            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">RNAscape</p>
+            </div>
+
+            <div className="pl-8 pr-8 w-full">
+            <img
+                src="/7n0b_structure.png"
+                alt="3Dviewer"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
+            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">3D Viewer of C-U mismatch (green line shows hydrogen bonds)</p>
+            </div>
+
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">Secondary Structure Selector</h4>
+            <div className="pl-8 pr-8 w-full">
+            <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
+                The secondary structure selector categorizes the RNA structure into elements: stems (double-stranded, base-paired regions) and ssSegments (single-stranded segments). By organizing the nucleotides in this way, we gain insights into how different parts of the RNA contribute to its overall function. Stems lend structural stability and properly orient other functional motifs, while single-stranded regions often serve as binding sites for proteins, small molecules, or additional RNA strands.
+            </p>
+            <img
+                src="/secondary_structure.png"
+                alt="Secondary Structure"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
+            </div>
+
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">Electrostatics</h4>
+            <div className="pl-8 pr-8 w-full">
+            <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
+                The electrostatic visualization highlights the electrostatic potential across the surface of the protein–RNA complex. The intensely red region corresponds to the negatively charged RNA, due to its phosphate backbone. By examining these color gradients, one can pinpoint protein surfaces (often more positively charged) that stabilize and orient the RNA, thereby guiding it into the catalytic or proofreading site. Moreover, electrostatic potentials around the enzyme’s active site can reveal ‘hot spots’ for mismatch recognition.
+            </p>
+            </div>
+            <img
+                src="/example_electrostatics.png"
+                alt="Electrostatics Visualization"
+                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+            />
             </div>
 
     </div>
