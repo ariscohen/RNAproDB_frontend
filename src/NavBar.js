@@ -58,7 +58,7 @@ function MainNavBar() {
                         <Nav.Link as={Link} to="/upload">Upload</Nav.Link>
                         <Nav.Link as={Link} to="/docs">Documentation</Nav.Link>
                     </Nav>
-                    {location.pathname !== "/" && ( // Conditionally render search form
+                    {/* {location.pathname !== "/" && ( // Conditionally render search form */}
                         <Form className="d-flex" onSubmit={handleSearch}>
                             <Form.Control
                                 type="search"
@@ -70,7 +70,7 @@ function MainNavBar() {
                             />
                             <Button className="white-text" variant="outline-success" type="submit">Search</Button>
                         </Form>
-                    )}
+                    {/* )} */}
                 </Navbar.Collapse>
             </Container>
             {isLoading && <img src={gif} alt="Loading..." className="loading-gif" />} 
