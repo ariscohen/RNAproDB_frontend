@@ -3,7 +3,15 @@ export default function Docs() {
         <div className="content-doc text-left">
             <h1 className="text-[#000000] font-bold mt-5 w-full pl-8 pr-8">Documentation</h1>
 
-            <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">Introduction</h2>
+            <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">Content</h2>
+            <div className="pl-8 pr-8 w-full">
+                <ol className="w-full list-decimal text-lg border-2 border-[#B22222] pl-10 pt-4 pb-4" >
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#use-case">Case Study</a></li>
+                </ol>
+            </div>
+
+            <h2 id="introduction" className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">1. Introduction</h2>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 <b className="text-[#A2A0D3]">RNAproDB</b> is a web server and interactive database designed to assist researchers in the structural analysis of RNA-protein complexes.
@@ -19,7 +27,7 @@ export default function Docs() {
                 className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-            <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">1. Features</h2>
+            {/* <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">1. Features</h2> */}
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
@@ -33,7 +41,7 @@ export default function Docs() {
             <img
                 src="/nav_search_bar.png"
                 alt="Search bar"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
             
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.1. Sequence viewer</h4>
@@ -50,7 +58,7 @@ export default function Docs() {
             <img
                 src="/sequence_viewer.png"
                 alt="Sequence Viewer Screenshot"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.2. Structure viewer</h4>
@@ -85,7 +93,7 @@ export default function Docs() {
              <img
                 src="/interface_explorer.png"
                 alt="Interface Explorer Screenshot"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
 
@@ -99,7 +107,7 @@ export default function Docs() {
              <img
                 src="/hover.png"
                 alt="Legend"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
 
@@ -126,7 +134,7 @@ export default function Docs() {
              <img
                 src="/toggle.png"
                 alt="Toggle Screenshot"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
 
@@ -144,15 +152,13 @@ export default function Docs() {
              <img
                 src="/generate_subgraph.png"
                 alt="Generate Subgraph"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.4. Secondary structure selector</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                The Secondary structure selector is a coarse-grained visualization that shows broad secondary structure elements of the structure.
-                <br />
-                It can be used to quickly find and visualize certain areas of the structure.
+                The Secondary structure selector is a coarse-grained visualization that shows broad secondary structure elements of the structure. It can be used to quickly find and visualize certain areas of the structure.
                 <br />
                 Left clicking an element will open the subgraph view in Interface explorer, adding its corresponding nodes. Simply click Generate subgraph to then visualize these nodes and their neighbors.
                 <br />
@@ -162,7 +168,7 @@ export default function Docs() {
             <img
                 src="/1asz_ss.png"
                 alt="1asz secondary structure selector"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.5. Electrostatics</h4>
@@ -180,7 +186,7 @@ export default function Docs() {
             <img
                 src="/electrostatics.png"
                 alt="electrostatics interactive visualization"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.6. Search</h4>
@@ -199,7 +205,7 @@ export default function Docs() {
             <img
                 src="/search_card_view.png"
                 alt="Search"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.7. Download</h4>
@@ -221,16 +227,19 @@ export default function Docs() {
 
             <hr className="my-8 border-t-2 border-[#A2A0D3]" />
 
-            <h2 className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">Step-by-step Use Case</h2>
+            <h2 id="use-case" className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">2. Case Study: SARS-CoV-2 nsp10-nsp14 (WT)-RNA24</h2>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-            The Cryo-EM structure of SARS-CoV-2 nsp10-nsp14 (WT)-RNA24 (PDB ID 7N0B) is important for understanding mismatch recognition in A-form double-helical RNA structure by a SARS-CoV-2 proofreading enzyme <a href='https://www.science.org/doi/epdf/10.1126/science.abi9310' target='_blank'>[Reference]</a>. After searching the ID in RNAproDB, we are presented with the following page, which includes structure info, 3D viewer, interface explorer, etc.
+            The Cryo-EM structure of SARS-CoV-2 nsp10-nsp14 (WT)-RNA24 (PDB ID 7N0B) is important for understanding mismatch recognition in A-form double-helical RNA structure by a SARS-CoV-2 proofreading enzyme<sup>1</sup>. After searching the ID in RNAproDB, we are presented with the following page, which includes structure info, 3D viewer, interface explorer, etc.
+
+            <br /><br />
+            1. Liu, C., Shi, W., Becker, S.T., Schatz, D.G., Liu, B., Yang, Y. (2021) Structural basis of mismatch recognition by a SARS-CoV-2 proofreading enzyme. Science 373, 1142–1146. <a href='https://www.science.org/doi/epdf/10.1126/science.abi9310' target='_blank'>https://doi.org/10.1126/science.abi9310</a>
             </p>
 
             <img
                 src="/entering_page.png"
                 alt="Entering Page"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-1/2 sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
             </div>
 
@@ -238,7 +247,7 @@ export default function Docs() {
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 The sequence viewer lists 4 chains, each corresponding to the following complexes:
-                <ul>
+                <ul className="list-disc">
                     <li>Chain id: A – nonstructural protein 10 (nsp10), the cofactor</li>
                     <li>Chain id: B – nonstructural protein 14 (nsp14), proofreading exoribonuclease</li>
                     <li>Chain id: T – T-strand (template) RNA</li>
@@ -248,43 +257,78 @@ export default function Docs() {
             <img
                 src="/example_sequence_viewer.png"
                 alt="Sequence Viewer"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
             </div>
 
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">Interface Explorer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                The interface explorer shows the C-U mismatch formed by the hairpin RNA at the 3’ end of the strand (denoted by the orange dotted pair line). By setting the protein-RNA edge threshold to 15 Å, the interface explorer displays the interaction of amino acids from the proofreading exonuclease (nsp14) with the RNA. The nsp14 residues connected to the mismatched nucleotides likely help recognize or stabilize the mismatch in a way that allows nsp14 to excise the wrong nucleotide.
+                The interface explorer shows the C-U mismatch (denoted by the orange dotted pair line) formed by the hairpin RNA at the 3’ end of the strand . By setting the protein-RNA edge threshold to 15 Å, the interface explorer displays interactions between amino acids from the proofreading exonuclease (nsp14) and the RNA. The nsp14 residues connected to the mismatched nucleotides help the protein recognize or stabilize the mismatch in a way that allows nsp14 to excise the wrong nucleotide.
             </p>
             </div>
 
-            <div className="pl-8 pr-8 w-full">
+            <div className="flex flex-wrap px-1">
+                <div className="w-full sm:w-1/2 p-2">
+                    <p className="text-center text-xl text-[#A2A0D3] font-bold">
+                    Partial Projection
+                    </p>
+                    <img
+                    src="/7n0b_pca_graph_edit.png"
+                    alt="Partial Projection"
+                    className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mx-auto block"
+                    />
+                </div>
+
+                <div className="w-full sm:w-1/2 p-2">
+                    <p className="text-center text-xl text-[#A2A0D3] font-bold">
+                    RNAscape
+                    </p>
+                    <img
+                    src="/7n0b_rnascape_graph_edit.png"
+                    alt="RNAscape"
+                    className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mx-auto block pt-4"
+                    />
+                </div>
+            </div>
+
+            <div className="w-full p-2">
+                <p className="text-center text-xl text-[#A2A0D3] font-bold">
+                3D Viewer of C-U mismatch
+                </p>
+                <img
+                src="/7n0b_structure_edit.png"
+                alt="3Dviewer"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mx-auto block"
+                />
+            </div>
+
+            {/* <div className="pl-8 pr-8 w-full">
+            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">Partial Projection</p>
             <img
                 src="/7n0b_pca_graph.png"
                 alt="Partial Projection"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
-            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">Partial Projection</p>
             </div>
 
             <div className="pl-8 pr-8 w-full">
+            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">RNAscape</p>
             <img
                 src="/7n0b_rnascape_graph.png"
                 alt="RNAscape"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
-            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">RNAscape</p>
             </div>
 
             <div className="pl-8 pr-8 w-full">
+            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">3D Viewer of C-U mismatch (green line shows hydrogen bonds)</p>
             <img
                 src="/7n0b_structure.png"
                 alt="3Dviewer"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
-            <p className="text-center text-xl text-[#A2A0D3] font-bold mt-2">3D Viewer of C-U mismatch (green line shows hydrogen bonds)</p>
-            </div>
+            </div> */}
 
             <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">Secondary Structure Selector</h4>
             <div className="pl-8 pr-8 w-full">
@@ -294,7 +338,7 @@ export default function Docs() {
             <img
                 src="/secondary_structure.png"
                 alt="Secondary Structure"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
             </div>
 
@@ -307,7 +351,7 @@ export default function Docs() {
             <img
                 src="/example_electrostatics.png"
                 alt="Electrostatics Visualization"
-                className="w-full sm:w-2/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
             </div>
 
