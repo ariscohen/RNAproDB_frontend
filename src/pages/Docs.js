@@ -14,7 +14,7 @@ export default function Docs() {
             <h2 id="introduction" className="text-[#A2A0D3] font-bold mt-5 w-full pl-8 pr-8">1. Introduction</h2>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                <b className="text-[#A2A0D3]">RNAproDB</b> is a web server and interactive database designed to assist researchers in the structural analysis of RNA-protein complexes.
+                <b className="text-[#A2A0D3]">RNAproDB</b> is a webserver and interactive database designed to assist researchers in the structural analysis of RNA–protein complexes.
                 <br />
                 <b className="text-[#A2A0D3]">RNAproDB</b> provides an interface explorer on every structure page, displaying the nucleic acid structure in 2D along with interacting protein residues.
                 <br />
@@ -48,7 +48,7 @@ export default function Docs() {
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can view the sequence of the given RNA-protein complex.
+                Users can view the sequence of the given RNA–protein complex.
                 <br />
                 Within the sequence viewer, users can select a specific chain ID using a dropdown button.
                 <br />
@@ -79,7 +79,7 @@ export default function Docs() {
                        <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.3. Interface explorer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                The interface explorer is a core feature of RNAproDB, allowing users to view estimated 2D mappings of RNA-protein complexes.
+                The interface explorer is a core feature of RNAproDB, allowing users to view estimated 2D mappings of RNA–protein complexes.
                 <br />
                 Users can choose among three algorithms: projection-based, tertiary structure-aware 2D mapping, and secondary structure-based mapping.
                 <br />
