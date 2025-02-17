@@ -7,6 +7,16 @@ export default function Docs() {
             <div className="pl-8 pr-8 w-full">
                 <ol className="w-full list-decimal text-lg border-2 border-[#B22222] pl-10 pt-4 pb-4" >
                     <li><a href="#introduction">Introduction</a></li>
+                    <ol className="w-full pl-4 pb-2" >
+                        <li>1.1. <a href="#sequence-viewer">Sequence viewer</a></li>
+                        <li>1.2. <a href="#3d-viewer">3D viewer</a></li>
+                        <li>1.3. <a href="#interface-explorer">Interface explorer</a></li>
+                        <li>1.4. <a href="#secondary-structure-selector">Secondary structure selector</a></li>
+                        <li>1.5. <a href="#electrostatics">Electrostatics</a></li>
+                        <li>1.6. <a href="#tabular-data">Tabular Data</a></li>
+                        <li>1.7. <a href="#search">Search</a></li>
+                        <li>1.8. <a href="#download">Download</a></li>
+                    </ol>
                     <li><a href="#use-case">Case Study</a></li>
                 </ol>
             </div>
@@ -31,11 +41,13 @@ export default function Docs() {
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5 mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can input a <b className="text-[#A2A0D3]">PDB identifier</b> on the top navigation bar to access a specific structure (biological assembly 1). Users can also find structures with search keywords and more specific filters in the dedicated search page.
+                Users can input a <b className="text-[#A2A0D3]">PDB identifier</b> on the top navigation bar to access structures (biological assembly 1). 
                 <br />
-                Structures can be uploaded by clicking <b className="text-[#A2A0D3]">Upload</b> on the homepage or the top navigation bar. RNAproDB supports CIF biological assembly files up to 10 MB.
+                Users can also find structures with search keywords and specific filters from the <a href="/search">search page</a>.
                 <br />
-                Each structure page provides a <b className="text-[#A2A0D3]">sequence viewer</b>, a <b className="text-[#A2A0D3]">3D structure viewer</b>, an <b className="text-[#A2A0D3]">electrostatics viewer</b>, a <b className="text-[#A2A0D3]">secondary structure selector</b>, and an <b className="text-[#A2A0D3]">interface explorer</b> with relevant structure information.
+                Structures can be uploaded for analysis on the <a href="/upload">upload page</a>. RNAproDB supports CIF biological assembly files up to 10 MB.
+                <br />
+                Each structure page features analysis tools including <b className="text-[#A2A0D3]">Sequence viewer</b>, <b className="text-[#A2A0D3]">3D viewer</b>, <b className="text-[#A2A0D3]">Interface explorer</b>, <b className="text-[#A2A0D3]">Secondary structure selector</b>, and <b className="text-[#A2A0D3]">Electrostatics</b>. See below on how they work and how to use them.
             </p>
             </div>
             <img
@@ -44,15 +56,17 @@ export default function Docs() {
                 className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
             
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.1. Sequence viewer</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8" id="sequence-viewer">1.1. Sequence viewer</h4>
 
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can view the sequence of the given RNA–protein complex.
+                Sequence viewer provides the sequence in the given RNA–protein complex.
                 <br />
-                Within the sequence viewer, users can select a specific chain ID using a dropdown button.
+                Users can view sequences of different chains by selecting their ID from the dropdown button.
                 <br />
-                Within the sequence, users can select and choose specific residues to generate a subgraph and/or highlight them. Hovering over a residue displays the residue number.
+                Hovering on specific residues to display its residue number. 
+                <br />
+                Clicking on the residue display its molecule in 3D viewer and highlight its node in Interface explorer. It can also be clicked while generating a subgraph.
             </p>
             </div>
             <img
@@ -61,22 +75,42 @@ export default function Docs() {
                 className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.2. Structure viewer</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8" id="3d-viewer">1.2. 3D viewer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
-                Users can view the 3D structure of the complex using the Structure Viewer.
+                Users can view the 3D structure of the complex using 3D viewer.
                 <br />
-                For visual clarity, options to show <b className="text-[#A2A0D3]">solvent molecules</b> and <b className="text-[#A2A0D3]">display cartoon representations</b> are available.
+                Click on <b className="text-[#A2A0D3]">Toggle solvent</b> to hide water molecules and <b className="text-[#A2A0D3]">Toggle cartoon</b> to remove cartoon representations. Hiding non-essential elements improves visual clarity.
+                <br />
+                Left-click and drag on 3D viewer to rotate the view. Right-click and drag to translate the view. Scroll to zoom in and out.
+                <br />
+                To annotate in the 3D viewer, right-click on each atom you wish to select, and then right-click again on the last selected atom to complete the drawing. Selecting two atoms displays the distance between them, while selecting three or more atoms shows the angle. You can select up to four atoms at a time.
             </p>
             </div>
-             <img
+             {/* <img
                 src="/3d_structure.png"
                 alt=" Structure Screenshot"
                 className="w-1/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-grsay-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
-            />
+            /> */}
+            <div className="flex flex-wrap justify-center px-1">
+                <div className="w-full sm:w-1/4 p-2">
+                    <img
+                    src="/3d_structure_2.png"
+                    alt="Structure screenshot"
+                    className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mx-auto block"
+                    />
+                </div>
 
+                <div className="w-full sm:w-1/4 p-2">
+                    <img
+                    src="/3d_structure_3.png"
+                    alt="Annotated atoms"
+                    className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mx-auto block pt-4"
+                    />
+                </div>
+            </div>
 
-                       <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.3. Interface explorer</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8" id="interface-explorer">1.3. Interface explorer</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 The interface explorer is a core feature of RNAproDB, allowing users to view estimated 2D mappings of RNA–protein complexes.
@@ -155,7 +189,7 @@ export default function Docs() {
                 className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.4. Secondary structure selector</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8" id="secondary-structure-selector">1.4. Secondary structure selector</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 The Secondary structure selector is a coarse-grained visualization that shows broad secondary structure elements of the structure. It can be used to quickly find and visualize certain areas of the structure.
@@ -171,7 +205,7 @@ export default function Docs() {
                 className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.5. Electrostatics</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8" id="electrostatics">1.5. Electrostatics</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 RNAproDB offers an <b className="text-[#A2A0D3]">electrostatics</b> panel to view the electrostatic potential on the surface of a nucleic acid, protein, and their full complex in three dimensions. 
@@ -189,7 +223,22 @@ export default function Docs() {
                 className="w-full sm:w-1/3 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.6. Search</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8" id="tabular-data">1.6. Tabular Data</h4>
+            <div className="pl-8 pr-8 w-full">
+            <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
+                <b className="text-[#A2A0D3]">Tabular data</b> provides a list of interactions (e.g., hydrogen bonds and water-mediated interactions) between elements. Users can download the list by clicking the <b className="text-[#A2A0D3]">Download</b> button.
+                <br />
+                It also includes a list of potential steric clashes detected in the structure. These clashes are identified based on the overlap of van der Waals radii between two atoms. Overlaps greater than 0.6 Å are flagged as potential steric clashes.
+            </p>
+            </div>
+
+            <img
+                src="/table_1.png"
+                alt="tabular data"
+                className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block"
+            />
+
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8" id="search">1.7. Search</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 The search feature allows users to query our database of over <b className="text-[#A2A0D3]">15000 structures</b> using specific conditions.
@@ -208,7 +257,7 @@ export default function Docs() {
                 className="w-full sm:w-1/2 h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3] mb-5 mx-auto block pt-4"
             />
 
-            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8">1.7. Download</h4>
+            <h4 className="mt-5 text-[#A2A0D3] font-bold w-full pl-8 pr-8" id="download">1.8. Download</h4>
             <div className="pl-8 pr-8 w-full">
             <p className="mb-5  mx-auto text-left border-2 border-[#B22222] p-4 text-lg">
                 RNAproDB offers users various ways of downloading its data.
@@ -233,7 +282,7 @@ export default function Docs() {
             The Cryo-EM structure of SARS-CoV-2 nsp10-nsp14 (WT)-RNA24 (PDB ID 7N0B) is important for understanding mismatch recognition in A-form double-helical RNA structure by a SARS-CoV-2 proofreading enzyme<sup>1</sup>. After searching the ID in RNAproDB, we are presented with the following page, which includes structure info, 3D viewer, interface explorer, etc.
 
             <br /><br />
-            1. Liu, C., Shi, W., Becker, S.T., Schatz, D.G., Liu, B., Yang, Y. (2021) Structural basis of mismatch recognition by a SARS-CoV-2 proofreading enzyme. Science 373, 1142–1146. <a href='https://www.science.org/doi/epdf/10.1126/science.abi9310' target='_blank'>https://doi.org/10.1126/science.abi9310</a>
+            1. Liu, C., Shi, W., Becker, S.T., Schatz, D.G., Liu, B., Yang, Y. (2021) Structural basis of mismatch recognition by a SARS-CoV-2 proofreading enzyme. Science 373, 1142–1146. <a href='https://www.science.org/doi/epdf/10.1126/science.abi9310' target='_blank' rel="noreferrer">https://doi.org/10.1126/science.abi9310</a>
             </p>
 
             <img

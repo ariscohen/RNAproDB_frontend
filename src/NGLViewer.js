@@ -81,7 +81,7 @@ function NGLViewer(rotationMatrix, algorithm) {
 
   return (
     <div>
-      <h5>3D structure</h5>
+      <h5>3D viewer</h5>
       <button className="button4" id="toggle-water" onClick={handleToggleWater}>Toggle solvent</button>
       <button className="button4" id="toggle-cartoon" onClick={handleToggleCartoon}>Toggle cartoon</button>
       <button className="button4" id="download-png" onClick={handleDownloadPNG}>Download PNG</button>

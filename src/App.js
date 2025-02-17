@@ -1,4 +1,4 @@
-import { Home, Search, Docs, Landing, Upload } from './pages';
+import { Home, Search, Docs, Landing, Upload, Citation } from './pages';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainNavBar from './NavBar';
 import './NavBar.css';
@@ -17,6 +17,7 @@ export default function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/docs" element={<Docs />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/citation" element={<Citation />} />
         </Routes>
         <BotRow />
       </BrowserRouter>

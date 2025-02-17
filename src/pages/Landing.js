@@ -127,7 +127,7 @@ const Landing = () => {
         Interface explorer
       </h2>
       <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
-        <span className="highlight"></span>For every structure page, RNAproDB provides an interface explorer laying out the nucleic acid structure in 2D along with interacting protein residues. The user has a choice to select from three different algorithms: Projection based, Tertiary structure aware 2D mapping, and secondary structure based mapping. The interface explorer provides information on hydrogen bonds, water-mediated hydrogen bonds, modified nucleotides, base pairings, and Leontis-Westhof classifications. The interface explorer is connected with the "Structure viewer" and "Sequence viewer", presented in the same page. Additionally, subgraphs can be generated based on residue/nucleotide selection by the user.
+        <span className="highlight"></span>For every structure page, RNAproDB provides an interface explorer laying out the nucleic acid structure in 2D along with interacting protein residues. The user has a choice to select from three different algorithms: Projection based, Tertiary structure aware 2D mapping, and secondary structure based mapping. The interface explorer provides information on hydrogen bonds, water-mediated hydrogen bonds, modified nucleotides, base pairings, and Leontis-Westhof classifications. The interface explorer is connected with the "3D viewer" and "Sequence viewer", presented in the same page. Additionally, subgraphs can be generated based on residue/nucleotide selection by the user.
       </p>
     </div>
     <div className="flex justify-center lg:justify-end lg:pl-10">
@@ -166,10 +166,10 @@ const Landing = () => {
 
         <div className="w-full lg:pt-8 lg:pr-10">
       <h2 className="mt-10 text-4xl tracking-tight text-[#B22222] sm:text-2xl">
-        Sequence and structure viewer
+        Sequence and 3D viewer
       </h2>
       <p className="mt-6 text-xl text-bold leading-8 text-gray-600">
-        <span className="highlight"></span>The sequence and 3D structure viewers aid in exploring the interface visualization. Residues selected on sequence viewer are highlighted in the interface explorer and structure viewer. Similarly, selections made within the interface explorer are also brought into focus in the structure viewer. For visual clarity, options to hide solvent molecules and cartoon representations are available.
+        <span className="highlight"></span>The sequence and 3D viewers aid in exploring the interface visualization. Residues selected on sequence viewer are highlighted in the interface explorer and 3D viewer. Similarly, selections made within the interface explorer are also brought into focus in the 3D viewer. For visual clarity, options to hide solvent molecules and cartoon representations are available.
         </p>
     </div>
       </div>
@@ -222,7 +222,8 @@ const Landing = () => {
     <div className="flex justify-center lg:justify-end lg:pr-10">
       <div className="max-w-full lg:max-w-none">
         <img
-          src="/1asz_table.png"
+          // src="/1asz_table.png"
+          src="/table_2.png"
           alt="App screenshot"
           className="w-full h-auto rounded-md bg-white/5 shadow-2xl ring-1 ring-gray-200 border-8 border-[#A2A0D3]"
         />

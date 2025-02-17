@@ -57,6 +57,7 @@ function MainNavBar() {
                         <Nav.Link as={Link} to="/search">Search</Nav.Link>
                         <Nav.Link as={Link} to="/upload">Upload</Nav.Link>
                         <Nav.Link as={Link} to="/docs">Documentation</Nav.Link>
+                        <Nav.Link as={Link} to="/citation">Citation</Nav.Link>
                     </Nav>
                     {/* {location.pathname !== "/" && ( // Conditionally render search form */}
                         <Form className="d-flex" onSubmit={handleSearch}>
