@@ -1459,33 +1459,6 @@ function toggleTertiaryEdges(isChecked) {
 }
 window.toggleTertiaryEdges = toggleTertiaryEdges;
 
-function toggleProtein() {
-  const checkbox = document.getElementById("toggleProteinCheckbox");
-  const isHideProtein = checkbox.checked;
-  
-  // If showing protein and non-hbonds are hidden, uncheck the non-hbonds box
-  if (!isHideProtein) {
-    const nonHbondsCheckbox = document.getElementById("hideNonHBondsCheckbox");
-    if (nonHbondsCheckbox && nonHbondsCheckbox.checked) {
-      nonHbondsCheckbox.checked = false;
-      // Instead of just calling toggleNonHBondEdges, we'll apply the current threshold
-    }
-    
-    // Get the current threshold value from the slider
-    const edgeSlider = document.querySelector("input.edge-slider");
-    const currentThreshold = parseFloat(edgeSlider.value || "8");
-    
-    // Apply the current threshold filter to show only appropriate edges
-    filterEdges(currentThreshold);
-  } else {
-    // If hiding protein, just toggle protein visibility
-    toggleProteinVisibility();
-  }
-}
-window.toggleProtein = toggleProtein;
-
-
-
 // Toggle function to hide/show protein-related elements
 function toggleProteinVisibility(setVisible=false) {
   // console.log("toggleProteinVisibility inside d3graphscript");
@@ -1823,184 +1796,13 @@ function updateLinkAndArrowheads() {
     });
 }
 
-// Toggle non-hbond edges directly without going through React state
-// function toggleNonHBondEdges() {
-//   // Get the checkbox state directly from the DOM
-//   const checkbox = document.getElementById("hideNonHBondsCheckbox");
-//   const isHideNonHBonds = checkbox.checked;
-  
-//   // Check if protein is hidden
-//   const proteinCheckbox = document.getElementById("toggleProteinCheckbox");
-//   const isProteinHidden = proteinCheckbox && proteinCheckbox.checked;
-  
-//   console.log("Non-HBonds checkbox state:", isHideNonHBonds);
-//   console.log("Protein hidden state:", isProteinHidden);
-  
-//   // Handle hiding/showing based on checkbox state
-//   if (isHideNonHBonds) {
-//     // HIDING non-hbond edges logic
-//     console.log("Hiding non-hbond edges");
-    
-//     // Hide non-hbond edges logic here
-//     // Track nodes that should remain visible
-//     var nodesToKeep = new Set();
-    
-//     // First, collect all visible protein_rna_hbond edges
-//     svg.selectAll(".link")
-//       .filter(function(d) {
-//         return (d.my_type === "protein_rna_hbond");
-//       })
-//       .each(function(d) {
-//         // Add both endpoint nodes to our keep set
-//         nodesToKeep.add(d.source.index || d.source.id);
-//         nodesToKeep.add(d.target.index || d.target.id);
-//       });
-    
-//     // Process all non-H-bond edges
-//     svg.selectAll(".link")
-//       .filter(function(d) {
-//         return d.my_type !== "protein_rna_hbond" && 
-//                d.my_type !== "backbone" && 
-//                d.my_type !== "pair";
-//       })
-//       .style("display", "none");
-      
-//     // Hide protein nodes not connected to visible edges
-//     svg.selectAll('g.node[shape_class="rect"]')
-//       .filter(function(d) {
-//         // Only hide if this node is not in our keep set
-//         return !nodesToKeep.has(d.index || d.index || d.id);
-//       })
-//       .style("display", "none");
-      
-//     // Also hide decorative elements
-//     svg.selectAll(".waterMediatedCircle, .linkTriangleRight, .linkTriangleLeft, .linkSquareLeft, .linkSquareRight, .linkSquareCenter, .linkTriangleCenter, .linkCircleLeft, .linkCircleRight, .linkCircleCenter")
-//       .filter(function(d) {
-//         return d.my_type !== "protein_rna_hbond" && 
-//                d.my_type !== "backbone" && 
-//                d.my_type !== "pair";
-//       })
-//       .style("display", "none");
-      
-//   } else {
-//     // SHOWING non-hbond edges logic
-//     console.log("Showing non-hbond edges");
-    
-//     // If protein is still hidden, don't show anything
-//     if (isProteinHidden) {
-//       console.log("Protein is hidden, not showing edges");
-//       return;
-//     }
-    
-//     // Otherwise, apply the current threshold filter
-//     const edgeSlider = document.querySelector("input.edge-slider");
-//     const currentThreshold = parseFloat(edgeSlider.value || "8");
-//     console.log("Applying filter with threshold:", currentThreshold);
-    
-//     // Apply the current threshold filter
-//     filterEdges(currentThreshold);
-//   }
-// }
-function toggleNonHBondEdges() {
-  // Get the checkbox states
-  const checkbox = document.getElementById("hideNonHBondsCheckbox");
-  const isHideNonHBonds = checkbox.checked;
-  
-  // Check if protein is hidden
-  const proteinCheckbox = document.getElementById("toggleProteinCheckbox");
-  const isProteinHidden = proteinCheckbox && proteinCheckbox.checked;
-  
-  // When unchecking the non-hbonds, we need to check protein state first
-  if (!isHideNonHBonds) {
-    // If protein is hidden, don't unhide anything
-    if (isProteinHidden) {
-      return; // Exit the function without changing anything
-    }
-    
-    // Otherwise, respect the current distance filter
-    const edgeSlider = document.querySelector("input.edge-slider");
-    const currentThreshold = parseFloat(edgeSlider.value || "8");
-    
-    // Apply the current threshold filter
-    filterEdges(currentThreshold);
-    return;
-  }
-  
-  // Get current threshold for filtering
-  const edgeSlider = document.querySelector("input.edge-slider");
-  const currentThreshold = parseFloat(edgeSlider.value || "8");
-  
-  // Track nodes that should remain visible
-  var nodesToKeep = new Set();
-  
-  // First, collect all visible protein_rna_hbond edges that are under the threshold
-  svg.selectAll(".link")
-    .filter(function(d) {
-      // Only consider edges that would be shown by the current threshold filter
-      const isUnderThreshold = d.distance_3d <= currentThreshold;
-      const isAlwaysShown = d.my_type === "backbone" || d.my_type === "pair" || 
-                           (d.source.shape === "circle" && d.target.shape === "circle");
-      
-      // Only protect proteins with visible hbond edges
-      return (isUnderThreshold || isAlwaysShown) && d.my_type === "protein_rna_hbond";
-    })
-    .each(function(d) {
-      // Add both endpoint nodes to our keep set
-      nodesToKeep.add(d.source.index || d.source.id);
-      nodesToKeep.add(d.target.index || d.target.id);
-    });
-  
-  // Hide all non-H-bond edges
-  svg.selectAll(".link")
-    .filter(function(d) {
-      return d.my_type !== "protein_rna_hbond" && 
-             d.my_type !== "backbone" && 
-             d.my_type !== "pair";
-    })
-    .style("display", "none");
-    
-  // Hide protein nodes not connected to visible H-bond edges
-  svg.selectAll('g.node[shape_class="rect"]')
-    .filter(function(d) {
-      // Only hide if this node is not in our keep set
-      return !nodesToKeep.has(d.index || d.id);
-    })
-    .style("display", "none");
-    
-  // Also hide decorative elements
-  svg.selectAll(".waterMediatedCircle, .linkTriangleRight, .linkTriangleLeft, .linkSquareLeft, .linkSquareRight, .linkSquareCenter, .linkTriangleCenter, .linkCircleLeft, .linkCircleRight, .linkCircleCenter")
-    .filter(function(d) {
-      return d.my_type !== "protein_rna_hbond" && 
-             d.my_type !== "backbone" && 
-             d.my_type !== "pair";
-    })
-    .style("display", "none");
-}
-window.toggleNonHBondEdges = toggleNonHBondEdges;
 
 
-function handleEdgeThresholdChange() {
-  // Get the current threshold value
-  const edgeSlider = document.querySelector("input.edge-slider");
-  const currentThreshold = parseFloat(edgeSlider.value || "8");
-  
-  // Get the non-hbonds checkbox
-  const nonHbondsCheckbox = document.getElementById("hideNonHBondsCheckbox");
-  
-  // If the checkbox is checked, uncheck it
-  if (nonHbondsCheckbox && nonHbondsCheckbox.checked) {
-    nonHbondsCheckbox.checked = false;
-  }
-  
-  // Apply the filter with the new threshold
-  filterEdges(currentThreshold);
-}
-window.handleEdgeThresholdChange = handleEdgeThresholdChange;
 
 function toggleHBondsColor() {
-  console.log('toggling h bond colors');
   var newColor = "red";
   const isChecked = document.getElementById("toggleHBondsCheckbox").checked;
+
   // console.log("Checkbox is checked:", isChecked);
 
   // Select all link elements and update their color
@@ -2023,11 +1825,6 @@ function toggleHBondsColor() {
 document.getElementById("toggleHBondsCheckbox").addEventListener("change", toggleHBondsColor);
       toggleHBondsColor();
       // zoomFit(0);
-
-const edgeSlider = document.querySelector("input.edge-slider");
-if (edgeSlider) {
-  edgeSlider.addEventListener('input', window.handleEdgeThresholdChange);
-}
 
 // LOGIC TO OPTIMIZE PROTEIN POSITIONS
 graph.nodes.forEach(function(d) {

@@ -444,7 +444,7 @@ const handleSearch = async () => {
   setHasSearched(true);
   let data;
   try {
-  const response = await fetch('/search/pypdb/', {
+  const response = await fetch('/rnaprodb-backend/search/pypdb/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
