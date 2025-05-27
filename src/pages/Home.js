@@ -52,11 +52,12 @@ const Home = () => {
 
   const checkboxRef = useRef(null); // for the toggle tertiary checkbox
 
-  const algorithm = urlAlgorithm || 'pca'; // get algorithm from link
+  const algorithm = urlAlgorithm || 'rnascape'; // get algorithm from link
   const [algorithmText, setAlgorithmText] = useState(false);
 
   const [triggerThreshReset, setTriggerThreshReset] = useState(false);
   const [showProtein, setShowProtein] = useState(true);
+  const [hideNonHbonds, setHideNonHbonds] = useState(false);
 
 
   // if checkbox toggled, call the tertiary edges stuff
@@ -115,11 +116,35 @@ const Home = () => {
   };
 
 
-  // reset threshold after hiding protein
   const handleProteinChange = (e) => {
+    // If we're toggling protein visibility...
+    if (!showProtein) {
+      // If we're about to show the protein and hideNonHbonds is currently checked
+      if (hideNonHbonds) {
+        // Uncheck the hideNonHbonds checkbox first
+        setHideNonHbonds(false);
+        
+        // Also update the actual checkbox in the DOM to match state
+        const nonHbondsCheckbox = document.getElementById("hideNonHBondsCheckbox");
+        if (nonHbondsCheckbox) {
+          nonHbondsCheckbox.checked = false;
+        }
+        
+        // Call the toggle function to restore visibility
+        window.toggleNonHBondEdges(false);
+      }
+    }
+    
+    // Toggle protein visibility
     setShowProtein(!showProtein);
     window.toggleProteinVisibility();
   };
+
+    // reset threshold after hiding protein
+    const handleNonHbondChange = (e) => {
+      window.toggleNonHBondEdges(!hideNonHbonds);
+      setHideNonHbonds(!hideNonHbonds);
+    };
 
     // set algorithm text
     useEffect(() => {
@@ -199,7 +224,21 @@ const Home = () => {
                           type="checkbox"
                           value={showProtein}
                           defaultChecked={false}
-                          onChange={handleProteinChange}
+                          onChange={() => window.toggleProtein()}
+                        />
+                        <span className="slider round"></span>
+                      </label>
+
+                      <span>Hide non H-bonds </span>
+                      <label className="switch">
+                        <input
+                          id="hideNonHBondsCheckbox"
+                          type="checkbox"
+                          defaultChecked={false}
+                          onChange={() => {
+                            console.log("Non-HBonds checkbox clicked");
+                            window.toggleNonHBondEdges();
+                          }}
                         />
                         <span className="slider round"></span>
                       </label>

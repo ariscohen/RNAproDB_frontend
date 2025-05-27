@@ -27,7 +27,7 @@ function Upload() {
 
             const csrftoken = getCsrfToken();
 
-            fetch('/rnaprodb-backend/rnaprodb/handle_upload', {
+            fetch('/rnaprodb/handle_upload', {
                 method: 'POST',
                 body: formData,
                 headers: {

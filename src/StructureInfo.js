@@ -22,7 +22,7 @@ function StructureInfo() {
             }
 
             try {
-                const response = await fetch(`/rnaprodb-backend/rnaprodb/get_struct_info?pdbid=${pdbid}`);
+                const response = await fetch(`/rnaprodb/get_struct_info?pdbid=${pdbid}`);
                 const data = await response.json();
                 console.log("Fetched data", data); // Log the fetched data
                 sessionStorage.setItem(cacheKey, JSON.stringify(data));

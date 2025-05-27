@@ -14,7 +14,7 @@ export default function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/:pdbid/:urlAlgorithm" element={<Home />} />
           <Route path="/:pdbid" element={<Home />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/search-page" element={<Search />} />
           <Route path="/docs" element={<Docs />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/citation" element={<Citation />} />

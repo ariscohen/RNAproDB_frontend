@@ -14,7 +14,7 @@ function MainNavBar() {
     const location = useLocation(); // Get the current path
 
     useEffect(() => {
-        fetch('/rnaprodb-backend/rnaprodb/get-struct-list')
+        fetch('/rnaprodb/get-struct-list')
             .then(response => response.json())  // Parse response as JSON
             .then(data => {
                 const ids = data.structures.split(',').map(id => id.trim().toUpperCase());
@@ -54,7 +54,7 @@ function MainNavBar() {
                         navbarScroll
                     >
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/search">Search</Nav.Link>
+                        <Nav.Link as={Link} to="/search-page">Search</Nav.Link>
                         <Nav.Link as={Link} to="/upload">Upload</Nav.Link>
                         <Nav.Link as={Link} to="/docs">Documentation</Nav.Link>
                         <Nav.Link as={Link} to="/citation">Citation</Nav.Link>

@@ -45,7 +45,7 @@ const DownloadGraph = async (format, graphRef, pdbid, algorithm, setInitialTrans
   }
    else if (format === 'json') {
       try {
-        const response = await fetch(`/rnaprodb-backend/rnaprodb/download_json/?pdbid=${pdbid}&algorithm=${algorithm}`);
+        const response = await fetch(`/rnaprodb/download_json/?pdbid=${pdbid}&algorithm=${algorithm}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

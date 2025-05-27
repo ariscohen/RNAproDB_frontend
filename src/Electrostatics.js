@@ -122,7 +122,7 @@ function Electrostatics() {
 
     const runElectrostaticsScript = async (pdbid) => {
         try {
-          const response = await fetch(`/rnaprodb-backend/rnaprodb/run-electrostatics?pdbid=${pdbid}`);
+          const response = await fetch(`/rnaprodb/run-electrostatics?pdbid=${pdbid}`);
           if (!response.ok) {
             throw new Error('Failed to run electrostatics script');
           }
