@@ -52,7 +52,7 @@ const Home = () => {
 
   const checkboxRef = useRef(null); // for the toggle tertiary checkbox
 
-  const algorithm = urlAlgorithm || 'pca'; // get algorithm from link
+  const algorithm = urlAlgorithm || 'rnascape'; // get algorithm from link
   const [algorithmText, setAlgorithmText] = useState(false);
 
   const [triggerThreshReset, setTriggerThreshReset] = useState(false);

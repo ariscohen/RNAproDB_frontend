@@ -1,0 +1,14 @@
+data_XXXX
+# 
+loop_
+_audit_author.name 
+_audit_author.pdbx_ordinal 
+"Chiu, T.K."      1 
+"Sohn, C."        2 
+"Johnson, R.C."   3 
+"Dickerson, R.E." 4 
+# 
+_struct.entry_id                  XXXX 
+_struct.title                     "Testing the Water-Mediated HIN Recombinase DNA Recognition by Systematic Mutations" 
+_struct.pdbx_model_details        ? 
+_struct.pdbx_CASP_flag            ? 
